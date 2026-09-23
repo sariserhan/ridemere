@@ -98,12 +98,23 @@
       "creator": "Project Sunrise",
       "license": "proprietary-original",
       "modified": false,
+      "asset": "sunrise_climate_v1",
+      "source": "tools/art-pipeline/build_world_objects.py",
+      "path": "object/sunrise.climate.temperate.parkobj",
+      "files": 1,
+      "bytes": 471,
+      "sha256": "f9c89598d46d2fa3d33e641c93b608bc44bf1166f8a3da8ae08d207db9d3619e"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
       "asset": "sunrise_content_manifest",
       "source": "tools/art-pipeline/build_pack.py",
       "path": "standalone/standalone.json",
       "files": 1,
-      "bytes": 721,
-      "sha256": "66c4b567277652fc974d32754c540e7b87108548595cc8a438d66291d7c954a7"
+      "bytes": 752,
+      "sha256": "7394cd31e796d0065d187d61b07cae308e4db623a8507f196ab69b2a7c304022"
     },
     {
       "creator": "Project Sunrise",
@@ -134,13 +145,85 @@
       "creator": "Project Sunrise",
       "license": "proprietary-original",
       "modified": false,
+      "asset": "sunrise_park_entrance_v1",
+      "source": "assets/source/blender/world_props.py",
+      "generator": "blender 4.2 + tools/art-pipeline/build_world_objects.py",
+      "path": "object/sunrise.park_entrance.arch.parkobj",
+      "files": 1,
+      "bytes": 4843,
+      "sha256": "d0f6b7fbe94532aee5d7daa53495a15143939012cfa74de6b1af154b4a9d97d3"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_path_paved_v1",
+      "source": "assets/source/blender/world_props.py",
+      "generator": "blender 4.2 + tools/art-pipeline/build_world_objects.py",
+      "path": "object/sunrise.footpath_surface.paved.parkobj",
+      "files": 1,
+      "bytes": 1718,
+      "sha256": "d2858fe42aa3211355070e0a7496068a73a8e9bf1ff364bf06786700247045a4"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_path_queue_v1",
+      "source": "assets/source/blender/world_props.py",
+      "generator": "blender 4.2 + tools/art-pipeline/build_world_objects.py",
+      "path": "object/sunrise.footpath_surface.queue.parkobj",
+      "files": 1,
+      "bytes": 1708,
+      "sha256": "a2fc4a2d0425359c97e7e9766177d77265590493ed0a130f7f2de1bbaef2a732"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_path_railings_v1",
+      "source": "tools/art-pipeline/build_world_objects.py",
+      "notes": "Ground-level paths draw no railings; the entries carry no art yet.",
+      "path": "object/sunrise.footpath_railings.plain.parkobj",
+      "files": 1,
+      "bytes": 347,
+      "sha256": "d4869a0a5e858573600c20f4db22b1825c409a399c78e143deea56580223b26b"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_peep_names_v1",
+      "source": "tools/art-pipeline/build_world_objects.py",
+      "notes": "Invented names; no original-game name list was consulted.",
+      "path": "object/sunrise.peep_names.visitors.parkobj",
+      "files": 1,
+      "bytes": 558,
+      "sha256": "08e94b8ec86459deea964ce864eae097bfc5a7bae93c6b9169660b2a4fe32d56"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_station_v1",
+      "source": "assets/source/blender/world_props.py",
+      "generator": "blender 4.2 + tools/art-pipeline/build_world_objects.py",
+      "path": "object/sunrise.station.plain.parkobj",
+      "files": 1,
+      "bytes": 4899,
+      "sha256": "3c6aff712ec57f868da0f1a63c0b65fbbbacccca0ab9e1a63f402112385f75aa"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
       "asset": "sunrise_terrain_dirt_v1",
       "source": "assets/source/blender/terrain.py",
       "generator": "blender 4.2 + tools/art-pipeline/build_world.py",
       "path": "object/sunrise.terrain_surface.dirt.parkobj",
       "files": 1,
-      "bytes": 77293,
-      "sha256": "d68e9786d5b96f495322523fb5a160f9376405f184730c0b6586ed69cdb370e3"
+      "bytes": 76608,
+      "sha256": "0b07a791722e337f5e2e4c5b73238ac0cf0d8183b38d3903b2febccf5609c016"
     },
     {
       "creator": "Project Sunrise",
@@ -151,8 +234,20 @@
       "generator": "blender 4.2 + tools/art-pipeline/build_world.py",
       "path": "object/sunrise.terrain_surface.grass.parkobj",
       "files": 1,
-      "bytes": 77276,
-      "sha256": "3601cccd88f7402e38e101c749d10f17fa8d605828929e93dea0d3b41d33a9e5"
+      "bytes": 76641,
+      "sha256": "df22e51013c9c060408eba3f338b6854a3108b5b9fa94cda4c7a299649d5e7e5"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_test_park_v1",
+      "source": "assets/scenarios/sunrise-test/scenario.json",
+      "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+      "path": "standalone/Scenarios/sunrise-test.park",
+      "files": 1,
+      "bytes": 2565,
+      "sha256": "272969362cc6d991fc2a351d657ff1b34df9ccdd471edbe093b6bca0df1677d2"
     }
   ],
   "undeclaredFiles": [],

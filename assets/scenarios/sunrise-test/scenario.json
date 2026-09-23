@@ -1,0 +1,56 @@
+{
+  "name": "Sunrise Test Park",
+  "details": "A small flat park used to exercise the standalone runtime end to end.",
+  "mapTiles": 32,
+  "initialCash": 20000,
+  "objectiveGuests": 50,
+  "pathSurface": "sunrise.footpath_surface.paved",
+  "queueSurface": "sunrise.footpath_surface.queue",
+  "pathRailings": "sunrise.footpath_railings.plain",
+  "objects": [
+    "sunrise.terrain_surface.grass",
+    "sunrise.terrain_surface.dirt",
+    "sunrise.station.plain",
+    "sunrise.footpath_surface.paved",
+    "sunrise.footpath_surface.queue",
+    "sunrise.footpath_railings.plain",
+    "sunrise.park_entrance.arch",
+    "sunrise.peep_names.visitors",
+    "sunrise.climate.temperate",
+    "sunrise.peep_animations.guest",
+    "sunrise.peep_animations.handyman"
+  ],
+  "entrance": {
+    "x": 16,
+    "y": 4,
+    "direction": 1
+  },
+  "peepSpawn": {
+    "x": 16,
+    "y": 1,
+    "direction": 3
+  },
+  "paths": [
+    {
+      "from": [
+        16,
+        1
+      ],
+      "to": [
+        16,
+        22
+      ]
+    },
+    {
+      "from": [
+        10,
+        14
+      ],
+      "to": [
+        22,
+        14
+      ]
+    }
+  ],
+  "queues": []
+}

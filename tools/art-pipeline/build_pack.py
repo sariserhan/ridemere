@@ -30,20 +30,25 @@ PACK = os.path.join(GENERATED, "pack")
 #: (EditorController.cpp:84 via Standalone::GetRequiredObjects).
 REQUIRED_OBJECTS = [
     "sunrise.terrain_surface.grass",
-    "sunrise.terrain_edge.rock",
     "sunrise.station.plain",
 ]
+
+#: Station styles this pack declares. Upstream restricts station identifiers to a
+#: fixed list so a planned split of the station object can migrate every style in
+#: the wild; a standalone distribution migrates its own, so it declares them here
+#: (see src/openrct2/object/StationObject.cpp).
+STATION_OBJECTS = ["sunrise.station.plain"]
 
 DEFAULT_OBJECTS = [
     "sunrise.terrain_surface.grass",
     "sunrise.terrain_surface.dirt",
-    "sunrise.terrain_edge.rock",
     "sunrise.station.plain",
     "sunrise.footpath_surface.paved",
     "sunrise.footpath_surface.queue",
-    "sunrise.footpath_railings.wood",
+    "sunrise.footpath_railings.plain",
     "sunrise.park_entrance.arch",
-    "sunrise.water.clear",
+    "sunrise.peep_names.visitors",
+    "sunrise.climate.temperate",
     "sunrise.peep_animations.guest",
     "sunrise.peep_animations.handyman",
 ]
@@ -112,6 +117,7 @@ def build() -> dict:
         "requiredObjects": REQUIRED_OBJECTS,
         "defaultObjects": DEFAULT_OBJECTS,
         "defaultStation": "sunrise.station.plain",
+        "stationObjects": STATION_OBJECTS,
         "audioBaseObject": "sunrise.audio.base",
         "spriteAudit": {"populated": base_summary["populated"]},
     }

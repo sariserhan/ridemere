@@ -43,10 +43,6 @@ PART_TAGS: Dict[str, Tuple[float, float, float]] = {
     "hair": (1.0, 1.0, 0.0),
     "shoes": (1.0, 0.0, 1.0),
     "accessory": (0.0, 1.0, 1.0),
-    "structure": (1.0, 0.5, 0.0),
-    "structure2": (0.5, 0.0, 1.0),
-    "foliage": (0.0, 1.0, 0.5),
-    "foliage2": (0.5, 1.0, 0.0),
     "trim": (1.0, 1.0, 1.0),
 }
 
@@ -90,17 +86,16 @@ STAFF_COLOURWAY: Dict[str, List[int]] = {
 }
 
 #: Ordinary scenery and structures: never recoloured, so any safe ramp will do.
+#: World props are rendered in their own scenes, where the shared tag directions
+#: mean: skin -> structure, trousers -> structure2, shirt -> foliage,
+#: hair -> foliage2, accessory -> accessory, trim -> trim.
 WORLD_COLOURWAY: Dict[str, List[int]] = {
-    "structure": pal.ramp("beige"),
-    "structure2": pal.ramp("grey"),
-    "foliage": pal.ramp("green"),
-    "foliage2": pal.ramp("bright_green"),
-    "trim": pal.ramp("tan"),
+    "skin": pal.ramp("beige"),         # structure
+    "trousers": pal.ramp("grey"),      # structure2
+    "shirt": pal.ramp("green"),        # foliage
+    "hair": pal.ramp("bright_green"),  # foliage2
     "accessory": pal.ramp("red"),
-    "skin": pal.ramp("skin"),
-    "shirt": pal.ramp("blue"),
-    "trousers": pal.ramp("blue_grey"),
-    "hair": pal.ramp("brown"),
+    "trim": pal.ramp("tan"),
     "shoes": pal.ramp("grey"),
 }
 

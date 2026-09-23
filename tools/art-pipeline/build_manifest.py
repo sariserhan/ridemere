@@ -41,6 +41,53 @@ RECORDS: Dict[str, dict] = {
         "source": "assets/source/blender/handyman.py",
         "generator": "blender 4.2 + tools/art-pipeline/build_peeps.py",
     },
+    "object/sunrise.footpath_surface.paved.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_path_paved_v1",
+        "source": "assets/source/blender/world_props.py",
+        "generator": "blender 4.2 + tools/art-pipeline/build_world_objects.py",
+    },
+    "object/sunrise.footpath_surface.queue.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_path_queue_v1",
+        "source": "assets/source/blender/world_props.py",
+        "generator": "blender 4.2 + tools/art-pipeline/build_world_objects.py",
+    },
+    "object/sunrise.footpath_railings.plain.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_path_railings_v1",
+        "source": "tools/art-pipeline/build_world_objects.py",
+        "notes": "Ground-level paths draw no railings; the entries carry no art yet.",
+    },
+    "object/sunrise.park_entrance.arch.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_park_entrance_v1",
+        "source": "assets/source/blender/world_props.py",
+        "generator": "blender 4.2 + tools/art-pipeline/build_world_objects.py",
+    },
+    "object/sunrise.station.plain.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_station_v1",
+        "source": "assets/source/blender/world_props.py",
+        "generator": "blender 4.2 + tools/art-pipeline/build_world_objects.py",
+    },
+    "object/sunrise.peep_names.visitors.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_peep_names_v1",
+        "source": "tools/art-pipeline/build_world_objects.py",
+        "notes": "Invented names; no original-game name list was consulted.",
+    },
+    "object/sunrise.climate.temperate.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_climate_v1",
+        "source": "tools/art-pipeline/build_world_objects.py",
+    },
+    "standalone/Scenarios/sunrise-test.park": {
+        **ORIGINAL,
+        "asset": "sunrise_test_park_v1",
+        "source": "assets/scenarios/sunrise-test/scenario.json",
+        "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+    },
     "object/sunrise.terrain_surface.grass.parkobj": {
         **ORIGINAL,
         "asset": "sunrise_terrain_grass_v1",

@@ -48,19 +48,24 @@ PIXELS_PER_UNIT = 64.0 / (UNITS_PER_TILE * math.sqrt(2.0))  # 11.3137
 CAMERA_ELEVATION_DEG = 30.0
 CAMERA_PITCH_DEG = 90.0 - CAMERA_ELEVATION_DEG  # 60, measured from straight down
 
-# Part tag hues. Chosen far apart in RGB so classification after rendering is exact.
-# The name is what tools/art-pipeline/peep_parts.py maps onto a palette ramp.
+# Part tag hues. Every channel is either 0 or 1 so that a bright highlight, which
+# clips at 1.0, cannot turn one tag into another: a hue like (0, 1, 0.5) clips to
+# (0, 1, 1) and would be misread as a different part. Seven distinct tags is the
+# limit that rule allows, which is enough because a scene only ever mixes the tags
+# of one subject; peeps and world props reuse the same hues in separate renders.
 PART_TAGS = {
+    # peeps
     "skin": (1.0, 0.0, 0.0),
     "shirt": (0.0, 1.0, 0.0),
     "trousers": (0.0, 0.0, 1.0),
     "hair": (1.0, 1.0, 0.0),
     "shoes": (1.0, 0.0, 1.0),
     "accessory": (0.0, 1.0, 1.0),
-    "structure": (1.0, 0.5, 0.0),
-    "structure2": (0.5, 0.0, 1.0),
-    "foliage": (0.0, 1.0, 0.5),
-    "foliage2": (0.5, 1.0, 0.0),
+    # world props, sharing the same seven directions
+    "structure": (1.0, 0.0, 0.0),
+    "structure2": (0.0, 0.0, 1.0),
+    "foliage": (0.0, 1.0, 0.0),
+    "foliage2": (1.0, 1.0, 0.0),
     "trim": (1.0, 1.0, 1.0),
 }
 

@@ -29,5 +29,9 @@ run "standalone boots in a clean browser with no prompt" bash -c '
   cd "'"$ROOT"'/wasm/test" && node standalone.js >/dev/null && \
   "'"$PY"'" "'"$ROOT"'/wasm/test/check_boot.py"'
 
+run "park loads and simulates in a clean browser" bash -c '
+  cd "'"$ROOT"'/wasm/test" && node gameplay.js >/dev/null && \
+  "'"$PY"'" "'"$ROOT"'/wasm/test/check_gameplay.py"'
+
 printf '\n== %d passed, %d failed\n' "$pass" "$fail"
 [[ $fail -eq 0 ]]

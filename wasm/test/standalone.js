@@ -2,11 +2,19 @@
 // present and must never ask for any.
 const { chromium } = require('playwright');
 const path = require('path'); const fs = require('fs');
-const BASE = process.argv[2] || 'http://localhost:8081/';
+const { spawn } = require('child_process');
 const OUT = path.join(__dirname, 'results-standalone'); fs.mkdirSync(OUT, { recursive: true });
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 (async () => {
+  // Serve the distribution itself so the test needs no external setup.
+  const DIST = path.join(__dirname, '../../engine/openrct2/build/www-standalone');
+  const port = 8400 + Math.floor(Math.random() * 300);
+  const server = spawn('python3', [path.join(__dirname, '../scripts/serve.py'), DIST, String(port)],
+    { stdio: 'ignore', detached: true });
+  await sleep(1200);
+  const BASE = `http://localhost:${port}/`;
+
   const browser = await chromium.launch({ headless: true, channel: 'chromium',
     args: ['--no-sandbox', '--autoplay-policy=no-user-gesture-required'] });
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
@@ -64,6 +72,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   }).catch(e => ({ err: e.message }));
 
   const result = {
+    baseUrl: BASE,
     bootMs, booted,
     promptShown: /select your RCT2|RCT2 assets|Locate RCT2/i.test(text),
     rct2Required: /RCT2 install directory must be specified/i.test(text),
@@ -78,4 +87,5 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   fs.writeFileSync(path.join(OUT, 'standalone.json'), JSON.stringify({ ...result, log: log.map(strip) }, null, 2));
   console.log(JSON.stringify(result, null, 2));
   await browser.close();
+  try { process.kill(-server.pid); } catch {}
 })().catch(e => { console.error('FAILED', e); process.exit(1); });

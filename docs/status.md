@@ -154,3 +154,105 @@ Engine baseline: fork branch `standalone-m3` off `d99eb5dcf7`, 6 files changed
 Author the remaining object types needed for a playable park — footpath surface and
 railings, park entrance, water, peep names, climate — decide how to handle the station
 whitelist, then generate a scenario and re-run the gameplay half of this milestone.
+
+---
+
+## Checkpoint (2026-09-23)
+
+The M0-M3 work is committed locally and nothing is pushed. Return to this state
+with `git checkout <hash>` plus `git submodule update --init`.
+
+| Commit | Contents |
+|---|---|
+| `7da0cd7` | M0: reproducible WebAssembly build of upstream OpenRCT2 |
+| `331b117` | M2: measure what a standalone build would have to replace |
+| `c3fa1a1` | M3: original art pipeline and a browser build that needs no original game |
+
+The engine submodule is at `ba21f46106` on branch `m3b-playable`, one commit
+ahead of upstream `d99eb5dcf7` ("Add standalone content mode and base sprite
+auditing"). M3b work continues on root branch `m3b`.
+
+---
+
+## M3b, playable standalone park: **PARTIAL** (2026-09-23)
+
+One purpose: a playable park in the browser with zero original-game data. The
+infrastructure for that now exists end to end and a park does load, simulate, spawn
+guests and save. It is not yet *playable*, because of two defects described below.
+
+Engine: fork branch `m3b-playable`, 3 commits ahead of upstream `d99eb5dcf7`.
+
+### What works
+
+| Criterion | Result |
+|---|---|
+| 1-4 Clean profile, no original-game data, no prompt, standalone title loads | **PASS**, asserted by `wasm/test/run-m3-tests.sh` |
+| 5 Sunrise Test Park loads | **PASS**, loaded by name with its cash and open state |
+| 17 Simulation stable | **PASS**, ~2,450 ticks with no crash |
+| 10 Guests spawn | **PASS**, guest entities appear from the peep spawn |
+| 18-19 Save and reload | **PASS**, the engine's writer produces a 2.7 KB park that reads back |
+| 20 Sprite audit readable | **PASS**, 12 unexpected base indices during gameplay, read through an export |
+| 21 No original-game data in the distribution | **PASS**, asserted by a test |
+| 22 Licensing and provenance | **PASS**, 21 declared assets, generator fails on any undeclared file |
+| 24 Payload recorded | **PASS**, below |
+
+### What does not work
+
+**Guests do not enter the park.** They spawn and stay in the `enteringPark` state
+indefinitely; none reach `walking`, so criteria 11-16 (navigate, queue, board, ride,
+unload, staff tasks) cannot be reached. The park has an entrance and 35 path tiles,
+both placed successfully by game actions, so the likely cause is the entrance
+orientation or the path's connection to it rather than anything missing.
+
+**Object-supplied images render as unrelated sprites.** With the content pack
+active, terrain draws the base archive's diagnostic marker and footpath tiles draw
+interface graphics such as the Options button; the toolbar itself is also affected.
+The art is correct on disk (verified: the grass tile is 64x32 and uses palette
+indices 77-81, the engine's green ramp), and the objects validate, so this is an
+image-index problem at load time, not an art problem. The tell is that the wrong
+sprites follow the exact diagonals of the two path runs, and that the substituted
+sprites come from the `g2` interface range, which suggests object image allocation
+is landing near the interface table instead of the image list. Ruled out during
+investigation: palette compaction by the PNG writer, wrong colour ramps (a real bug,
+found and fixed), and empty `images` arrays on the text-only objects.
+
+**No ride.** Not attempted once guests could not walk; a ride would not have been
+exercisable.
+
+**Memory was not re-measured under gameplay.** The M3 figures stand.
+
+### Engine changes since M3
+
+| File | Purpose |
+|---|---|
+| `object/StationObject.cpp` | Accept station styles a content pack declares, alongside the upstream list |
+| `standalone/StandaloneContent.{h,cpp}` | Parse and expose declared station styles |
+| `standalone/SpriteAudit.{h,cpp}` | JSON report, ignorable ranges, clearable counters |
+| `standalone/StandaloneParkBuilder.{h,cpp}` | Build a park from a JSON description with ordinary game actions and the engine's writer; development entry points for building, loading, saving, stats and the audit |
+| `wasm/scripts/build.sh` | Relink with those entry points exported |
+
+### The station whitelist
+
+Upstream added `kAllowedStationIDs` in `95fbd1f6c8`, "Add station style whitelist to
+prepare for split", with the changelog entry "Limit creation of new station styles to
+prepare for more flexibility with ride stations and entrances". It is a
+forward-compatibility freeze, not a technical or security constraint: the list is an
+inventory of styles that already existed, including third-party ones, and the station
+object currently bundles platform, entrance, exit and shelter art that upstream plans
+to separate. Freezing the set lets them migrate every style deterministically.
+
+The fix keeps that intact. Upstream's list is still enforced; a standalone content
+pack may additionally declare its own styles in its manifest, because it ships and
+migrates its own content. Anything neither known upstream nor declared is rejected.
+
+### Payload
+
+First load 24.9 MB: engine 4.05 MB, content 5.12 MB, JSZip 98 KB, launcher 9 KB,
+with `openrct2.wasm` 15.3 MB delivered inside `openrct2.zip`. Content breakdown:
+track previews 3.18 MB, languages 1.25 MB, our objects 0.49 MB, base sprite archive
+0.05 MB, other engine data 0.11 MB.
+
+### Next step
+
+Fix the object image indexing, then the entrance connection. Both are needed before
+any ride work is meaningful.

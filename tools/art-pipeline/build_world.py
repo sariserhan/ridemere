@@ -79,9 +79,11 @@ def build_surface(key: str, spec: dict, manifest: dict) -> dict:
     os.makedirs(stage_dir, exist_ok=True)
     render_size = manifest["renderSize"]
     ramp = pal.ramp(spec["ramp"])
-    colourway = dict(spectrum for spectrum in spritepack.WORLD_COLOURWAY.items())
-    colourway["foliage"] = ramp
-    colourway["structure"] = ramp
+    # terrain.py tags grass as "foliage" and dirt as "structure"; those directions
+    # are read back by the classifier as "shirt" and "skin" respectively.
+    colourway = dict(spritepack.WORLD_COLOURWAY)
+    colourway["shirt"] = ramp
+    colourway["skin"] = ramp
 
     images: list = []
     files: dict = {}

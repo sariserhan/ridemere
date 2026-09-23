@@ -18,6 +18,19 @@ docker run --rm \
     git config --global --add safe.directory /src
     . scripts/setenv -q
     time build-emscripten
+
+    # The upstream link line sets an explicit export list, which strips our
+    # development entry points even though they are marked EMSCRIPTEN_KEEPALIVE.
+    # Reconfigure with the list extended and relink; nothing is recompiled.
+    cd build
+    cmake -DEMSCRIPTEN_EXPORTED_FUNCTIONS=_GetVersion,_main,_SunriseBuildPark,_SunriseParkStatsJson,_SunriseSavePark,_SunriseLoadPark,_SunriseSpriteAuditJson,_SunriseSpriteAuditClear . >/dev/null
+    emmake ninja openrct2 2>&1 | tail -2
+    rm -rf www/ && mkdir -p www/ && cd www/
+    cp -r ../openrct2.* ./
+    cp -r ../../emscripten/static/* ./
+    zip -qr openrct2.zip ../openrct2.js ../openrct2.wasm
+    cd /src
+
     chown -R '"$(id -u):$(id -g)"' /src/build /root/.ccache'
 if [[ -n "$KEEP" ]]; then mv "$KEEP" "$ASSETS"; echo "restored assets.zip"; fi
 echo "Build output: $ENGINE/build/www"

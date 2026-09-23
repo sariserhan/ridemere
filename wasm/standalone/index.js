@@ -169,5 +169,14 @@
     boot.remove();
     canvas.style.display = "";
     canvas.focus();
-    Module.callMain(["--user-data-path=/persistent/", "--openrct2-data-path=/OpenRCT2/"]);
+    // A park may be named in the query string, which opens it directly instead of
+    // the title scene. Used by the automated tests and for deep links.
+    // The engine requires any positional path before the options.
+    const requested = new URLSearchParams(location.search).get("park");
+    const args = [];
+    if (requested) {
+        args.push(requested.startsWith("/") ? requested : `/OpenRCT2/standalone/Scenarios/${requested}`);
+    }
+    args.push("--user-data-path=/persistent/", "--openrct2-data-path=/OpenRCT2/");
+    Module.callMain(args);
 })();
