@@ -1,0 +1,19 @@
+# engine build output and caches
+engine/openrct2/build/
+.cache/
+*.log
+
+# generated art and content packs (regenerate with tools/art-pipeline)
+assets/generated/
+
+# test tooling and results
+wasm/test/node_modules/
+wasm/test/results*/
+
+# never commit original RollerCoaster Tycoon data
+*.SC6
+*.sv6
+*.sv4
+g1.dat
+css*.dat
+ch.dat

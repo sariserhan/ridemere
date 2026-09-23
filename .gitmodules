@@ -1,0 +1,3 @@
+[submodule "engine/openrct2"]
+	path = engine/openrct2
+	url = https://github.com/sariserhan/OpenRCT2.git

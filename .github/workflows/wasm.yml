@@ -1,0 +1,17 @@
+# WASM compile check: builds the engine submodule with upstream's pinned Emscripten container and
+# assembles assets.zip. Mirrors the "emscripten" job in upstream's ci.yml. Not yet exercised (no remote at M0).
+name: wasm
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with: { submodules: true }
+      - uses: actions/cache@v4
+        with: { path: .cache, key: wasm-${{ hashFiles('engine/openrct2/assets.json') }}-${{ github.sha }}, restore-keys: wasm- }
+      - run: wasm/scripts/build.sh
+      - run: wasm/scripts/build-assets.sh
+      - run: ls -la engine/openrct2/build/www && test -s engine/openrct2/build/www/openrct2.wasm
+      - uses: actions/upload-artifact@v4
+        with: { name: www, path: engine/openrct2/build/www, retention-days: 7 }
