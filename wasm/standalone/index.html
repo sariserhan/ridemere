@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Project Sunrise</title>
+        <script src="jszip.min.js"></script>
+        <style>
+            * { padding: 0; margin: 0; box-sizing: border-box; }
+            html, body { height: 100%; background: #10141c; color: #e8ecf4;
+                font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+            #boot { display: flex; height: 100%; align-items: center; justify-content: center;
+                flex-direction: column; gap: 14px; text-align: center; padding: 24px; }
+            #boot h1 { font-size: 20px; font-weight: 600; letter-spacing: 0.02em; }
+            #status { color: #9aa6bd; font-size: 14px; min-height: 1.5em; }
+            #bar { width: 260px; height: 4px; border-radius: 2px; background: #222a38; overflow: hidden; }
+            #bar > div { height: 100%; width: 0%; background: #f0a33c; transition: width 0.2s ease; }
+            .failed #bar { display: none; }
+            .failed #status { color: #ff8f7a; max-width: 46ch; }
+            canvas { display: block; position: fixed; inset: 0; width: 100%; height: 100%; }
+        </style>
+    </head>
+    <body>
+        <div id="boot">
+            <h1>Project Sunrise</h1>
+            <div id="status">Starting…</div>
+            <div id="bar"><div></div></div>
+        </div>
+        <canvas id="canvas" style="display:none;" tabindex="0"></canvas>
+        <script src="index.js"></script>
+    </body>
+</html>
