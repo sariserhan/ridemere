@@ -52,5 +52,11 @@
       ]
     }
   ],
-  "queues": []
+  "queues": [],
+  "owned": {
+    "fromX": 1,
+    "fromY": 5,
+    "toX": 30,
+    "toY": 30
+  }
 }

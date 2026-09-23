@@ -59,8 +59,17 @@ def _engine_entry_count() -> int:
     raise RuntimeError("SPR_G1_END not found in SpriteIds.h")
 
 
-def make_marker_png(path: str) -> None:
-    """An opaque magenta/black checker: unmistakable, and never mistaken for art."""
+def make_marker_png(path: str, transparent: bool = False) -> None:
+    """An opaque magenta/black checker: unmistakable, and never mistaken for art.
+
+    `transparent` produces an empty marker instead. That is normally the wrong
+    choice, because a sprite that draws nothing leaves stale framebuffer content and
+    can make a missing sprite look like working art. It exists as a diagnostic: with
+    markers invisible, whatever remains on screen is content we actually supplied.
+    """
+    if transparent:
+        spritepack.write_indexed_png(path, np.zeros((1, 1), dtype=np.uint8))
+        return
     magenta = pal.nearest_index((255, 0, 255))
     black = pal.nearest_index((16, 16, 16))
     grid = np.zeros((MARKER_SIZE, MARKER_SIZE), dtype=np.uint8)
@@ -99,7 +108,7 @@ def build() -> dict:
     work = tempfile.mkdtemp(prefix="sunrise-base-")
     try:
         marker = os.path.join(work, "marker.png")
-        make_marker_png(marker)
+        make_marker_png(marker, transparent=bool(os.environ.get("SUNRISE_INVISIBLE_MARKERS")))
 
         entries = []
         for index in range(G1_ENTRY_COUNT):

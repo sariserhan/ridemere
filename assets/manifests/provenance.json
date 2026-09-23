@@ -246,8 +246,8 @@
       "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
       "path": "standalone/Scenarios/sunrise-test.park",
       "files": 1,
-      "bytes": 2565,
-      "sha256": "272969362cc6d991fc2a351d657ff1b34df9ccdd471edbe093b6bca0df1677d2"
+      "bytes": 2793,
+      "sha256": "332767023b6e141c17f077a4a84e1dc353bf6bda1b6e47b0d0c49e453e061f12"
     }
   ],
   "undeclaredFiles": [],

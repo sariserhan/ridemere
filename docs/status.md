@@ -256,3 +256,79 @@ track previews 3.18 MB, languages 1.25 MB, our objects 0.49 MB, base sprite arch
 
 Fix the object image indexing, then the entrance connection. Both are needed before
 any ride work is meaningful.
+
+---
+
+## M3c, standalone runtime debugging: **PARTIAL** (2026-09-23)
+
+Defect A is resolved, and its real cause was not what the symptom suggested. Defect B
+is not resolved. No ride work was started, per the milestone's own gate.
+
+### Defect A: root cause and fix
+
+**It was never an image-indexing problem.** Runtime tracing showed the image chain is
+correct end to end:
+
+| Object | Base image | Images | What the engine finds at the base |
+|---|---:|---:|---|
+| `sunrise.terrain_surface.grass` | 109875 | 58 | 64x32 sprite, present |
+| `sunrise.footpath_surface.paved` | 109713 | 52 | 64x32 at (-32, 0), present |
+| `sunrise.park_entrance.arch` | 109701 | 12 | 30x46, present |
+| `sunrise.peep_animations.guest` | 110066 | 293 | 8x22 at (-4, -21), present |
+
+All sit inside the image list (109610 onwards), well clear of the base archive
+(0..29293) and the interface sprites (29357 onwards). Tracing a tile confirmed the
+renderer is handed the right number: tile (16,10) resolves to surface style 0,
+`sunrise.terrain_surface.grass`, entry base 109876, drawn index 109876, a present
+64x32 sprite.
+
+The same trace showed the real fault: **no tile had a path element**, although the
+generator reported 35 placed. `GameActions::Execute` called from outside the game
+update loop takes the branch at `GameActionRunner.cpp` `ExecuteInternal` that
+**queues the action for the next tick and returns the query result**, which is
+success. The generator saved the park immediately afterwards, so every placement was
+reported as done and none was applied.
+
+Fix: the generator uses `GameActions::ExecuteNested`, which applies immediately.
+Paths now exist with correct connectivity (edges 10 along the run, 15 at the
+junction) and the entrance occupies its three tiles.
+
+What looked like wrong sprites was therefore an almost-empty park seen with an
+off-map camera, over a base archive of opaque markers, with interface widgets
+smearing because nothing repaints the void. Setting the base markers transparent for
+one diagnostic run made that plain: the magenta vanished and only the smears and the
+map's far corner remained.
+
+### Defect B: not resolved
+
+Guests spawn and stay in `enteringPark`. Verified by tile trace: the spawn tile, the
+approach path, the three entrance tiles and the interior path all exist with the
+expected ownership and connectivity. Two hypotheses were tested and rejected:
+entrance orientation (direction 1 versus 3) and the approach path being on owned
+land, which the generator can now leave unowned via an `owned` rectangle in the
+scenario description.
+
+### Also unresolved
+
+The saved view is not honoured on load: the generator writes a centre computed from
+the map, and after loading the game reports `savedViewY = -1001` regardless, leaving
+the camera above the map. Cosmetic, but it is why nothing looks right in a
+screenshot.
+
+### Diagnostic API added
+
+`SunriseObjectDebugJson(identifier)` returns an object's type, entry index, image
+count, base image id, the image-list and interface bounds, and the dimensions of the
+first images as the engine sees them. `SunriseTileDebugJson(x, y)` returns a tile's
+surface and edge style, ownership, slope, the image the surface object would draw and
+whether it is present, plus any path element's surface and railings indices, queue
+flag, descriptor image and edge connectivity. Both are development entry points and
+are how Defect A was found.
+
+### Next step
+
+Defect B needs the guest-side view that this milestone did not get to: the guest's
+destination tile and the entering-park transition's own checks, rather than the map
+topology alone. A `SunriseGuestDebugJson` reporting a guest's state, position,
+destination and current action would answer it the way the tile trace answered
+Defect A.
