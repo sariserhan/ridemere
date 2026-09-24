@@ -92,8 +92,8 @@
       "notes": "Full-size base sprite archive. Unfilled entries carry a diagnostic marker.",
       "path": "standalone/Data/g1.dat",
       "files": 1,
-      "bytes": 2353149,
-      "sha256": "f58ea724715d3e2b602c4496a3caeb6107f92e542e27bb65437827b34f916070"
+      "bytes": 2354541,
+      "sha256": "11c240aa1d5c9bc5338656690f487f168a007de61bb8080596f34917f22ece64"
     },
     {
       "creator": "Project Sunrise",
@@ -114,8 +114,8 @@
       "source": "tools/art-pipeline/build_pack.py",
       "path": "standalone/standalone.json",
       "files": 1,
-      "bytes": 2068,
-      "sha256": "fb2388a2605a27dbd9811fe77bc74350fb19e4cff84390fc576df2f62e393088"
+      "bytes": 2112,
+      "sha256": "bd4c72a164b2f2350fa275fc14bd1d60d5fa31cb2b9d6f5ad7a41a37a58405ba"
     },
     {
       "creator": "Project Sunrise",

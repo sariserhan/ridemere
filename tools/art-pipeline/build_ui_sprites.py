@@ -390,11 +390,47 @@ def face_angry() -> Canvas:
     return canvas
 
 
+def _dim(canvas: Canvas) -> Canvas:
+    """Grey out an icon, for the disabled variant of a toolbar button."""
+    faded = Canvas(canvas.pixels.shape[1], canvas.pixels.shape[0])
+    grey = pal.ramp("grey")
+    lookup = {colour: grey[min(len(grey) - 1, 5 + (index % 3))]
+              for index, colour in enumerate(sorted(set(canvas.pixels.flatten().tolist())))
+              if colour != 0}
+    for colour, replacement in lookup.items():
+        faded.pixels[canvas.pixels == colour] = replacement
+    return faded
+
+
+def icon_zoom_out_disabled() -> Canvas:
+    return _dim(icon_zoom_out())
+
+
+def icon_zoom_in_disabled() -> Canvas:
+    return _dim(icon_zoom_in())
+
+
+def scrolling_text_default() -> Canvas:
+    """The plate a banner draws instead of scrolling text when zoomed out.
+
+    ScrollingText.cpp returns this single sprite for any banner at a zoom level above
+    zero, where per-character scrolling would be illegible, so it stands in for the
+    whole sign.
+    """
+    canvas = Canvas(64, 8)
+    canvas.rect(0, 1, 63, 6, INK)
+    canvas.rect(1, 2, 62, 5, EDGE)
+    canvas.rect(3, 3, 60, 4, PAPER)
+    return canvas
+
+
 UI_SPRITES: Dict[int, Tuple[str, Callable[[], Canvas]]] = {
     # 5130 is unnamed in SpriteIds.h, sitting in the gap between the staff costume
     # icons (..5128) and the ride construction icons (5137..). It is requested a
     # handful of times while a ride window is open, so it is treated as a window tab.
     5130: ("window_tab_generic", icon_tab),
+    # Drawn in place of scrolling banner text whenever the view is zoomed out.
+    1574: ("scrolling_text_default", scrolling_text_default),
     5327: ("tab_finances_research", icon_finances_tab),
     # SPR_PEEP_SMALL_FACE_* — the mood face beside the guest counter and in peep
     # lists. The counter draws one every frame, so this is the most requested base
@@ -416,6 +452,8 @@ UI_SPRITES: Dict[int, Tuple[str, Callable[[], Canvas]]] = {
     5599: ("toolbar_file", icon_file),
     5601: ("toolbar_zoom_out", icon_zoom_out),
     5604: ("toolbar_zoom_in", icon_zoom_in),
+    5603: ("toolbar_zoom_out_disabled", icon_zoom_out_disabled),
+    5606: ("toolbar_zoom_in_disabled", icon_zoom_in_disabled),
     5607: ("toolbar_rotate", icon_rotate),
     5609: ("toolbar_land", icon_land),
     5613: ("toolbar_guests", icon_guests),

@@ -24,7 +24,7 @@ docker run --rm \
     # development entry points even though they are marked EMSCRIPTEN_KEEPALIVE.
     # Reconfigure with the list extended and relink; nothing is recompiled.
     cd build
-    cmake -DEMSCRIPTEN_EXPORTED_FUNCTIONS=_GetVersion,_main,_SunriseBuildPark,_SunriseParkStatsJson,_SunriseSavePark,_SunriseLoadPark,_SunriseObjectDebugJson,_SunriseTileDebugJson,_SunriseGuestListJson,_SunriseRideListJson,_SunriseHireHandyman,_SunriseCentreView,_SunriseGuestDebugJson,_SunriseSpriteAuditJson,_SunriseSpriteAuditClear,_SunriseGenerateGuests . >/dev/null
+    cmake -DEMSCRIPTEN_EXPORTED_FUNCTIONS=_GetVersion,_main,_SunriseBuildPark,_SunriseParkStatsJson,_SunriseSavePark,_SunriseLoadPark,_SunriseObjectDebugJson,_SunriseTileDebugJson,_SunriseGuestListJson,_SunriseRideListJson,_SunriseHireHandyman,_SunriseCentreView,_SunriseGuestDebugJson,_SunriseSpriteAuditJson,_SunriseSpriteAuditClear,_SunriseGenerateGuests,_SunriseSetZoom . >/dev/null
     emmake ninja openrct2 2>&1 | tail -30
     rm -rf www/ && mkdir -p www/ && cd www/
     cp -r ../openrct2.* ./
