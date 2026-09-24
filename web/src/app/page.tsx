@@ -7,6 +7,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Wordmark } from "@/components/wordmark";
 import { GameSaveStore } from "@/lib/saves/store";
 import { PRODUCT } from "@/lib/product";
 
@@ -33,15 +34,19 @@ export default function HomePage() {
     };
   }, []);
 
+  const hasParks = saveCount !== null && saveCount > 0 && latestId !== null;
+
   return (
-    <main className="mx-auto flex min-h-dvh max-w-3xl flex-col items-center justify-center gap-8 px-6 text-center">
-      <div className="space-y-3">
-        <h1 className="text-4xl font-semibold tracking-tight">{PRODUCT.name}</h1>
-        <p className="text-lg text-muted-foreground">{PRODUCT.tagline}</p>
+    <main className="mx-auto flex min-h-dvh max-w-3xl flex-col items-center justify-center gap-10 px-6 text-center">
+      <div className="space-y-4">
+        <Wordmark size="lg" />
+        <p className="text-lg" style={{ color: "var(--rm-text-quiet)" }}>
+          {PRODUCT.tagline}
+        </p>
       </div>
 
       <div className="flex flex-wrap items-center justify-center gap-3">
-        {saveCount !== null && saveCount > 0 && latestId ? (
+        {hasParks ? (
           <>
             <Button size="lg" data-testid="continue" onClick={() => router.push(`/play?save=${latestId}`)}>
               Continue
@@ -50,7 +55,7 @@ export default function HomePage() {
               New park
             </Button>
             <Button size="lg" variant="ghost" onClick={() => router.push("/parks")}>
-              Your parks
+              My parks
             </Button>
           </>
         ) : (
@@ -60,7 +65,7 @@ export default function HomePage() {
         )}
       </div>
 
-      <p className="max-w-md text-sm text-muted-foreground">
+      <p className="max-w-md text-sm" style={{ color: "var(--rm-text-quiet)" }}>
         No account, no download, no original game files. Parks are saved in this browser and can be exported at any
         time.
       </p>

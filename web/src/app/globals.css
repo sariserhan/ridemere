@@ -128,3 +128,48 @@
     @apply font-sans;
   }
 }
+/*
+ * Ridemere interface tokens. Semantic roles, not colours: see
+ * docs/ui-design-system.md. The game expresses the same roles through the engine's
+ * own colour table, because it draws from a fixed palette.
+ */
+:root {
+  --rm-bg: #131a24;
+  --rm-raised: #1e2836;
+  --rm-sunken: #0d131b;
+  --rm-line: #2c3a4d;
+  --rm-accent: #f2a341;
+  --rm-accent-quiet: #c07d24;
+  --rm-secondary: #4ea3c4;
+  --rm-positive: #5bb66a;
+  --rm-warning: #e0a92e;
+  --rm-danger: #d1573f;
+  --rm-text: #eef2f7;
+  --rm-text-quiet: #9aa8bd;
+  --rm-disabled: #55637a;
+
+  /* Map shadcn's roles onto ours so stock components inherit the identity. */
+  --background: var(--rm-bg);
+  --foreground: var(--rm-text);
+  --card: var(--rm-raised);
+  --card-foreground: var(--rm-text);
+  --popover: var(--rm-raised);
+  --popover-foreground: var(--rm-text);
+  --primary: var(--rm-accent);
+  --primary-foreground: #20160a;
+  --secondary: var(--rm-sunken);
+  --secondary-foreground: var(--rm-text);
+  --muted: var(--rm-sunken);
+  --muted-foreground: var(--rm-text-quiet);
+  --accent: var(--rm-sunken);
+  --accent-foreground: var(--rm-text);
+  --destructive: var(--rm-danger);
+  --border: var(--rm-line);
+  --input: var(--rm-line);
+  --ring: var(--rm-accent);
+  --radius: 0.5rem;
+}
+
+.dark:root, :root {
+  color-scheme: dark;
+}

@@ -12,6 +12,10 @@ VENV="$ROOT/.cache/venv/bin/python"
 [[ -f "$BUILD/openrct2.wasm" ]] || { echo "run wasm/scripts/build.sh first" >&2; exit 1; }
 
 echo "== regenerating content pack"
+"$VENV" "$ROOT/tools/art-pipeline/build_fonts.py"
+"$VENV" "$ROOT/tools/art-pipeline/build_ui_theme.py"
+"$VENV" "$ROOT/tools/art-pipeline/build_g2.py"
+"$VENV" "$ROOT/tools/art-pipeline/build_language.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_base_archive.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_pack.py"
 

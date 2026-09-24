@@ -37,6 +37,15 @@ visual_smoke() {
 }
 run "a known park renders with terrain, paths, track and structures" visual_smoke
 
+# The interface renders with chrome, text and icons, in a build whose window colours,
+# font and icons are all ours. Proven to fail on a blank interface by blankui-check.sh.
+interface_smoke() {
+  ( cd "$ROOT/wasm/test" && node uivisual.js >/dev/null ) \
+    && "$PY" "$ROOT/tools/art-pipeline/check_visual_ui.py" \
+      "$ROOT/wasm/test/results-visual/ui-window-park.png" --name "game interface"
+}
+run "the game interface renders with chrome, text and icons" interface_smoke
+
 run "standalone boots in a clean browser with no prompt" bash -c '
   cd "'"$ROOT"'/wasm/test" && node standalone.js >/dev/null && \
   "'"$PY"'" "'"$ROOT"'/wasm/test/check_boot.py"'

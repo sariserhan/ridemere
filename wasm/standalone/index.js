@@ -164,6 +164,21 @@
         }
     }
 
+    // Install the content pack's window theme into the player's theme directory.
+    // Themes are read from the user directory, not from the content, so whoever starts
+    // the engine has to put it there. A theme the player has edited is left alone.
+    try {
+        try { Module.FS.mkdir("/persistent/themes"); } catch {}
+        let present = false;
+        try { Module.FS.stat("/persistent/themes/Ridemere.json"); present = true; } catch {}
+        if (!present) {
+            Module.FS.writeFile("/persistent/themes/Ridemere.json",
+                Module.FS.readFile("/OpenRCT2/themes/Ridemere.json"));
+        }
+    } catch (error) {
+        console.warn("could not install the window theme", error);
+    }
+
     setProgress(1);
     setStatus("Entering the park…");
     boot.remove();

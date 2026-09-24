@@ -11,9 +11,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Wordmark } from "@/components/wordmark";
 import { GameSaveStore } from "@/lib/saves/store";
 import { SaveValidationError, StorageQuotaError, type SaveRecord } from "@/lib/saves/types";
-import { PRODUCT } from "@/lib/product";
 
 const SCENARIOS = [{ id: "sunrise-test", name: "First Park", blurb: "A flat site with room to build." }];
 
@@ -141,10 +141,10 @@ export default function ParksPage() {
     <main className="mx-auto max-w-5xl px-6 py-10">
       <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <Link href="/" className="text-sm text-muted-foreground hover:underline">
-            {PRODUCT.name}
+          <Link href="/" className="inline-block hover:opacity-80">
+            <Wordmark size="sm" />
           </Link>
-          <h1 className="text-2xl font-semibold">Your parks</h1>
+          <h1 className="mt-1 text-2xl font-semibold">My parks</h1>
           <p className="text-sm text-muted-foreground">Saved in this browser. No account needed.</p>
         </div>
         <div className="flex gap-2">
@@ -195,12 +195,14 @@ export default function ParksPage() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {records?.map((record) => (
           <Card key={record.id} data-testid="park-card" data-park-id={record.id}>
-            <div className="aspect-video w-full overflow-hidden rounded-t-xl bg-slate-900">
+            <div className="aspect-video w-full overflow-hidden rounded-t-xl" style={{ background: "var(--rm-sunken)" }}>
               {thumbnails[record.id] ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={thumbnails[record.id]} alt="" className="h-full w-full object-cover" />
               ) : (
-                <div className="flex h-full items-center justify-center text-xs text-slate-500">No picture yet</div>
+                <div className="flex h-full items-center justify-center text-xs" style={{ color: "var(--rm-disabled)" }}>
+                  No picture yet
+                </div>
               )}
             </div>
             <CardHeader className="pb-2">

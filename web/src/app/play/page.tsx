@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { GameRuntime, type LoadProgress } from "@/lib/game/runtime";
 import { GameSaveStore } from "@/lib/saves/store";
 import { StorageQuotaError, type SaveRecord } from "@/lib/saves/types";
-import { PRODUCT } from "@/lib/product";
+import { Wordmark } from "@/components/wordmark";
 
 /** How often the park is written while playing. */
 const AUTOSAVE_INTERVAL_MS = 60_000;
@@ -206,7 +206,7 @@ function PlayScreen() {
   }, [router]);
 
   return (
-    <div className="relative h-dvh w-dvw overflow-hidden bg-[#10141c]">
+    <div className="relative h-dvh w-dvw overflow-hidden" style={{ background: "var(--rm-bg)" }}>
       {/*
         The canvas is always laid out at full size, even while the loading screen is
         over it. Hiding it with display:none gives it a zero client size, and the
@@ -229,7 +229,13 @@ function PlayScreen() {
             </Button>
           </div>
           {notice && (
-            <div className="rounded-md bg-black/60 px-3 py-1.5 text-sm text-white">{notice}</div>
+            <div
+              className="rounded-md px-3 py-1.5 text-sm"
+              data-testid="notice"
+              style={{ background: "rgba(13,19,27,0.85)", color: "var(--rm-text)" }}
+            >
+              {notice}
+            </div>
           )}
         </div>
       )}
@@ -244,22 +250,36 @@ function PlayScreen() {
       )}
 
       {phase === "loading" && (
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-5 bg-[#10141c] px-6 text-center">
-          <h1 className="text-xl font-semibold text-slate-100">{PRODUCT.name}</h1>
-          <p className="min-h-6 text-sm text-slate-400">{progress.label}</p>
-          <div className="h-1 w-64 overflow-hidden rounded bg-slate-800">
+        <div
+          className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6 px-6 text-center"
+          style={{ background: "var(--rm-bg)" }}
+        >
+          <Wordmark size="lg" />
+          <p className="min-h-6 text-sm" data-testid="loading-label" style={{ color: "var(--rm-text-quiet)" }}>
+            {progress.label}
+          </p>
+          <div
+            className="h-1.5 w-72 overflow-hidden rounded-full"
+            style={{ background: "var(--rm-sunken)" }}
+          >
             <div
-              className="h-full bg-amber-400 transition-[width] duration-200"
-              style={{ width: `${Math.round(progress.fraction * 100)}%` }}
+              className="h-full rounded-full transition-[width] duration-200"
+              style={{ width: `${Math.round(progress.fraction * 100)}%`, background: "var(--rm-accent)" }}
             />
           </div>
         </div>
       )}
 
       {phase === "failed" && error && (
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-[#10141c] px-6 text-center">
-          <h2 className="text-lg font-semibold text-slate-100">The game could not start.</h2>
-          <p className="max-w-md text-sm text-slate-400">{error.message}</p>
+        <div
+          className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 px-6 text-center"
+          style={{ background: "var(--rm-bg)" }}
+        >
+          <Wordmark size="md" />
+          <h2 className="text-lg font-semibold" style={{ color: "var(--rm-text)" }}>
+            The game could not start.
+          </h2>
+          <p className="max-w-md text-sm" style={{ color: "var(--rm-text-quiet)" }}>{error.message}</p>
           <div className="flex gap-2">
             <Button onClick={() => window.location.reload()}>Retry</Button>
             <Button variant="secondary" onClick={() => router.push("/parks")}>
@@ -267,7 +287,7 @@ function PlayScreen() {
             </Button>
           </div>
           {error.detail && (
-            <details className="max-w-lg text-left text-xs text-slate-500">
+            <details className="max-w-lg text-left text-xs" style={{ color: "var(--rm-disabled)" }}>
               <summary className="cursor-pointer">Technical details</summary>
               <pre className="mt-2 whitespace-pre-wrap break-all">{error.detail}</pre>
             </details>
@@ -280,7 +300,7 @@ function PlayScreen() {
 
 export default function PlayPage() {
   return (
-    <Suspense fallback={<div className="h-dvh w-dvw bg-[#10141c]" />}>
+    <Suspense fallback={<div className="h-dvh w-dvw" style={{ background: "var(--rm-bg)" }} />}>
       <PlayScreen />
     </Suspense>
   );

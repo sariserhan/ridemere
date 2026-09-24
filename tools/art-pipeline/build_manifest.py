@@ -123,19 +123,24 @@ RECORDS: Dict[str, dict] = {
         "notes": "Full-size base sprite archive. Unfilled entries carry a diagnostic marker.",
     },
     "g2.dat": {
-        "asset": "openrct2_extra_sprites",
-        "creator": "OpenRCT2 contributors",
+        "asset": "openrct2_extra_sprites_rebranded",
+        "creator": "OpenRCT2 contributors, with Project Sunrise replacements",
         "license": "GPL-3.0",
         "source": "engine/openrct2/resources/g2",
-        "modified": False,
-        "notes": "OpenRCT2's own interface sprites, built with gxc.",
+        "modified": True,
+        "notes": "OpenRCT2's own interface sprites, rebuilt with its three branding "
+                 "sprites replaced by our own mark. Everything else is unchanged "
+                 "GPL-3.0 OpenRCT2 art.",
     },
     "fonts.dat": {
-        "asset": "openrct2_fonts",
-        "creator": "OpenRCT2 contributors",
-        "license": "GPL-3.0",
-        "source": "engine/openrct2/resources/fonts",
-        "modified": False,
+        **ORIGINAL,
+        "asset": "ridemere_sprite_font_v1",
+        "source": "tools/art-pipeline/build_fonts.py",
+        "generator": "Pillow rendering of Liberation Sans, packed with libsawyer gxc",
+        "notes": "Our own sprite font. Glyphs are rendered from Liberation Sans "
+                 "(SIL Open Font License 1.1) into the boxes the engine reserves, flat "
+                 "with a shadow rather than bevelled. The few non-codepoint symbols "
+                 "upstream draws by hand are kept, and are GPL-3.0 OpenRCT2 art.",
     },
     "palettes.dat": {
         "asset": "openrct2_palettes",
@@ -160,8 +165,16 @@ RECORDS: Dict[str, dict] = {
         "license": "GPL-3.0",
         "source": "engine/openrct2/data/language",
         "modified": False,
-        "notes": "English only in the prototype; contains original-game ride and "
-                 "scenery names, which is a rebranding surface.",
+        "modified": True,
+        "notes": "English only in the prototype, with the upstream product name "
+                 "replaced by ours in 41 places by build_language.py. Ride and scenery "
+                 "names are untouched and remain a rebranding surface.",
+    },
+    "themes/": {
+        **ORIGINAL,
+        "asset": "ridemere_window_theme_v1",
+        "source": "tools/art-pipeline/build_ui_theme.py",
+        "notes": "Window colours for every class in the engine's descriptor table.",
     },
     "shaders/": {
         "asset": "openrct2_shaders",

@@ -424,6 +424,330 @@ def scrolling_text_default() -> Canvas:
     return canvas
 
 
+def icon_resize_grip() -> Canvas:
+    """SPR_RESIZE: the grip in the bottom right corner of a resizable window."""
+    canvas = Canvas(12, 12)
+    for step in range(3):
+        offset = step * 3
+        canvas.line(2 + offset, 10, 10, 2 + offset, EDGE)
+        canvas.line(2 + offset, 9, 9, 2 + offset, PAPER)
+    return canvas
+
+
+def _menu_button(draw_glyph) -> Canvas:
+    """A title-screen menu button: a soft plate with a symbol on it."""
+    canvas = Canvas(48, 48)
+    canvas.rect(2, 2, 45, 45, EDGE)
+    canvas.rect(3, 3, 44, 42, PAPER)
+    canvas.rect(3, 43, 44, 44, EDGE)
+    draw_glyph(canvas)
+    return canvas
+
+
+def menu_new_game() -> Canvas:
+    """A park gate: what starting a new park looks like."""
+    def glyph(canvas: Canvas) -> None:
+        canvas.rect(11, 20, 15, 38, ACCENT_DARK)
+        canvas.rect(32, 20, 36, 38, ACCENT_DARK)
+        canvas.rect(11, 14, 36, 20, ACCENT)
+        canvas.triangle((23, 8), 8, 7, GREEN)
+    return _menu_button(glyph)
+
+
+def menu_load_game() -> Canvas:
+    """A stack of saved parks."""
+    def glyph(canvas: Canvas) -> None:
+        for index, top in enumerate((14, 22, 30)):
+            canvas.rect(10, top, 37, top + 6, BLUE if index == 2 else EDGE)
+            canvas.rect(11, top + 1, 36, top + 5, PAPER)
+    return _menu_button(glyph)
+
+
+def menu_exit() -> Canvas:
+    """A door with an arrow leaving it."""
+    def glyph(canvas: Canvas) -> None:
+        canvas.rect(12, 12, 26, 38, EDGE)
+        canvas.rect(13, 13, 25, 37, PAPER)
+        canvas.rect(29, 23, 38, 26, ACCENT)
+        canvas.triangle((36, 19), 5, 9, ACCENT)
+    return _menu_button(glyph)
+
+
+def menu_toolbox() -> Canvas:
+    """A wrench, for the editor and tools."""
+    def glyph(canvas: Canvas) -> None:
+        canvas.line(15, 34, 32, 16, EDGE, width=5)
+        canvas.line(16, 34, 32, 17, ACCENT, width=3)
+        canvas.disc(33, 15, 7, EDGE)
+        canvas.disc(33, 15, 5, ACCENT)
+        canvas.disc(35, 13, 3, INK)
+    return _menu_button(glyph)
+
+
+# ---------------------------------------------------------------------------
+# Window chrome: tabs and buttons
+# ---------------------------------------------------------------------------
+
+TAB_W, TAB_H = 31, 27
+
+
+def tab_shape(active: bool) -> Canvas:
+    """SPR_TAB and SPR_TAB_ACTIVE: the plate every window tab is drawn on.
+
+    An unselected tab sits lower and darker; the selected one is raised, brighter and
+    joins the panel below it by leaving its bottom edge open. State is carried by
+    shape and value together, never by colour alone.
+    """
+    canvas = Canvas(TAB_W, TAB_H)
+    top = 2 if active else 5
+    body = PAPER if active else EDGE
+    canvas.rect(1, top + 1, TAB_W - 2, TAB_H - 1, INK)
+    canvas.rect(2, top, TAB_W - 3, TAB_H - 1, body)
+    canvas.rect(2, top, TAB_W - 3, top, PAPER if active else pal.ramp("grey")[6])
+    if active:
+        canvas.rect(3, TAB_H - 2, TAB_W - 4, TAB_H - 1, body)
+    else:
+        canvas.rect(2, TAB_H - 2, TAB_W - 3, TAB_H - 1, INK)
+    return canvas
+
+
+def _tab_icon(draw) -> Canvas:
+    """A 24x24 symbol drawn on top of a tab plate."""
+    canvas = Canvas(24, 24)
+    draw(canvas)
+    return canvas
+
+
+def tab_park() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.rect(4, 10, 6, 20, ACCENT_DARK)
+        c.rect(17, 10, 19, 20, ACCENT_DARK)
+        c.rect(4, 6, 19, 10, ACCENT)
+        c.triangle((11, 2), 5, 5, GREEN)
+    return _tab_icon(glyph)
+
+
+def tab_graph() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.rect(3, 19, 20, 20, EDGE)
+        for x, top in ((5, 12), (9, 8), (13, 14), (17, 5)):
+            c.rect(x, top, x + 2, 18, ACCENT)
+    return _tab_icon(glyph)
+
+
+def tab_money() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.disc(11.5, 11.5, 8, ACCENT_DARK)
+        c.disc(11.5, 11.5, 6.5, ACCENT)
+        c.rect(11, 5, 12, 18, INK)
+        c.rect(8, 7, 15, 8, INK)
+        c.rect(8, 14, 15, 15, INK)
+    return _tab_icon(glyph)
+
+
+def tab_stats() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.ring(11.5, 11.5, 9, 5, EDGE)
+        c.ring(11.5, 11.5, 9, 5, ACCENT)
+        c.line(11, 11, 17, 6, INK, width=2)
+    return _tab_icon(glyph)
+
+
+def tab_shop() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.rect(4, 9, 19, 20, PAPER)
+        c.rect(4, 9, 19, 11, ACCENT)
+        c.rect(3, 5, 20, 9, ACCENT_DARK)
+        c.rect(9, 13, 14, 20, EDGE)
+    return _tab_icon(glyph)
+
+
+def tab_kiosk() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.rect(5, 8, 18, 20, PAPER)
+        c.rect(5, 8, 18, 10, BLUE)
+        c.disc(11.5, 15, 3.5, BLUE)
+    return _tab_icon(glyph)
+
+
+def tab_ride() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.line(3, 18, 11, 5, ACCENT_DARK, width=3)
+        c.line(11, 5, 20, 18, ACCENT_DARK, width=3)
+        c.rect(3, 18, 20, 20, EDGE)
+        c.rect(8, 8, 12, 11, RED)
+    return _tab_icon(glyph)
+
+
+def tab_objective() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.disc(11.5, 11.5, 9, EDGE)
+        c.disc(11.5, 11.5, 7, PAPER)
+        c.disc(11.5, 11.5, 4.5, ACCENT)
+        c.disc(11.5, 11.5, 2, RED)
+    return _tab_icon(glyph)
+
+
+def tab_awards() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.disc(11.5, 9, 6, ACCENT)
+        c.disc(11.5, 9, 4, ACCENT_DARK)
+        c.triangle((8, 14), 2, 7, RED)
+        c.triangle((15, 14), 2, 7, RED)
+    return _tab_icon(glyph)
+
+
+def tab_guests() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.disc(11.5, 7, 3.5, SKIN)
+        c.rect(8, 11, 15, 18, BLUE)
+        c.rect(8, 18, 10, 21, EDGE)
+        c.rect(13, 18, 15, 21, EDGE)
+    return _tab_icon(glyph)
+
+
+def tab_marketing() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.triangle((6, 6), 0, 12, EDGE)
+        c.rect(6, 6, 18, 12, ACCENT)
+        c.rect(5, 6, 6, 19, EDGE)
+    return _tab_icon(glyph)
+
+
+def _symbol_button(draw, size: int = 24) -> Canvas:
+    """A transparent square with a symbol drawn on it."""
+    canvas = Canvas(size, size)
+    draw(canvas)
+    return canvas
+
+
+def button_palette() -> Canvas:
+    """SPR_PALETTE_BTN: the colour swatch button."""
+    def glyph(c: Canvas) -> None:
+        c.rect(2, 2, 21, 21, INK)
+        c.rect(3, 3, 20, 20, ACCENT)
+        c.rect(3, 12, 20, 20, ACCENT_DARK)
+    return _symbol_button(glyph)
+
+
+def button_demolish() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.line(4, 4, 19, 19, INK, width=4)
+        c.line(19, 4, 4, 19, INK, width=4)
+        c.line(5, 5, 18, 18, RED, width=2)
+        c.line(18, 5, 5, 18, RED, width=2)
+    return _symbol_button(glyph)
+
+
+def button_demolish_section() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.rect(3, 15, 20, 18, EDGE)
+        c.line(6, 4, 17, 13, RED, width=3)
+        c.line(17, 4, 6, 13, RED, width=3)
+    return _symbol_button(glyph)
+
+
+def button_locate() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.ring(11, 10, 7, 4, EDGE)
+        c.ring(11, 10, 7, 4, BLUE)
+        c.line(15, 15, 20, 20, EDGE, width=3)
+    return _symbol_button(glyph)
+
+
+def button_rename() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.line(4, 18, 16, 5, EDGE, width=4)
+        c.line(5, 18, 16, 6, ACCENT, width=2)
+        c.triangle((18, 3), 2, 4, PAPER)
+        c.rect(3, 19, 9, 20, EDGE)
+    return _symbol_button(glyph)
+
+
+def button_patrol() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.ring(11.5, 11.5, 9, 6, GREEN_DARK)
+        c.ring(11.5, 11.5, 9, 6, GREEN)
+        c.disc(11.5, 3, 3, ACCENT)
+    return _symbol_button(glyph)
+
+
+def button_map() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.rect(3, 5, 20, 19, GREEN_DARK)
+        c.rect(4, 6, 19, 18, GREEN)
+        c.line(4, 14, 19, 9, PAPER, width=2)
+        c.disc(15, 8, 2, RED)
+    return _symbol_button(glyph)
+
+
+def _slope(direction: int) -> Canvas:
+    """Ride construction slope buttons: down, level, up."""
+    canvas = Canvas(24, 24)
+    canvas.rect(3, 18, 20, 20, EDGE)
+    if direction == 0:
+        canvas.line(4, 7, 19, 16, ACCENT, width=3)
+    elif direction == 1:
+        canvas.rect(4, 11, 19, 13, ACCENT)
+    else:
+        canvas.line(4, 16, 19, 7, ACCENT, width=3)
+    return canvas
+
+
+def slope_down() -> Canvas:
+    return _slope(0)
+
+
+def slope_level() -> Canvas:
+    return _slope(1)
+
+
+def slope_up() -> Canvas:
+    return _slope(2)
+
+
+def _direction(dx: int, dy: int) -> Canvas:
+    """Construction direction buttons: an isometric arrow."""
+    canvas = Canvas(24, 24)
+    canvas.rect(2, 2, 21, 21, EDGE)
+    canvas.rect(3, 3, 20, 20, PAPER)
+    cx, cy = 11, 11
+    canvas.line(cx - dx * 6, cy - dy * 4, cx + dx * 6, cy + dy * 4, ACCENT_DARK, width=3)
+    canvas.disc(cx + dx * 6, cy + dy * 4, 3, ACCENT)
+    return canvas
+
+
+def direction_ne() -> Canvas:
+    return _direction(1, -1)
+
+
+def direction_se() -> Canvas:
+    return _direction(1, 1)
+
+
+def direction_sw() -> Canvas:
+    return _direction(-1, 1)
+
+
+def direction_nw() -> Canvas:
+    return _direction(-1, -1)
+
+
+def footpath_land() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.rect(2, 13, 21, 20, GREEN_DARK)
+        c.rect(2, 10, 21, 13, PAPER)
+    return _symbol_button(glyph)
+
+
+def footpath_bridge() -> Canvas:
+    def glyph(c: Canvas) -> None:
+        c.rect(2, 8, 21, 11, PAPER)
+        for x in (5, 11, 17):
+            c.rect(x, 11, x + 2, 20, EDGE)
+    return _symbol_button(glyph)
+
+
 UI_SPRITES: Dict[int, Tuple[str, Callable[[], Canvas]]] = {
     # 5130 is unnamed in SpriteIds.h, sitting in the gap between the staff costume
     # icons (..5128) and the ride construction icons (5137..). It is requested a
@@ -431,6 +755,29 @@ UI_SPRITES: Dict[int, Tuple[str, Callable[[], Canvas]]] = {
     5130: ("window_tab_generic", icon_tab),
     # Drawn in place of scrolling banner text whenever the view is zoomed out.
     1574: ("scrolling_text_default", scrolling_text_default),
+    # SPR_RESIZE, drawn in the corner of every resizable window.
+    5058: ("window_resize_grip", icon_resize_grip),
+    # Window chrome: the tab plate and its selected state.
+    5198: ("tab_plate", lambda: tab_shape(False)),
+    5199: ("tab_plate_active", lambda: tab_shape(True)),
+    # Window buttons.
+    5059: ("button_palette", button_palette),
+    5145: ("construction_slope_down", slope_down),
+    5146: ("construction_slope_level", slope_level),
+    5147: ("construction_slope_up", slope_up),
+    5162: ("button_demolish_section", button_demolish_section),
+    5165: ("button_demolish", button_demolish),
+    5167: ("button_locate", button_locate),
+    5168: ("button_rename", button_rename),
+    5175: ("button_patrol", button_patrol),
+    5192: ("button_map", button_map),
+    5624: ("toolbar_footpath_pressed", icon_footpath),
+    5635: ("construction_direction_ne", direction_ne),
+    5636: ("construction_direction_se", direction_se),
+    5637: ("construction_direction_sw", direction_sw),
+    5638: ("construction_direction_nw", direction_nw),
+    5639: ("construction_footpath_land", footpath_land),
+    5640: ("construction_footpath_bridge", footpath_bridge),
     5327: ("tab_finances_research", icon_finances_tab),
     # SPR_PEEP_SMALL_FACE_* — the mood face beside the guest counter and in peep
     # lists. The counter draws one every frame, so this is the most requested base
@@ -468,12 +815,44 @@ UI_SPRITES: Dict[int, Tuple[str, Callable[[], Canvas]]] = {
     5631: ("toolbar_construct_ride", icon_construct_ride),
     5633: ("toolbar_clear_scenery", icon_clear_scenery),
     22872: ("balloon", icon_balloon),
+    # SPR_MENU_*: the title screen buttons, which a player sees for a moment while the
+    # game starts even though the shell opens a park straight afterwards.
+    23207: ("menu_new_game", menu_new_game),
+    23208: ("menu_load_game", menu_load_game),
+    23210: ("menu_exit", menu_exit),
+    23211: ("menu_toolbox", menu_toolbox),
     23189: ("next_weather", icon_next_weather),
     23190: ("weather_sun", icon_weather_sun),
     23192: ("weather_cloud", icon_weather_cloud),
     23197: ("rating_low", icon_rating_low),
     23198: ("rating_high", icon_rating_high),
 }
+
+
+def _run(start: int, count: int, name: str, draw) -> None:
+    """Register an animated tab's frames as the same still symbol.
+
+    The engine cycles these while a window is open. A still icon is calmer than a
+    spinning one in a row of tabs, and it costs nothing to change later.
+    """
+    for frame in range(count):
+        UI_SPRITES[start + frame] = (f"{name}_{frame}", draw)
+
+
+_run(5200, 1, "tab_park_entrance", tab_park)
+_run(5245, 1, "tab_graph", tab_graph)
+_run(5261, 8, "tab_finances_summary", tab_money)
+_run(5277, 1, "tab_stats", tab_stats)
+_run(5351, 1, "tab_shops", tab_shop)
+_run(5367, 1, "tab_kiosks", tab_kiosk)
+_run(5375, 1, "tab_financial_graph", tab_graph)
+_run(5391, 1, "tab_profit_graph", tab_graph)
+_run(5407, 1, "tab_value_graph", tab_graph)
+_run(5423, 1, "tab_marketing", tab_marketing)
+_run(5442, 16, "tab_ride", tab_ride)
+_run(5511, 1, "tab_objective", tab_objective)
+_run(5527, 1, "tab_awards", tab_awards)
+_run(5568, 8, "tab_guests", tab_guests)
 
 
 def build() -> dict:

@@ -71,3 +71,14 @@ shipped track artwork, and parks that appeared to load but were the engine's emp
 default. Both now have guards that fail loudly.
 
 Next: **V1-1, interface reskin**, which needs the product name decided first.
+
+## V1-1 complete (2026-09-24)
+
+The game and the website share one visual identity under the working name **Ridemere**:
+our own sprite font, our own window theme, 108 authored interface sprites, our own mark
+in place of the upstream logo, and shipped strings that name the product. The sprite
+audit is clean across eight windows.
+
+Next: **V1-2, world art** — four terrain surfaces, a terrain edge family, three path
+surfaces, one queue surface and one railing family. The map currently ends in a black
+void, which reads as a bug rather than a boundary in every screenshot taken so far.

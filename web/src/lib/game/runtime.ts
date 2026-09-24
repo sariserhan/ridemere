@@ -62,6 +62,7 @@ declare global {
 
 const SCREENSHOT_DIR = "/persistent/screenshot";
 const SAVE_DIR = "/persistent/save";
+const THEME_DIR = "/persistent/themes";
 const BRIDGE_SAVE_PATH = `${SAVE_DIR}/bridge.park`;
 const BRIDGE_SHOT_NAME = "bridge-thumb.png";
 
@@ -213,6 +214,7 @@ export class GameRuntime {
 
     try {
       await this.installContent();
+      this.installTheme();
     } catch (error) {
       this.emitError("content-install", "The game content could not be installed.", String(error));
       return false;
@@ -269,6 +271,36 @@ export class GameRuntime {
       if (ticks > first) return true;
     }
     return false;
+  }
+
+  /**
+   * Copy the content pack's window theme into the player's theme directory.
+   *
+   * Themes are read from the user directory, not from the content, so the product
+   * installs its own the same way it installs content. A theme the player has edited
+   * is left alone: this only writes a file that is not already there.
+   */
+  private installTheme(): void {
+    const FS = this.module!.FS;
+    try {
+      FS.mkdir(THEME_DIR);
+    } catch {
+      /* already there */
+    }
+    const target = `${THEME_DIR}/Ridemere.json`;
+    try {
+      FS.stat(target);
+      return; // already installed
+    } catch {
+      /* not installed yet */
+    }
+    try {
+      const theme = FS.readFile("/OpenRCT2/themes/Ridemere.json");
+      FS.writeFile(target, theme as Uint8Array);
+    } catch (error) {
+      // Not fatal: the game runs with the engine's stock colours.
+      console.warn("could not install the window theme", error);
+    }
   }
 
   /** Content is re-extracted only when the build changes. */

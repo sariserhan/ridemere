@@ -629,3 +629,69 @@ persistence checks in each.
   is not protecting anything.
 
 Both are in `run-m3-tests.sh`, which is now seven groups.
+
+## V1-1 — interface reskin, phase 1 (2026-09-24)
+
+The game reads as Ridemere rather than OpenRCT2, with the proven window system kept
+intact. Nothing about how the interface behaves changed; what it is made of did.
+
+`Ridemere` is a working product name. It lives in one file, `web/src/lib/product.ts`,
+and in the shipped strings. Engine namespaces, object identifiers, standalone content
+identifiers and repository history all keep the `sunrise` development prefix on purpose:
+renaming the product must never mean renaming the content.
+
+### What changed
+
+| Layer | Before | After |
+|---|---|---|
+| Font | OpenRCT2's bevelled sprite font | ours, rendered from Liberation Sans into the same boxes, flat with a shadow |
+| Window colours | the engine's stock blue | a warm theme covering all 70 window classes |
+| Interface sprites | 46 authored | 108 authored, covering every sprite the normal path requests |
+| Branding in `g2.dat` | the OpenRCT2 logo and wordmark | our own mark |
+| Shipped strings | named the upstream project 41 times | named Ridemere |
+| Product shell | stock shadcn slate | the same semantic palette and wordmark as the game |
+
+The design system, including the constraints the engine imposes on any future font
+choice, is in `docs/ui-design-system.md`.
+
+### Font
+
+The browser build compiles TrueType out, so every character is a sprite from a table of
+1,023 entries in three styles. Glyphs are rendered into **exactly the boxes upstream
+reserves**, read from the engine's own manifest, so no window can reflow or overflow.
+Upstream draws a three-tone bevel; we draw flat letters with a one-pixel shadow. That
+single change is most of why the game stops looking like OpenRCT2.
+
+684 glyphs are ours. The 339 non-codepoint symbols upstream draws by hand, such as the
+ellipsis, are kept as open art.
+
+### Sprite audit
+
+Zero, across eight windows opened in turn: rides, guests, staff, park, finances, map,
+scenery and footpath. Getting there meant identifying and authoring 62 more base
+sprites, every one named from the engine's own header rather than guessed: tab plates
+and their selected state, fourteen tab symbols, seven window buttons, and the ride and
+footpath construction controls.
+
+A new development export, `SunriseOpenWindow`, opens a window through the same call the
+toolbar uses. Clicking toolbar pixels from a test is brittle and silent when it misses.
+
+### The language warning, fixed properly
+
+Root cause: the configured language defaults to the host system's locale, which reports
+`en-US`, and the pack ships only `en-GB`. The engine failed over and logged an error on
+every start.
+
+The content pack now declares the locales it contains, and the engine asks for one of
+them. Standalone detection moved above the language open so the manifest is known
+before a locale is chosen. The error is now a single informational line explaining the
+substitution.
+
+### Two guards added
+
+* `check_visual_ui.py` measures a captured interface for window chrome, text detail and
+  colour in the tab strip. Calibrated against a real capture and against a build with
+  every interface sprite blanked, and proven by `blankui-check.sh` to fail on the
+  second. The discriminating measure is the tab strip: window fills and text are drawn
+  by the engine from theme colours and survive even when every sprite is blank.
+* The park smoke test and the track-art check from V1-0 are unchanged and still pass.

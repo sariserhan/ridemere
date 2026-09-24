@@ -46,6 +46,10 @@ STATION_OBJECTS = ["sunrise.station.plain"]
 #: locale and the only one whose strings the prototype has been read against.
 BUNDLED_LANGUAGES = ("en-GB.txt",)
 
+#: Declared in the content manifest so the engine asks for a locale the pack contains
+#: rather than whatever the host system reports.
+BUNDLED_LOCALES = tuple(name.removesuffix(".txt") for name in BUNDLED_LANGUAGES)
+
 BUNDLED_OPEN_OBJECTS = {
     "openrct2.ride.hybrid_coaster": "official/ride/openrct2.ride.hybrid_coaster.parkobj",
 }
@@ -100,20 +104,45 @@ def build() -> dict:
     # Languages. Upstream ships 28 translations, 1.25 MB of the download, and the
     # prototype has one locale of text worth reading. The directory and the loading
     # path are unchanged, so adding a language later is a matter of copying its file.
-    language_source = os.path.join(ENGINE, "data", "language")
+    # Strings come from our rebranded copies, built by build_language.py: the engine's
+    # own files name the upstream project in thirty-five places, including the status
+    # bar a player looks at constantly.
+    language_source = os.path.join(GENERATED, "language")
     language_dest = os.path.join(PACK, "language")
     os.makedirs(language_dest, exist_ok=True)
     for name in BUNDLED_LANGUAGES:
         candidate = os.path.join(language_source, name)
-        if os.path.exists(candidate):
-            shutil.copy(candidate, os.path.join(language_dest, name))
+        if not os.path.exists(candidate):
+            raise SystemExit("run tools/art-pipeline/build_language.py first")
+        shutil.copy(candidate, os.path.join(language_dest, name))
 
     # tracks.dat carries the track artwork itself, not design previews: OpenRCT2
     # authored complete open sprite sets for the coaster types it added (hybrid,
     # single rail, alpine, lattice triangle and others) and split them out of g2.dat.
     # Without it those rides draw no track at all. It is the largest item in the
     # download and it is not optional.
-    for name in ("g2.dat", "fonts.dat", "palettes.dat", "tracks.dat"):
+    # The window colour theme, installed into the player's theme directory by the
+    # product shell at start-up. Shipped inside the content pack so it versions with
+    # the rest of the interface.
+    theme_source = os.path.join(GENERATED, "ui", "Ridemere.json")
+    if not os.path.exists(theme_source):
+        raise SystemExit("run tools/art-pipeline/build_ui_theme.py first")
+    os.makedirs(os.path.join(PACK, "themes"), exist_ok=True)
+    shutil.copy(theme_source, os.path.join(PACK, "themes", "Ridemere.json"))
+
+    # Our own sprite font, built by build_fonts.py.
+    ridemere_font = os.path.join(GENERATED, "base", "fonts.dat")
+    if not os.path.exists(ridemere_font):
+        raise SystemExit("run tools/art-pipeline/build_fonts.py first")
+    shutil.copy(ridemere_font, os.path.join(PACK, "fonts.dat"))
+
+    # Our g2.dat: OpenRCT2's interface sprites with its branding replaced by ours.
+    ridemere_g2 = os.path.join(GENERATED, "base", "g2.dat")
+    if not os.path.exists(ridemere_g2):
+        raise SystemExit("run tools/art-pipeline/build_g2.py first")
+    shutil.copy(ridemere_g2, os.path.join(PACK, "g2.dat"))
+
+    for name in ("palettes.dat", "tracks.dat"):
         source = os.path.join(ENGINE, "build", "www", "_engine_data", name)
         if not os.path.exists(source):
             source = os.path.join(GENERATED, "engine-data", name)
@@ -158,6 +187,8 @@ def build() -> dict:
         "defaultObjects": DEFAULT_OBJECTS,
         "defaultStation": "sunrise.station.plain",
         "stationObjects": STATION_OBJECTS,
+        "languages": list(BUNDLED_LOCALES),
+        "defaultTheme": "Ridemere",
         "audioBaseObject": "sunrise.audio.base",
         "spriteAudit": {"populated": base_summary["populated"]},
     }
