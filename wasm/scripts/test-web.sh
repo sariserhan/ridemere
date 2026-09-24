@@ -28,7 +28,7 @@ echo "== server on http://localhost:$PORT"
 
 status=0
 for engine in $ENGINES; do
-  for suite in webshell webshell-restart; do
+  for suite in webshell webshell-restart webalerts; do
     echo
     echo "== $suite ($engine)"
     if [[ "$engine" == "chromium" ]]; then
@@ -39,6 +39,30 @@ for engine in $ENGINES; do
         node "$suite.js" "http://localhost:$PORT" "$engine" || status=1
     fi
   done
+done
+
+# The park has to be on the screen, not merely loaded. Every other assertion in the
+# suite passes on a park whose camera is pointing off the map, which is what the shell
+# did from V1-0 until V1-3 and what nothing noticed.
+#
+# Chromium and WebKit only. Playwright cannot capture a WebGL canvas in Firefox: the
+# screenshot comes back with the canvas transparent, showing the page background
+# through it, whatever the engine actually drew. That is a property of how the
+# screenshot is taken, not of the rendering, and the two engines that can be captured
+# are independent of each other. Firefox still runs every functional check.
+for engine in $ENGINES; do
+  shot="$ROOT/wasm/test/results-web/play-park-$engine.png"
+  echo
+  if [[ "$engine" == "firefox" ]]; then
+    echo "== the park is visible in the shell (firefox): not checked"
+    echo "   Playwright cannot capture a WebGL canvas in Firefox; see the comment in this script"
+    continue
+  fi
+  echo "== the park is visible in the shell ($engine)"
+  if [[ ! -f "$shot" ]]; then
+    echo "   no capture was taken"; status=1; continue
+  fi
+  "$ROOT/.cache/venv/bin/python" "$ROOT/tools/art-pipeline/check_visual_smoke.py" "$shot" || status=1
 done
 
 echo

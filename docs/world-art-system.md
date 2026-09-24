@@ -142,3 +142,34 @@ Shops, facilities and scenery in later milestones take their colours from the sa
 table. A building's base and trim should come from the `cliff`, `support` and `railing`
 materials or from new entries added here, never from a colour chosen in one generator.
 Adding a material means adding a row above and a row in `world_palette.py`.
+
+## Shops and facilities
+
+Five objects, one tile each: a food stall, a drink stall, a souvenir stall, a restroom
+and an information point. The engine's layout is three preview slots followed by one
+sprite per direction, rendered from four angles by the shared props generator.
+
+Every stall is the **same silhouette on purpose**. At the size these are drawn a player
+does not read a sign, they read a shape and a colour, so a shop is told apart by the
+accent on its awning and a facility by the colour of its roof. Making five distinct
+buildings would spend the art budget on a distinction that stops working at zoom 0.
+
+The two silhouettes that do differ carry a real meaning:
+
+| Form | Used by | Reads as |
+|---|---|---|
+| stall — open counter, posts, wide canopy, sign board | food, drink, souvenir | a place you are served at |
+| cabin — closed box, roof, doorway recess | restroom, information | a place you go into |
+
+That is the same distinction the simulation makes: the engine sends a guest *inside* a
+facility and serves them *at* a shop, and the art should not contradict it.
+
+Colours come from the world colourway like everything else here. Shops and facilities
+sit at the top of the saturation hierarchy with rides and guests, because a player
+looking for somewhere to put a food stall has to find the existing ones first.
+
+`check_shop_objects.py` asserts the layout, that each direction sprite carries art
+rather than a placeholder, that the four directions actually differ from one another,
+and that no two stalls ship the same pixels. The third of those is the one that catches
+a broken render loop: four copies of one frame count to four and look fine in a
+listing.

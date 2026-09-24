@@ -20,7 +20,8 @@ export type WebToGame =
   | { type: "LOAD_SAVE"; saveId: string; park: Uint8Array }
   | { type: "REQUEST_SAVE"; saveId: string; reason: "manual" | "autosave" | "exit" }
   | { type: "REQUEST_SCREENSHOT"; width: number; height: number }
-  | { type: "REQUEST_PARK_METADATA" };
+  | { type: "REQUEST_PARK_METADATA" }
+  | { type: "REQUEST_GUEST_ALERTS" };
 
 /** Everything the game may tell the web shell. */
 export type GameToWeb =
@@ -34,6 +35,7 @@ export type GameToWeb =
     }
   | { type: "SCREENSHOT_READY"; png: Uint8Array; width: number; height: number }
   | { type: "PARK_METADATA"; metadata: ParkMetadataMessage }
+  | { type: "GUEST_ALERTS"; alerts: GuestAlertMessage[] }
   | { type: "EXIT_GAME"; reason: "player" | "error" }
   | { type: "ERROR"; stage: ErrorStage; message: string; detail?: string };
 
@@ -59,13 +61,35 @@ export interface ParkMetadataMessage {
   parkOpen: boolean;
 }
 
-export type GameToWebType = GameToWeb["type"];
-export type Extract<T extends GameToWebType> = System.Extract<GameToWeb, { type: T }>;
-
-// TypeScript's own Extract, aliased so the exported name above reads clearly.
-declare namespace System {
-  type Extract<T, U> = T extends U ? T : never;
+/**
+ * One thing the park is telling the player, already aggregated by the engine.
+ *
+ * The web side deliberately does not decide when something is worth saying: the
+ * thresholds, the hysteresis and the cooldown all live in the simulation, because
+ * they depend on guest state the bridge does not carry and should not start to.
+ */
+export interface GuestAlertMessage {
+  /** Stable machine name, e.g. GUESTS_HUNGRY. Safe to switch on. */
+  kind: string;
+  severity: "INFO" | "WARNING" | "IMPORTANT";
+  /** Guests currently signalling this. */
+  guests: number;
+  /** Share of guests in the park, per mille. */
+  perMille: number;
+  /** Whether anything in the park answers this need. */
+  hasFacility: boolean;
+  raisedAtTick: number;
+  lastChangedTick: number;
+  title: string;
+  advice: string;
 }
+
+export type GameToWebType = GameToWeb["type"];
+
+/** Distributes over the union, picking the one member with this `type`. */
+type OfType<M, T> = M extends { type: T } ? M : never;
+
+export type Extract<T extends GameToWebType> = OfType<GameToWeb, T>;
 
 /**
  * A tiny typed event channel. One handler set per message type.

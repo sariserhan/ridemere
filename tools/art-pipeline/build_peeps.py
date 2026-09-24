@@ -15,9 +15,9 @@ Two engine contracts drive the layout:
   `_animationGroups[EnumValue(animGroup)]` with no bounds check, and Guest.cpp can
   select groups up to `sandwich` (32) for nausea, needing the toilet, crossed arms,
   watching a ride, carrying an item and so on. A guest object must therefore expose
-  33 groups or the game can read past the end of the vector. Groups 1..32 are
+  35 groups or the game can read past the end of the vector. Groups 1..34 are
   declared with an empty `animations` map: ReadAnimations then copies every
-  animation from group 0 (PeepAnimationsObject.cpp:113-131), so all 33 groups share
+  animation from group 0 (PeepAnimationsObject.cpp:113-131), so all 35 groups share
   one set of sprites. A guest carrying a burger simply looks like a guest, which is
   the content reduction this milestone set out to test.
 """
@@ -38,7 +38,11 @@ STAGE_ROOT = os.path.join(REPO, "assets", "generated", "staging", "peeps")
 OBJECT_ROOT = os.path.join(REPO, "assets", "generated", "objects")
 
 #: Highest PeepAnimationGroup a guest can be given (Peep.h: sandwich = 32).
-GUEST_ANIMATION_GROUPS = 33
+#: PeepAnimationGroup runs to 34 (lemonade), and the object is indexed by that value
+#: with no bounds check. Thirty-three covered every group a guest could reach until
+#: shops existed; a shop selling chicken or lemonade puts a guest into group 33 or 34
+#: and reads past the end of the vector. Thirty-five covers the whole enum.
+GUEST_ANIMATION_GROUPS = 35
 
 PEEPS = {
     "guest": {

@@ -1,0 +1,146 @@
+{
+  "name": "Guest Needs Test",
+  "details": "A development scene for the guest-need loop. Every stall ships closed so an alert has to raise before it can clear. Not a release scenario.",
+  "visibility": "development",
+  "mapTiles": 32,
+  "initialCash": 200000,
+  "objectiveGuests": 50,
+  "pathSurface": "sunrise.footpath_surface.paved",
+  "queueSurface": "sunrise.footpath_surface.queue",
+  "pathRailings": "sunrise.footpath_railings.metal",
+  "guests": {
+    "hunger": 90,
+    "thirst": 90,
+    "happiness": 200,
+    "cash": 60
+  },
+  "objects": [
+    "sunrise.terrain_surface.grass",
+    "sunrise.terrain_surface.dirt",
+    "sunrise.terrain_edge.rock",
+    "sunrise.footpath_surface.paved",
+    "sunrise.footpath_surface.queue",
+    "sunrise.footpath_railings.metal",
+    "sunrise.station.plain",
+    "sunrise.park_entrance.arch",
+    "sunrise.peep_names.visitors",
+    "sunrise.climate.temperate",
+    "sunrise.peep_animations.guest",
+    "sunrise.peep_animations.handyman",
+    "sunrise.ride.grill_stand",
+    "sunrise.ride.refreshment_stand",
+    "sunrise.ride.gift_stand",
+    "sunrise.ride.restroom",
+    "sunrise.ride.information_point"
+  ],
+  "entrance": {
+    "x": 16,
+    "y": 4,
+    "direction": 1
+  },
+  "peepSpawn": {
+    "x": 16,
+    "y": 1,
+    "direction": 3
+  },
+  "owned": {
+    "fromX": 1,
+    "fromY": 5,
+    "toX": 30,
+    "toY": 30
+  },
+  "paths": [
+    {
+      "from": [
+        16,
+        1
+      ],
+      "to": [
+        16,
+        24
+      ]
+    },
+    {
+      "from": [
+        8,
+        12
+      ],
+      "to": [
+        24,
+        12
+      ]
+    },
+    {
+      "from": [
+        8,
+        20
+      ],
+      "to": [
+        24,
+        20
+      ]
+    },
+    {
+      "from": [
+        8,
+        12
+      ],
+      "to": [
+        8,
+        20
+      ]
+    },
+    {
+      "from": [
+        24,
+        12
+      ],
+      "to": [
+        24,
+        20
+      ]
+    }
+  ],
+  "shops": [
+    {
+      "object": "sunrise.ride.grill_stand",
+      "x": 10,
+      "y": 11,
+      "direction": 1,
+      "price": 8,
+      "open": false
+    },
+    {
+      "object": "sunrise.ride.refreshment_stand",
+      "x": 13,
+      "y": 11,
+      "direction": 1,
+      "price": 6,
+      "open": false
+    },
+    {
+      "object": "sunrise.ride.restroom",
+      "x": 19,
+      "y": 11,
+      "direction": 1,
+      "price": 0,
+      "open": false
+    },
+    {
+      "object": "sunrise.ride.information_point",
+      "x": 22,
+      "y": 11,
+      "direction": 1,
+      "price": 0,
+      "open": false
+    },
+    {
+      "object": "sunrise.ride.gift_stand",
+      "x": 13,
+      "y": 21,
+      "direction": 3,
+      "price": 12,
+      "open": false
+    }
+  ]
+}

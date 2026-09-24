@@ -67,6 +67,12 @@ DEFAULT_OBJECTS = [
     "sunrise.footpath_surface.wood",
     "sunrise.footpath_surface.queue",
     "sunrise.footpath_railings.metal",
+    "sunrise.ride.grill_stand",
+    "sunrise.ride.refreshment_stand",
+    "sunrise.ride.gift_stand",
+    "sunrise.ride.restroom",
+    "sunrise.ride.information_point",
+
     "sunrise.park_entrance.arch",
     "sunrise.peep_names.visitors",
     "sunrise.climate.temperate",
@@ -87,6 +93,25 @@ def copy_tree(source: str, dest: str) -> None:
         shutil.copytree(source, dest, dirs_exist_ok=True)
 
 
+
+def _is_development_scenario(name: str) -> bool:
+    """Read a scenario's own visibility from its description.
+
+    The description is the single place this is declared. A scenario missing the
+    field is treated as a release scenario, so forgetting it can only ever make a
+    scenario visible that should have been, never hide one a player expects.
+    """
+    source = os.path.join(REPO, "assets", "scenarios", name, "scenario.json")
+    if not os.path.exists(source):
+        return False
+    with open(source, "r", encoding="utf-8") as handle:
+        description = json.load(handle)
+    visibility = description.get("visibility", "release")
+    if visibility not in ("release", "development"):
+        raise SystemExit(
+            f"{source}: visibility must be 'release' or 'development', not {visibility!r}")
+    return visibility == "development"
+
 def build() -> dict:
     base_archive = os.path.join(GENERATED, "base", "g1.dat")
     base_summary_path = os.path.join(GENERATED, "base", "base-archive.json")
@@ -99,6 +124,7 @@ def build() -> dict:
     standalone_dir = os.path.join(PACK, "standalone")
     os.makedirs(os.path.join(standalone_dir, "Data"), exist_ok=True)
     os.makedirs(os.path.join(standalone_dir, "Scenarios"), exist_ok=True)
+    os.makedirs(os.path.join(standalone_dir, "DevScenarios"), exist_ok=True)
     os.makedirs(os.path.join(PACK, "object"), exist_ok=True)
 
     shutil.copy(base_archive, os.path.join(standalone_dir, "Data", "g1.dat"))
@@ -176,15 +202,32 @@ def build() -> dict:
                 object_count += 1
 
     # Bundled scenarios, if any have been generated yet.
+    #
+    # A scenario goes into one of two directories, and which one is decided by the
+    # scenario's own description rather than by anything about its name. The engine
+    # scans Scenarios for the player-facing list and never looks at DevScenarios, so
+    # a development scene cannot reach the selector by accident, and a rename cannot
+    # make it appear. Development scenarios are still shipped and still loadable by
+    # path, which is what the harnesses do.
     scenario_source = os.path.join(GENERATED, "scenarios")
     scenario_count = 0
+    development_count = 0
+    development_names = []
     if os.path.isdir(scenario_source):
         for entry in sorted(os.listdir(scenario_source)):
-            if entry.endswith(".park"):
-                shutil.copy(
-                    os.path.join(scenario_source, entry),
-                    os.path.join(standalone_dir, "Scenarios", entry),
-                )
+            if not entry.endswith(".park"):
+                continue
+            name = entry[: -len(".park")]
+            development = _is_development_scenario(name)
+            folder = "DevScenarios" if development else "Scenarios"
+            shutil.copy(
+                os.path.join(scenario_source, entry),
+                os.path.join(standalone_dir, folder, entry),
+            )
+            if development:
+                development_count += 1
+                development_names.append(name)
+            else:
                 scenario_count += 1
 
     manifest = {
@@ -197,6 +240,7 @@ def build() -> dict:
         "defaultTheme": "Ridemere",
         "audioBaseObject": "sunrise.audio.base",
         "spriteAudit": {"populated": base_summary["populated"]},
+        "developmentScenarios": development_names,
     }
     with open(os.path.join(standalone_dir, "standalone.json"), "w", encoding="utf-8") as handle:
         json.dump(manifest, handle, indent=2)
@@ -210,6 +254,7 @@ def build() -> dict:
         "path": PACK,
         "objects": object_count,
         "scenarios": scenario_count,
+        "developmentScenarios": development_count,
         "bytes": total,
     }
 
@@ -217,6 +262,7 @@ def build() -> dict:
 if __name__ == "__main__":
     info = build()
     print(
-        f"content pack: {info['objects']} objects, {info['scenarios']} scenarios, "
+        f"content pack: {info['objects']} objects, {info['scenarios']} scenarios "
+        f"({info['developmentScenarios']} development), "
         f"{info['bytes'] / 1e6:.1f} MB -> {os.path.relpath(info['path'], REPO)}"
     )

@@ -67,6 +67,36 @@ layered across a crowd, so each must sit quietly in a mix of dozens.
 
 Cast a range of voices. A crowd made of one person reads as a crowd made of one person.
 
+### Shops, facilities and alerts
+
+Added in V1-3, when guest needs became a visible loop. A player who has just built a
+food stall should hear that it is working; a player being told the park is in trouble
+should hear that it is a different kind of message from a purchase.
+
+| Identifier | What it is | Heard |
+|---|---|---|
+| `purchase` | a small transaction completing at a counter | every shop sale, constantly |
+| `register` | the till, a shade brighter than `purchase` | money arriving, on a sale |
+| `eating` | a short chew, non-comic, very quiet | a guest consuming food |
+| `drinking` | a short sip, very quiet | a guest consuming a drink |
+| `facilityDoor` | a light door, used by restroom and information | a guest entering a facility |
+| `alertInfo` | a soft two-note rise | an alert raised at INFO |
+| `alertWarning` | the same shape, lower and firmer | an alert raised at WARNING |
+| `alertImportant` | a single deliberate low note, never a klaxon | an alert raised at IMPORTANT |
+
+These are all short. `purchase` in particular will play hundreds of times an hour in a
+busy park, so it has to be quiet, brief and completely uninteresting on repetition:
+closer to a click than to a jingle.
+
+The three alert sounds must be recognisable as a family and distinguishable from one
+another with the music on. They are the only sounds in the product that are allowed to
+interrupt, so IMPORTANT must sound serious without sounding like an emergency: the park
+is not on fire, the queue for the restroom is.
+
+`eating`, `drinking` and `facilityDoor` are near-field detail. A park where a thousand
+guests are audibly chewing is a park nobody will play with sound on, so these should be
+mixed to be heard when the camera is close and to vanish in a crowd.
+
 ### Ride-specific
 
 Heard only near a particular attraction, so they can be distinctive.

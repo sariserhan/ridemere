@@ -35,7 +35,26 @@ EXPECTATIONS = {
     "path": (0.010, "light footpaths"),
     "rails": (0.0035, "coaster track"),
     "structure": (0.0018, "dark structures such as supports and the train"),
+    "detail": (0.28, "surface texture, proving the park is drawn rather than smeared"),
 }
+
+#: Why a texture floor exists at all.
+#:
+#: Counting colour families alone passes a picture that contains the right colours in
+#: the wrong places. Two real failures proved it: a camera pointing off the map, which
+#: drew almost nothing, and a park scrolled continuously by a cursor stuck in the
+#: corner, which dragged wide diagonal bands of interface across everything. Both had
+#: enough green to pass.
+#:
+#: Every material this game ships is textured, so a horizontal run of identical pixels
+#: across a park is the signal that something is wrong. Measured on the park area:
+#:
+#:   a correct render, shell at 1280 and at 1024      0.404, 0.405
+#:   a correct render, standalone capture             0.430
+#:   a park smeared by continuous scrolling            0.193
+#:   a camera pointing off the map                    0.009
+#:
+#: The floor sits between the two groups with room on both sides.
 
 
 def classify(rgb: np.ndarray) -> dict[str, float]:
@@ -57,7 +76,14 @@ def classify(rgb: np.ndarray) -> dict[str, float]:
     rails = (r > 110) & (r > g + 40) & (r > b + 50) & ~marker
     dark = (r < 90) & (g < 90) & (b < 90) & (r + g + b > 45)
 
+    # How much of the picture changes from one pixel to the next, horizontally. Our
+    # materials are all textured, so a correct park is busy at this scale and a smear
+    # of flat colour is not.
+    grey = crop.mean(axis=2)
+    detail = float((np.abs(np.diff(grey, axis=1)) > 24).mean())
+
     return {
+        "detail": detail,
         "terrain": float(terrain.sum()) / total,
         "path": float(path.sum()) / total,
         "rails": float(rails.sum()) / total,

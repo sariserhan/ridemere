@@ -92,3 +92,34 @@ map boundary is gone.
 Next: **V1-3, shops, facilities and alerts** — food, drink, souvenir, toilets and
 information, each four sprites plus a stall model, and guest thoughts surfaced as park
 alerts. Alerts unblock the mechanic in V1-6.
+
+## V1-3 complete (2026-09-24)
+
+Three shops, two facilities, and a guest-alert layer that turns a park full of
+individual complaints into one sentence a player can act on, with a panel in the shell
+to read it. Thresholds, hysteresis, cooldown and severity live in the engine; see
+`docs/guest-alerts.md`.
+
+Three defects that predate this milestone were found and fixed while verifying it. The
+web shell opened the camera off the map, and started the engine before telling it how
+big its window was; both made the game route unusable, and neither was caught because
+nothing in the suite looked at the screen. It does now.
+
+The third is larger. **Money had never been simulated.** Every park this project has
+generated carried `ParkFlag::noMoney`, so prices, stock costs, running costs and guest
+spending were all inert. The economy is on now, which means V1-7 starts from a park
+that actually loses money rather than from nothing.
+
+Two things the pacing taught us, which shape the next milestones:
+
+* **Thirst only falls when a guest sits or eats.** A park with no benches generates no
+  demand for drinks. Benches move up: the drink stall is not really playable without
+  them.
+* **The information point only sells maps to lost guests**, so it is worth nothing in a
+  park with two straight paths. It needs a scenario with a real layout to justify
+  itself, which is V1-4's job.
+
+Next: **V1-4, scenario 1, first pass** — the tutorial scenario with contextual
+objectives and a tips panel, using only what exists. Benches and bins come with it,
+because the guest-need loop is incomplete without somewhere to sit and somewhere to put
+litter, and because alerts now name both.

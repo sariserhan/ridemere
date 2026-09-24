@@ -753,3 +753,136 @@ development scene and is not a release scenario.
 that sprites carry material rather than placeholders, for every terrain, edge, path and
 railing object. `blankworld-check.sh` blanks a terrain and a path and requires the check
 to reject them; it does.
+
+## V1-3 — shops, facilities and guest alerts (2026-09-24)
+
+Guest needs became a loop a player can see and act on. The simulation already knew
+who was hungry; what it could not do was say so in one sentence a player could act on.
+
+### What shipped
+
+| | Count | Notes |
+|---|---:|---|
+| Shops | 3 | grill stand (food), refreshment stand (drink), gift stand (souvenir) |
+| Facilities | 2 | restroom, information point |
+| Alert kinds | 8 | six guest needs, litter, and broken rides |
+| Severities | 3 | INFO, WARNING, IMPORTANT |
+| Development scenes | 2 | `world-art-test`, `needs-test`, neither reachable by a player |
+
+### What a stall takes
+
+With the economy on, on the needs scene, after about three minutes of trading:
+
+| Stall | Price | Customers | Profit |
+|---|---:|---:|---:|
+| Grill stand | £0.80 | 62 | £15.50 |
+| Refreshment stand | £0.60 | 62 | £15.50 |
+| Restroom | free | 67 | costs only |
+| Gift stand | £1.20 | 0 | −£3.10 |
+
+The gift stand sells nothing there, and correctly: a guest buys a souvenir only after
+three rides, and that scene has no rides. A shop with no customers still pays its
+running costs, which is the first real economic pressure this project has produced.
+
+### The stalls work at the game's own pace
+
+A fifty-three-thousand-tick run on `sunrise-test` with no test scaffolding at all,
+guests generated once and left alone:
+
+| Stall | First sale | Total at t=53,442 |
+|---|---:|---:|
+| Gift stand | t≈11,200 | 51 |
+| Grill stand | t≈32,300 | 22 |
+| Restroom | t≈34,100 | 17 |
+| Refreshment stand | t≈45,600 | 5 |
+| Information point | — | 0 |
+
+Those numbers are the engine's pacing, not a defect, and they are worth knowing
+before designing a scenario around them:
+
+* A guest arrives with hunger at 200 and loses two roughly every 512 ticks, so a park
+  does not want food for the first ten minutes of play.
+* **Thirst never falls on its own.** It drops only when a guest sits down or finishes
+  food, so a park with no benches and no food stall generates no demand for drinks at
+  all. Benches are V1-4 content; until then the drink stall depends on the food stall.
+* The information point sells maps, and a guest buys a map only when lost. In a park
+  with two straight paths nobody gets lost, so it never sold one. It earns its place
+  in a scenario with a real layout, not in a test fixture.
+
+### Four things that were wrong and are now right
+
+1. **The stalls were unreachable.** A stall connects to a path only when the stall's
+   own direction points at it: `Loc6A6C85` requires `(direction - element.direction) & 3
+   == 0`, and `flatTrack1x1A` carries only `entranceConnectionNE`. Every stall was
+   facing away from the path. Direction deltas are 0 = −x, 1 = +y, 2 = +x, 3 = −y.
+2. **The player could not see their park.** In the web shell the camera opened off the
+   map, so the game route showed a working toolbar over an empty screen. It had been
+   that way since V1-0 and nothing noticed, because every assertion checked state and
+   none looked at the screen. `SunriseLoadPark` now repairs a camera that is not
+   pointing at the map, and only then, so a park saved by a player opens where they
+   left it.
+3. **The engine drew into a surface of the wrong size.** The shell started the engine
+   before telling it how big its window was, so SDL used the 300×150 default and the
+   browser stretched the result: a band of five-times-scale toolbar icons across the
+   top of the park. The shell now sizes the canvas from its laid-out size before the
+   engine opens a window.
+4. **Money had never been simulated.** `Park::Initialise` starts every park with
+   `ParkFlag::noMoney`, and the park builder never cleared it, so every scenario this
+   project has produced ran with the economy switched off. Guests walked into shops,
+   were served, and nothing moved. Prices, stock costs, running costs and guest
+   spending were all inert. The builder now turns money on, and a scenario can ask for
+   the sandbox back with `"money": false`.
+
+Half of every stall was also missing on screen, for a reason worth writing down: the
+render camera orbits the world origin, and the stalls were modelled at the tile centre,
+so each of the four rotations swung the model to a different place and the packed
+sprite offsets disagreed with one another. They are modelled on the origin now, and all
+four offsets agree.
+
+### The alert model
+
+Counted from guest thoughts every 256 ticks, with a share threshold and an absolute
+floor, hysteresis at roughly two thirds of the raise share, and a cooldown after
+clearing. Severity is a band on the same share, and a need with nothing open to answer
+it is escalated one band, because that is the case where the player cannot work out the
+fix by looking. Closed stalls do not count as a facility.
+
+Alert state is **derived, never serialized**. It is a function of guest and ride state,
+so a loaded park re-raises whatever is still true within one scan. Writing it into the
+save would fork a format we share with upstream to store something recomputable in
+microseconds. Full details in `docs/guest-alerts.md`.
+
+The player-facing surface is a panel in the shell, bottom right, fed by a new
+`GUEST_ALERTS` bridge message polled every five seconds. The engine decides whether
+there is anything to say; the web side decides only how it looks.
+
+### Development scenes cannot reach a player
+
+By structure rather than by filtering. A scenario declares `visibility` in its own
+description; development ones are packed into `standalone/DevScenarios`, and the
+engine's scenario repository scans exactly `<base>/Scenarios` and never a sibling of
+it. A rename cannot make a scene visible. The player build strips the directory
+entirely, so the content is not even shipped.
+
+### Guards added, each proven to fail
+
+| Guard | Catches |
+|---|---|
+| `check_shop_objects.py` | a stall rendered from one angle four times, blank direction sprites, two stalls sharing artwork |
+| `check_scenario_visibility.py` | a development scene shipped where the selector finds it, or offered by the shell |
+| `demo_check_failures.py` | runs the two above against deliberately broken copies and requires rejection |
+| `shellvisual-check.sh` | requires the visual check to reject two real captures of the shipped defects |
+| texture floor in `check_visual_smoke.py` | a park that is on screen in the right colours but smeared or undrawn |
+| `alertcheck.js` | the whole need loop, including that a healthy park raises nothing |
+| `webalerts.js` | that the model reaches the screen, and that the panel clears |
+
+The texture floor exists because colour counting alone passed both shipped defects.
+Every material in the game is textured, so a flat run across the park means something
+is wrong: a correct render measures 0.40–0.43, a smeared one 0.19, an undrawn one 0.009.
+
+### Sprite audit
+
+Clean: 0 unexpected indices, 0 requests. `SPR_RIDE` was authored, and so were the five
+weather icons we had not shipped. Only sun and cloud existed, so the toolbar drew a
+magenta marker the first time it rained — a hole the audit found only intermittently,
+which is the worst kind to have.

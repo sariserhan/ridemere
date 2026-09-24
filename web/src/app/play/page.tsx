@@ -19,9 +19,18 @@ import { GameRuntime, type LoadProgress } from "@/lib/game/runtime";
 import { GameSaveStore } from "@/lib/saves/store";
 import { StorageQuotaError, type SaveRecord } from "@/lib/saves/types";
 import { Wordmark } from "@/components/wordmark";
+import { GuestAlerts } from "@/components/guest-alerts";
+import type { GuestAlertMessage } from "@/lib/bridge/messages";
 
 /** How often the park is written while playing. */
 const AUTOSAVE_INTERVAL_MS = 60_000;
+/**
+ * How often the alert list is refreshed. The engine re-counts the park every 256
+ * ticks, roughly six seconds of play, so asking more often than this would return the
+ * same answer; asking much less often would let a player fix something and keep being
+ * told about it.
+ */
+const ALERT_POLL_MS = 5_000;
 const THUMBNAIL = { width: 480, height: 270 };
 
 type Phase = "loading" | "playing" | "failed";
@@ -51,6 +60,8 @@ function PlayScreen() {
   // because it tells them their last few minutes of play were lost.
   const [recovery, setRecovery] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [alerts, setAlerts] = useState<GuestAlertMessage[]>([]);
+  const [alertsCollapsed, setAlertsCollapsed] = useState(false);
 
   const persist = useCallback(
     async (park: Uint8Array, metadata: SaveRecord["parkMetadata"], kind: "manual" | "autosave" | "exit") => {
@@ -90,6 +101,7 @@ function PlayScreen() {
     startedRef.current = true;
     let cancelled = false;
     let autosaveTimer = 0;
+    let alertTimer = 0;
 
     (async () => {
       const store = await GameSaveStore.open();
@@ -119,6 +131,9 @@ function PlayScreen() {
       runtime.bus.on("ERROR", (message) => {
         setError({ message: message.message, detail: message.detail });
         setPhase("failed");
+      });
+      runtime.bus.on("GUEST_ALERTS", (message) => {
+        if (!cancelled) setAlerts(message.alerts);
       });
       runtime.bus.on("SCREENSHOT_READY", (message) => {
         pendingShot.current = message.png;
@@ -152,6 +167,10 @@ function PlayScreen() {
           void runtime.send({ type: "REQUEST_SAVE", saveId: record!.id, reason: "autosave" });
         }, 4000);
 
+        alertTimer = window.setInterval(() => {
+          void runtime.send({ type: "REQUEST_GUEST_ALERTS" });
+        }, ALERT_POLL_MS);
+
         autosaveTimer = window.setInterval(() => {
           if (!dirtyRef.current) dirtyRef.current = true;
           void runtime.send({ type: "REQUEST_SCREENSHOT", ...THUMBNAIL });
@@ -167,6 +186,7 @@ function PlayScreen() {
     return () => {
       cancelled = true;
       if (autosaveTimer) window.clearInterval(autosaveTimer);
+      if (alertTimer) window.clearInterval(alertTimer);
     };
   }, [persist, router, saveId, scenarioId]);
 
@@ -211,13 +231,17 @@ function PlayScreen() {
         The canvas is always laid out at full size, even while the loading screen is
         over it. Hiding it with display:none gives it a zero client size, and the
         engine divides by that when it sets up its viewport.
+
+        It carries no width or height attributes on purpose. Those set the backing
+        store, the engine sets it again when it opens its window, and in between the
+        browser stretches whatever was drawn at the old size across the new one. The
+        result is a band of five-times-scale toolbar icons that no later frame
+        repaints, because the engine only redraws what it knows is dirty.
       */}
       <canvas
         ref={canvasRef}
         id="canvas"
         tabIndex={0}
-        width={1280}
-        height={800}
         className="absolute inset-0 block h-full w-full"
       />
 
@@ -237,6 +261,20 @@ function PlayScreen() {
               {notice}
             </div>
           )}
+        </div>
+      )}
+
+      {/*
+        Bottom right, over the map rather than beside it: the park is the subject, and
+        an alert is worth the corner of the frame it covers only while it is true.
+      */}
+      {phase === "playing" && (
+        <div className="pointer-events-none absolute bottom-3 right-3 z-10 flex justify-end">
+          <GuestAlerts
+            alerts={alerts}
+            collapsed={alertsCollapsed}
+            onToggle={() => setAlertsCollapsed((was) => !was)}
+          />
         </div>
       )}
 

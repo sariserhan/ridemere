@@ -9,6 +9,7 @@ import JSZip from "jszip";
 import {
   MessageChannelBus,
   type GameToWeb,
+  type GuestAlertMessage,
   type ParkMetadataMessage,
   type WebToGame,
 } from "@/lib/bridge/messages";
@@ -131,6 +132,19 @@ export class GameRuntime {
   }
 
   async start(canvas: HTMLCanvasElement): Promise<boolean> {
+    // Tell the engine how big its window is before it opens one.
+    //
+    // SDL takes the window size from the canvas element's width and height
+    // attributes. A canvas with none is 300x150, and the engine lays out and draws
+    // into a surface of that size while the browser stretches it across the real
+    // canvas. The result is a band of five-times-scale toolbar icons across the top
+    // of the park, which no later frame repaints because the engine only redraws what
+    // it believes is dirty.
+    //
+    // Sizing from the laid-out element, rather than to a fixed 1280x800, is what makes
+    // this right on a window that is not that size.
+    this.sizeCanvas(canvas);
+
     if (!self.crossOriginIsolated || typeof SharedArrayBuffer === "undefined") {
       this.emitError(
         "engine-start",
@@ -406,7 +420,21 @@ export class GameRuntime {
         if (metadata) this.bus.emit({ type: "PARK_METADATA", metadata });
         return;
       }
+      case "REQUEST_GUEST_ALERTS": {
+        const alerts = this.readAlerts();
+        if (alerts) this.bus.emit({ type: "GUEST_ALERTS", alerts });
+        return;
+      }
     }
+  }
+
+  /** Match the canvas backing store to its laid-out size, in device pixels. */
+  private sizeCanvas(canvas: HTMLCanvasElement): void {
+    const rect = canvas.getBoundingClientRect();
+    const width = Math.max(1, Math.round(rect.width || window.innerWidth));
+    const height = Math.max(1, Math.round(rect.height || window.innerHeight));
+    if (canvas.width !== width) canvas.width = width;
+    if (canvas.height !== height) canvas.height = height;
   }
 
   private openScenario(scenarioId: string): void {
@@ -472,6 +500,21 @@ export class GameRuntime {
       this.bus.emit({ type: "SCREENSHOT_READY", png: new Uint8Array(png), width, height });
     } catch (error) {
       this.emitError("screenshot", "The thumbnail could not be captured.", String(error));
+    }
+  }
+
+  /**
+   * The aggregated alert list. An unreadable or malformed answer is treated as "the
+   * game has nothing to say" rather than as an error, because the alert panel must
+   * never be the thing that interrupts a park.
+   */
+  private readAlerts(): GuestAlertMessage[] | null {
+    try {
+      const raw = this.module!.ccall("SunriseGuestAlertsJson", "string", [], []) as string;
+      const parsed = JSON.parse(raw) as GuestAlertMessage[];
+      return Array.isArray(parsed) ? parsed : null;
+    } catch {
+      return null;
     }
   }
 

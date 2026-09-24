@@ -31,6 +31,7 @@ Direction is part of the type, so nothing can send a message the wrong way.
 | `REQUEST_SAVE` | `saveId`, `reason: manual \| autosave \| exit` | serialise the park now |
 | `REQUEST_SCREENSHOT` | `width`, `height` | capture a thumbnail |
 | `REQUEST_PARK_METADATA` | none | describe the current park |
+| `REQUEST_GUEST_ALERTS` | none | what is the park telling the player |
 
 ### Game to web
 
@@ -40,6 +41,7 @@ Direction is part of the type, so nothing can send a message the wrong way.
 | `SAVE_READY` | `saveId`, `park`, `reason`, `parkMetadata` | here are the bytes and a snapshot |
 | `SCREENSHOT_READY` | `png`, `width`, `height` | here is a thumbnail |
 | `PARK_METADATA` | `metadata` | here is a snapshot |
+| `GUEST_ALERTS` | `alerts` | here is the active alert list, most severe first |
 | `EXIT_GAME` | `reason: player \| error` | the player has left the park |
 | `ERROR` | `stage`, `message`, `detail?` | something failed, in words a player can read |
 
@@ -65,9 +67,27 @@ decision already taken.
 Nothing reconstructs a park from it, and no web-side store keeps guests, rides,
 finances, paths or entities.
 
+## Guest alerts
+
+The second, and so far only other, piece of simulation data that crosses the boundary.
+Each alert carries:
+
+```
+kind  severity  guests  perMille  hasFacility  raisedAtTick  lastChangedTick
+title  advice
+```
+
+The shell polls for these every five seconds and renders them; it does not decide when
+something is worth saying. Thresholds, hysteresis and cooldown all live in the engine,
+because they depend on guest state the bridge does not carry and should not start to.
+See `docs/guest-alerts.md`.
+
+`kind` is a string rather than a closed union on purpose: a new alert added in the
+engine appears in the panel without a matching change on the web side.
+
 ## Engine entry points behind it
 
-Five exported functions, all prefixed `Sunrise`:
+Six exported functions, all prefixed `Sunrise`:
 
 | Export | Used by |
 |---|---|
@@ -75,6 +95,7 @@ Five exported functions, all prefixed `Sunrise`:
 | `SunriseSavePark(path)` | `REQUEST_SAVE` |
 | `SunriseParkMetadataJson()` | `PARK_METADATA`, and attached to every `SAVE_READY` |
 | `SunriseCaptureThumbnail(name, w, h)` | `REQUEST_SCREENSHOT` |
+| `SunriseGuestAlertsJson()` | `GUEST_ALERTS` |
 | `SunriseParkStatsJson()` | readiness detection, see below |
 
 Park bytes move through the Emscripten virtual filesystem: the shell writes them to a
@@ -101,5 +122,5 @@ asserts the park's **name and ride count**, not merely that something opened.
 implemented, because nothing produces them yet.
 
 There is no message for arbitrary engine state, no scripting channel, and no way for
-the web side to call into the simulation other than the five functions above. Keep it
+the web side to call into the simulation other than the six functions above. Keep it
 that way: every addition is a promise that becomes expensive to break.

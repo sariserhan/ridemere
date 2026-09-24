@@ -183,3 +183,25 @@ It is the only milestone with no content dependencies, it turns the prototype in
 something a person can use twice, and it forces the route and bridge decisions that are
 expensive to change later. It also produces the first thing worth showing someone:
 a link that opens a park, and a park that is still there tomorrow.
+
+## What V1-3 changed about this plan (2026-09-24)
+
+Three findings from building the shops move work around. They are recorded here rather
+than only in `docs/status.md` because they change what has to be built when.
+
+**Benches move forward, into V1-4.** Thirst falls only when a guest sits or finishes
+food, so a park with no benches generates almost no demand for drinks. One of the three
+shops is close to inert until somewhere to sit exists, and the alert that would tell a
+player about it cannot fire either. Benches and bins are small, share the props
+generator, and unlock content that is already built.
+
+**The economy starts from zero, not from nothing.** Money had never been simulated:
+every generated park carried `ParkFlag::noMoney`. It is on now, and the first park we
+turned it on in loses money. V1-7 therefore begins with a real number to tune rather
+than with an untested system, and ride and stall prices are now worth setting
+deliberately in every scenario.
+
+**The information point needs a scenario, not a fixture.** It sells maps, and a guest
+buys a map only when lost. In a park with two straight paths nobody is ever lost, so it
+sold nothing across fifty thousand ticks. It earns its place in V1-4's scenario, which
+is the first park with a layout worth getting lost in.

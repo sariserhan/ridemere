@@ -63,6 +63,11 @@ async function waitForCards(page, count, timeout = 60000) {
 
     // --- the game route is isolated ----------------------------------------
     await page.goto(`${base}/play?scenario=sunrise-test`, { waitUntil: 'domcontentloaded' });
+    // Park the cursor in the middle of the map. A cursor left at (0, 0) sits on the
+    // screen edge, which makes the game scroll continuously, and on the first toolbar
+    // button, which shows its tooltip. The two together drag a trail of interface
+    // across the park, and every frame after that is unreadable.
+    await page.mouse.move(640, 400);
     const isolation = await page.evaluate(() => ({
       isolated: self.crossOriginIsolated === true,
       sab: typeof SharedArrayBuffer !== 'undefined',
@@ -81,6 +86,15 @@ async function waitForCards(page, count, timeout = 60000) {
     const noPrompt = await page.evaluate(() =>
       !document.body.textContent.match(/RollerCoaster|RCT2|locate your|install/i));
     check('no original-game import prompt appears', noPrompt);
+
+    // A picture of the park as a player sees it in the shell, checked afterwards by
+    // check_visual_smoke.py. Every assertion above passes on a park that has loaded
+    // but is not on screen, which is exactly what the shell did from V1-0 until V1-3:
+    // the camera opened off the map and the player saw a working toolbar over an empty
+    // screen. Nothing programmatic noticed, because nothing programmatic looked.
+    await page.mouse.move(640, 400);
+    await sleep(4000);
+    await page.screenshot({ path: path.join(OUT, `play-park-${browserName}.png`) });
 
     // --- first autosave -----------------------------------------------------
     await page.waitForSelector('text=Autosaved', { timeout: 120000 });

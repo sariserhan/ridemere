@@ -31,6 +31,28 @@ run "world objects have the expected layout and carry real art" \
 run "shipped track artwork is real, not placeholders" \
   "$PY" "$ROOT/tools/art-pipeline/check_track_art.py"
 
+run "shops and facilities have four real angles and their own art" \
+  "$PY" "$ROOT/tools/art-pipeline/check_shop_objects.py"
+
+run "development scenes cannot reach the scenario selector" \
+  "$PY" "$ROOT/tools/art-pipeline/check_scenario_visibility.py"
+
+# A check that has never rejected anything is not evidence. This builds broken copies
+# of the shipped content and asserts each check rejects the one it exists to catch.
+run "the content checks reject the artefacts they exist to catch" \
+  "$PY" "$ROOT/tools/art-pipeline/demo_check_failures.py"
+
+run "the shell visual check rejects a park that was never drawn" \
+  bash "$ROOT/wasm/test/shellvisual-check.sh"
+
+# The shops have to reach the screen, not merely exist as objects. This runs on the
+# capture shopcheck.js takes of a park with all five placed and open.
+shops_visible() {
+  ( cd "$ROOT/wasm/test" && node shopcheck.js >/dev/null ) \
+    && "$PY" "$ROOT/tools/art-pipeline/check_visual_shops.py" "$ROOT/wasm/test/results-visual/shops.png"
+}
+run "the shops and facilities are drawn in a park, and colour-coded" shops_visible
+
 # Render a known park and check the picture contains the things a park must contain.
 # This is the guard against a whole sprite table being blank while every programmatic
 # assertion still passes, which has happened.
@@ -56,6 +78,11 @@ run "standalone boots in a clean browser with no prompt" bash -c '
 run "park loads and simulates in a clean browser" bash -c '
   cd "'"$ROOT"'/wasm/test" && node gameplay.js >/dev/null && \
   "'"$PY"'" "'"$ROOT"'/wasm/test/check_gameplay.py"'
+
+# The guest-need loop, end to end: a need appears, an alert raises and says what to
+# build, the stall opens, guests use it, and the alert clears.
+run "guest needs raise alerts, and the alerts clear when the park is fixed" bash -c '
+  cd "'"$ROOT"'/wasm/test" && node alertcheck.js'
 
 printf '\n== %d passed, %d failed\n' "$pass" "$fail"
 [[ $fail -eq 0 ]]

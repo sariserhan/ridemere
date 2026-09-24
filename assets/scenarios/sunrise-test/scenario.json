@@ -1,6 +1,7 @@
 {
   "name": "Sunrise Test Park",
   "details": "A small flat park used to exercise the standalone runtime end to end.",
+  "visibility": "release",
   "mapTiles": 32,
   "initialCash": 20000,
   "objectiveGuests": 50,
@@ -24,7 +25,12 @@
     "sunrise.terrain_edge.rock",
     "sunrise.footpath_surface.stone",
     "sunrise.footpath_surface.wood",
-    "sunrise.footpath_railings.metal"
+    "sunrise.footpath_railings.metal",
+    "sunrise.ride.grill_stand",
+    "sunrise.ride.refreshment_stand",
+    "sunrise.ride.gift_stand",
+    "sunrise.ride.restroom",
+    "sunrise.ride.information_point"
   ],
   "entrance": {
     "x": 16,
@@ -130,5 +136,42 @@
       "y": 8,
       "direction": 2
     }
-  }
+  },
+  "shops": [
+    {
+      "object": "sunrise.ride.grill_stand",
+      "x": 14,
+      "y": 13,
+      "direction": 1,
+      "price": 8
+    },
+    {
+      "object": "sunrise.ride.refreshment_stand",
+      "x": 18,
+      "y": 13,
+      "direction": 1,
+      "price": 6
+    },
+    {
+      "object": "sunrise.ride.gift_stand",
+      "x": 14,
+      "y": 15,
+      "direction": 3,
+      "price": 12
+    },
+    {
+      "object": "sunrise.ride.restroom",
+      "x": 18,
+      "y": 15,
+      "direction": 3,
+      "price": 0
+    },
+    {
+      "object": "sunrise.ride.information_point",
+      "x": 20,
+      "y": 15,
+      "direction": 3,
+      "price": 0
+    }
+  ]
 }

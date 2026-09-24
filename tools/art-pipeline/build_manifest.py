@@ -94,6 +94,46 @@ RECORDS: Dict[str, dict] = {
         "source": "tools/art-pipeline/build_paths.py",
         "notes": "Edging, supports and bridge deck for every path style.",
     },
+    "object/sunrise.ride.grill_stand.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_shop_food_v1",
+        "source": "assets/source/blender/world_props.py",
+        "generator": "blender 4.2 + tools/art-pipeline/build_shops.py",
+        "notes": "Original food stall; shares the V1 stall silhouette and is told apart by "
+                 "its accent colour.",
+    },
+    "object/sunrise.ride.refreshment_stand.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_shop_drink_v1",
+        "source": "assets/source/blender/world_props.py",
+        "generator": "blender 4.2 + tools/art-pipeline/build_shops.py",
+        "notes": "Original drink stall; shares the V1 stall silhouette and is told apart by "
+                 "its accent colour.",
+    },
+    "object/sunrise.ride.gift_stand.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_shop_souvenir_v1",
+        "source": "assets/source/blender/world_props.py",
+        "generator": "blender 4.2 + tools/art-pipeline/build_shops.py",
+        "notes": "Original souvenir stall; shares the V1 stall silhouette and is told apart by "
+                 "its accent colour.",
+    },
+    "object/sunrise.ride.restroom.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_facility_restroom_v1",
+        "source": "assets/source/blender/world_props.py",
+        "generator": "blender 4.2 + tools/art-pipeline/build_shops.py",
+        "notes": "Original restroom; shares the V1 stall silhouette and is told apart by "
+                 "its accent colour.",
+    },
+    "object/sunrise.ride.information_point.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_facility_information_v1",
+        "source": "assets/source/blender/world_props.py",
+        "generator": "blender 4.2 + tools/art-pipeline/build_shops.py",
+        "notes": "Original information kiosk; shares the V1 stall silhouette and is told apart by "
+                 "its accent colour.",
+    },
     "object/sunrise.park_entrance.arch.parkobj": {
         **ORIGINAL,
         "asset": "sunrise_park_entrance_v1",
@@ -117,13 +157,24 @@ RECORDS: Dict[str, dict] = {
         "asset": "sunrise_climate_v1",
         "source": "tools/art-pipeline/build_world_objects.py",
     },
-    "standalone/Scenarios/world-art-test.park": {
+    "standalone/DevScenarios/world-art-test.park": {
         **ORIGINAL,
         "asset": "sunrise_world_art_test_v1",
         "source": "assets/scenarios/world-art-test/scenario.json",
         "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
         "notes": "A development scene that shows every world material, slope, edge and "
-                 "path combination in one view. Not a release scenario.",
+                 "path combination in one view. Shipped in DevScenarios, which the "
+                 "engine's scenario repository never scans, so it cannot reach the "
+                 "player-facing selector.",
+    },
+    "standalone/DevScenarios/needs-test.park": {
+        **ORIGINAL,
+        "asset": "sunrise_needs_test_v1",
+        "source": "assets/scenarios/needs-test/scenario.json",
+        "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+        "notes": "A development scene for the guest-need loop. Every stall ships "
+                 "closed so an alert has to raise before it can clear. Shipped in "
+                 "DevScenarios and stripped from the player build entirely.",
     },
     "standalone/Scenarios/sunrise-test.park": {
         **ORIGINAL,

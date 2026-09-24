@@ -1,6 +1,7 @@
 {
   "name": "World Art Test",
   "details": "A development scene that puts every V1-2 world material, slope, edge and path combination in one view. Not a release scenario.",
+  "visibility": "development",
   "mapTiles": 40,
   "initialCash": 500000,
   "objectiveGuests": 10,

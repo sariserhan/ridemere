@@ -298,6 +298,66 @@ def icon_next_weather() -> Canvas:
     return canvas
 
 
+def _cloud(canvas: Canvas, x: float, y: float, colour: int, scale: float = 1.0) -> None:
+    """The shared cloud body, so every weather icon is obviously the same weather."""
+    canvas.disc(x - 2 * scale, y + 1 * scale, 3.4 * scale, colour)
+    canvas.disc(x + 2 * scale, y + 1 * scale, 4.0 * scale, colour)
+    canvas.disc(x, y - 1.5 * scale, 3.2 * scale, colour)
+    canvas.rect(int(x - 5 * scale), int(y + 1 * scale), int(x + 5 * scale), int(y + 4 * scale), colour)
+
+
+def icon_weather_sun_cloud() -> Canvas:
+    """SPR_WEATHER_SUN_CLOUD. The toolbar draws whichever of the seven matches the sky.
+
+    All seven are authored, not only the two a clear day happens to use: an icon that
+    is missing only when it rains is a hole the sprite audit finds intermittently,
+    which is the worst kind of hole to have.
+    """
+    canvas = Canvas(16, 16)
+    canvas.disc(5, 6, 3.6, SUN)
+    _cloud(canvas, 9, 9, PAPER)
+    return canvas
+
+
+def _rain(canvas: Canvas, drops, colour: int) -> None:
+    for x, y in drops:
+        canvas.line(x, y, x - 1, y + 3, colour, width=1)
+
+
+def icon_weather_light_rain() -> Canvas:
+    canvas = Canvas(16, 16)
+    _cloud(canvas, 8, 6, PAPER)
+    _rain(canvas, ((6, 11), (10, 11)), BLUE)
+    return canvas
+
+
+def icon_weather_heavy_rain() -> Canvas:
+    canvas = Canvas(16, 16)
+    _cloud(canvas, 8, 5, EDGE)
+    _rain(canvas, ((4, 10), (7, 10), (10, 10), (13, 10)), BLUE)
+    return canvas
+
+
+def icon_weather_storm() -> Canvas:
+    canvas = Canvas(16, 16)
+    _cloud(canvas, 8, 5, EDGE)
+    # A bolt, not more rain: a storm has to be distinguishable from heavy rain at a
+    # glance, and at sixteen pixels the only reliable difference is the silhouette.
+    canvas.line(9, 9, 6, 12, SUN, width=2)
+    canvas.line(6, 12, 9, 12, SUN, width=2)
+    canvas.line(9, 12, 6, 15, SUN, width=2)
+    _rain(canvas, ((3, 10), (13, 10)), BLUE)
+    return canvas
+
+
+def icon_weather_snow() -> Canvas:
+    canvas = Canvas(16, 16)
+    _cloud(canvas, 8, 5, PAPER)
+    for x, y in ((4, 11), (8, 12), (12, 11), (6, 14), (10, 14)):
+        canvas.rect(x - 1, y - 1, x, y, PAPER)
+    return canvas
+
+
 def icon_balloon() -> Canvas:
     canvas = Canvas(16, 16)
     canvas.disc(8, 6, 4.5, RED)
@@ -621,6 +681,21 @@ def _symbol_button(draw, size: int = 24) -> Canvas:
     return canvas
 
 
+def icon_ride() -> Canvas:
+    """SPR_RIDE: the marker on a ride news item, in the ticker and the news window.
+
+    Drawn into a 24x24 inset box that already has a one-pixel border, so the shape
+    keeps clear of the outermost two pixels. The same coaster hill as the ride tab,
+    without the tab plate under it, so a news item and a tab read as the same subject.
+    """
+    def glyph(c: Canvas) -> None:
+        c.line(4, 18, 11, 6, ACCENT_DARK, width=3)
+        c.line(11, 6, 19, 18, ACCENT_DARK, width=3)
+        c.rect(4, 18, 19, 20, EDGE)
+        c.rect(8, 9, 12, 12, RED)
+    return _symbol_button(glyph)
+
+
 def button_palette() -> Canvas:
     """SPR_PALETTE_BTN: the colour swatch button."""
     def glyph(c: Canvas) -> None:
@@ -758,6 +833,8 @@ UI_SPRITES: Dict[int, Tuple[str, Callable[[], Canvas]]] = {
     # SPR_RESIZE, drawn in the corner of every resizable window.
     5058: ("window_resize_grip", icon_resize_grip),
     # Window chrome: the tab plate and its selected state.
+    # SPR_RIDE: drawn on every ride news item and in the ticker.
+    5187: ("news_ride", icon_ride),
     5198: ("tab_plate", lambda: tab_shape(False)),
     5199: ("tab_plate_active", lambda: tab_shape(True)),
     # Window buttons.
@@ -822,8 +899,15 @@ UI_SPRITES: Dict[int, Tuple[str, Callable[[], Canvas]]] = {
     23210: ("menu_exit", menu_exit),
     23211: ("menu_toolbox", menu_toolbox),
     23189: ("next_weather", icon_next_weather),
+    # All seven weather icons: the toolbar draws whichever matches the sky, so shipping
+    # only the fair-weather two leaves a hole that appears the first time it rains.
     23190: ("weather_sun", icon_weather_sun),
+    23191: ("weather_sun_cloud", icon_weather_sun_cloud),
     23192: ("weather_cloud", icon_weather_cloud),
+    23193: ("weather_light_rain", icon_weather_light_rain),
+    23194: ("weather_heavy_rain", icon_weather_heavy_rain),
+    23195: ("weather_storm", icon_weather_storm),
+    23196: ("weather_snow", icon_weather_snow),
     23197: ("rating_low", icon_rating_low),
     23198: ("rating_high", icon_rating_high),
 }

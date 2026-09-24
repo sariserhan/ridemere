@@ -190,7 +190,13 @@
     const requested = new URLSearchParams(location.search).get("park");
     const args = [];
     if (requested) {
-        args.push(requested.startsWith("/") ? requested : `/OpenRCT2/standalone/Scenarios/${requested}`);
+        // A bare name is a release scenario. Development scenes are shipped in their
+        // own directory so they cannot reach the player-facing list, and a harness
+        // names one by including that directory: "DevScenarios/needs-test.park".
+        const absolute = requested.startsWith("/")
+            ? requested
+            : `/OpenRCT2/standalone/${requested.includes("/") ? requested : `Scenarios/${requested}`}`;
+        args.push(absolute);
     }
     args.push("--user-data-path=/persistent/", "--openrct2-data-path=/OpenRCT2/");
     Module.callMain(args);
