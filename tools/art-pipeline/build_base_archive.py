@@ -47,6 +47,13 @@ MARKER_SIZE = 8
 #: audit identifies what the exposed content actually asks for.
 SPRITE_SOURCES: Dict[int, str] = {}
 
+#: Base entries whose correct content is nothing at all. These are deliberately
+#: transparent rather than marked, and count as authored: a marker here would be
+#: drawn over the whole map. Identified by the in-game sprite audit.
+BLANK_SPRITES: Dict[int, str] = {
+    3123: "SPR_BLANK_TILE, drawn underneath every map tile",
+}
+
 
 def _engine_entry_count() -> int:
     """Read SPR_G1_END from the engine so this file cannot silently drift."""
@@ -110,10 +117,15 @@ def build() -> dict:
         marker = os.path.join(work, "marker.png")
         make_marker_png(marker, transparent=bool(os.environ.get("SUNRISE_INVISIBLE_MARKERS")))
 
+        blank = os.path.join(work, "blank.png")
+        make_marker_png(blank, transparent=True)
+
         entries = []
         for index in range(G1_ENTRY_COUNT):
             source = SPRITE_SOURCES.get(index)
-            if source is None:
+            if index in BLANK_SPRITES:
+                entries.append({"path": "blank.png", "palette": "keep"})
+            elif source is None:
                 # Centre the marker on the anchor so it is visible wherever it lands.
                 entries.append({
                     "path": "marker.png",
@@ -138,11 +150,12 @@ def build() -> dict:
         if result.returncode != 0:
             raise SystemExit(f"gxc failed: {result.stderr[-2000:]}")
 
-        populated = ranges_from_indices(list(SPRITE_SOURCES))
+        populated = ranges_from_indices(list(SPRITE_SOURCES) + list(BLANK_SPRITES))
         summary = {
             "entries": G1_ENTRY_COUNT,
             "populated": [list(pair) for pair in populated],
-            "populatedCount": len(SPRITE_SOURCES),
+            "populatedCount": len(SPRITE_SOURCES) + len(BLANK_SPRITES),
+            "blankCount": len(BLANK_SPRITES),
             "markerSize": MARKER_SIZE,
             "bytes": os.path.getsize(archive),
         }

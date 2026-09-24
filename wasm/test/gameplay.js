@@ -61,7 +61,17 @@ const strip = s => s.replace(/\x1b\[[0-9;]*m/g, '');
     evidence.afterLoad = loaded;
     await page.screenshot({ path: path.join(OUT, '1-loaded.png') });
 
-    // Scope the sprite audit to gameplay only.
+    // Point the camera at the park. A generated park cannot carry a useful saved
+    // view (see SunriseCentreView), so the view is set after loading.
+    evidence.viewCentred = await page.evaluate(() =>
+      window.Module.ccall('SunriseCentreView', 'number', [], []));
+    await sleep(500);
+
+    // Hire a handyman so staff navigation is exercised alongside guests.
+    evidence.handymanHired = await page.evaluate(() =>
+      window.Module.ccall('SunriseHireHandyman', 'number', [], []));
+
+    // Scope the sprite audit to the supported gameplay path only.
     await page.evaluate(() => window.Module.ccall('SunriseSpriteAuditClear', null, [], []));
 
     // Let the park run. Samples are kept so guest progress is visible over time.
@@ -69,6 +79,8 @@ const strip = s => s.replace(/\x1b\[[0-9;]*m/g, '');
     for (let i = 0; i < 12; i++) {
       await sleep(5000);
       const s = await stats();
+      s.entities = await page.evaluate(() =>
+        JSON.parse(window.Module.ccall('SunriseGuestListJson', 'string', [], [])));
       samples.push(s);
       if (i === 3) await page.screenshot({ path: path.join(OUT, '2-guests.png') });
     }

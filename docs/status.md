@@ -332,3 +332,84 @@ destination tile and the entering-park transition's own checks, rather than the 
 topology alone. A `SunriseGuestDebugJson` reporting a guest's state, position,
 destination and current action would answer it the way the tile trace answered
 Defect A.
+
+---
+
+## M3d, guest entry debugging: **PASS** for its own criteria (2026-09-24)
+
+Guests now enter the park and walk it, the handyman patrols, and the camera shows the
+park. No ride was attempted, so the project stays at CONDITIONAL GO by the
+milestone's own rule.
+
+### The entering-park transition, from source
+
+A guest leaves `PeepState::enteringPark` in `Guest::updateEnteringPark`
+(`entity/Guest.cpp:5745`) only when **`var37 == 1`** and its walk action has finished.
+`var37` becomes 1 in `PeepInteractWithEntrance` (`entity/Peep.cpp:1541`), which
+requires all of:
+
+1. the guest steps onto a tile holding a park-entrance element;
+2. that element is the **centre** of the three (`getSequenceIndex()`);
+3. the guest's `peepDirection` **equals** the entrance's direction (the reverse means
+   leaving, anything else turns it around);
+4. the guest is in `enteringPark` state and the park is open;
+5. the tile is registered in `park.entrances`;
+6. a **non-queue** path sits directly behind the entrance, at
+   `entrance + CoordsDirectionDelta[direction]`, with `baseHeight == entrance.z / 8`;
+7. the entrance fee is affordable.
+
+All seven held in the generated park, which is why inspection of the map never found
+the fault.
+
+### Root cause
+
+The guest never moved at all. Its trace showed position fixed at (528, 48, 112) over
+900 ticks, destination equal to its own position, and **`nextLoc` of (0, 0, 0)**.
+
+`Park::GenerateGuest` places a guest at the spawn and sets its destination to that
+tile's centre. The engine's own `PeepSpawnPlaceAction` stores a spawn **15 units from
+the tile centre, at the tile edge**, along the spawn direction. The generator stored
+the exact centre instead, so the guest was created standing on its own destination:
+it had already arrived, never took a step, and therefore never ran the movement code
+that assigns `nextLoc`. With `nextLoc` unset it could not choose a tile to walk to,
+and nothing ever changed.
+
+Fix: the generator stores the spawn with the same 15-unit edge offset the engine's own
+action uses. Nothing about guests, pathfinding or state was special-cased.
+
+### Result
+
+Traced over 900 ticks: `var37` 0 to 1 at the entrance, state 13 to 5, `outsideOfPark`
+false, position advancing tile by tile along the main path and turning at the
+junction. Two guests in the park, both walking. A handyman hired through
+`StaffHireNewAction` patrols the path network.
+
+### Camera
+
+Root cause: `PrepareMapForSave` calls `ViewportSetSavedView`, which overwrites
+`gameState.savedView` from the main window's viewport just before the file is
+written, and while the generator runs that viewport still belongs to the title scene.
+A generated park therefore cannot carry a useful saved view. `SunriseCentreView`
+centres the view after loading; the test calls it and the view reports (0, 384), the
+park centre.
+
+### Sprite audit: all 24 classified
+
+| Index | Hits | Symbol | Verdict |
+|---|---:|---|---|
+| 3123 | 77,410 | `SPR_BLANK_TILE` | drawn under every map tile; correct content is nothing, so it is now authored as transparent |
+| 5597..5633 | 58-232 each | `SPR_TOOLBAR_*` | in-game toolbar icons, about 18 of them |
+| 5327, 5625 | 723, 232 | `SPR_TAB_FINANCES_RESEARCH_0`, `SPR_TAB_TOOLBAR` | window tab icons |
+| 23190 | 723 | `SPR_WEATHER_SUN` | toolbar weather icon |
+| 23197, 23198 | 723 each | `SPR_RATING_LOW`, `SPR_RATING_HIGH` | toolbar rating gauge |
+| 22872 | 49 | near `SPR_BALLOON` | unidentified, low volume |
+
+Authoring `SPR_BLANK_TILE` cut the audit from 82,844 hits to 5,425 and made the
+terrain visible. Everything remaining is interface chrome: real base-game sprites we
+have not authored, behaving exactly as the marker system intends. None is a defect.
+
+### Caveats
+
+* The world still shows markers wherever a base sprite is unauthored, which is the
+  designed state of the content pack, not a fault.
+* The saved view is worked around rather than stored.

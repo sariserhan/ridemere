@@ -91,8 +91,8 @@
       "notes": "Full-size base sprite archive. Unfilled entries carry a diagnostic marker.",
       "path": "standalone/Data/g1.dat",
       "files": 1,
-      "bytes": 2343528,
-      "sha256": "740056dd9da4cf358f9d7f6e2b49d514fde01a79da9696653574aca44b32f6ed"
+      "bytes": 2343465,
+      "sha256": "ea0d4be5e7c16b02cd053eb539dc67829efad2ca28714ab643b2fcff04bacf0a"
     },
     {
       "creator": "Project Sunrise",
@@ -113,8 +113,8 @@
       "source": "tools/art-pipeline/build_pack.py",
       "path": "standalone/standalone.json",
       "files": 1,
-      "bytes": 752,
-      "sha256": "7394cd31e796d0065d187d61b07cae308e4db623a8507f196ab69b2a7c304022"
+      "bytes": 800,
+      "sha256": "25d48b49a62ad4fbaf013c1543332dc87a7c7cf77bbbae1c8a780281a33174cb"
     },
     {
       "creator": "Project Sunrise",
@@ -246,8 +246,8 @@
       "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
       "path": "standalone/Scenarios/sunrise-test.park",
       "files": 1,
-      "bytes": 2793,
-      "sha256": "332767023b6e141c17f077a4a84e1dc353bf6bda1b6e47b0d0c49e453e061f12"
+      "bytes": 2796,
+      "sha256": "73cea2303d4a02461d6d341a995d68e710d98d0382f1b4fff39b806cf4dde468"
     }
   ],
   "undeclaredFiles": [],
