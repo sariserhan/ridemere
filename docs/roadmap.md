@@ -82,3 +82,13 @@ audit is clean across eight windows.
 Next: **V1-2, world art** — four terrain surfaces, a terrain edge family, three path
 surfaces, one queue surface and one railing family. The map currently ends in a black
 void, which reads as a bug rather than a boundary in every screenshot taken so far.
+
+## V1-2 complete (2026-09-24)
+
+Four terrain materials, a complete terrain edge family, three paths, a queue and a
+railing family, with a shared world palette in `docs/world-art-system.md`. The black
+map boundary is gone.
+
+Next: **V1-3, shops, facilities and alerts** — food, drink, souvenir, toilets and
+information, each four sprites plus a stall model, and guest thoughts surfaced as park
+alerts. Alerts unblock the mechanic in V1-6.

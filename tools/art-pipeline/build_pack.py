@@ -30,6 +30,7 @@ PACK = os.path.join(GENERATED, "pack")
 #: (EditorController.cpp:84 via Standalone::GetRequiredObjects).
 REQUIRED_OBJECTS = [
     "sunrise.terrain_surface.grass",
+    "sunrise.terrain_edge.rock",
     "sunrise.station.plain",
 ]
 
@@ -57,10 +58,15 @@ BUNDLED_OPEN_OBJECTS = {
 DEFAULT_OBJECTS = [
     "sunrise.terrain_surface.grass",
     "sunrise.terrain_surface.dirt",
+    "sunrise.terrain_surface.sand",
+    "sunrise.terrain_surface.stone",
+    "sunrise.terrain_edge.rock",
     "sunrise.station.plain",
     "sunrise.footpath_surface.paved",
+    "sunrise.footpath_surface.stone",
+    "sunrise.footpath_surface.wood",
     "sunrise.footpath_surface.queue",
-    "sunrise.footpath_railings.plain",
+    "sunrise.footpath_railings.metal",
     "sunrise.park_entrance.arch",
     "sunrise.peep_names.visitors",
     "sunrise.climate.temperate",

@@ -6,20 +6,25 @@
   "objectiveGuests": 50,
   "pathSurface": "sunrise.footpath_surface.paved",
   "queueSurface": "sunrise.footpath_surface.queue",
-  "pathRailings": "sunrise.footpath_railings.plain",
+  "pathRailings": "sunrise.footpath_railings.metal",
   "objects": [
     "sunrise.terrain_surface.grass",
     "sunrise.terrain_surface.dirt",
     "sunrise.station.plain",
     "sunrise.footpath_surface.paved",
     "sunrise.footpath_surface.queue",
-    "sunrise.footpath_railings.plain",
     "sunrise.park_entrance.arch",
     "sunrise.peep_names.visitors",
     "sunrise.climate.temperate",
     "sunrise.peep_animations.guest",
     "sunrise.peep_animations.handyman",
-    "openrct2.ride.hybrid_coaster"
+    "openrct2.ride.hybrid_coaster",
+    "sunrise.terrain_surface.sand",
+    "sunrise.terrain_surface.stone",
+    "sunrise.terrain_edge.rock",
+    "sunrise.footpath_surface.stone",
+    "sunrise.footpath_surface.wood",
+    "sunrise.footpath_railings.metal"
   ],
   "entrance": {
     "x": 16,

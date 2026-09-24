@@ -25,24 +25,48 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import spritepack  # noqa: E402
 import sunrise_palette as pal  # noqa: E402
+import world_palette  # noqa: E402
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 RENDER_DIR = os.path.join(REPO, "assets", "generated", "world", "terrain")
 STAGE = os.path.join(REPO, "assets", "generated", "staging", "world")
 OBJECTS = os.path.join(REPO, "assets", "generated", "objects")
 
+#: The four ground materials. Their colour and texture come from the shared world
+#: palette, so a material cannot drift between the generator that draws the ground and
+#: the one that draws what sits on it.
+#:
+#: `render` names which set of slope renders to read. The renders are geometry: the
+#: same nineteen shapes serve every material, and what distinguishes sand from stone is
+#: the ramp and the breakup applied here, not another few hundred renders.
 SURFACES = {
     "grass": {
         "id": "sunrise.terrain_surface.grass",
         "name": "Grass",
         "colour": "SATURATED_GREEN",
-        "ramp": "green",
+        "material": "grass",
+        "render": "grass",
     },
     "dirt": {
         "id": "sunrise.terrain_surface.dirt",
         "name": "Dirt",
         "colour": "DARK_BROWN",
-        "ramp": "tan",
+        "material": "dirt",
+        "render": "dirt",
+    },
+    "sand": {
+        "id": "sunrise.terrain_surface.sand",
+        "name": "Sand",
+        "colour": "LIGHT_BROWN",
+        "material": "sand",
+        "render": "dirt",
+    },
+    "stone": {
+        "id": "sunrise.terrain_surface.stone",
+        "name": "Stone",
+        "colour": "GREY",
+        "material": "stone",
+        "render": "dirt",
     },
 }
 
@@ -74,11 +98,43 @@ def _add_grid(indices: np.ndarray, ramp: list) -> np.ndarray:
     return out
 
 
+#: The ramp position the shared geometry render sits at before a material shifts it.
+NOMINAL_BASE = 7
+
+
+def _apply_texture(indices: np.ndarray, material: world_palette.Material) -> np.ndarray:
+    """Give a shaded tile its material character.
+
+    The render supplies form: which parts of the tile face the light. This supplies
+    material: the breakup that makes grass read as grass and sand as sand. It moves a
+    pixel along its own ramp rather than recolouring it, so the lighting the render
+    established survives.
+    """
+    ramp = material.colours
+    position = {value: index for index, value in enumerate(ramp)}
+    # The render supplies brightness, which lands a pixel somewhere on the ramp. The
+    # material's base shifts the whole surface along it, which is the only knob that
+    # changes how light or dark a material reads: without it every surface comes out
+    # at whatever value the shared geometry render happened to have, and stone looks
+    # like snow.
+    shift = material.base - NOMINAL_BASE
+    offsets = world_palette.texture(material, indices.shape[0], indices.shape[1]) + shift
+    out = indices.copy()
+    for value, index in position.items():
+        selected = indices == value
+        if not selected.any():
+            continue
+        moved = np.clip(index + offsets[selected], 0, len(ramp) - 1)
+        out[selected] = np.asarray(ramp, dtype=np.uint8)[moved]
+    return out
+
+
 def build_surface(key: str, spec: dict, manifest: dict) -> dict:
     stage_dir = os.path.join(STAGE, key)
     os.makedirs(stage_dir, exist_ok=True)
     render_size = manifest["renderSize"]
-    ramp = pal.ramp(spec["ramp"])
+    material = world_palette.MATERIALS[spec["material"]]
+    ramp = material.colours
     # terrain.py tags grass as "foliage" and dirt as "structure"; those directions
     # are read back by the classifier as "shirt" and "skin" respectively.
     colourway = dict(spritepack.WORLD_COLOURWAY)
@@ -87,7 +143,7 @@ def build_surface(key: str, spec: dict, manifest: dict) -> dict:
 
     images: list = []
     files: dict = {}
-    slope_files = manifest["surfaces"][key]
+    slope_files = manifest["surfaces"][spec["render"]]
 
     # The icon: reuse the flat tile.
     def stage(name: str, indices: np.ndarray, x: int, y: int) -> None:
@@ -103,12 +159,12 @@ def build_surface(key: str, spec: dict, manifest: dict) -> dict:
         rect = spritepack.convert_render(source, staged, colourway, render_size, 0.0)
         base_entries.append((staged, rect))
 
-    icon_indices = _load_indexed(base_entries[0][0])
+    icon_indices = _apply_texture(_load_indexed(base_entries[0][0]), material)
     stage("icon.png", icon_indices, 2, 2)
 
     for variant in ("normal", "grid", "underground"):
         for offset, (staged, rect) in enumerate(base_entries):
-            indices = _load_indexed(staged)
+            indices = _apply_texture(_load_indexed(staged), material)
             if variant == "grid":
                 indices = _add_grid(indices, ramp)
             elif variant == "underground":

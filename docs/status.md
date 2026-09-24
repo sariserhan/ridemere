@@ -695,3 +695,61 @@ substitution.
   second. The discriminating measure is the tab strip: window fills and text are drawn
   by the engine from theme colours and survive even when every sprite is blank.
 * The park smoke test and the track-art check from V1-0 are unchanged and still pass.
+
+## V1-2 — core world art (2026-09-24)
+
+The park world reads as a coherent original game rather than a functional prototype.
+Four terrain materials, a complete terrain edge family, three path styles, a queue and
+one railing family, all generated and all reproducible.
+
+The black boundary is gone. Where land is cut, whether at the map edge or around a
+raised plateau, a warm soil and rock face is drawn on every side, including inside and
+outside corners.
+
+### What shipped
+
+| | Count | Notes |
+|---|---:|---|
+| Terrain surfaces | 4 | grass, dirt, sand, stone; 58 images each |
+| Terrain edge family | 1 | 85 images, used beneath all four surfaces |
+| Path surfaces | 3 | paved, stone, wood; 52 images each |
+| Queue surface | 1 | 52 images |
+| Railings and supports | 1 | 74 images, edging, columns and bridge deck |
+
+### Three things worth remembering
+
+1. **A material's base value is what makes it read.** The shared geometry render
+   supplies brightness, so without a per-material shift along its ramp every surface
+   comes out at whatever value the render happened to have. Stone looked like snow
+   until that shift existed.
+2. **Path edge bits are numbered from the screen's lower right.** Getting that wrong
+   draws the kerb across the walkway instead of along it, so every straight path had a
+   rung on each tile.
+3. **A regular pattern at this size reads as corduroy.** Offsetting alternate rows by
+   half a cell is what turned the first grass from fabric into ground.
+
+### The engine's layouts, read rather than guessed
+
+* Terrain surface: icon plus nineteen slope variants per entry.
+* Terrain edge: icon plus eighty-four sprites, four wall variants at offsets 0, 10, 20
+  and 30, then twelve tunnel types of four from offset 36.
+* Footpath surface: preview, sixteen connection shapes, four slopes, thirty-one corner
+  variants. The connections-to-image mapping is a 256-entry table in the engine, which
+  the generator reads and inverts so each image is drawn for the shape it is used for.
+
+The edge silhouettes come from `openrct2.terrain_edge.void`, an object that contains no
+art: every sprite in it is one flat palette index. The geometry is taken from there
+with attribution; every pixel is ours.
+
+### Art-test scene
+
+`world-art-test` puts all four terrains, raised plateaus, inside and outside corners,
+three path styles, a queue, an elevated walkway and the coaster in one view. It is a
+development scene and is not a release scenario.
+
+### Guards added
+
+`check_world_objects.py` asserts the image count, the layout, the slope geometry and
+that sprites carry material rather than placeholders, for every terrain, edge, path and
+railing object. `blankworld-check.sh` blanks a terrain and a path and requires the check
+to reject them; it does.

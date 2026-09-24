@@ -140,8 +140,8 @@
       "source": "tools/art-pipeline/build_pack.py",
       "path": "standalone/standalone.json",
       "files": 1,
-      "bytes": 3192,
-      "sha256": "7568df21136362d6c1e0355b72dad1528c09eca6d63b1de7db4971fac05deb84"
+      "bytes": 3406,
+      "sha256": "16c92aa644d47f1e6f330a324839e9df37f700fe9073be3d8bfd5c31a3318e8e"
     },
     {
       "creator": "Project Sunrise",
@@ -185,36 +185,56 @@
       "license": "proprietary-original",
       "modified": false,
       "asset": "sunrise_path_paved_v1",
-      "source": "assets/source/blender/world_props.py",
-      "generator": "blender 4.2 + tools/art-pipeline/build_world_objects.py",
+      "source": "tools/art-pipeline/build_paths.py",
       "path": "object/sunrise.footpath_surface.paved.parkobj",
       "files": 1,
-      "bytes": 1718,
-      "sha256": "d2858fe42aa3211355070e0a7496068a73a8e9bf1ff364bf06786700247045a4"
+      "bytes": 51317,
+      "sha256": "5eff37ec15cb89a2e74b7a47384d59287c9eb08087c947717002c93c941f0d73"
     },
     {
       "creator": "Project Sunrise",
       "license": "proprietary-original",
       "modified": false,
       "asset": "sunrise_path_queue_v1",
-      "source": "assets/source/blender/world_props.py",
-      "generator": "blender 4.2 + tools/art-pipeline/build_world_objects.py",
+      "source": "tools/art-pipeline/build_paths.py",
       "path": "object/sunrise.footpath_surface.queue.parkobj",
       "files": 1,
-      "bytes": 1708,
-      "sha256": "a2fc4a2d0425359c97e7e9766177d77265590493ed0a130f7f2de1bbaef2a732"
+      "bytes": 52984,
+      "sha256": "d53bfc8c58103f2f2e3413170713828d16eff9cd40dc3c2a1a7a2d5d8f4b52f5"
     },
     {
       "creator": "Project Sunrise",
       "license": "proprietary-original",
       "modified": false,
-      "asset": "sunrise_path_railings_v1",
-      "source": "tools/art-pipeline/build_world_objects.py",
-      "notes": "Ground-level paths draw no railings; the entries carry no art yet.",
-      "path": "object/sunrise.footpath_railings.plain.parkobj",
+      "asset": "sunrise_path_railings_metal_v1",
+      "source": "tools/art-pipeline/build_paths.py",
+      "notes": "Edging, supports and bridge deck for every path style.",
+      "path": "object/sunrise.footpath_railings.metal.parkobj",
       "files": 1,
-      "bytes": 347,
-      "sha256": "d4869a0a5e858573600c20f4db22b1825c409a399c78e143deea56580223b26b"
+      "bytes": 73865,
+      "sha256": "749422f57020730f2572328783a758fdea7ccc7cdf2ab5588267d1064b8b01c0"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_path_stone_v1",
+      "source": "tools/art-pipeline/build_paths.py",
+      "path": "object/sunrise.footpath_surface.stone.parkobj",
+      "files": 1,
+      "bytes": 51457,
+      "sha256": "2c88b727ba886b8928640bac1004f1b1fbe9b2330c6f43a9f278bb17ad1e9f2f"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_path_wood_v1",
+      "source": "tools/art-pipeline/build_paths.py",
+      "path": "object/sunrise.footpath_surface.wood.parkobj",
+      "files": 1,
+      "bytes": 51504,
+      "sha256": "b7fcea2243ade87867050565c12831b2a58f5d4acdaaa9f1a3a4136a71794b83"
     },
     {
       "creator": "Project Sunrise",
@@ -249,8 +269,21 @@
       "generator": "blender 4.2 + tools/art-pipeline/build_world.py",
       "path": "object/sunrise.terrain_surface.dirt.parkobj",
       "files": 1,
-      "bytes": 76608,
-      "sha256": "0b07a791722e337f5e2e4c5b73238ac0cf0d8183b38d3903b2febccf5609c016"
+      "bytes": 80071,
+      "sha256": "09e2e2c28a1f56486049b37ae391c6ad53087599e376660cb4a7ed4fd30ab7a7"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_terrain_edge_rock_v1",
+      "source": "tools/art-pipeline/build_world_edges.py",
+      "generator": "tools/art-pipeline/build_world_edges.py",
+      "notes": "Every pixel is ours. The eighty-four sprite silhouettes are the tile side faces under the isometric projection, taken from the shapes in openrct2.terrain_edge.void (CC-BY-4.0, OpenRCT2), an object that contains no art: each of its sprites is one flat palette index.",
+      "path": "object/sunrise.terrain_edge.rock.parkobj",
+      "files": 1,
+      "bytes": 82760,
+      "sha256": "afb240496d253e0327d76486c2a93f56798642802431e97109b8c811e34dcb69"
     },
     {
       "creator": "Project Sunrise",
@@ -261,8 +294,32 @@
       "generator": "blender 4.2 + tools/art-pipeline/build_world.py",
       "path": "object/sunrise.terrain_surface.grass.parkobj",
       "files": 1,
-      "bytes": 76641,
-      "sha256": "df22e51013c9c060408eba3f338b6854a3108b5b9fa94cda4c7a299649d5e7e5"
+      "bytes": 77563,
+      "sha256": "6973ecc76a45a2c908b0713a76d8c05831702ace68dea0274c8aec5cd9d5aba6"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_terrain_sand_v1",
+      "source": "assets/source/blender/terrain.py",
+      "generator": "blender 4.2 + tools/art-pipeline/build_world.py",
+      "path": "object/sunrise.terrain_surface.sand.parkobj",
+      "files": 1,
+      "bytes": 72822,
+      "sha256": "db75d8e73a16ec82839afc352ceefc69630b9f7d26d84738e2d28afb51cb4e11"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_terrain_stone_v1",
+      "source": "assets/source/blender/terrain.py",
+      "generator": "blender 4.2 + tools/art-pipeline/build_world.py",
+      "path": "object/sunrise.terrain_surface.stone.parkobj",
+      "files": 1,
+      "bytes": 79390,
+      "sha256": "e621ee0ca6a81042a1bec5ccdecb83d8a394ade8860baaa771a32e9b86008b4f"
     },
     {
       "creator": "Project Sunrise",
@@ -273,8 +330,21 @@
       "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
       "path": "standalone/Scenarios/sunrise-test.park",
       "files": 1,
-      "bytes": 3320,
-      "sha256": "c05a324d401dfdb98e73bc943f026b77ea0058fc0d05397a3d03558dab7c1b3e"
+      "bytes": 3359,
+      "sha256": "b6caa5df9d08642d2b7683db1aac225f941f0fdc7c59ba75311a6f8312955f29"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_world_art_test_v1",
+      "source": "assets/scenarios/world-art-test/scenario.json",
+      "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+      "notes": "A development scene that shows every world material, slope, edge and path combination in one view. Not a release scenario.",
+      "path": "standalone/Scenarios/world-art-test.park",
+      "files": 1,
+      "bytes": 3720,
+      "sha256": "b955b6b2fa6904d274b8df382ab6d3f6374339aec8fb7ae5b8c7a4225945f54d"
     }
   ],
   "undeclaredFiles": [],

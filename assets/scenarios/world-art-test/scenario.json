@@ -1,0 +1,267 @@
+{
+  "name": "World Art Test",
+  "details": "A development scene that puts every V1-2 world material, slope, edge and path combination in one view. Not a release scenario.",
+  "mapTiles": 40,
+  "initialCash": 500000,
+  "objectiveGuests": 10,
+  "pathSurface": "sunrise.footpath_surface.paved",
+  "queueSurface": "sunrise.footpath_surface.queue",
+  "pathRailings": "sunrise.footpath_railings.metal",
+  "objects": [
+    "sunrise.terrain_surface.grass",
+    "sunrise.terrain_surface.dirt",
+    "sunrise.terrain_surface.sand",
+    "sunrise.terrain_surface.stone",
+    "sunrise.terrain_edge.rock",
+    "sunrise.footpath_surface.paved",
+    "sunrise.footpath_surface.stone",
+    "sunrise.footpath_surface.wood",
+    "sunrise.footpath_surface.queue",
+    "sunrise.footpath_railings.metal",
+    "sunrise.station.plain",
+    "sunrise.park_entrance.arch",
+    "sunrise.peep_names.visitors",
+    "sunrise.climate.temperate",
+    "sunrise.peep_animations.guest",
+    "sunrise.peep_animations.handyman",
+    "openrct2.ride.hybrid_coaster"
+  ],
+  "entrance": {
+    "x": 20,
+    "y": 4,
+    "direction": 1
+  },
+  "peepSpawn": {
+    "x": 20,
+    "y": 1,
+    "direction": 3
+  },
+  "owned": {
+    "fromX": 1,
+    "fromY": 5,
+    "toX": 38,
+    "toY": 38
+  },
+  "terrain": [
+    {
+      "surface": "sunrise.terrain_surface.dirt",
+      "fromX": 4,
+      "fromY": 24,
+      "toX": 12,
+      "toY": 32
+    },
+    {
+      "surface": "sunrise.terrain_surface.sand",
+      "fromX": 14,
+      "fromY": 24,
+      "toX": 22,
+      "toY": 32
+    },
+    {
+      "surface": "sunrise.terrain_surface.stone",
+      "fromX": 24,
+      "fromY": 24,
+      "toX": 32,
+      "toY": 32
+    }
+  ],
+  "land": [
+    {
+      "fromX": 6,
+      "fromY": 10,
+      "toX": 12,
+      "toY": 16,
+      "height": 6
+    },
+    {
+      "fromX": 8,
+      "fromY": 12,
+      "toX": 10,
+      "toY": 14,
+      "height": 8
+    },
+    {
+      "fromX": 26,
+      "fromY": 10,
+      "toX": 30,
+      "toY": 14,
+      "height": 6
+    },
+    {
+      "fromX": 1,
+      "fromY": 34,
+      "toX": 6,
+      "toY": 38,
+      "height": 6
+    },
+    {
+      "fromX": 14,
+      "fromY": 8,
+      "toX": 18,
+      "toY": 12,
+      "height": 6
+    }
+  ],
+  "paths": [
+    {
+      "from": [
+        20,
+        1
+      ],
+      "to": [
+        20,
+        22
+      ]
+    },
+    {
+      "from": [
+        10,
+        22
+      ],
+      "to": [
+        30,
+        22
+      ]
+    },
+    {
+      "from": [
+        30,
+        8
+      ],
+      "to": [
+        30,
+        22
+      ]
+    },
+    {
+      "from": [
+        14,
+        22
+      ],
+      "to": [
+        14,
+        30
+      ]
+    },
+    {
+      "from": [
+        16,
+        30
+      ],
+      "to": [
+        24,
+        30
+      ]
+    },
+    {
+      "from": [
+        24,
+        26
+      ],
+      "to": [
+        24,
+        30
+      ]
+    },
+    {
+      "from": [
+        16,
+        14
+      ],
+      "to": [
+        16,
+        20
+      ],
+      "elevation": 0
+    },
+    {
+      "from": [
+        12,
+        20
+      ],
+      "to": [
+        20,
+        20
+      ]
+    },
+    {
+      "from": [
+        8,
+        34
+      ],
+      "to": [
+        16,
+        34
+      ],
+      "elevation": 32
+    },
+    {
+      "from": [
+        16,
+        34
+      ],
+      "to": [
+        16,
+        38
+      ],
+      "elevation": 32
+    }
+  ],
+  "queues": [
+    {
+      "from": [
+        29,
+        21
+      ],
+      "to": [
+        29,
+        14
+      ]
+    },
+    {
+      "from": [
+        29,
+        14
+      ],
+      "to": [
+        30,
+        14
+      ]
+    }
+  ],
+  "coaster": {
+    "object": "openrct2.ride.hybrid_coaster",
+    "station": {
+      "x": 32,
+      "y": 14,
+      "z": 112,
+      "direction": 1
+    },
+    "pieces": [
+      2,
+      3,
+      1,
+      0,
+      0,
+      43,
+      43,
+      0,
+      0,
+      0,
+      0,
+      0,
+      43,
+      43
+    ],
+    "rideEntrance": {
+      "x": 31,
+      "y": 14,
+      "direction": 2
+    },
+    "rideExit": {
+      "x": 31,
+      "y": 16,
+      "direction": 2
+    }
+  }
+}

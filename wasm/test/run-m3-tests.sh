@@ -25,6 +25,9 @@ run "distribution contains no original-game data" bash -c '
   if [[ -n "$bad" ]]; then echo "unexpected files: $bad"; exit 1; fi
   echo "   no original-game filenames present"'
 
+run "world objects have the expected layout and carry real art" \
+  "$PY" "$ROOT/tools/art-pipeline/check_world_objects.py"
+
 run "shipped track artwork is real, not placeholders" \
   "$PY" "$ROOT/tools/art-pipeline/check_track_art.py"
 

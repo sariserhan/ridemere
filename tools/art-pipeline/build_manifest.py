@@ -44,20 +44,55 @@ RECORDS: Dict[str, dict] = {
     "object/sunrise.footpath_surface.paved.parkobj": {
         **ORIGINAL,
         "asset": "sunrise_path_paved_v1",
-        "source": "assets/source/blender/world_props.py",
-        "generator": "blender 4.2 + tools/art-pipeline/build_world_objects.py",
+        "source": "tools/art-pipeline/build_paths.py",
     },
     "object/sunrise.footpath_surface.queue.parkobj": {
         **ORIGINAL,
         "asset": "sunrise_path_queue_v1",
-        "source": "assets/source/blender/world_props.py",
-        "generator": "blender 4.2 + tools/art-pipeline/build_world_objects.py",
+        "source": "tools/art-pipeline/build_paths.py",
     },
     "object/sunrise.footpath_railings.plain.parkobj": {
         **ORIGINAL,
         "asset": "sunrise_path_railings_v1",
-        "source": "tools/art-pipeline/build_world_objects.py",
-        "notes": "Ground-level paths draw no railings; the entries carry no art yet.",
+        "source": "tools/art-pipeline/build_paths.py",
+    },
+    "object/sunrise.terrain_surface.sand.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_terrain_sand_v1",
+        "source": "assets/source/blender/terrain.py",
+        "generator": "blender 4.2 + tools/art-pipeline/build_world.py",
+    },
+    "object/sunrise.terrain_surface.stone.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_terrain_stone_v1",
+        "source": "assets/source/blender/terrain.py",
+        "generator": "blender 4.2 + tools/art-pipeline/build_world.py",
+    },
+    "object/sunrise.terrain_edge.rock.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_terrain_edge_rock_v1",
+        "source": "tools/art-pipeline/build_world_edges.py",
+        "generator": "tools/art-pipeline/build_world_edges.py",
+        "notes": "Every pixel is ours. The eighty-four sprite silhouettes are the tile "
+                 "side faces under the isometric projection, taken from the shapes in "
+                 "openrct2.terrain_edge.void (CC-BY-4.0, OpenRCT2), an object that "
+                 "contains no art: each of its sprites is one flat palette index.",
+    },
+    "object/sunrise.footpath_surface.stone.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_path_stone_v1",
+        "source": "tools/art-pipeline/build_paths.py",
+    },
+    "object/sunrise.footpath_surface.wood.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_path_wood_v1",
+        "source": "tools/art-pipeline/build_paths.py",
+    },
+    "object/sunrise.footpath_railings.metal.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_path_railings_metal_v1",
+        "source": "tools/art-pipeline/build_paths.py",
+        "notes": "Edging, supports and bridge deck for every path style.",
     },
     "object/sunrise.park_entrance.arch.parkobj": {
         **ORIGINAL,
@@ -81,6 +116,14 @@ RECORDS: Dict[str, dict] = {
         **ORIGINAL,
         "asset": "sunrise_climate_v1",
         "source": "tools/art-pipeline/build_world_objects.py",
+    },
+    "standalone/Scenarios/world-art-test.park": {
+        **ORIGINAL,
+        "asset": "sunrise_world_art_test_v1",
+        "source": "assets/scenarios/world-art-test/scenario.json",
+        "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+        "notes": "A development scene that shows every world material, slope, edge and "
+                 "path combination in one view. Not a release scenario.",
     },
     "standalone/Scenarios/sunrise-test.park": {
         **ORIGINAL,
