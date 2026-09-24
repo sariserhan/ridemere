@@ -135,6 +135,10 @@ def build_world_art_test() -> int:
     return sum(len(item["tiles"]) for item in scenery) + sum(len(item["tiles"]) for item in walls)
 
 
+#: The one row of the planted block left as path, so guests can walk through it.
+CORRIDOR = 18
+
+
 def build_density_test() -> int:
     """One crowded block. Deliberately more scenery than a park would ever carry.
 
@@ -147,10 +151,14 @@ def build_density_test() -> int:
     quarter = [spec[0] for spec in objects.SMALL_SCENERY if spec[5] == "1/4"]
     whole = [spec[0] for spec in objects.SMALL_SCENERY if spec[5] != "1/4"]
 
+    # Row 18 is left clear for a path straight through the middle. A ceiling
+    # measurement that guests cannot walk into measures the drawing and nothing else,
+    # and the one thing scenery does to the simulation is something a guest has to be
+    # standing next to it to feel.
     scenery = []
     index = 0
     for x in range(10, 26):
-        for y in range(10, 26):
+        for y in (y for y in range(10, 26) if y != CORRIDOR):
             for quadrant in range(4):
                 scenery.append({"object": quarter[index % len(quarter)],
                                 "tiles": [[x, y, quadrant]]})
@@ -162,8 +170,8 @@ def build_density_test() -> int:
 
     walls = []
     for wall_index, name in enumerate(WALLS):
-        tiles = [[8, y, 0] for y in range(10, 26)] if wall_index == 0 else \
-                [[27, y, 2] for y in range(10, 26)] if wall_index == 1 else \
+        tiles = [[8, y, 0] for y in range(10, 26) if y != CORRIDOR] if wall_index == 0 else \
+                [[27, y, 2] for y in range(10, 26) if y != CORRIDOR] if wall_index == 1 else \
                 [[x, 27, 1] for x in range(10, 26)]
         walls.append({"object": name, "tiles": tiles})
 
@@ -188,10 +196,18 @@ def build_density_test() -> int:
             "sunrise.peep_names.visitors", "sunrise.climate.temperate",
             "sunrise.peep_animations.guest", "sunrise.peep_animations.handyman",
         ] + SMALL + WALLS + GROUPS,
-        owned=OrderedDict(fromX=1, fromY=5, toX=38, toY=38),
-        entrance=OrderedDict(x=32, y=6, direction=1),
-        peepSpawn=OrderedDict(x=32, y=1, direction=3),
-        paths=[{"from": [32, 1], "to": [32, 30]}],
+        owned=OrderedDict(fromX=4, fromY=5, toX=38, toY=38),
+        # The way in is the corridor, so a guest walking anywhere at all is walking
+        # through the planting. Two things this scene got wrong first, both of which
+        # left it with nothing to measure: the entrance sat two tiles inside the owned
+        # land, so guests reached owned ground before the entrance, never triggered it
+        # and were removed as having wandered off — the scene had no guests in it at
+        # all. And when it did, the entrance was at the far end of a long path with
+        # the planting down a side turning, and with no rides to stay for the guests
+        # simply walked back out again without ever seeing it.
+        entrance=OrderedDict(x=3, y=CORRIDOR, direction=2),
+        peepSpawn=OrderedDict(x=1, y=CORRIDOR, direction=0),
+        paths=[{"from": [1, CORRIDOR], "to": [32, CORRIDOR]}],
         scenery=scenery,
         walls=walls,
     )
@@ -199,11 +215,35 @@ def build_density_test() -> int:
     return len(scenery) + sum(len(item["tiles"]) for item in walls)
 
 
+def build_first_park_bare() -> int:
+    """First Park with the decoration taken out, and nothing else changed.
+
+    The control for every claim about what decoration does. Comparing First Park with
+    the density scene compares two different parks; comparing it with itself compares
+    the decoration. Generated from First Park's own description so it cannot drift
+    away from the scenario it is the control for.
+    """
+    description = load("first-park")
+    removed = sum(len(item["tiles"]) for item in description.get("scenery", []))
+    removed += sum(len(item["tiles"]) for item in description.get("walls", []))
+    description.pop("scenery", None)
+    description.pop("walls", None)
+    description["name"] = "First Park (no decoration)"
+    description["details"] = ("First Park with every piece of scenery removed, and "
+                              "nothing else changed. The control for the scenery "
+                              "checks. Not a release scenario.")
+    description["visibility"] = "development"
+    save("first-park-bare", description)
+    return removed
+
+
 def main() -> None:
     art = build_world_art_test()
     dense = build_density_test()
+    bare = build_first_park_bare()
     print(f"world-art-test: {art} scenery placements")
     print(f"scenery-density-test: {dense} scenery placements")
+    print(f"first-park-bare: First Park with {bare} pieces removed")
 
 
 if __name__ == "__main__":

@@ -18,6 +18,11 @@ the repository: every copy is made in a temporary directory and deleted.
     5. a scenery model built off the rotation origin
        — the defect that took half of every stall away in V1-3, caught in the
          renders this time rather than in a screenshot
+    6. a build-menu tab icon carrying its world offsets
+       — the defect that drew the Nature tab's tree off the top of the screen
+    7. a window that opened and drew nothing
+       — the defect that let a whole build menu go missing while every assertion
+         about it passed
 """
 
 from __future__ import annotations
@@ -152,6 +157,55 @@ def case_scenery_off_rotation_origin(work: str) -> bool:
     return run("check_rotation_origin.py", directory) != 0
 
 
+def case_tab_icon_outside_its_widget(work: str) -> bool:
+    """A group icon with a tree's world anchor on it.
+
+    A tab is 31 by 28 and draws the sprite at its own corner plus the sprite's own
+    offsets. Every other object in the set anchors at the foot of its trunk, so an
+    icon that kept those offsets was drawn forty-eight pixels above the tab — off the
+    top of the screen — and the tab read as having no icon at all.
+    """
+    pack = copy_pack(work)
+    target = os.path.join(pack, "object", "sunrise.scenery_group.nature.parkobj")
+
+    def mutate(members):
+        root = json.loads(members["object.json"])
+        root["images"][0]["y"] = -48
+        members["object.json"] = json.dumps(root, indent=1).encode()
+        return members
+
+    rewrite_object(target, mutate)
+    print("  a build-menu tab icon anchored like a tree rather than like an icon:")
+    return run("check_scenery_objects.py", pack) != 0
+
+
+def case_window_that_drew_nothing(work: str) -> bool:
+    """A window whose "after" capture is its "before" capture.
+
+    That is what a window which opens and closes itself in the same frame leaves
+    behind, and it is what the scenery window did for the whole of V1-5 while the
+    sprite audit called it clean.
+    """
+    source = os.path.join(REPO, "wasm", "test", "results-visual", "menu-rects.json")
+    if not os.path.exists(source):
+        print("  no window captures on disk; run wasm/test/sceneryaudit.js first")
+        return False
+    with open(source, "r", encoding="utf-8") as handle:
+        entries = json.load(handle)
+    if not entries:
+        print("  no windows were captured, so this case cannot be demonstrated")
+        return False
+
+    for entry in entries:
+        entry["after"] = entry["before"]
+    rects = os.path.join(work, "menu-rects.json")
+    with open(rects, "w", encoding="utf-8") as handle:
+        json.dump(entries, handle)
+
+    print("  a build menu whose frame is unchanged by opening it:")
+    return run("check_window_drawn.py", rects) != 0
+
+
 def case_development_scene_in_scenarios(work: str) -> bool:
     pack = copy_pack(work)
     standalone = os.path.join(pack, "standalone")
@@ -171,6 +225,8 @@ def main() -> None:
         ("blank direction sprites", case_blank_directions),
         ("identical scenery direction sprites", case_identical_scenery_directions),
         ("scenery model off the rotation origin", case_scenery_off_rotation_origin),
+        ("tab icon outside its widget", case_tab_icon_outside_its_widget),
+        ("a window that drew nothing", case_window_that_drew_nothing),
         ("development scene in Scenarios", case_development_scene_in_scenarios),
     ]
     results = []

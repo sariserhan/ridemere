@@ -56,14 +56,37 @@ function check(name, ok, detail) {
 
     const before = await survey();
     const pieces = Object.values(before).reduce((n, list) => n + list.length, 0);
-    const kinds = new Set(Object.values(before).flat().map(p => p.id));
+    const placed = Object.values(before).flat();
+    const kinds = new Set(placed.map(p => p.id));
     check('the art scene has scenery on the tiles its description names',
       pieces > 0, `${pieces} pieces across ${Object.keys(before).length} tiles`);
     check('every kind of object the description places is on the map',
       kinds.size >= 30, `${kinds.size} distinct objects`);
-    const directions = new Set(Object.values(before).flat().map(p => p.direction));
-    check('the scene uses more than one direction, so orientation can be lost',
-      directions.size > 1, `directions ${[...directions].sort().join(', ')}`);
+
+    // Named rather than counted, so that losing a whole category is a failure with a
+    // name on it. Each of these is a different shape of thing to get wrong: a wall
+    // sits on a tile edge, a lamp is tall and thin, a sign and an arch look different
+    // from every side, a planter fills its tile.
+    for (const [category, matches] of [
+      ['vegetation', id => /\.(tree_|shrub_|flowers_|ornamental_grass|ground_planting)/.test(id)],
+      ['a fence or wall', id => id.includes('.scenery_wall.')],
+      ['a lamp', id => id.includes('.lamp_')],
+      ['a sign', id => id.includes('.sign_')],
+      ['a planter or bed', id => /\.(planter_|bed_)/.test(id)],
+      ['a decorative prop', id => /\.(prop_|accent_)/.test(id)],
+    ]) {
+      const found = placed.filter(p => matches(p.id));
+      check(`the park under test contains ${category}`, found.length > 0,
+        `${found.length} pieces, ${new Set(found.map(p => p.id)).size} kinds`);
+    }
+
+    // Orientation can only be lost if it was there to lose, and only an asymmetric
+    // object shows it. The art scene places six of those four times each, once per
+    // direction.
+    const asymmetric = placed.filter(p => /\.(sign_|accent_arch|prop_banner|prop_picnic_table|prop_clock)/.test(p.id));
+    const turns = new Set(asymmetric.map(p => p.direction));
+    check('asymmetric pieces are placed in all four directions',
+      turns.size === 4, `${asymmetric.length} pieces facing ${[...turns].sort().join(', ')}`);
 
     check('the park saves', await call('SunriseSavePark', 'number', ['string'], ['/persistent/scenery.park']) === 1);
     check('the park reloads', await call('SunriseLoadPark', 'number', ['string'], ['/persistent/scenery.park']) === 1);

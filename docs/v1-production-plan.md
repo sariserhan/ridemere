@@ -231,3 +231,28 @@ finally loses somebody, and it is where that content earns its place.
 **The onboarding pattern generalises.** Steps are pure functions of a scenario summary
 the engine sends, so a second scenario's tutorial is a second list of steps and no new
 machinery. Nothing about onboarding is stored in a park file, and nothing needs to be.
+
+## What V1-5 changed about this plan (2026-09-24)
+
+**Decoration does not pay, and that is now measured rather than assumed.** The engine
+has no scenery term in the park rating, and its one scenery effect — a guest thought at
+forty elements within five tiles — did not reproduce even in a park with three hundred
+and sixty around every guest. First Park decorated and First Park undecorated finish a
+three-minute run with the same park rating and the same guest happiness.
+
+That makes "make decoration matter" a real design decision with a real cost, not a thing
+that falls out of shipping the art. It belongs with **V1-10, economy and scenario
+tuning**, where the numbers are being set anyway, and it should be written as an
+intention — what a player is being rewarded for — rather than a multiplier bolted onto
+the rating.
+
+**The art pipeline scales better than expected.** Thirty-nine objects cost 150 KiB
+compressed and about a day, because they are compositions of eight shared components
+rather than thirty-nine models. The same is true of the flat rides in V1-7, whose
+cabins, posts and canopies are the same parts. The estimate for V1-7 should assume
+component reuse, not per-ride modelling.
+
+**Every build-menu window is now exercised by a test that can see it.** Until V1-5 a
+window that opened and closed itself passed the sprite audit by drawing nothing. That
+was worth two milestones of quiet failure, and it applies to every window the later
+milestones add: the ride-construction window in V1-7, the staff window in V1-6.

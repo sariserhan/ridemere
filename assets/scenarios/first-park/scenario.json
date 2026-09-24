@@ -281,6 +281,36 @@
   ],
   "scenery": [
     {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          15,
+          5,
+          0
+        ],
+        [
+          17,
+          5,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          15,
+          7,
+          0
+        ],
+        [
+          17,
+          7,
+          0
+        ]
+      ]
+    },
+    {
       "object": "sunrise.scenery_small.tree_broadleaf",
       "tiles": [
         [
@@ -296,36 +326,16 @@
       ]
     },
     {
-      "object": "sunrise.scenery_small.tree_ornamental",
+      "object": "sunrise.scenery_small.flowers_cool",
       "tiles": [
         [
-          13,
-          11,
+          15,
+          9,
           0
         ],
         [
-          19,
           17,
-          0
-        ]
-      ]
-    },
-    {
-      "object": "sunrise.scenery_small.bed_rectangular",
-      "tiles": [
-        [
-          13,
-          17,
-          0
-        ]
-      ]
-    },
-    {
-      "object": "sunrise.scenery_small.flowers_warm",
-      "tiles": [
-        [
-          19,
-          11,
+          9,
           0
         ]
       ]
@@ -346,11 +356,256 @@
       ]
     },
     {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          15,
+          11,
+          0
+        ],
+        [
+          17,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          13,
+          6,
+          0
+        ],
+        [
+          19,
+          8,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          13,
+          8,
+          0
+        ],
+        [
+          19,
+          6,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          13,
+          11,
+          0
+        ],
+        [
+          19,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          19,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          13,
+          13,
+          0
+        ],
+        [
+          19,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          13,
+          15,
+          0
+        ],
+        [
+          19,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_corner",
+      "tiles": [
+        [
+          15,
+          13,
+          0
+        ],
+        [
+          17,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_rectangular",
+      "tiles": [
+        [
+          13,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_picnic_table",
+      "tiles": [
+        [
+          17,
+          15,
+          0
+        ]
+      ]
+    },
+    {
       "object": "sunrise.scenery_small.sign_direction",
       "tiles": [
         [
           15,
           15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          12,
+          13,
+          0
+        ],
+        [
+          12,
+          15,
+          0
+        ],
+        [
+          20,
+          13,
+          0
+        ],
+        [
+          20,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          11,
+          13,
+          0
+        ],
+        [
+          11,
+          15,
+          0
+        ],
+        [
+          21,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_hedge",
+      "tiles": [
+        [
+          20,
+          8,
+          0
+        ],
+        [
+          20,
+          10,
+          0
+        ],
+        [
+          20,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          15,
+          18,
+          0
+        ],
+        [
+          17,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          15,
+          19,
+          0
+        ],
+        [
+          17,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          15,
+          20,
+          0
+        ],
+        [
+          17,
+          20,
           0
         ]
       ]

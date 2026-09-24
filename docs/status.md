@@ -979,3 +979,93 @@ The camera and canvas regressions are numbers, not pictures: `firstparkcheck.js`
 projects the entrance, the main path, the plaza and the coaster station and asserts each
 lands inside the viewport, and compares the engine's drawing surface with the canvas.
 Both of those failed silently for three milestones.
+
+## V1-5 — Scenery and vegetation (2026-09-24)
+
+Thirty-nine objects: sixteen vegetation, sixteen park pieces, three walls, four
+build-menu groups. All of it is composed in `assets/source/blender/scenery.py` out of
+shared components — a trunk, four canopy shapes, a flower head, a post row, a rail —
+so an object is a composition rather than a model, and no sprite is drawn by hand.
+The art rules are in the scenery section of `docs/world-art-system.md`.
+
+### Three things that looked like they were working
+
+**The build menu had no tabs, and the audit said it was fine.** A scenario with no
+research leaves every scenery group uninvented: `ResearchResetCurrentItem` marks every
+scenery *item* invented and then every scenery *group* not, on the assumption that
+research will turn the groups on later. Marking the groups invented in the park builder
+did not survive a save either — the invented bits are not in the park file. What a park
+file carries is the two research *lists*, and the load path rebuilds the bits from them.
+The builder now records one completed research item per loaded group and ride entry.
+
+**The scenery window opened and closed itself before it could draw.** It is a tool
+window: `onUpdate` closes it unless the scenery tool is active, and `ContextOpenWindow`
+does not activate the tool — the toolbar sends an intent that does both. So the window
+existed for one frame, drew nothing, and the sprite audit of the build menus passed
+perfectly. Three of that window's own buttons had never been authored and could not have
+been found. The audit now asks a new export where the window actually is, after giving
+it time to change its mind.
+
+**A group tab carried world offsets into a widget.** A tab is 31 by 28 and draws the
+sprite at its own corner plus the sprite's offsets; a tree is anchored at the foot of
+its trunk with its canopy forty-eight pixels above, so the Nature tab drew its tree off
+the top of the screen. Six objects had the mirror-image fault: they claimed less
+clearance than their art occupied, so they drew outside their own bounding box.
+
+### What decoration does to the simulation
+
+Nothing measurable, and the scenario says so. Measured by running First Park against
+`first-park-bare` — the same scenario with the decoration removed and nothing else
+changed — for three minutes each:
+
+| | decorated | undecorated |
+|---|---|---|
+| scenery pieces | 44 | 0 |
+| park rating | 703 | 703 |
+| average guest happiness | 185 | 189 |
+
+The engine has no scenery term in the park rating at all. The one place scenery reaches
+the simulation is `GuestAssessSurroundings`: forty or more elements within five tiles,
+with fewer than eight pieces of rubbish nearby, give a guest the "Great scenery!"
+thought and 45 on its happiness target. First Park is nowhere near that, and the
+objective was not retuned, because there was nothing to retune for.
+
+The positive case was not reproduced either: in the density scene, with three hundred
+and sixty scenery elements within five tiles of every guest on the path, no guest was
+ever observed holding that thought in a three-minute run. `scenerygameplay.js` reports
+that count rather than asserting it.
+
+### Payload
+
+First load 9.83 MB, from 9.66 MB. The whole scenery set is 150 KiB compressed:
+
+| category | objects | compressed |
+|---|---|---|
+| trees | 8 | 35.1 KiB |
+| decorative props and accents | 8 | 29.8 KiB |
+| fences and walls | 3 | 16.9 KiB |
+| planters and beds | 4 | 16.3 KiB |
+| shrubs | 4 | 15.0 KiB |
+| flowers and ground planting | 4 | 14.2 KiB |
+| build-menu groups | 4 | 8.5 KiB |
+| signs | 2 | 7.2 KiB |
+| lamps | 2 | 7.0 KiB |
+
+The tile-selection highlights and the three scenery-window buttons are in `g1.dat`, which
+grew 3.5 KiB compressed. Development scenes are 40.6 KiB and are stripped from the player
+build.
+
+### Guards added
+
+| Guard | Catches |
+|---|---|
+| `check_rotation_origin.py` | a model built away from the world origin, as its content's horizontal centre moving between rotations |
+| `check_scenery_objects.py` | wrong image count, blank or flat sprites, four identical "directions", two objects sharing artwork, art taller than its own bounding box |
+| `check_visual_scenery.py` | scenery that exists as objects and never reaches the screen, counted by exact palette index |
+| `sceneryaudit.js` | a sprite the engine asks for and cannot find, and a build menu that closed itself before it could ask |
+| `scenerysave.js` | a park file that keeps the objects and loses their orientation |
+| `scenerygameplay.js` | a claim about what decoration does, measured against the same park undecorated |
+
+`demo_check_failures.py` now proves five of these reject content broken on purpose,
+including a scenery object rendered from one angle four times and a model slid twelve
+pixels off the rotation origin.

@@ -95,6 +95,23 @@ def _load_selection_sprites() -> Dict[int, str]:
     return out
 
 
+def _load_boundary_fences() -> Dict[int, Tuple[str, int, int]]:
+    """The fence the engine draws along the edge of owned land.
+
+    These carry offsets, unlike the interface sprites: they sit on a tile edge, not in
+    a widget, so they are drawn relative to the tile origin like any other world art.
+    Built by build_boundary_fences.py from the timber fence's own renders.
+    """
+    directory = os.path.join(REPO, "assets", "generated", "ui", "boundary")
+    manifest = os.path.join(directory, "offsets.json")
+    if not os.path.exists(manifest):
+        raise SystemExit("run tools/art-pipeline/build_boundary_fences.py first")
+    with open(manifest, "r", encoding="utf-8") as handle:
+        offsets = json.load(handle)
+    return {int(index): (os.path.join(directory, f"{index}.png"), entry["x"], entry["y"])
+            for index, entry in offsets.items()}
+
+
 def _engine_entry_count() -> int:
     """Read SPR_G1_END from the engine so this file cannot silently drift."""
     header = os.path.join(REPO, "engine", "openrct2", "src", "openrct2", "SpriteIds.h")
@@ -153,6 +170,7 @@ def build() -> dict:
 
     SPRITE_SOURCES.update(_load_ui_sprites())
     SPRITE_SOURCES.update(_load_selection_sprites())
+    SPRITE_SOURCES.update(_load_boundary_fences())
 
     os.makedirs(OUT_DIR, exist_ok=True)
     work = tempfile.mkdtemp(prefix="sunrise-base-")
@@ -177,9 +195,16 @@ def build() -> dict:
                     "palette": "keep",
                 })
             else:
+                # A source is either a path, or a path with the offsets world art needs.
+                offset_x, offset_y = 0, 0
+                if isinstance(source, tuple):
+                    source, offset_x, offset_y = source
                 staged = os.path.join(work, f"s{index:05d}.png")
                 shutil.copy(source, staged)
-                entries.append({"path": os.path.basename(staged), "palette": "keep"})
+                entries.append({
+                    "path": os.path.basename(staged), "x": offset_x, "y": offset_y,
+                    "palette": "keep",
+                })
 
         manifest_path = os.path.join(work, "sprites.json")
         with open(manifest_path, "w", encoding="utf-8") as handle:

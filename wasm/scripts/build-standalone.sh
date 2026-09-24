@@ -25,6 +25,7 @@ echo "== regenerating content pack"
 "$VENV" "$ROOT/tools/art-pipeline/build_language.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_ui_sprites.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_selection_sprites.py"
+"$VENV" "$ROOT/tools/art-pipeline/build_boundary_fences.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_base_archive.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_pack.py"
 

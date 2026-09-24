@@ -78,6 +78,15 @@ MAX_SAME_WALL = 0.995
 #: it is the looser of the two rules on purpose.
 MAX_UNUSED_CLEARANCE = 24
 
+#: A build-menu tab is Scenery.cpp's kTabWidth by kTabHeight, and the widget draws the
+#: group's sprite at its own top-left corner plus that sprite's offsets. Those offsets
+#: are ordinary world offsets on every other object: a tree is anchored at the foot of
+#: its trunk with its canopy forty-eight pixels above it, so the Nature tab drew its
+#: tree off the top of the screen and read as a tab with no icon at all. A group icon
+#: therefore has to be a sprite that fits the box it is drawn in.
+TAB_WIDTH = 31
+TAB_HEIGHT = 28
+
 problems: List[str] = []
 
 
@@ -130,6 +139,24 @@ def check_images(identifier: str, archive: zipfile.ZipFile, images: List[dict],
     return hashlib.sha256(b"".join(f.tobytes() for f in frames)).hexdigest()
 
 
+def check_tab_bounds(identifier: str, archive: zipfile.ZipFile, root: dict) -> None:
+    """Every pixel of a group's tab icon has to land inside the tab widget.
+
+    Measured from the sprite itself rather than from anything the object declares: an
+    object.json carries offsets, not sizes, and the size is the half of this that went
+    wrong.
+    """
+    for index, entry in enumerate(root.get("images", [])):
+        left, top = entry.get("x", 0), entry.get("y", 0)
+        image = sprite(archive, entry["path"])
+        height, width = image.shape
+        right, bottom = left + width, top + height
+        if left < 0 or top < 0 or right > TAB_WIDTH or bottom > TAB_HEIGHT:
+            problems.append(
+                f"{identifier}: image {index} covers ({left},{top})..({right},{bottom}), "
+                f"outside the {TAB_WIDTH}x{TAB_HEIGHT} tab it is drawn in")
+
+
 def check_bounding_box(identifier: str, root: dict) -> None:
     """The art has to fit inside the clearance the object claims."""
     height = root.get("properties", {}).get("height")
@@ -180,6 +207,7 @@ def main() -> None:
                 for entry in root.get("properties", {}).get("entries", []):
                     if not os.path.exists(os.path.join(directory, f"{entry}.parkobj")):
                         problems.append(f"{identifier}: names a missing object, {entry}")
+                check_tab_bounds(identifier, archive, root)
             else:
                 if digest:
                     art[identifier] = digest
@@ -196,10 +224,28 @@ def main() -> None:
             problems.append(f"{identifier} ships the same artwork as {by_digest[digest]}")
         by_digest[digest] = identifier
 
+    # The counts the milestone committed to. Every object in the tables is checked for
+    # its art above, but the tables themselves are editable, so the shape of the set is
+    # asserted here: losing four trees would otherwise be a clean pass.
     vegetation = [name for name in present if any(
         key in name for key in (".tree_", ".shrub_", ".flowers_", ".ornamental_grass", ".ground_planting"))]
     if len(vegetation) < 15:
         problems.append(f"only {len(vegetation)} vegetation objects, V1-5 ships at least 15")
+    trees_and_shrubs = [name for name in vegetation if ".tree_" in name or ".shrub_" in name]
+    if len(trees_and_shrubs) < 8:
+        problems.append(
+            f"only {len(trees_and_shrubs)} tree and shrub silhouettes, V1-5 ships at least 8")
+    park = [name for name in present
+            if ".scenery_small." in name and name not in vegetation]
+    if len(park) < 15:
+        problems.append(f"only {len(park)} park objects, V1-5 ships about 20 with the walls")
+    for family, minimum in ((".lamp_", 2), (".sign_", 2), (".planter_", 2), (".bed_", 2),
+                            (".prop_", 3), (".accent_", 2)):
+        found = [name for name in present if family in name]
+        if len(found) < minimum:
+            problems.append(f"only {len(found)} objects in the {family.strip('._')} family, expected {minimum}")
+    if counts["scenery_wall"] < 3:
+        problems.append(f"only {counts['scenery_wall']} wall objects, V1-5 ships two fences and a wall")
 
     if problems:
         print("FAIL: the scenery set is not complete:")

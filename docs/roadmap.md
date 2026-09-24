@@ -153,3 +153,41 @@ Two things V1-4 learned that shape it:
   running, so the budget for scenery is real rather than hoped for.
 * The information point still has no scenario that needs it. Scenario 2, **Small
   Footprint**, is where a layout finally loses somebody.
+
+## V1-5 complete (2026-09-24)
+
+**Scenery and vegetation**: thirty-nine objects in one theme — sixteen vegetation,
+sixteen park pieces, three walls, four build-menu groups — built out of shared Blender
+components rather than modelled one at a time. First Park is decorated rather than
+filled: nine pieces and a short railing, with the rest of the ground left for the
+player. See the scenery section of `docs/world-art-system.md`.
+
+Three defects, all the same shape again — something that looked like it was working:
+
+* **The build menu had no tabs at all.** A scenario with no research leaves every
+  scenery group uninvented, because `ResearchResetCurrentItem` marks scenery *items*
+  invented and scenery *groups* not. Setting the invented bits in the builder was not
+  enough either: they are not in the save. A park file carries the research *lists*,
+  and the load path rebuilds the bits from them.
+* **The scenery window opened and closed itself a frame later**, because it is a tool
+  window and nothing had activated the tool. A sprite audit of the build menus
+  therefore passed by drawing nothing, and three of the window's own buttons had never
+  been authored. The audit now asks where the window is, not whether it opened.
+* **A group's tab icon carried its world offsets into a widget.** A tree is anchored
+  at the foot of its trunk, so the Nature tab drew its tree forty-eight pixels above
+  the tab, off the top of the screen. Six objects had the mirror-image problem: they
+  claimed less clearance than their art occupied, and drew outside their own bounding
+  box.
+
+Next: **V1-6, staff** — the mechanic, and the handyman revisited for the current art
+direction. It is the milestone that lets First Park turn breakdowns back on, which is
+the one thing the scenario is still lying about.
+
+What V1-5 learned that shapes it:
+
+* Decoration does almost nothing to the simulation as the engine stands: forty scenery
+  elements within five tiles buy a guest one thought and 45 happiness, and the park
+  rating has no scenery term. Making decoration pay is a deliberate decision for a
+  later milestone, not a side effect of shipping the art.
+* A park with eleven hundred scenery objects on it still simulates at full speed; what
+  costs frames is the window size, not the object count.

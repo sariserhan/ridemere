@@ -225,6 +225,15 @@ RECORDS: Dict[str, dict] = {
         "notes": "A development scene packed with far more scenery than a park would "
                  "carry, for measuring readability and rendering cost.",
     },
+    "standalone/DevScenarios/first-park-bare.park": {
+        **ORIGINAL,
+        "asset": "sunrise_first_park_bare_v1",
+        "source": "assets/scenarios/first-park/scenario.json",
+        "generator": "engine park builder via tools/art-pipeline/build_scenario.py, "
+                     "written by tools/art-pipeline/build_art_scenes.py",
+        "notes": "First Park with the decoration removed and nothing else changed. "
+                 "The control the scenery checks measure against.",
+    },
     "standalone/DevScenarios/needs-test.park": {
         **ORIGINAL,
         "asset": "sunrise_needs_test_v1",

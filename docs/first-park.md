@@ -36,7 +36,7 @@ and checks each lands inside the viewport.
 | Paths | entrance corridor, crossing, plaza, coaster queue |
 | Benches | 4, on the plaza |
 | Bins | 3, on the plaza and the entrance path |
-| Scenery | 9 pieces: 4 trees, a flower bed, warm flowers, 2 lamps, a direction sign |
+| Scenery | 44 pieces along the paths and around the plaza |
 | Walls | 2 pieces of metal railing, at the plaza corner |
 | Shops | none |
 | Staff | none |
@@ -53,11 +53,19 @@ learn from a park that has some.
 
 ## Decoration
 
-Eleven pieces, and that is the whole of it. The park is **decorated, not filled**: two
-broadleaf trees behind the plaza, two ornamental trees at the corners, a flower bed and
-a patch of warm flowers beside the path, two lamps on the crossing, a direction sign at
-the junction and a short run of railing at the plaza edge. Everything else is empty
-ground the player can plant.
+Forty-four pieces, all of them along a path or around the plaza, and nothing anywhere
+else. The park is **landscaped, not filled**.
+
+The entrance avenue is the same thing on both sides of the path, four tiles apart —
+column trees, then lamps, then broadleafs, then flowers — because an avenue is a
+rhythm and a scattering is not, and a second rank further back gives it depth. The
+plaza has planters at its corners, beds on its inner tiles and a direction sign at the
+crossing. The two arms of the crossing are planted lightly, so they read as going
+somewhere. A low hedge runs between the main path and the coaster queue. South of the
+plaza the planting stops, which is where the park stops and the empty ground begins.
+
+Everything off the paths is untouched: the whole west side, the south, and the ground
+around the coaster. That is most of the map.
 
 It is there to show what a finished park looks like and to leave most of the work
 undone, which is the opposite of the failure mode: a scenario so complete that placing
@@ -81,12 +89,30 @@ Happier guests raise the park rating indirectly, through the rating's happy-gues
 Walls do not count. Path additions do not count unless they are jumping fountains,
 which we do not ship — `prop_fountain` is small scenery and is counted as such.
 
-Forty pieces within five tiles is a dense planting, not a decorated path. First Park
-ships nine, so **its decoration is cosmetic and nothing in the game pretends
-otherwise.** `wasm/test/scenerygameplay.js` measures both ends of this, and asserts
-that no guest in First Park gets the thought and that guests in the density scene do.
-No number was rebalanced to make decoration pay; that is a later decision, and it
-should be made deliberately rather than by quietly adding a term.
+Forty within five tiles is a dense planting, not a landscaped path, and First Park is
+nowhere near it.
+
+This was measured rather than assumed. `wasm/test/scenerygameplay.js` runs First Park
+against `first-park-bare` — the same scenario with the decoration removed and nothing
+else changed — for three minutes each:
+
+| | decorated | undecorated |
+|---|---|---|
+| scenery pieces | 44 | 0 |
+| park rating | 703 | 703 |
+| average guest happiness | 185 | 189 |
+
+**Decorating First Park changes nothing the player can measure**, and that is what the
+game tells them: no step asks for it and no number rewards it.
+
+One honest gap. The positive case was not reproduced either: in a three-minute run of
+the density scene, with three hundred and sixty scenery elements within five tiles of
+every guest on the path, no guest was ever observed holding the "Great scenery!"
+thought. So the test reports the count rather than asserting it. Whether that is the
+assessment's once-a-minute cadence, something about how guests are generated in a test,
+or a real defect is a question for the milestone that decides to make decoration pay.
+It does not change the conclusion here, which is that decoration currently does
+nothing — if anything it makes it firmer.
 
 ## Available content
 
@@ -195,6 +221,6 @@ start state is a change to that file and a rebuild, never an edit to a binary.
 After changing any number here, run `wasm/test/firstpark.js` and read the timeline. It
 is the only thing that will tell you whether the scenario still works.
 
-The objective was not retuned when the park was decorated. It could not have needed to
-be: nothing in the rating or the guest generator reads scenery, and the measured play
-through is unchanged. Making the park prettier is not a reason to move a target.
+The objective was not retuned when the park was decorated, and the measurement above is
+why: the park rating is identical with the decoration and without it. Making the park
+prettier is not a reason to move a target.

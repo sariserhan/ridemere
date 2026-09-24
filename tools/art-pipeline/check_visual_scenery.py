@@ -79,21 +79,21 @@ GROUPS: Dict[str, Set[int]] = {
 SPARSE = {"foliage": 0.0030, "flowers": 0.00020, "bark": 0.00030}
 DENSE = {"foliage": 0.0350, "flowers": 0.00400, "bark": 0.00250}
 
-#: First Park is a third case and needs its own floors, for two reasons. It is
-#: decorated lightly on purpose — the player is meant to have somewhere to put things
-#: — so its numbers are a tenth of the art scene's. And it ships the stalls, whose
-#: warm roof colours land in the same palette entries as the flowers, which makes the
-#: flower reading useless there. Measured against the same park with every piece of
-#: scenery removed:
+#: First Park is a third case and needs its own floors. It is decorated along its
+#: paths and left open everywhere else, so its numbers sit between the art scene's and
+#: nothing. And the warm colours already on its map land in the same palette entries
+#: as the flowers, which makes a flower reading there useless. Measured against
+#: `first-park-bare`, the same scenario with the decoration removed and nothing else
+#: changed:
 #:
-#:                      First Park    bare
-#:   foliage               0.136%    0.020%
-#:   flowers               0.471%    0.461%   <- the stalls, not the flower beds
-#:   bark                  0.045%    0.0001%
+#:                      First Park     bare
+#:   foliage               1.115%     0.022%
+#:   flowers               (not measured: the buildings, not the flower beds)
+#:   bark                  0.124%     0.0002%
 #:
-#: So the park profile asks about foliage and bark, which nothing else in that park
-#: is drawn with, and does not pretend to measure the flowers.
-PARK = {"foliage": 0.00070, "bark": 0.00020}
+#: So the park profile asks about foliage and bark, which nothing else in that park is
+#: drawn with, and does not pretend to measure the flowers.
+PARK = {"foliage": 0.00300, "bark": 0.00030}
 
 
 def main() -> None:

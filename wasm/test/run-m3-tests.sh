@@ -99,6 +99,11 @@ run "the scenery check rejects the same scenes with every piece of scenery remov
     echo "   rejects $name"
   done'
 
+# What decoration does to the simulation, measured against the same scenario with the
+# decoration removed rather than against a different park.
+run "decorating a park changes nothing the player can measure, and says so" bash -c '
+  cd "'"$ROOT"'/wasm/test" && node scenerygameplay.js'
+
 # A park file that kept the objects but lost their orientation would look almost
 # right, because a tree is a tree from any angle. Read the direction back instead.
 run "scenery survives a save and a reload, in place and facing the same way" bash -c '
@@ -106,10 +111,16 @@ run "scenery survives a save and a reload, in place and facing the same way" bas
 
 # Every scenery sprite the engine can ask for, including the build-menu tab icons the
 # map never draws, and the window chrome that only appears once a menu is open. Also
-# asserts the windows are still open and on screen when the audit is taken: a window
-# that closes itself draws nothing and passes a sprite audit perfectly.
-run "the build menus open, stay open, and draw no sprite the engine cannot find" bash -c '
-  cd "'"$ROOT"'/wasm/test" && node sceneryaudit.js'
+# asserts the windows are still open, on screen and carrying their tabs when the audit
+# is taken, and then the picture asserts they actually drew: a window that closes
+# itself draws nothing and passes a sprite audit perfectly, which is what the scenery
+# window did for a whole milestone.
+build_menus() {
+  ( cd "$ROOT/wasm/test" && node sceneryaudit.js ) \
+    && "$PY" "$ROOT/tools/art-pipeline/check_window_drawn.py" \
+      "$ROOT/wasm/test/results-visual/menu-rects.json"
+}
+run "the build menus open, stay open, draw themselves, and ask for no missing sprite" build_menus
 
 run "the addition check rejects a park with the benches and bins removed" bash -c '
   if "'"$PY"'" "'"$ROOT"'/tools/art-pipeline/check_visual_additions.py" \
