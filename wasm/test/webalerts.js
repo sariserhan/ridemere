@@ -6,9 +6,10 @@
 // the other half, on the scenario a player actually starts: that the model reaches the
 // screen, says something useful, and goes away when the park is fixed.
 //
-// The park it uses ships with its stalls open, which is the point: to see an alert the
-// test has to break the park first, by closing them. That is also a situation a player
-// creates for themselves, so it is worth asserting rather than contriving around.
+// First Park ships with no stalls at all, which is the situation the alerts exist for:
+// a park full of guests and nowhere to eat. The test makes the guests hungry, checks
+// that the panel says so and says what to build, then builds it and checks the panel
+// notices.
 //
 // Assumes a server is already running at baseUrl.
 const playwright = require('playwright');
@@ -33,7 +34,7 @@ function check(name, ok, detail) {
   });
   try {
     const page = await (await browser.newContext({ viewport: { width: 1280, height: 800 } })).newPage();
-    await page.goto(`${base}/play?scenario=sunrise-test`, { waitUntil: 'domcontentloaded' });
+    await page.goto(`${base}/play?scenario=first-park`, { waitUntil: 'domcontentloaded' });
     await page.mouse.move(640, 400);
     await page.waitForSelector('button:has-text("Save & exit")', { timeout: 240000 });
     await sleep(6000);
@@ -55,13 +56,10 @@ function check(name, ok, detail) {
     // panel worth reading: if it is always there, a player stops seeing it.
     check('the panel is absent while the park is fine', await panel.count() === 0);
 
-    // Break the park: close every stall, the way a player does by accident.
-    const rides = JSON.parse(await call('SunriseRideListJson', 'string', [], []));
-    for (const ride of rides) {
-      if (ride.rideType !== 96) await call('SunriseSetRideStatus', 'number', ['number', 'number'], [ride.id, 0]);
-    }
-    const closed = JSON.parse(await call('SunriseRideListJson', 'string', [], []));
-    check('every stall was closed', closed.filter(r => r.rideType !== 96).every(r => r.status !== 1));
+    // Open the coaster so guests come in and stay.
+    await call('SunriseSetRideStatus', 'number', ['number', 'number'], [0, 1]);
+    const opening = JSON.parse(await call('SunriseScenarioStateJson', 'string', [], []));
+    check('the park starts with nowhere to eat or drink', !opening.hasFood && !opening.hasDrink);
 
     // Generated guests spawn OUTSIDE the park and walk in, and the need setter skips
     // guests who are not inside yet. Let them in first or almost none are reached.
@@ -102,17 +100,19 @@ function check(name, ok, detail) {
     await sleep(500);
     check('the panel expands again', await page.locator('[data-testid="guest-alert"]').count() > 0);
 
-    // Fix the park the way a player would, and require the panel to notice.
-    for (const ride of rides) {
-      if (ride.rideType !== 96) await call('SunriseSetRideStatus', 'number', ['number', 'number'], [ride.id, 1]);
-    }
+    // Fix the park the way a player would: build the stall the panel asked for.
+    const built = JSON.parse(await call(
+      'SunrisePlaceShop', 'string', ['string', 'number', 'number', 'number', 'number'],
+      ['sunrise.ride.grill_stand', 13, 12, 2, 8]));
+    check('the food stall the panel asked for can be built', built.ok && built.opened,
+      built.ok ? `$${(built.cost / 10).toFixed(2)}` : built.error);
     await settle(90);
     const after = await rows();
     console.log('   after:', JSON.stringify(after));
-    const stillNowhere = after.filter(r => ['GUESTS_HUNGRY', 'GUESTS_THIRSTY'].includes(r.kind))
-      .filter(r => /there is (nowhere|nothing)/i.test(r.text || ''));
-    check('reopening the stalls changes what the panel says', stillNowhere.length === 0,
-      after.map(r => r.text).join(' | ').slice(0, 160));
+    const stillNowhere = after.filter(r => r.kind === 'GUESTS_HUNGRY')
+      .filter(r => /there is nowhere/i.test(r.text || ''));
+    check('building the stall changes what the panel says about food', stillNowhere.length === 0,
+      after.map(r => r.text).join(' | ').slice(0, 160) || 'the hunger alert cleared');
 
     await page.screenshot({ path: path.join(OUT, 'alert-panel-after.png') });
   } finally {

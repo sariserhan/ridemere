@@ -14,7 +14,7 @@ const TILES = [[21,14],[21,13],[21,7],[21,6],[22,6],[22,8],[22,9],[22,14]];
     await page.goto(`http://localhost:${port}/`, { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => !document.getElementById('boot'), null, { timeout: 180000 });
     await sleep(5000);
-    await page.evaluate(() => window.Module.ccall('SunriseLoadPark', 'number', ['string'], ['/OpenRCT2/standalone/Scenarios/sunrise-test.park']));
+    await page.evaluate(() => window.Module.ccall('SunriseLoadPark', 'number', ['string'], ['/OpenRCT2/standalone/DevScenarios/sunrise-test.park']));
     await sleep(6000);
     const out = await page.evaluate((tiles) => tiles.map(([x, y]) =>
       JSON.parse(window.Module.ccall('SunriseTileDebugJson', 'string', ['number', 'number'], [x, y]))), TILES);

@@ -151,3 +151,22 @@ the build. This is the same rule the art pipeline already enforces.
 
 Silence is an acceptable launch state for the last group. It is not acceptable for the
 first two.
+
+### Maintenance and onboarding
+
+Added in V1-4, when litter became a loop a player has to close.
+
+| Identifier | What it is | Heard |
+|---|---|---|
+| `sweep` | a short brush stroke on paving | a handyman picking up litter |
+| `binEmpty` | a bin lid and a bag | a handyman emptying a bin |
+| `litterDrop` | a small paper rustle, barely there | a guest dropping what they finished |
+| `sitDown` | a bench creak, very quiet | a guest sitting down |
+| `tipAppears` | one soft note, quieter than an alert | a new onboarding instruction |
+| `objectiveMet` | a short warm phrase, not a fanfare | the scenario objective completed |
+
+`sweep` and `litterDrop` will play constantly in a busy park, so both have to be near
+silent at a distance and completely uninteresting on repetition.
+
+`tipAppears` is deliberately quieter than the three alert sounds. A tutorial that
+announces itself as loudly as a problem teaches a player to mute the game.

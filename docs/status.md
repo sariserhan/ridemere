@@ -886,3 +886,96 @@ Clean: 0 unexpected indices, 0 requests. `SPR_RIDE` was authored, and so were th
 weather icons we had not shipped. Only sun and cloud existed, so the toolbar drew a
 magenta marker the first time it rained — a hole the audit found only intermittently,
 which is the worst kind to have.
+
+## V1-4 — First Park, benches and bins (2026-09-24)
+
+The first scenario a player is meant to start, with onboarding that reads the park
+rather than the menus, and the two objects that close the guest-need loop.
+
+### What shipped
+
+| | | |
+|---|---|---|
+| Release scenario | 1 | First Park, 32 tiles, guests-and-rating objective |
+| Path additions | 2 | bench (9 images), litter bin (13 images) |
+| Onboarding steps | 10 | all derived from park state, none stored |
+| Development scenes | 3 | `sunrise-test` joined them; no release scenario but First Park |
+
+`docs/first-park.md` has the scenario and every number in it, with where the number
+came from.
+
+### Four things that had never worked
+
+1. **The handyman had never cleaned anything.** Two separate reasons, both silent.
+   He was hired with a staff-orders mask of zero, and every duty is checked against
+   that mask before the task is even looked for. And once that was fixed, his sweep
+   animation was five frames long while `Staff::updateSweeping` removes litter at frame
+   **8**, and `updateEmptyingBin` empties a bin at frame **11**. Neither checks that
+   the animation is long enough; a short one simply plays forever. The sequences now
+   ping-pong the rendered frames to the lengths the engine reads. He sweeps 27 pieces
+   and empties 7 bins in four minutes.
+2. **Nested game actions never charge money.** `GameActionRunner` returns a nested
+   result before it reaches `FinancePayment`, so nothing the park builder places has
+   ever cost anything. That is right for a scenario's starting park and wrong for
+   `SunrisePlaceShop`, whose whole purpose is to find out what a player would pay.
+3. **A scenario's saved camera was always discarded.** `SetMainView` sets the window's
+   `savedViewPos`, which the window copies to its viewport on its next update — and
+   there is no next update inside the builder. `PrepareMapForSave` then read the stale
+   viewport. The builder now moves the viewport directly, and `GameLoadInit` repairs a
+   camera that is off the map on every load path, not just the shell's.
+4. **A scenario could break a ride the player cannot fix.** The first play-through of
+   First Park died to it: the coaster broke down, the queue emptied, the rating fell to
+   zero and 150 guests left, with no mechanic in the game. A scenario now says whether
+   it is ready for breakdowns; First Park says no until V1-6.
+
+### The play-through the numbers come from
+
+Twenty-six minutes of simulation, playing the scenario the way the onboarding asks:
+
+| Moment | |
+|---|---|
+| Coaster opened, first rider | 136 seconds of play |
+| Opening build (food, drink, restroom) | $775 of $12,000 |
+| First food sale | about 8 minutes |
+| Litter alert raises, unprompted | about 12 minutes, INFO → WARNING → IMPORTANT |
+| Park ignored: rating 756 → 0, guests 158 → 4 | about 24 minutes |
+| Handyman hired: litter 14 → 3, 27 swept | 4 minutes |
+
+Takings over the run: coaster $524, food stall $93, drink stall $86, restroom −$22.
+A park that builds nothing new neither goes broke nor gets rich, which is the right
+shape for a first scenario.
+
+### Scenario-aware tuning, not alert tuning
+
+At the engine's defaults a guest arrives with hunger 200 and does not complain until it
+falls below 10, which takes over twenty minutes. A tutorial that waited for that would
+have nothing to teach. First Park sends its guests in with hunger 60 and thirst 90,
+which is the engine's own `guestInitialHunger`. **No alert threshold changed.**
+
+### Decisions
+
+**Souvenir stall: available, not taught.** A guest buys a souvenir after three rides,
+and one coaster ridden three times satisfies that, so it is not dead content here. It is
+not what a new player should spend their first thousand pounds on.
+
+**Information point: not in First Park at all.** It sells maps only to lost guests, and
+nobody gets lost on one straight path; it sold nothing across fifty thousand ticks in
+V1-3. Shipping it here would teach a player that a building they were told to build does
+nothing.
+
+**`sunrise-test` is development-only now.** It stayed visible because the regression
+tests used it; the tests now name it in `DevScenarios` like any other development scene.
+
+### Guards added
+
+| Guard | Catches |
+|---|---|
+| `check_addition_objects.py` | wrong image count, blank slots, four identical edges, a full bin that looks like an empty one |
+| `check_visual_additions.py` | benches and bins that exist as objects but never reach the screen |
+| `firstparkcheck.js` | the opening camera by projection, the canvas size by number, the five-minute rule, all three needs loops, the litter loop, maintenance, save and resume |
+| `webonboarding.js` | instructions that advance on a click, and onboarding that restarts after a reload |
+
+The camera and canvas regressions are numbers, not pictures: `firstparkcheck.js`
+projects the entrance, the main path, the plaza and the coaster station and asserts each
+lands inside the viewport, and compares the engine's drawing surface with the canvas.
+Both of those failed silently for three milestones.

@@ -28,7 +28,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     await sleep(6000);
     await page.mouse.move(640, 400);
     const loaded = await page.evaluate(() => window.Module.ccall('SunriseLoadPark', 'number', ['string'],
-      ['/OpenRCT2/standalone/Scenarios/sunrise-test.park']));
+      ['/OpenRCT2/standalone/DevScenarios/sunrise-test.park']));
     if (loaded !== 1) throw new Error('the reference park did not load');
     await sleep(5000);
     const png = await page.evaluate(() => {

@@ -34,6 +34,9 @@ run "shipped track artwork is real, not placeholders" \
 run "shops and facilities have four real angles and their own art" \
   "$PY" "$ROOT/tools/art-pipeline/check_shop_objects.py"
 
+run "the bench and the bin have real art in every slot the engine indexes" \
+  "$PY" "$ROOT/tools/art-pipeline/check_addition_objects.py"
+
 run "development scenes cannot reach the scenario selector" \
   "$PY" "$ROOT/tools/art-pipeline/check_scenario_visibility.py"
 
@@ -52,6 +55,27 @@ shops_visible() {
     && "$PY" "$ROOT/tools/art-pipeline/check_visual_shops.py" "$ROOT/wasm/test/results-visual/shops.png"
 }
 run "the shops and facilities are drawn in a park, and colour-coded" shops_visible
+
+# The scenario a player actually starts, asserted end to end: the opening camera, the
+# canvas size, the five-minute rule, the needs loops, the litter loop and maintenance.
+run "First Park plays: opening, needs, litter and maintenance" bash -c '
+  cd "'"$ROOT"'/wasm/test" && node firstparkcheck.js'
+
+# Benches and bins have to reach the screen, not just exist as objects. Proven to
+# reject a capture of the same park with them removed.
+first_park_visible() {
+  ( cd "$ROOT/wasm/test" && node parkshot.js first-park.park first-park-initial 20 >/dev/null ) \
+    && "$PY" "$ROOT/tools/art-pipeline/check_visual_smoke.py" "$ROOT/wasm/test/results-visual/first-park-initial.png" \
+    && "$PY" "$ROOT/tools/art-pipeline/check_visual_additions.py" "$ROOT/wasm/test/results-visual/first-park-initial.png"
+}
+run "First Park renders, with its benches and bins" first_park_visible
+
+run "the addition check rejects a park with the benches and bins removed" bash -c '
+  if "'"$PY"'" "'"$ROOT"'/tools/art-pipeline/check_visual_additions.py" \
+       "'"$ROOT"'/wasm/test/fixtures/first-park-no-additions.png" >/dev/null 2>&1; then
+    echo "   FAIL: accepted a park with no benches or bins"; exit 1
+  fi
+  echo "   rejects a park with no benches or bins"'
 
 # Render a known park and check the picture contains the things a park must contain.
 # This is the guard against a whole sprite table being blank while every programmatic

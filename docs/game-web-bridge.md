@@ -32,6 +32,7 @@ Direction is part of the type, so nothing can send a message the wrong way.
 | `REQUEST_SCREENSHOT` | `width`, `height` | capture a thumbnail |
 | `REQUEST_PARK_METADATA` | none | describe the current park |
 | `REQUEST_GUEST_ALERTS` | none | what is the park telling the player |
+| `REQUEST_SCENARIO_STATE` | none | where is this scenario up to |
 
 ### Game to web
 
@@ -42,6 +43,7 @@ Direction is part of the type, so nothing can send a message the wrong way.
 | `SCREENSHOT_READY` | `png`, `width`, `height` | here is a thumbnail |
 | `PARK_METADATA` | `metadata` | here is a snapshot |
 | `GUEST_ALERTS` | `alerts` | here is the active alert list, most severe first |
+| `SCENARIO_STATE` | `state` | a summary of the scenario, for onboarding and the objective |
 | `EXIT_GAME` | `reason: player \| error` | the player has left the park |
 | `ERROR` | `stage`, `message`, `detail?` | something failed, in words a player can read |
 
@@ -85,9 +87,33 @@ See `docs/guest-alerts.md`.
 `kind` is a string rather than a closed union on purpose: a new alert added in the
 engine appears in the panel without a matching change on the web side.
 
+## Scenario state
+
+The third and last piece of simulation data that crosses the boundary, added in V1-4
+for the onboarding:
+
+```
+guests  rating  cash  rideOpen  rideCustomers  shopsOpen
+hasFood  hasDrink  hasToilet  benches  bins  handymen  litter
+viewX  viewY  objectiveGuests  objectiveRating  scenarioComplete
+```
+
+Every field is here because some onboarding instruction has to decide whether the player
+has done a thing, and those decisions have to be answerable from the park: a tutorial
+step that advances because a menu was opened teaches nothing, and one that cannot
+recompute where it is makes nonsense of resuming a save.
+
+It is a summary and must stay one. No entities, no tiles, nothing a park could be
+rebuilt from. The alternative — the web side reasoning about ride types and path
+elements over a much wider bridge — is the accidental API this boundary exists to
+prevent.
+
+`viewX` and `viewY` are there for one instruction: "look around your park" is complete
+when the camera has moved, and that cannot be known without knowing where it started.
+
 ## Engine entry points behind it
 
-Six exported functions, all prefixed `Sunrise`:
+Seven exported functions, all prefixed `Sunrise`:
 
 | Export | Used by |
 |---|---|
@@ -96,6 +122,7 @@ Six exported functions, all prefixed `Sunrise`:
 | `SunriseParkMetadataJson()` | `PARK_METADATA`, and attached to every `SAVE_READY` |
 | `SunriseCaptureThumbnail(name, w, h)` | `REQUEST_SCREENSHOT` |
 | `SunriseGuestAlertsJson()` | `GUEST_ALERTS` |
+| `SunriseScenarioStateJson()` | `SCENARIO_STATE` |
 | `SunriseParkStatsJson()` | readiness detection, see below |
 
 Park bytes move through the Emscripten virtual filesystem: the shell writes them to a
@@ -122,5 +149,5 @@ asserts the park's **name and ride count**, not merely that something opened.
 implemented, because nothing produces them yet.
 
 There is no message for arbitrary engine state, no scripting channel, and no way for
-the web side to call into the simulation other than the six functions above. Keep it
+the web side to call into the simulation other than the seven functions above. Keep it
 that way: every addition is a promise that becomes expensive to break.

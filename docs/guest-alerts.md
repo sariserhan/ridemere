@@ -190,3 +190,22 @@ food. A park with no benches and no food stall never generates demand for drinks
 `GUESTS_THIRSTY` will never raise there however long it runs. That is not a bug in the
 alert; it is the shape of the simulation, and it means the drink stall is not really
 playable until benches exist.
+
+
+## Scenario-aware timing, without touching the thresholds
+
+A tutorial-sized park has a problem the thresholds cannot solve: at the engine's
+defaults a guest arrives with hunger 200 and does not complain until it falls below 10,
+which takes over twenty minutes of play. A first scenario that waited for that would
+have nothing to teach for the length of a session.
+
+The fix is not to make the alert fire earlier. It is for the scenario to send its guests
+in closer to needing something: `"guests": { "hunger": 60, "thirst": 90 }` in the
+scenario description, which is the engine's own `guestInitialHunger` and
+`guestInitialThirst`. The thresholds, the hysteresis and the cooldown above are the same
+in every park.
+
+That distinction matters. A threshold tuned for one scenario is a threshold that is
+wrong in every other one, and there is no way to tell from the alert which it was tuned
+for. A scenario saying what its guests arrive with is a scenario design decision, stated
+in the scenario.

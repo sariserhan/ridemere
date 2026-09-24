@@ -1,7 +1,7 @@
 {
   "name": "Sunrise Test Park",
-  "details": "A small flat park used to exercise the standalone runtime end to end.",
-  "visibility": "release",
+  "details": "A development park used to exercise the standalone runtime end to end: a coaster, every stall and a path network. Not a release scenario.",
+  "visibility": "development",
   "mapTiles": 32,
   "initialCash": 20000,
   "objectiveGuests": 50,

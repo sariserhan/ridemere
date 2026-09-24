@@ -205,3 +205,25 @@ deliberately in every scenario.
 buys a map only when lost. In a park with two straight paths nobody is ever lost, so it
 sold nothing across fifty thousand ticks. It earns its place in V1-4's scenario, which
 is the first park with a layout worth getting lost in.
+
+## What V1-4 changed about this plan (2026-09-24)
+
+**V1-5 is the scenery set, and First Park is what it is for.** The scenario exists now
+and is visibly bare: a plaza with four benches and three bins on empty grass. Trees,
+bushes, lamps, signs and fences all come out of the props generator the bench and the
+bin already share, so the marginal cost of each is low and the marginal gain is the
+first scenario looking like a place.
+
+**The mechanic moved up the risk list.** First Park ships with breakdowns switched off,
+because a ride that breaks down needs a staff type the player cannot hire and the first
+play-through lost a hundred and fifty guests to exactly that. That switch is a scenario
+setting and a temporary one; every scenario after this either turns breakdowns off too
+or waits for V1-6.
+
+**Scenario 2 has a job to do.** The information point still sells nothing, because
+nobody gets lost on one straight path. Small Footprint is the scenario where a layout
+finally loses somebody, and it is where that content earns its place.
+
+**The onboarding pattern generalises.** Steps are pure functions of a scenario summary
+the engine sends, so a second scenario's tutorial is a second list of steps and no new
+machinery. Nothing about onboarding is stored in a park file, and nothing needs to be.

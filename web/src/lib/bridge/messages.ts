@@ -21,7 +21,8 @@ export type WebToGame =
   | { type: "REQUEST_SAVE"; saveId: string; reason: "manual" | "autosave" | "exit" }
   | { type: "REQUEST_SCREENSHOT"; width: number; height: number }
   | { type: "REQUEST_PARK_METADATA" }
-  | { type: "REQUEST_GUEST_ALERTS" };
+  | { type: "REQUEST_GUEST_ALERTS" }
+  | { type: "REQUEST_SCENARIO_STATE" };
 
 /** Everything the game may tell the web shell. */
 export type GameToWeb =
@@ -36,6 +37,7 @@ export type GameToWeb =
   | { type: "SCREENSHOT_READY"; png: Uint8Array; width: number; height: number }
   | { type: "PARK_METADATA"; metadata: ParkMetadataMessage }
   | { type: "GUEST_ALERTS"; alerts: GuestAlertMessage[] }
+  | { type: "SCENARIO_STATE"; state: ScenarioStateMessage }
   | { type: "EXIT_GAME"; reason: "player" | "error" }
   | { type: "ERROR"; stage: ErrorStage; message: string; detail?: string };
 
@@ -82,6 +84,38 @@ export interface GuestAlertMessage {
   lastChangedTick: number;
   title: string;
   advice: string;
+}
+
+/**
+ * A summary of the scenario, for the onboarding and the objective line.
+ *
+ * Every field here exists because some instruction has to decide whether the player
+ * has done a thing. It is a summary and must stay one: no entities, no tiles, nothing
+ * a park could be reconstructed from. The park file remains the only record of a park.
+ */
+export interface ScenarioStateMessage {
+  guests: number;
+  rating: number;
+  cash: number;
+  rideOpen: boolean;
+  rideCustomers: number;
+  shopsOpen: number;
+  hasFood: boolean;
+  hasDrink: boolean;
+  hasToilet: boolean;
+  benches: number;
+  bins: number;
+  handymen: number;
+  litter: number;
+  /** Where the camera is, so "look around your park" can notice that it happened. */
+  viewX: number;
+  viewY: number;
+  /** How far it has moved from the view the scenario opened on, in world units. */
+  viewMoved: number;
+  objectiveGuests: number;
+  /** The park rating the objective also requires, or 0 when it requires none. */
+  objectiveRating: number;
+  scenarioComplete: boolean;
 }
 
 export type GameToWebType = GameToWeb["type"];

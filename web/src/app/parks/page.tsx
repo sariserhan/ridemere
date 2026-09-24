@@ -15,7 +15,22 @@ import { Wordmark } from "@/components/wordmark";
 import { GameSaveStore } from "@/lib/saves/store";
 import { SaveValidationError, StorageQuotaError, type SaveRecord } from "@/lib/saves/types";
 
-const SCENARIOS = [{ id: "sunrise-test", name: "First Park", blurb: "A flat site with room to build." }];
+/**
+ * The scenarios a player can start.
+ *
+ * Release scenarios only. Development scenes are shipped in their own directory that
+ * the engine never scans, and stripped from the player build entirely, so they cannot
+ * appear here; listing them here would be the one way left to expose them, which is
+ * why `check_scenario_visibility.py` reads this file.
+ */
+const SCENARIOS = [
+  {
+    id: "first-park",
+    name: "First Park",
+    difficulty: "Beginner",
+    blurb: "Open your first coaster, look after your guests, and grow the park.",
+  },
+];
 
 function formatDate(value: number): string {
   return new Date(value).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
@@ -179,17 +194,27 @@ export default function ParksPage() {
       {records === null && <p className="text-sm text-muted-foreground">Looking for saved parks…</p>}
 
       {records !== null && records.length === 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle>No parks yet</CardTitle>
-          </CardHeader>
-          <CardContent className="text-sm text-muted-foreground">
-            Start a new park and it will appear here. Parks are saved automatically while you play.
-          </CardContent>
-          <CardFooter>
-            <Button onClick={() => startNew(SCENARIOS[0].id)}>Start your first park</Button>
-          </CardFooter>
-        </Card>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {SCENARIOS.map((scenario) => (
+            <Card key={scenario.id} data-testid="scenario-card" data-scenario-id={scenario.id}>
+              <CardHeader>
+                <CardTitle className="flex items-baseline gap-2">
+                  {scenario.name}
+                  <span
+                    className="rounded px-1.5 py-0.5 text-[11px] font-normal"
+                    style={{ background: "var(--rm-sunken)", color: "var(--rm-text-quiet)" }}
+                  >
+                    {scenario.difficulty}
+                  </span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-muted-foreground">{scenario.blurb}</CardContent>
+              <CardFooter>
+                <Button onClick={() => startNew(scenario.id)}>Start {scenario.name}</Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
       )}
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

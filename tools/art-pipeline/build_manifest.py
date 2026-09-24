@@ -118,6 +118,24 @@ RECORDS: Dict[str, dict] = {
         "notes": "Original souvenir stall; shares the V1 stall silhouette and is told apart by "
                  "its accent colour.",
     },
+    "object/sunrise.footpath_item.bench.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_bench_v1",
+        "source": "assets/source/blender/world_props.py",
+        "generator": "tools/art-pipeline/build_scenery.py",
+        "notes": "Original bench. Painted metal frame and timber seat, taking their "
+                 "ramps from the same world palette as the railings and the wooden "
+                 "path so it looks like it came with the park.",
+    },
+    "object/sunrise.footpath_item.bin.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_litter_bin_v1",
+        "source": "assets/source/blender/world_props.py",
+        "generator": "tools/art-pipeline/build_scenery.py",
+        "notes": "Original litter bin, with real empty, full and knocked-over art "
+                 "rather than a recolour, because the engine indexes a sprite for "
+                 "each of those states whether or not the game can reach it.",
+    },
     "object/sunrise.ride.restroom.parkobj": {
         **ORIGINAL,
         "asset": "sunrise_facility_restroom_v1",
@@ -176,11 +194,23 @@ RECORDS: Dict[str, dict] = {
                  "closed so an alert has to raise before it can clear. Shipped in "
                  "DevScenarios and stripped from the player build entirely.",
     },
-    "standalone/Scenarios/sunrise-test.park": {
+    "standalone/DevScenarios/sunrise-test.park": {
         **ORIGINAL,
         "asset": "sunrise_test_park_v1",
         "source": "assets/scenarios/sunrise-test/scenario.json",
         "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+        "notes": "A development park that exercises the runtime end to end. Moved to "
+                 "DevScenarios in V1-4 when First Park replaced it as the scenario a "
+                 "player starts.",
+    },
+    "standalone/Scenarios/first-park.park": {
+        **ORIGINAL,
+        "asset": "sunrise_first_park_v1",
+        "source": "assets/scenarios/first-park/scenario.json",
+        "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+        "notes": "The first release scenario. Built from its description by the "
+                 "engine's own game actions, so the generated park is output and the "
+                 "description is the source.",
     },
     "ui/": {
         **ORIGINAL,

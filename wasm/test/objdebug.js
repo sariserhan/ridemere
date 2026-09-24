@@ -20,7 +20,7 @@ const IDS = ['sunrise.terrain_surface.grass', 'sunrise.footpath_surface.paved',
     await page.waitForFunction(() => !document.getElementById('boot'), null, { timeout: 180000 });
     await sleep(5000);
     await page.evaluate(() => window.Module.ccall('SunriseLoadPark', 'number', ['string'],
-      ['/OpenRCT2/standalone/Scenarios/sunrise-test.park']));
+      ['/OpenRCT2/standalone/DevScenarios/sunrise-test.park']));
     await sleep(6000);
     const out = await page.evaluate((ids) => ids.map(id =>
       JSON.parse(window.Module.ccall('SunriseObjectDebugJson', 'string', ['string'], [id]))), IDS);

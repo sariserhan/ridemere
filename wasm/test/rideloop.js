@@ -35,7 +35,7 @@ const STATE = { 0:'falling',1:'one',2:'queuingFront',3:'onRide',4:'leavingRide',
     await sleep(5000);
 
     await page.evaluate(() => window.Module.ccall('SunriseLoadPark', 'number', ['string'],
-      ['/OpenRCT2/standalone/Scenarios/sunrise-test.park']));
+      ['/OpenRCT2/standalone/DevScenarios/sunrise-test.park']));
     await sleep(4000);
     await centreCursor();
     await page.evaluate(() => window.Module.ccall('SunriseCentreView', 'number', [], []));

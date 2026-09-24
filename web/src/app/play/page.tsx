@@ -20,6 +20,8 @@ import { GameSaveStore } from "@/lib/saves/store";
 import { StorageQuotaError, type SaveRecord } from "@/lib/saves/types";
 import { Wordmark } from "@/components/wordmark";
 import { GuestAlerts } from "@/components/guest-alerts";
+import { OnboardingPanel } from "@/components/onboarding-panel";
+import { currentStep, progress as stepsCompleted, type ScenarioState } from "@/lib/game/onboarding";
 import type { GuestAlertMessage } from "@/lib/bridge/messages";
 
 /** How often the park is written while playing. */
@@ -62,6 +64,10 @@ function PlayScreen() {
   const [saving, setSaving] = useState(false);
   const [alerts, setAlerts] = useState<GuestAlertMessage[]>([]);
   const [alertsCollapsed, setAlertsCollapsed] = useState(false);
+  const [scenario, setScenario] = useState<ScenarioState | null>(null);
+  const [tipsHidden, setTipsHidden] = useState(false);
+  // Where the camera was when this park opened. "Look around your park" is complete
+  // when it has moved, which cannot be known without remembering where it started.
 
   const persist = useCallback(
     async (park: Uint8Array, metadata: SaveRecord["parkMetadata"], kind: "manual" | "autosave" | "exit") => {
@@ -122,6 +128,7 @@ function PlayScreen() {
         return;
       }
       recordRef.current = record;
+      setTipsHidden(record.tipsHidden === true);
 
       const runtime = new GameRuntime((next) => {
         if (!cancelled) setProgress(next);
@@ -134,6 +141,10 @@ function PlayScreen() {
       });
       runtime.bus.on("GUEST_ALERTS", (message) => {
         if (!cancelled) setAlerts(message.alerts);
+      });
+      runtime.bus.on("SCENARIO_STATE", (message) => {
+        if (cancelled) return;
+        setScenario(message.state);
       });
       runtime.bus.on("SCREENSHOT_READY", (message) => {
         pendingShot.current = message.png;
@@ -169,7 +180,11 @@ function PlayScreen() {
 
         alertTimer = window.setInterval(() => {
           void runtime.send({ type: "REQUEST_GUEST_ALERTS" });
+          void runtime.send({ type: "REQUEST_SCENARIO_STATE" });
         }, ALERT_POLL_MS);
+        // Ask once straight away, so the first instruction and the objective line are
+        // there before the first poll rather than five seconds into the park.
+        void runtime.send({ type: "REQUEST_SCENARIO_STATE" });
 
         autosaveTimer = window.setInterval(() => {
           if (!dirtyRef.current) dirtyRef.current = true;
@@ -225,6 +240,26 @@ function PlayScreen() {
     router.push("/parks");
   }, [router]);
 
+  // Onboarding is derived, never stored: this recomputes on every scenario update,
+  // so a resumed park lands on the step that park is actually at.
+  const onboardingContext = scenario
+    ? { state: scenario, alerts }
+    : null;
+  const step = onboardingContext ? currentStep(onboardingContext) : null;
+  const stepProgress = onboardingContext ? stepsCompleted(onboardingContext) : { done: 0, total: 0 };
+
+  const hideTips = useCallback(() => {
+    setTipsHidden(true);
+    const record = recordRef.current;
+    if (record) void storeRef.current?.setTipsHidden(record.id, true);
+  }, []);
+
+  const showTips = useCallback(() => {
+    setTipsHidden(false);
+    const record = recordRef.current;
+    if (record) void storeRef.current?.setTipsHidden(record.id, false);
+  }, []);
+
   return (
     <div className="relative h-dvh w-dvw overflow-hidden" style={{ background: "var(--rm-bg)" }}>
       {/*
@@ -275,6 +310,54 @@ function PlayScreen() {
             collapsed={alertsCollapsed}
             onToggle={() => setAlertsCollapsed((was) => !was)}
           />
+        </div>
+      )}
+
+      {/*
+        The objective and the current instruction, bottom left, opposite the alerts.
+        The objective stays for the whole scenario; the instruction stops once the
+        guided opening is done, which is the point at which a tutorial should get out
+        of the way.
+      */}
+      {phase === "playing" && scenario && (
+        <div className="pointer-events-none absolute bottom-3 left-3 z-10 flex flex-col items-start gap-2">
+          {step && !tipsHidden && (
+            <OnboardingPanel
+              step={step}
+              done={stepProgress.done}
+              total={stepProgress.total}
+              onDismiss={hideTips}
+            />
+          )}
+          {step && tipsHidden && (
+            <button
+              className="pointer-events-auto rounded-md px-3 py-1.5 text-xs"
+              data-testid="onboarding-show"
+              style={{ background: "rgba(30,40,54,0.96)", border: "1px solid var(--rm-line)", color: "var(--rm-text-quiet)" }}
+              onClick={showTips}
+            >
+              Show tips
+            </button>
+          )}
+          <div
+            className="pointer-events-auto rounded-md px-3 py-1.5 text-xs"
+            data-testid="objective"
+            data-steps-done={stepProgress.done}
+            data-steps-total={stepProgress.total}
+            style={{ background: "rgba(13,19,27,0.85)", color: "var(--rm-text-quiet)" }}
+          >
+            <span style={{ color: "var(--rm-text)" }}>{scenario.guests}</span>
+            {` of ${scenario.objectiveGuests} guests`}
+            {scenario.objectiveRating > 0 && (
+              <>
+                {" · rating "}
+                <span style={{ color: scenario.rating >= scenario.objectiveRating ? "var(--rm-positive)" : "var(--rm-warning)" }}>
+                  {scenario.rating}
+                </span>
+                {`/${scenario.objectiveRating}`}
+              </>
+            )}
+          </div>
         </div>
       )}
 

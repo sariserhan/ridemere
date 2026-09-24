@@ -15,8 +15,8 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 const OUT = path.join(__dirname, 'results-web');
 fs.mkdirSync(OUT, { recursive: true });
 
-/** The scenario V1-0 ships. A park that is not this one has not really loaded. */
-const EXPECTED_PARK_NAME = 'Sunrise Test Park';
+/** The release scenario a player starts. A park that is not this one has not really loaded. */
+const EXPECTED_PARK_NAME = 'First Park';
 
 const results = [];
 function check(name, ok, detail) {
@@ -62,7 +62,7 @@ async function waitForCards(page, count, timeout = 60000) {
     check('product shell is not cross-origin isolated', shellIsolated === false);
 
     // --- the game route is isolated ----------------------------------------
-    await page.goto(`${base}/play?scenario=sunrise-test`, { waitUntil: 'domcontentloaded' });
+    await page.goto(`${base}/play?scenario=first-park`, { waitUntil: 'domcontentloaded' });
     // Park the cursor in the middle of the map. A cursor left at (0, 0) sits on the
     // screen edge, which makes the game scroll continuously, and on the first toolbar
     // button, which shows its tooltip. The two together drag a trail of interface
@@ -170,7 +170,7 @@ async function waitForCards(page, count, timeout = 60000) {
 
     // --- multiple independent parks ----------------------------------------
     for (const label of ['Park B', 'Park C']) {
-      await page.goto(`${base}/play?scenario=sunrise-test`, { waitUntil: 'domcontentloaded' });
+      await page.goto(`${base}/play?scenario=first-park`, { waitUntil: 'domcontentloaded' });
       await waitForPlaying(page);
       await page.waitForSelector('text=Autosaved', { timeout: 120000 });
       await page.goto(`${base}/parks`, { waitUntil: 'domcontentloaded' });

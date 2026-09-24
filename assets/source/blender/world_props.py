@@ -142,6 +142,111 @@ def cabin(body_part: str, roof_part: str, trim_part: str):
     return objects
 
 
+# --------------------------------------------------------------------------
+# Path additions: things that sit on the edge of a path tile.
+#
+# The engine draws these once per tile edge, at a world offset it chooses itself
+# (Paint.PathAddition.cpp: {7,16}, {16,25}, {25,16}, {16,7} for NE, SE, SW, NW).
+# So the model is built on the world origin and the four rotations come from the
+# camera, exactly as the stalls do; the engine puts each one against its edge.
+#
+# The long axis runs along Y, with the back at low X, which is the orientation that
+# lands along the NE edge in the first render. Get that wrong and every bench in the
+# park stands across the path instead of beside it.
+# --------------------------------------------------------------------------
+
+BENCH_LENGTH = 1.55
+BENCH_DEPTH = 0.52
+BENCH_SEAT_H = 0.62
+BENCH_BACK_H = 1.12
+
+
+def bench(frame_part: str, seat_part: str, broken: bool = False):
+    """One bench: two end frames, a slatted seat and a back.
+
+    The broken variant is the same bench with its back gone and one end frame
+    collapsed. It exists because the engine indexes a broken sprite for every
+    addition whether or not the object can be broken, so the table has to be
+    complete; shipping real art for it means switching vandalism on later costs
+    nothing.
+    """
+    objects = []
+    slat = 0.12
+
+    # Two end frames.
+    for side in (-1.0, 1.0):
+        height = BENCH_SEAT_H
+        if broken and side > 0.0:
+            height *= 0.45
+        objects.append(rig.box(
+            f"bench_frame{side:+.0f}", frame_part, (BENCH_DEPTH, 0.12, height),
+            origin=(0.0, side * (BENCH_LENGTH * 0.5 - 0.06), 0.0), pivot="bottom"))
+
+    # The seat: three slats with a gap, which is what makes it read as a bench
+    # rather than as a block at this size.
+    for index in range(3):
+        offset = (index - 1) * (slat + 0.05)
+        z = BENCH_SEAT_H
+        if broken and index == 2:
+            continue
+        objects.append(rig.box(
+            f"bench_slat{index}", seat_part, (slat, BENCH_LENGTH, 0.07),
+            origin=(offset, 0.0, z), pivot="bottom"))
+
+    if not broken:
+        # The back, set at the low-x side so the bench faces along +x.
+        objects.append(rig.box(
+            "bench_back", seat_part, (0.1, BENCH_LENGTH, BENCH_BACK_H - BENCH_SEAT_H),
+            origin=(-BENCH_DEPTH * 0.45, 0.0, BENCH_SEAT_H), pivot="bottom"))
+        objects.append(rig.box(
+            "bench_back_rail", frame_part, (0.12, BENCH_LENGTH, 0.09),
+            origin=(-BENCH_DEPTH * 0.45, 0.0, BENCH_BACK_H - 0.09), pivot="bottom"))
+    return objects
+
+
+BIN_RADIUS = 0.34
+BIN_HEIGHT = 0.86
+
+
+def litter_bin(body_part: str, trim_part: str, state: str = "empty"):
+    """One bin. `state` is "empty", "full" or "broken".
+
+    Full and broken are separate sprites the engine indexes by itself, so both are
+    real art rather than a recolour: a full bin has rubbish above the rim, a broken
+    one is on its side with the rubbish out.
+    """
+    objects = []
+    if state == "broken":
+        body = rig.cylinder("bin_body", body_part, BIN_RADIUS, BIN_HEIGHT * 0.8,
+                            vertices=10, origin=(0.0, 0.0, BIN_RADIUS), pivot="bottom")
+        body.rotation_euler = (math.radians(90.0), 0.0, 0.0)
+        objects.append(body)
+        # Rubbish spilled out beside it.
+        for index, (dx, dy) in enumerate(((0.3, 0.42), (0.1, 0.55), (-0.2, 0.38))):
+            objects.append(rig.box(
+                f"bin_spill{index}", trim_part, (0.16, 0.16, 0.1),
+                origin=(dx, dy, 0.0), pivot="bottom"))
+        return objects
+
+    objects.append(rig.cylinder(
+        "bin_body", body_part, BIN_RADIUS, BIN_HEIGHT, vertices=10,
+        origin=(0.0, 0.0, 0.0), pivot="bottom"))
+    objects.append(rig.cylinder(
+        "bin_rim", trim_part, BIN_RADIUS * 1.08, 0.1, vertices=10,
+        origin=(0.0, 0.0, BIN_HEIGHT - 0.1), pivot="bottom"))
+    # A post, so a bin reads as fixed to the ground rather than as a loose barrel.
+    objects.append(rig.box(
+        "bin_post", trim_part, (0.1, 0.1, BIN_HEIGHT * 0.5),
+        origin=(0.0, 0.0, 0.0), pivot="bottom"))
+
+    if state == "full":
+        for index, (dx, dy, dz) in enumerate(((0.1, 0.06, 0.0), (-0.09, 0.1, 0.06), (0.04, -0.11, 0.03))):
+            objects.append(rig.box(
+                f"bin_rubbish{index}", trim_part, (0.2, 0.2, 0.16),
+                origin=(dx, dy, BIN_HEIGHT + dz), pivot="bottom"))
+    return objects
+
+
 def render_four(out_dir: str, stem: str) -> list:
     return [os.path.basename(p) for p in rig.render_rotations(out_dir, stem)]
 
@@ -198,6 +303,22 @@ def main() -> None:
         "facility_information": lambda: cabin("skin", "shirt", "accessory"),
     }
     for stem, make in shops.items():
+        pieces = make()
+        manifest[stem] = render_four(out_dir, stem)
+        for piece in pieces:
+            bpy.data.objects.remove(piece, do_unlink=True)
+        print(f"[sunrise] rendered {stem}: 4 rotations", flush=True)
+
+    # Path additions. Each state is rendered from four camera yaws, which is what the
+    # engine wants: one sprite per tile edge.
+    additions = {
+        "bench": lambda: bench("structure2", "skin"),
+        "bench_broken": lambda: bench("structure2", "skin", broken=True),
+        "bin": lambda: litter_bin("structure2", "accessory", "empty"),
+        "bin_full": lambda: litter_bin("structure2", "accessory", "full"),
+        "bin_broken": lambda: litter_bin("structure2", "accessory", "broken"),
+    }
+    for stem, make in additions.items():
         pieces = make()
         manifest[stem] = render_four(out_dir, stem)
         for piece in pieces:

@@ -10,7 +10,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   const b = await chromium.launch({ headless:true, channel:'chromium', args:['--no-sandbox'] });
   try {
     const p = await (await b.newContext({ viewport:{width:1280,height:800} })).newPage();
-    await p.goto(`http://localhost:${port}/?park=sunrise-test.park`, { waitUntil:'domcontentloaded' });
+    await p.goto(`http://localhost:${port}/?park=DevScenarios/sunrise-test.park`, { waitUntil:'domcontentloaded' });
     await p.mouse.move(640,400);
     await p.waitForFunction(()=>!document.getElementById('boot'), null, {timeout:180000});
     await sleep(10000); await p.mouse.move(640,400);

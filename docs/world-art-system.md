@@ -173,3 +173,38 @@ rather than a placeholder, that the four directions actually differ from one ano
 and that no two stalls ship the same pixels. The third of those is the one that catches
 a broken render loop: four copies of one frame count to four and look fine in a
 listing.
+
+## Path additions
+
+Two objects: a bench and a litter bin. Both are things that sit on the *edge* of a path
+tile, and the engine draws one per open edge, choosing the sprite by arithmetic on a
+single base index:
+
+```
+bench   image + edge          normal       edge is 1..4, for NE, SE, SW, NW
+        image + edge + 4      broken
+bin     image + edge          empty
+        image + edge + 4      broken
+        image + edge + 8      full
+```
+
+Index 0 is the menu preview. Every slot has to exist and has to be real: the engine
+indexes a broken sprite for an addition that cannot be broken, and it does not check.
+So both ship genuine broken art — a bench with its back gone, a bin on its side with the
+rubbish out — rather than a recolour, and turning vandalism on later costs no art.
+
+Materials come from the same table as everything else: the bench frame is the painted
+metal of the railings, its seat the warm timber of the wooden path, and the bin is that
+same metal with an olive rim.
+
+**Ramps are sliced, not used whole.** The quantiser spreads a render's brightness across
+whatever ramp it is given, so a full twelve-step ramp puts every lit surface at the top
+of it and the object arrives nearly white — which is what the first bench did. Handing
+it five or six steps out of the middle is what keeps painted metal looking like painted
+metal, and it is the same three-to-five value steps per material this document asks for
+everywhere else.
+
+**Models sit on the world origin.** The render camera orbits the origin, so a model
+built anywhere else swings to a different place in each of the four rotations and the
+packed sprite offsets disagree with one another. The stalls were built on the tile
+centre and the engine drew half of each of them.

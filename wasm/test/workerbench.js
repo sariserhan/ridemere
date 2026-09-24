@@ -185,7 +185,7 @@ async function stage(page, name, targetGuests, reached, zoom) {
 
     const tLoad = Date.now();
     await callPage(page, () => window.Module.ccall('SunriseLoadPark', 'number', ['string'],
-      ['/OpenRCT2/standalone/Scenarios/sunrise-test.park']), 'load park');
+      ['/OpenRCT2/standalone/DevScenarios/sunrise-test.park']), 'load park');
     await sleep(4000);
     await callPage(page, () => window.Module.ccall('SunriseCentreView', 'number', [], []), 'centre view');
     result.gameReadyMs = Date.now() - tLoad + result.bootMs;

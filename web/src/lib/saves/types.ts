@@ -45,6 +45,16 @@ export interface SaveRecord {
   gameVersion: string;
   /** The park file format marker, read from the file itself. */
   parkFormat: string;
+  /**
+   * Whether the player has hidden the onboarding tips.
+   *
+   * The only piece of onboarding state that is stored anywhere, because it is the
+   * only piece that cannot be recomputed: which step a player is on follows from the
+   * park, but whether they want to be told about it does not. Everything else about
+   * onboarding is derived on every frame from scenario state, so resuming a save, or
+   * importing somebody else's park, lands on the step that park is actually at.
+   */
+  tipsHidden?: boolean;
 }
 
 /** What a caller hands to the store when writing. */

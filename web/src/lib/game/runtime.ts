@@ -10,6 +10,7 @@ import {
   MessageChannelBus,
   type GameToWeb,
   type GuestAlertMessage,
+  type ScenarioStateMessage,
   type ParkMetadataMessage,
   type WebToGame,
 } from "@/lib/bridge/messages";
@@ -17,8 +18,16 @@ import {
 /** Where the engine and content are served from. Isolated by the header rules. */
 const GAME_BASE = "/game";
 
+/**
+ * The scenarios a player can start, and where the engine finds them.
+ *
+ * Release scenarios only, and by design: development scenes ship in a directory the
+ * engine never scans and are stripped from the player build entirely, so naming one
+ * here is the one way left to leak one. `check_scenario_visibility.py` reads this
+ * file for exactly that reason.
+ */
 const SCENARIO_PATHS: Record<string, string> = {
-  "sunrise-test": "/OpenRCT2/standalone/Scenarios/sunrise-test.park",
+  "first-park": "/OpenRCT2/standalone/Scenarios/first-park.park",
 };
 
 export type LoadStage =
@@ -425,6 +434,11 @@ export class GameRuntime {
         if (alerts) this.bus.emit({ type: "GUEST_ALERTS", alerts });
         return;
       }
+      case "REQUEST_SCENARIO_STATE": {
+        const state = this.readJson<ScenarioStateMessage>("SunriseScenarioStateJson");
+        if (state) this.bus.emit({ type: "SCENARIO_STATE", state });
+        return;
+      }
     }
   }
 
@@ -509,10 +523,14 @@ export class GameRuntime {
    * never be the thing that interrupts a park.
    */
   private readAlerts(): GuestAlertMessage[] | null {
+    const parsed = this.readJson<GuestAlertMessage[]>("SunriseGuestAlertsJson");
+    return Array.isArray(parsed) ? parsed : null;
+  }
+
+  /** Read one of the engine's JSON summaries. A bad answer is "nothing to report". */
+  private readJson<T>(name: string): T | null {
     try {
-      const raw = this.module!.ccall("SunriseGuestAlertsJson", "string", [], []) as string;
-      const parsed = JSON.parse(raw) as GuestAlertMessage[];
-      return Array.isArray(parsed) ? parsed : null;
+      return JSON.parse(this.module!.ccall(name, "string", [], []) as string) as T;
     } catch {
       return null;
     }

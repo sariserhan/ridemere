@@ -58,7 +58,7 @@ const stats = page => page.evaluate(() =>
     await sleep(6000);
     await page.mouse.move(640, 400);
     await page.evaluate(() => window.Module.ccall('SunriseLoadPark', 'number', ['string'],
-      ['/OpenRCT2/standalone/Scenarios/sunrise-test.park']));
+      ['/OpenRCT2/standalone/DevScenarios/sunrise-test.park']));
     await sleep(4000);
     await page.evaluate(() => window.Module.ccall('SunriseCentreView', 'number', [], []));
     await page.evaluate(() => window.Module.ccall('SunriseGenerateGuests', 'number', ['number'], [1000]));

@@ -210,3 +210,37 @@ to the same origin. That is why the split is a path, `/play`, rather than a subd
    already produces.
 
 Not in V1: blueprints, challenges, payments.
+
+
+## Onboarding (V1-4)
+
+The first scenario is taught by nine steps in `web/src/lib/game/onboarding.ts`, shown
+one at a time in a small card opposite the alert panel.
+
+Two decisions are worth keeping:
+
+**Every step is a pure function of scenario state.** A step says when it is *ready* and
+when it is *complete*, and both read a summary the engine sends over the bridge. Nothing
+advances because a menu was opened: "open the coaster" completes when a coaster is open.
+
+**Nothing about onboarding is stored.** Progress is recomputed on every update, so
+closing the tab and coming back lands on the same step, and importing somebody else's
+park lands on the step that park is at. The only thing kept on the save record is
+whether the player has hidden the tips, which is a preference and cannot be derived.
+
+That is also why the park file is untouched. The alternative — writing tutorial UI state
+into a save format we share with upstream — would fork the format for something the
+park already answers.
+
+### Where the two panels sit
+
+| | |
+|---|---|
+| bottom left | the current instruction, and the objective under it |
+| bottom right | park alerts |
+
+They are allowed to be about the same subject at the same time: the needs steps are
+deliberately triggered by the matching alert. The alert says what is wrong; the
+instruction says how to fix it. Neither repeats the other.
+
+The instruction stops once the guided opening is finished. The objective stays.

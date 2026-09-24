@@ -72,6 +72,8 @@ DEFAULT_OBJECTS = [
     "sunrise.ride.gift_stand",
     "sunrise.ride.restroom",
     "sunrise.ride.information_point",
+    "sunrise.footpath_item.bench",
+    "sunrise.footpath_item.bin",
 
     "sunrise.park_entrance.arch",
     "sunrise.peep_names.visitors",

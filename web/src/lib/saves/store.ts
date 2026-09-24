@@ -187,6 +187,21 @@ export class GameSaveStore {
     return updated;
   }
 
+  /**
+   * Remember that the player has hidden, or asked back for, the onboarding tips.
+   *
+   * Deliberately not part of `write`: it is a preference, not park state, and it must
+   * not wait for an autosave or ride on one. `updatedAt` is left alone so hiding a
+   * panel does not reorder the parks list.
+   */
+  async setTipsHidden(id: string, hidden: boolean): Promise<SaveRecord | null> {
+    const record = await this.get(id);
+    if (!record) return null;
+    const updated = { ...record, tipsHidden: hidden };
+    await writeRecord(this.db, updated);
+    return updated;
+  }
+
   async remove(id: string): Promise<void> {
     for (const kind of ["park", "shot"] as const) {
       const keys = generationKeys(id, kind);

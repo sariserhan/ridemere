@@ -51,7 +51,7 @@ export default function HomePage() {
             <Button size="lg" data-testid="continue" onClick={() => router.push(`/play?save=${latestId}`)}>
               Continue
             </Button>
-            <Button size="lg" variant="secondary" onClick={() => router.push("/play?scenario=sunrise-test")}>
+            <Button size="lg" variant="secondary" onClick={() => router.push("/play?scenario=first-park")}>
               New park
             </Button>
             <Button size="lg" variant="ghost" onClick={() => router.push("/parks")}>
@@ -59,7 +59,7 @@ export default function HomePage() {
             </Button>
           </>
         ) : (
-          <Button size="lg" data-testid="play" onClick={() => router.push("/play?scenario=sunrise-test")}>
+          <Button size="lg" data-testid="play" onClick={() => router.push("/play?scenario=first-park")}>
             Play
           </Button>
         )}

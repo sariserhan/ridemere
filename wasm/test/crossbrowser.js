@@ -53,7 +53,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
       await page.mouse.move(512, 400);
       result.workers = page.workers().length;
       const loaded = await page.evaluate(() => window.Module.ccall('SunriseLoadPark', 'number',
-        ['string'], ['/OpenRCT2/standalone/Scenarios/sunrise-test.park'])).catch(e => 'ERR ' + e);
+        ['string'], ['/OpenRCT2/standalone/DevScenarios/sunrise-test.park'])).catch(e => 'ERR ' + e);
       result.parkLoaded = loaded;
       await sleep(4000);
       await page.evaluate(() => window.Module.ccall('SunriseCentreView', 'number', [], [])).catch(() => {});

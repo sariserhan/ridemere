@@ -27,7 +27,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     out.hardwareConcurrency = await page.evaluate(() => navigator.hardwareConcurrency);
 
     out.loadPark = await page.evaluate(() => window.Module.ccall('SunriseLoadPark', 'number',
-      ['string'], ['/OpenRCT2/standalone/Scenarios/sunrise-test.park']));
+      ['string'], ['/OpenRCT2/standalone/DevScenarios/sunrise-test.park']));
     await sleep(4000);
     await page.evaluate(() => window.Module.ccall('SunriseCentreView', 'number', [], []));
     await sleep(2000);

@@ -62,6 +62,40 @@ PEEPS = {
 }
 
 
+#: Animations the engine reads a specific frame number from, and the length the
+#: sequence must reach for that frame to exist.
+#:
+#: This is the difference between a handyman who mimes sweeping and one who picks
+#: litter up. `Staff::updateSweeping` removes litter when `animationFrameNum == 8`
+#: and `updateEmptyingBin` empties a bin when it reaches 11; neither checks that the
+#: animation is that long, so a shorter one simply plays forever and does nothing.
+#: Ours were five and six frames, and the handyman had been walking the paths
+#: cleaning nothing since M3.
+#:
+#: A sequence is indices into the rendered frames, so the length is bought by playing
+#: the frames out and back rather than by rendering more of them. A sweep that goes
+#: out and returns is also what the motion looks like.
+MINIMUM_SEQUENCE_LENGTH = {
+    "staffSweep": 9,
+    "staffEmptyBin": 12,
+}
+
+
+def sequence_for(name: str, frame_count: int) -> list:
+    """The frame order for one animation, long enough for the engine's frame checks."""
+    forward = list(range(frame_count))
+    minimum = MINIMUM_SEQUENCE_LENGTH.get(name, 0)
+    if frame_count == 0 or len(forward) >= minimum:
+        return forward
+    # Ping-pong: 0,1,2,3,2,1,0,1,2... never repeating a frame back to back.
+    swing = forward + forward[-2:0:-1]
+    if not swing:
+        return forward
+    sequence = []
+    while len(sequence) < minimum:
+        sequence.extend(swing)
+    return sequence[:minimum]
+
 def build(name: str) -> dict:
     spec = PEEPS[name]
     render_dir = os.path.join(RENDER_ROOT, name)
@@ -100,7 +134,7 @@ def build(name: str) -> dict:
                 add(file_name, f"{animation_name}_f{frame_index}_d{direction}.png")
         animations[animation_name] = {
             "offset": offset,
-            "sequence": list(range(len(entry["frames"]))),
+            "sequence": sequence_for(animation_name, len(entry["frames"])),
         }
 
     groups = [{"animations": animations, "legacyPosition": 0}]

@@ -35,7 +35,7 @@ const withTimeout = (p, ms) => Promise.race([p, new Promise(r => setTimeout(() =
       const before = page.workers().length;
       const r = await withTimeout(page.evaluate(() =>
         window.Module.ccall('SunriseLoadPark', 'number', ['string'],
-          ['/OpenRCT2/standalone/Scenarios/sunrise-test.park'])).catch(() => 'ERR'), 60000);
+          ['/OpenRCT2/standalone/DevScenarios/sunrise-test.park'])).catch(() => 'ERR'), 60000);
       await sleep(2000);
       return { workersBefore: before, workersAfter: page.workers().length, result: r };
     };

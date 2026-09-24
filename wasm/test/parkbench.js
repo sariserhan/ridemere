@@ -54,7 +54,7 @@ function rssSnapshot() {
     });
 
     await page.evaluate(() => window.Module.ccall('SunriseLoadPark', 'number', ['string'],
-      ['/OpenRCT2/standalone/Scenarios/sunrise-test.park']));
+      ['/OpenRCT2/standalone/DevScenarios/sunrise-test.park']));
     await sleep(4000);
     await page.evaluate(() => window.Module.ccall('SunriseCentreView', 'number', [], []));
     await sleep(3000);

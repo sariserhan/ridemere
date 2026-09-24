@@ -65,7 +65,7 @@ const withTimeout = (p, ms) => Promise.race([
 
     // Fire the park load without awaiting it, so the probe survives a hang.
     const loading = page.evaluate(() => window.Module.ccall('SunriseLoadPark', 'number', ['string'],
-      ['/OpenRCT2/standalone/Scenarios/sunrise-test.park'])).catch(e => 'ERR ' + e);
+      ['/OpenRCT2/standalone/DevScenarios/sunrise-test.park'])).catch(e => 'ERR ' + e);
 
     for (let i = 0; i < 24; i++) {
       await sleep(5000);

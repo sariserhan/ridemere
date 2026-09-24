@@ -39,7 +39,7 @@ const WINDOWS = ['ride-list', 'guest-list', 'staff-list', 'park', 'finances', 'm
   try {
     const url = usingShell
       ? `${base}/play?scenario=sunrise-test`
-      : `${base}/?park=sunrise-test.park`;
+      : `${base}/?park=DevScenarios/sunrise-test.park`;
     await page.goto(url, { waitUntil: 'domcontentloaded' });
     await page.mouse.move(640, 400);
     if (usingShell) {

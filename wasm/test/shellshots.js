@@ -17,7 +17,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     await sleep(2500);
     await page.screenshot({ path: path.join(OUT, 'shell-home.png') });
 
-    await page.goto(`${base}/play?scenario=sunrise-test`, { waitUntil: 'domcontentloaded' });
+    await page.goto(`${base}/play?scenario=first-park`, { waitUntil: 'domcontentloaded' });
     await page.mouse.move(640, 400);
     // Catch the loading screen before it goes away.
     await sleep(1500);

@@ -35,7 +35,7 @@ const OUT = path.join(__dirname, 'results-workers');
     const paused = new Promise(resolve => client.once('Debugger.paused', resolve));
 
     page.evaluate(() => window.Module.ccall('SunriseLoadPark', 'number', ['string'],
-      ['/OpenRCT2/standalone/Scenarios/sunrise-test.park'])).catch(() => {});
+      ['/OpenRCT2/standalone/DevScenarios/sunrise-test.park'])).catch(() => {});
     await sleep(25000);
 
     await client.send('Debugger.pause').catch(e => { result.pauseError = String(e).slice(0, 200); });

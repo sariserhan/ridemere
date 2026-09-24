@@ -123,3 +123,33 @@ Next: **V1-4, scenario 1, first pass** — the tutorial scenario with contextual
 objectives and a tips panel, using only what exists. Benches and bins come with it,
 because the guest-need loop is incomplete without somewhere to sit and somewhere to put
 litter, and because alerts now name both.
+
+## V1-4 complete (2026-09-24)
+
+**First Park** is the scenario a player starts: a coaster waiting to open, a plaza with
+benches and bins, an objective of 180 guests at a park rating of 700, and ten
+onboarding steps that read the park rather than the menus. `sunrise-test` moved to the
+development scenes it always belonged with. See `docs/first-park.md`.
+
+Four things that had never worked were found by playing it, and all four are the same
+shape — a system that looked like it was running and was not:
+
+* **The handyman had never cleaned anything**, for two independent reasons: he was
+  hired with no duties, and his sweep animation was too short to reach the frame at
+  which the engine picks litter up.
+* **Nested game actions never charge money**, so nothing the park builder places has
+  ever cost anything.
+* **A scenario's saved camera was always discarded** before it was written.
+* **A scenario could break a ride the player has no mechanic to fix**, and the first
+  play-through lost the park to exactly that.
+
+Next: **V1-5, the scenery and vegetation set** — trees, bushes, flowers, lamps, signs
+and fences, using the props generator the bench and bin now share. First Park is the
+park that will show them off, and the one that proves they do not cost a frame rate.
+
+Two things V1-4 learned that shape it:
+
+* A park at 150 guests runs at 60 fps with the alert layer and the onboarding poll
+  running, so the budget for scenery is real rather than hoped for.
+* The information point still has no scenario that needs it. Scenario 2, **Small
+  Footprint**, is where a layout finally loses somebody.

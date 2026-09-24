@@ -46,7 +46,7 @@ const strip = s => s.replace(/\x1b\[[0-9;]*m/g, '');
     // scene change that the command-line route leaves incomplete in this build.
     evidence.loadResult = await page.evaluate(() => window.Module.ccall(
       'SunriseLoadPark', 'number', ['string'],
-      ['/OpenRCT2/standalone/Scenarios/sunrise-test.park']));
+      ['/OpenRCT2/standalone/DevScenarios/sunrise-test.park']));
 
     const stats = () => page.evaluate(() =>
       JSON.parse(window.Module.ccall('SunriseParkStatsJson', 'string', [], [])));

@@ -32,6 +32,7 @@ from typing import List
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SCENARIO_SOURCES = os.path.join(REPO, "assets", "scenarios")
 SHELL_RUNTIME = os.path.join(REPO, "web", "src", "lib", "game", "runtime.ts")
+SHELL_SELECTOR = os.path.join(REPO, "web", "src", "app", "parks", "page.tsx")
 SHELL_ASSETS = os.path.join(REPO, "web", "public", "game", "assets.zip")
 
 problems: List[str] = []
@@ -88,6 +89,18 @@ def main() -> None:
         if declared != development:
             problems.append(
                 f"the manifest lists {sorted(declared)} as development scenes, the descriptions say {sorted(development)}")
+
+    # The scenario selector is the other place a name could reach a player.
+    if os.path.exists(SHELL_SELECTOR):
+        with open(SHELL_SELECTOR, "r", encoding="utf-8") as handle:
+            selector = handle.read()
+        listed = set(re.findall(r'id:\s*"([a-z0-9-]+)"', selector))
+        for name in sorted(listed & development):
+            problems.append(f"the scenario selector offers the development scene {name}")
+        missing = release - listed
+        if missing:
+            problems.append(
+                f"release scenarios that the selector does not offer: {sorted(missing)}")
 
     if os.path.exists(SHELL_RUNTIME):
         with open(SHELL_RUNTIME, "r", encoding="utf-8") as handle:

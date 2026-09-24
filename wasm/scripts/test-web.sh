@@ -28,7 +28,7 @@ echo "== server on http://localhost:$PORT"
 
 status=0
 for engine in $ENGINES; do
-  for suite in webshell webshell-restart webalerts; do
+  for suite in webshell webshell-restart webalerts webonboarding; do
     echo
     echo "== $suite ($engine)"
     if [[ "$engine" == "chromium" ]]; then

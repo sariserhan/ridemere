@@ -9,7 +9,8 @@ const playwright = require('playwright');
 const fs = require('fs'), os = require('os'), path = require('path');
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-const EXPECTED_PARK_NAME = 'Sunrise Test Park';
+/** The release scenario a player starts. A park that is not this one has not really loaded. */
+const EXPECTED_PARK_NAME = 'First Park';
 const results = [];
 function check(name, ok, detail) {
   results.push({ name, ok: Boolean(ok), detail });
@@ -40,7 +41,7 @@ async function session(browserName, profile, run) {
   try {
     // --- first session: make a park and let it autosave ---------------------
     const created = await session(browserName, profile, async (page) => {
-      await page.goto(`${base}/play?scenario=sunrise-test`, { waitUntil: 'domcontentloaded' });
+      await page.goto(`${base}/play?scenario=first-park`, { waitUntil: 'domcontentloaded' });
       await waitForPlaying(page);
       await page.waitForSelector('text=Autosaved', { timeout: 120000 });
       await page.goto(`${base}/parks`, { waitUntil: 'domcontentloaded' });

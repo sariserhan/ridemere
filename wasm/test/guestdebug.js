@@ -14,7 +14,7 @@ const DIST = path.join(__dirname, '../../engine/openrct2/build/www-standalone');
     await page.goto(`http://localhost:${port}/`, { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => !document.getElementById('boot'), null, { timeout: 180000 });
     await sleep(5000);
-    await page.evaluate(() => window.Module.ccall('SunriseLoadPark', 'number', ['string'], ['/OpenRCT2/standalone/Scenarios/sunrise-test.park']));
+    await page.evaluate(() => window.Module.ccall('SunriseLoadPark', 'number', ['string'], ['/OpenRCT2/standalone/DevScenarios/sunrise-test.park']));
 
     let id = null;
     for (let i = 0; i < 40 && id === null; i++) {
