@@ -18,7 +18,8 @@
     "sunrise.peep_names.visitors",
     "sunrise.climate.temperate",
     "sunrise.peep_animations.guest",
-    "sunrise.peep_animations.handyman"
+    "sunrise.peep_animations.handyman",
+    "openrct2.ride.hybrid_coaster"
   ],
   "entrance": {
     "x": 16,
@@ -50,13 +51,79 @@
         22,
         14
       ]
+    },
+    {
+      "from": [
+        22,
+        8
+      ],
+      "to": [
+        22,
+        14
+      ]
     }
   ],
-  "queues": [],
+  "queues": [
+    {
+      "from": [
+        21,
+        13
+      ],
+      "to": [
+        21,
+        6
+      ]
+    },
+    {
+      "from": [
+        21,
+        6
+      ],
+      "to": [
+        22,
+        6
+      ]
+    }
+  ],
   "owned": {
     "fromX": 1,
     "fromY": 5,
     "toX": 30,
     "toY": 30
+  },
+  "coaster": {
+    "object": "openrct2.ride.hybrid_coaster",
+    "station": {
+      "x": 24,
+      "y": 6,
+      "z": 112,
+      "direction": 1
+    },
+    "pieces": [
+      2,
+      3,
+      1,
+      0,
+      0,
+      43,
+      43,
+      0,
+      0,
+      0,
+      0,
+      0,
+      43,
+      43
+    ],
+    "rideEntrance": {
+      "x": 23,
+      "y": 6,
+      "direction": 2
+    },
+    "rideExit": {
+      "x": 23,
+      "y": 8,
+      "direction": 2
+    }
   }
 }

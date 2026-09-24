@@ -15,6 +15,7 @@ docker run --rm \
   -e GITHUB_ACTIONS=true -e GITHUB_SHA="$(git -C "$ENGINE" rev-parse HEAD)" \
   -e GITHUB_REF="$(git -C "$ENGINE" rev-parse --symbolic-full-name HEAD)" \
   "$IMAGE" bash -c '
+    set -eo pipefail
     git config --global --add safe.directory /src
     . scripts/setenv -q
     time build-emscripten
@@ -23,8 +24,8 @@ docker run --rm \
     # development entry points even though they are marked EMSCRIPTEN_KEEPALIVE.
     # Reconfigure with the list extended and relink; nothing is recompiled.
     cd build
-    cmake -DEMSCRIPTEN_EXPORTED_FUNCTIONS=_GetVersion,_main,_SunriseBuildPark,_SunriseParkStatsJson,_SunriseSavePark,_SunriseLoadPark,_SunriseObjectDebugJson,_SunriseTileDebugJson,_SunriseGuestListJson,_SunriseHireHandyman,_SunriseCentreView,_SunriseGuestDebugJson,_SunriseSpriteAuditJson,_SunriseSpriteAuditClear . >/dev/null
-    emmake ninja openrct2 2>&1 | tail -2
+    cmake -DEMSCRIPTEN_EXPORTED_FUNCTIONS=_GetVersion,_main,_SunriseBuildPark,_SunriseParkStatsJson,_SunriseSavePark,_SunriseLoadPark,_SunriseObjectDebugJson,_SunriseTileDebugJson,_SunriseGuestListJson,_SunriseRideListJson,_SunriseHireHandyman,_SunriseCentreView,_SunriseGuestDebugJson,_SunriseSpriteAuditJson,_SunriseSpriteAuditClear,_SunriseGenerateGuests . >/dev/null
+    emmake ninja openrct2 2>&1 | tail -30
     rm -rf www/ && mkdir -p www/ && cd www/
     cp -r ../openrct2.* ./
     cp -r ../../emscripten/static/* ./

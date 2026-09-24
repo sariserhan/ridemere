@@ -39,6 +39,17 @@ REQUIRED_OBJECTS = [
 #: (see src/openrct2/object/StationObject.cpp).
 STATION_OBJECTS = ["sunrise.station.plain"]
 
+#: Open third-party objects bundled alongside our own, taken from the official
+#: OpenRCT2 object collection (CC-BY-4.0). Each must be declared in
+#: assets/manifests/provenance.json.
+#: Languages carried in the standalone download. English is the engine's fallback
+#: locale and the only one whose strings the prototype has been read against.
+BUNDLED_LANGUAGES = ("en-GB.txt",)
+
+BUNDLED_OPEN_OBJECTS = {
+    "openrct2.ride.hybrid_coaster": "official/ride/openrct2.ride.hybrid_coaster.parkobj",
+}
+
 DEFAULT_OBJECTS = [
     "sunrise.terrain_surface.grass",
     "sunrise.terrain_surface.dirt",
@@ -51,6 +62,7 @@ DEFAULT_OBJECTS = [
     "sunrise.climate.temperate",
     "sunrise.peep_animations.guest",
     "sunrise.peep_animations.handyman",
+    "openrct2.ride.hybrid_coaster",
 ]
 
 
@@ -82,14 +94,33 @@ def build() -> dict:
     shutil.copy(base_archive, os.path.join(standalone_dir, "Data", "g1.dat"))
 
     # Engine data that is already open content and is not part of the base archive.
-    for name in ("language", "shaders", "scenario_patches"):
+    for name in ("shaders", "scenario_patches"):
         copy_tree(os.path.join(ENGINE, "data", name), os.path.join(PACK, name))
-    for name in ("g2.dat", "fonts.dat", "palettes.dat", "tracks.dat"):
+
+    # Languages. Upstream ships 28 translations, 1.25 MB of the download, and the
+    # prototype has one locale of text worth reading. The directory and the loading
+    # path are unchanged, so adding a language later is a matter of copying its file.
+    language_source = os.path.join(ENGINE, "data", "language")
+    language_dest = os.path.join(PACK, "language")
+    os.makedirs(language_dest, exist_ok=True)
+    for name in BUNDLED_LANGUAGES:
+        candidate = os.path.join(language_source, name)
+        if os.path.exists(candidate):
+            shutil.copy(candidate, os.path.join(language_dest, name))
+
+    for name in ("g2.dat", "fonts.dat", "palettes.dat"):
         source = os.path.join(ENGINE, "build", "www", "_engine_data", name)
         if not os.path.exists(source):
             source = os.path.join(GENERATED, "engine-data", name)
         if os.path.exists(source):
             shutil.copy(source, os.path.join(PACK, name))
+
+    # Track-design previews: a placeholder archive with the entry count the engine
+    # requires. See tools/art-pipeline/build_track_previews.py.
+    placeholder_tracks = os.path.join(GENERATED, "base", "tracks.dat")
+    if not os.path.exists(placeholder_tracks):
+        raise SystemExit("run tools/art-pipeline/build_track_previews.py first")
+    shutil.copy(placeholder_tracks, os.path.join(PACK, "tracks.dat"))
 
     # Our objects.
     object_count = 0
@@ -98,6 +129,17 @@ def build() -> dict:
         for entry in sorted(os.listdir(objects_dir)):
             if entry.endswith(".parkobj"):
                 shutil.copy(os.path.join(objects_dir, entry), os.path.join(PACK, "object", entry))
+                object_count += 1
+
+    # Open third-party objects, copied out of the official collection.
+    import zipfile
+    objects_zip = os.path.join(REPO, ".cache", "assets", "objects.zip")
+    if BUNDLED_OPEN_OBJECTS and os.path.exists(objects_zip):
+        with zipfile.ZipFile(objects_zip) as archive:
+            for identifier, member in BUNDLED_OPEN_OBJECTS.items():
+                target = os.path.join(PACK, "object", f"{identifier}.parkobj")
+                with archive.open(member) as source, open(target, "wb") as handle:
+                    shutil.copyfileobj(source, handle)
                 object_count += 1
 
     # Bundled scenarios, if any have been generated yet.

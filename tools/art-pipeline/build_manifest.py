@@ -88,6 +88,12 @@ RECORDS: Dict[str, dict] = {
         "source": "assets/scenarios/sunrise-test/scenario.json",
         "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
     },
+    "ui/": {
+        **ORIGINAL,
+        "asset": "sunrise_ui_sprites_v1",
+        "source": "tools/art-pipeline/build_ui_sprites.py",
+        "notes": "Interface icons drawn from shapes in code.",
+    },
     "object/sunrise.terrain_surface.grass.parkobj": {
         **ORIGINAL,
         "asset": "sunrise_terrain_grass_v1",
@@ -99,6 +105,15 @@ RECORDS: Dict[str, dict] = {
         "asset": "sunrise_terrain_dirt_v1",
         "source": "assets/source/blender/terrain.py",
         "generator": "blender 4.2 + tools/art-pipeline/build_world.py",
+    },
+    "object/openrct2.ride.hybrid_coaster.parkobj": {
+        "asset": "openrct2_hybrid_coaster",
+        "creator": "Edward Calver",
+        "license": "CC-BY-4.0",
+        "source": "https://github.com/OpenRCT2/objects (official collection v1.7.11)",
+        "modified": False,
+        "notes": "Track art comes from the open tracks.dat; the object supplies the "
+                 "train sprites. No original-game material; attribution required.",
     },
     "standalone/Data/g1.dat": {
         **ORIGINAL,
@@ -130,11 +145,14 @@ RECORDS: Dict[str, dict] = {
         "modified": False,
     },
     "tracks.dat": {
-        "asset": "openrct2_track_previews",
-        "creator": "OpenRCT2 contributors",
-        "license": "GPL-3.0",
-        "source": "engine/openrct2/resources/tracks",
-        "modified": False,
+        **ORIGINAL,
+        "asset": "sunrise_track_preview_placeholder",
+        "source": "tools/art-pipeline/build_track_previews.py",
+        "generator": "libsawyer gxc 1.4.0 (MIT)",
+        "notes": "Placeholder track-design previews: the entry count the engine "
+                 "requires, each entry a transparent pixel. The distribution ships no "
+                 "track designs, so no entry is ever read. Upstream's 3.18 MB archive "
+                 "is not shipped.",
     },
     "language/": {
         "asset": "openrct2_language_files",
@@ -142,7 +160,8 @@ RECORDS: Dict[str, dict] = {
         "license": "GPL-3.0",
         "source": "engine/openrct2/data/language",
         "modified": False,
-        "notes": "Contains original-game ride and scenery names; a rebranding surface.",
+        "notes": "English only in the prototype; contains original-game ride and "
+                 "scenery names, which is a rebranding surface.",
     },
     "shaders/": {
         "asset": "openrct2_shaders",
@@ -165,8 +184,35 @@ RECORDS: Dict[str, dict] = {
     },
 }
 
-#: Assets that must never appear. Presence is a hard failure.
-FORBIDDEN_SUBSTRINGS = ("rct2.", "rct1.", "rct2ww.", "rct2tt.", "rct2dlc.", "csg1", "css")
+#: Object identifier namespaces that denote original-game content. Matched against
+#: the START of a file's name, so that "openrct2.ride.hybrid_coaster" (an open object
+#: from the OpenRCT2 collection) is not mistaken for "rct2.ride.something".
+FORBIDDEN_OBJECT_PREFIXES = (
+    "rct1.", "rct1aa.", "rct1ll.", "rct1beta.",
+    "rct2.", "rct2ww.", "rct2tt.", "rct2dlc.", "rctc.",
+)
+
+#: Original-game data filenames. The standalone pack ships its own Data/g1.dat, which
+#: is an original replacement rather than the original file, so it is exempt by path.
+FORBIDDEN_FILENAMES = ("csg1.dat", "csg1i.dat", "ch.dat")
+FORBIDDEN_FILENAME_PREFIXES = ("css",)
+EXEMPT_PATHS = ("standalone/Data/g1.dat",)
+
+
+def is_forbidden(relative: str) -> bool:
+    if relative in EXEMPT_PATHS:
+        return False
+    name = relative.rsplit("/", 1)[-1].lower()
+    if any(name.startswith(prefix) for prefix in FORBIDDEN_OBJECT_PREFIXES):
+        return True
+    if name in FORBIDDEN_FILENAMES:
+        return True
+    if any(name.startswith(prefix) for prefix in FORBIDDEN_FILENAME_PREFIXES) and name.endswith(".dat"):
+        return True
+    # An original-game sprite archive anywhere other than our own pack directory.
+    if name == "g1.dat":
+        return True
+    return False
 
 
 def digest(path: str) -> str:
@@ -201,8 +247,7 @@ def main() -> None:
         for name in sorted(names):
             full = os.path.join(root, name)
             relative = os.path.relpath(full, PACK).replace(os.sep, "/")
-            lowered = relative.lower()
-            if any(token in lowered for token in FORBIDDEN_SUBSTRINGS):
+            if is_forbidden(relative):
                 forbidden.append(relative)
             record = lookup(relative)
             if record is None:

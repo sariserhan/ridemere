@@ -413,3 +413,70 @@ have not authored, behaving exactly as the marker system intends. None is a defe
 * The world still shows markers wherever a base sprite is unauthored, which is the
   designed state of the content pack, not a fault.
 * The saved view is worked around rather than stored.
+
+## M3e — first complete ride loop (2026-09-24)
+
+A guest enters Sunrise Test Park, walks to the coaster, queues, boards, rides a
+complete circuit, unloads and walks on. Nothing in the chain touches RollerCoaster
+Tycoon data.
+
+### The ride
+
+`openrct2.ride.hybrid_coaster` (CC-BY-4.0, Edward Calver), chosen because every sprite
+it needs is inside its own `.parkobj`. Full audit in `docs/ride-dependencies.md`; there
+is no blocker. The junior-coaster train object in the same repository is excluded
+because its art is Chris Sawyer's.
+
+The track is built by the scenario generator through ordinary game actions:
+`RideCreateAction`, then `TrackPlaceAction` for each piece, then
+`RideEntranceExitPlaceAction`, then `RideSetStatusAction` to open it. Nothing writes
+park file internals. Piece-to-piece chaining follows the engine's own rule from
+`TrackDesign.cpp`: apply the piece's offset rotated by the current direction, adjust z
+by `zEnd - zBegin`, rotate the direction, then step one tile.
+
+### Evidence
+
+Observed from engine state by `wasm/test/rideloop.js`, not from the screen. One guest
+of many:
+
+```
+guest 6  485 enteringPark -> 726 walking -> 1287 queuing -> 1692 queuingFront
+      -> 2494 enteringRide -> 2577 onRide -> 3701 leavingRide -> 3861 walking
+      -> 5306 queuing -> 6270 enteringRide -> 7555 onRide -> 8759 leavingRide
+      -> 8840 walking
+```
+
+Over 8,900 ticks: 42 guests entered, 14 completed rides, peak queue 6, peak riders 8,
+67 distinct train positions, peak train velocity 170,927. The park saved mid-operation
+to 9,967 bytes and reloaded with the ride open, the queue intact and the simulation
+resuming. The handyman visited 101 distinct positions across the path network.
+
+### Sprite audit: zero
+
+The audit reports no unfilled base entry being requested during the whole loop. Getting
+there needed 38 authored interface sprites: the toolbar, two window tabs, the weather
+icon, the rating gauge, and the thirteen `SPR_PEEP_SMALL_FACE_*` mood faces that the
+guest counter draws every frame.
+
+A caution worth recording: an earlier run also reported zero, and it was wrong. The
+test harness left the mouse pointer at (0, 0), where the engine's edge scrolling drags
+the camera off the map, so almost nothing was drawn and almost nothing was requested.
+The same cause made every screenshot since M3b look like a corrupted renderer: the
+camera scrolls a few pixels every frame, the scroll-and-patch path copies the screen
+diagonally, and the result tiles the previous frame across the display. Parking the
+cursor in the middle of the canvas produces a correct picture from the unmodified
+engine. **A sprite audit is only as good as what was on screen while it ran.**
+
+### Payload
+
+First load is 6.23 MB, down from 9.2 MB, after two reductions: placeholder track-design
+previews (3.18 MB to 15 KB) and English-only languages (1.25 MB to 46 KB). Breakdown in
+`docs/browser-memory.md`. The coaster object is now 65% of the content download.
+
+### Memory
+
+`docs/adr-browser-memory.md`: adopt a 512 MB initial heap and 1 MB pthread stacks. The
+measurement on a running park at 100, 500 and 1000 guests puts the saving at about
+60 MB of committed memory, not the 480 MB an idle comparison had suggested. The worker
+pool, not the heap reservation, is where browser memory goes, and reducing it needs its
+own loaded-park measurement before adoption.

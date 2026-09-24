@@ -26,16 +26,28 @@
       "sha256": "f22f0bd49281fadfffacffead4cf2fb88a25f33c39c8fb0bce034b2dbcd04f24"
     },
     {
+      "asset": "openrct2_hybrid_coaster",
+      "creator": "Edward Calver",
+      "license": "CC-BY-4.0",
+      "source": "https://github.com/OpenRCT2/objects (official collection v1.7.11)",
+      "modified": false,
+      "notes": "Track art comes from the open tracks.dat; the object supplies the train sprites. No original-game material; attribution required.",
+      "path": "object/openrct2.ride.hybrid_coaster.parkobj",
+      "files": 1,
+      "bytes": 1316315,
+      "sha256": "0b09e6cf827993ab09e47ec1f1d74ff29a9e57142cd7cb48de7182f114199857"
+    },
+    {
       "asset": "openrct2_language_files",
       "creator": "OpenRCT2 contributors",
       "license": "GPL-3.0",
       "source": "engine/openrct2/data/language",
       "modified": false,
-      "notes": "Contains original-game ride and scenery names; a rebranding surface.",
-      "path": "language/ar-EG.txt",
-      "files": 28,
-      "bytes": 4645583,
-      "sha256": "092f7f098c73c5a8357d17c86a3c72a2a6a212c65a44b5ce908a4e550f240513"
+      "notes": "English only in the prototype; contains original-game ride and scenery names, which is a rebranding surface.",
+      "path": "language/en-GB.txt",
+      "files": 1,
+      "bytes": 164325,
+      "sha256": "73eeb8f689f6ce9c8251550130daa1446a832ae40dd1607bb3e41c8681d7aaa3"
     },
     {
       "asset": "openrct2_palettes",
@@ -71,17 +83,6 @@
       "sha256": "4c7c23b4c9efadd20f0852be8f4ef68084ba5a2eda50311eea16105dec908b7c"
     },
     {
-      "asset": "openrct2_track_previews",
-      "creator": "OpenRCT2 contributors",
-      "license": "GPL-3.0",
-      "source": "engine/openrct2/resources/tracks",
-      "modified": false,
-      "path": "tracks.dat",
-      "files": 1,
-      "bytes": 6645005,
-      "sha256": "ad86df20ee9a710286553ea34836f8cffae7bdc58de7c5862df43665e0f01c7c"
-    },
-    {
       "creator": "Project Sunrise",
       "license": "proprietary-original",
       "modified": false,
@@ -91,8 +92,8 @@
       "notes": "Full-size base sprite archive. Unfilled entries carry a diagnostic marker.",
       "path": "standalone/Data/g1.dat",
       "files": 1,
-      "bytes": 2343465,
-      "sha256": "ea0d4be5e7c16b02cd053eb539dc67829efad2ca28714ab643b2fcff04bacf0a"
+      "bytes": 2353149,
+      "sha256": "f58ea724715d3e2b602c4496a3caeb6107f92e542e27bb65437827b34f916070"
     },
     {
       "creator": "Project Sunrise",
@@ -113,8 +114,8 @@
       "source": "tools/art-pipeline/build_pack.py",
       "path": "standalone/standalone.json",
       "files": 1,
-      "bytes": 800,
-      "sha256": "25d48b49a62ad4fbaf013c1543332dc87a7c7cf77bbbae1c8a780281a33174cb"
+      "bytes": 2068,
+      "sha256": "fb2388a2605a27dbd9811fe77bc74350fb19e4cff84390fc576df2f62e393088"
     },
     {
       "creator": "Project Sunrise",
@@ -246,8 +247,21 @@
       "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
       "path": "standalone/Scenarios/sunrise-test.park",
       "files": 1,
-      "bytes": 2796,
-      "sha256": "73cea2303d4a02461d6d341a995d68e710d98d0382f1b4fff39b806cf4dde468"
+      "bytes": 3320,
+      "sha256": "c05a324d401dfdb98e73bc943f026b77ea0058fc0d05397a3d03558dab7c1b3e"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_track_preview_placeholder",
+      "source": "tools/art-pipeline/build_track_previews.py",
+      "generator": "libsawyer gxc 1.4.0 (MIT)",
+      "notes": "Placeholder track-design previews: the entry count the engine requires, each entry a transparent pixel. The distribution ships no track designs, so no entry is ever read. Upstream's 3.18 MB archive is not shipped.",
+      "path": "tracks.dat",
+      "files": 1,
+      "bytes": 147653,
+      "sha256": "4f6b9951579e66daba1edc60dc302244bb9cf0ccdd02f16f1e40f9715ef73133"
     }
   ],
   "undeclaredFiles": [],

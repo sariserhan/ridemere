@@ -3,7 +3,7 @@ const { spawn } = require('child_process');
 const path = require('path'); const fs = require('fs');
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const DIST = path.join(__dirname, '../../engine/openrct2/build/www-standalone');
-const TILES = [[16, 1], [16, 2], [16, 3], [16, 4], [16, 5], [16, 6], [15, 4], [17, 4]];
+const TILES = [[21,14],[21,13],[21,7],[21,6],[22,6],[22,8],[22,9],[22,14]];
 (async () => {
   const port = 8600 + Math.floor(Math.random() * 300);
   const server = spawn('python3', [path.join(__dirname, '../scripts/serve.py'), DIST, String(port)], { stdio: 'ignore', detached: true });

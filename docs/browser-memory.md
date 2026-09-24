@@ -79,45 +79,76 @@ that is the only workload where paint parallelism and pool exhaustion can show u
 
 ## Payload
 
-Standalone distribution (`engine/openrct2/build/www-standalone`), measured after a
-build:
+Standalone distribution (`engine/openrct2/build/www-standalone`), measured after the
+M3e build. The launcher fetches `openrct2.zip` and `assets.zip`; the loose
+`openrct2.js` and `openrct2.wasm` beside them are build output and are not requested.
 
 | File | Raw | Gzip |
 |---|---:|---:|
-| `openrct2.zip` (engine, what the launcher fetches) | 4.04 MB | 3.95 MB |
-| `assets.zip` (all game content) | 5.07 MB | 5.00 MB |
+| `openrct2.zip` (engine) | 4.06 MB | 3.96 MB |
+| `assets.zip` (all game content) | 2.07 MB | 1.99 MB |
 | `jszip.min.js` (vendored, no CDN dependency) | 98 KB | 28 KB |
-| `index.html` + `index.js` | 9 KB | 3 KB |
-| **First load total** | **9.2 MB** | |
-| Repeat visit | 4.04 MB | content is served from IndexedDB |
+| `index.html` + `index.js` | 9 KB | 4 KB |
+| **First load total** | **6.23 MB** | **5.98 MB** |
+| Repeat visit | 4.06 MB | content is served from IndexedDB |
 
-`openrct2.wasm` alone is 15.3 MB raw, 3.96 MB gzipped, and is delivered inside
-`openrct2.zip`.
+`openrct2.wasm` alone is 15.36 MB raw and is delivered inside `openrct2.zip`.
 
 Content breakdown inside `assets.zip` (compressed):
 
-| Group | Compressed | Raw |
+| Group | Compressed | Files |
 |---|---:|---:|
-| `tracks.dat` (track design previews) | 3.18 MB | 6.65 MB |
-| `language` (40+ translations) | 1.25 MB | 4.65 MB |
-| `object` (our 4 objects) | 0.44 MB | 0.57 MB |
-| `standalone` (base sprite archive) | 0.05 MB | 2.34 MB |
-| `g2.dat`, `fonts.dat`, `palettes.dat`, shaders, patches | 0.10 MB | 0.35 MB |
+| `openrct2.ride.hybrid_coaster` | 1.316 MB | 1 |
+| Guest and handyman animations | 0.336 MB | 2 |
+| World objects (terrain, paths, station, entrance, names, climate) | 0.152 MB | 9 |
+| `g2.dat` (OpenRCT2 interface sprites) | 0.050 MB | 1 |
+| Base sprite archive `g1.dat` | 0.048 MB | 1 |
+| `language` (English only) | 0.046 MB | 1 |
+| `scenario_patches` | 0.044 MB | 143 |
+| `tracks.dat` (placeholder previews) | 0.015 MB | 1 |
+| `fonts.dat` | 0.013 MB | 1 |
+| `palettes.dat` | 0.005 MB | 1 |
+| Shaders | 0.003 MB | 10 |
+| Scenario and manifest | 0.002 MB | 2 |
+| **Total** | **2.03 MB** | **173** |
+
+The coaster object is now the largest single item by a wide margin: its embedded
+`images.dat` is 2.35 MB raw of train sprites for every carriage and rotation.
+
+### Reductions taken in M3e
+
+| Item | Before | After | How |
+|---|---:|---:|---|
+| Track design previews | 3.18 MB | 0.015 MB | `tools/art-pipeline/build_track_previews.py` |
+| Languages | 1.25 MB | 0.046 MB | English only, `BUNDLED_LANGUAGES` in `build_pack.py` |
+
+`tracks.dat` holds the thumbnails the track-design list draws. The engine loads it at
+startup and insists on an exact entry count, so it cannot simply be omitted: a missing
+or short file logs a fatal line and shows a message box. The replacement carries the
+count the engine demands with one transparent pixel per entry. The distribution ships
+no track designs, so no entry is ever read; if designs are added later their previews
+will be blank until real art replaces the placeholder. No index moves.
+
+Languages are a directory of independent files loaded by name, so shipping one is a
+copy-list change and nothing in the localisation path is altered. `en-GB` is the
+engine's fallback locale.
 
 ### Against the upstream browser build
 
 | | Upstream | Standalone |
 |---|---:|---:|
-| Content archive | 71.7 MB | 5.07 MB |
-| First load | ~75.8 MB | 9.2 MB |
+| Content archive | 71.7 MB | 2.07 MB |
+| First load | ~75.8 MB | 6.23 MB |
 | Needs the player's own original game data | yes | **no** |
 
 The reduction comes from dropping what the standalone build does not ship: music
 objects (32.2 MB), the sound and music asset packs (14.6 MB), the community title
 sequence (8.8 MB), original-game ride objects (5.3 MB) and scenario previews
-(3.2 MB). The base sprite archive compresses to almost nothing because it is
-currently 29,294 copies of one marker tile; it will grow as real art fills it.
+(3.2 MB), plus the two reductions above.
 
-Two easy further reductions, not taken: ship one or two languages instead of all
-(−1.2 MB) and drop `tracks.dat` until track designs exist (−3.2 MB). That would put
-first load near 5 MB.
+## Memory configuration decision
+
+Superseded by `docs/adr-browser-memory.md`, which repeats the comparison on a running
+park at 100, 500 and 1000 guests rather than on the title scene. Its finding is that
+the heap reservation is worth about 60 MB, not the 480 MB the idle comparison
+suggested, and that the worker pool is where the memory actually goes.

@@ -51,8 +51,32 @@ SPRITE_SOURCES: Dict[int, str] = {}
 #: transparent rather than marked, and count as authored: a marker here would be
 #: drawn over the whole map. Identified by the in-game sprite audit.
 BLANK_SPRITES: Dict[int, str] = {
+    0: "null sprite sentinel; paint code passes image 0 where it means nothing",
+    3: "null sprite sentinel",
+    4: "null sprite sentinel",
     3123: "SPR_BLANK_TILE, drawn underneath every map tile",
+    # Station platform edging and fencing. Our station object declares noPlatforms,
+    # so the engine falls back to these base sprites; leaving them blank gives a
+    # station with no platform lip, which is correct for the art we have authored.
+    22370: "SPR_STATION_FENCE_SW_NE",
+    22371: "SPR_STATION_FENCE_NW_SE",
+    22412: "SPR_STATION_NARROW_EDGE_SE",
+    22413: "SPR_STATION_NARROW_EDGE_SW",
+    22414: "SPR_STATION_NARROW_EDGE_FENCED_NW",
+    22415: "SPR_STATION_NARROW_EDGE_FENCED_NE",
+    22416: "SPR_STATION_NARROW_EDGE_FENCED_SE",
+    22417: "SPR_STATION_NARROW_EDGE_NE",
 }
+
+
+def _load_ui_sprites() -> Dict[int, str]:
+    """Interface replacements produced by build_ui_sprites.py, if they exist."""
+    manifest = os.path.join(REPO, "assets", "generated", "ui", "ui-sprites.json")
+    if not os.path.exists(manifest):
+        return {}
+    with open(manifest, "r", encoding="utf-8") as handle:
+        mapping = json.load(handle)
+    return {int(index): os.path.join(REPO, path) for index, path in mapping.items()}
 
 
 def _engine_entry_count() -> int:
@@ -110,6 +134,8 @@ def build() -> dict:
         )
     if not os.path.exists(GXC):
         raise SystemExit(f"gxc not found at {GXC}; see wasm/scripts/build-assets.sh")
+
+    SPRITE_SOURCES.update(_load_ui_sprites())
 
     os.makedirs(OUT_DIR, exist_ok=True)
     work = tempfile.mkdtemp(prefix="sunrise-base-")

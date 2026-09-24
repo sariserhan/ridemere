@@ -11,6 +11,7 @@ must not, and that per-type image counts match what the engine computes.
 from __future__ import annotations
 
 import io
+import re
 import json
 import os
 import sys
@@ -72,12 +73,27 @@ def check_terrain_surface(obj_id: str, root: dict, image_count: int) -> None:
 def check_images(obj_id: str, archive: zipfile.ZipFile, root: dict) -> int:
     images = root.get("images", [])
     names = set(archive.namelist())
-    forbidden = {"$G1", "$CSG", "$RCT2", "$LGX"}
+    # $G1, $CSG and $RCT2 name the original game's own sprite archives, which the
+    # distribution must never require. $LGX is different: it reads a legacy GX archive
+    # carried inside the object's own .parkobj, so it is self-contained as long as the
+    # named file is actually in the archive.
+    forbidden = ("$G1", "$CSG", "$RCT2")
     count = 0
     for entry in images:
         if isinstance(entry, str):
             if any(entry.startswith(token) for token in forbidden):
                 fail(obj_id, f"image reference {entry!r} needs original game data")
+                count += 1
+                continue
+            match = re.match(r"^\$LGX:([^\[]+)\[(\d+)\.\.(\d+)\]$", entry)
+            if match is not None:
+                name, first, last = match.group(1), int(match.group(2)), int(match.group(3))
+                if name not in names:
+                    fail(obj_id, f"{entry!r} refers to {name}, which is not in the object")
+                count += last - first + 1
+                continue
+            if entry.startswith("$LGX"):
+                fail(obj_id, f"unparsable embedded image reference {entry!r}")
             count += 1
             continue
         path = entry.get("path")
