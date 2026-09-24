@@ -577,3 +577,55 @@ The general lesson, which is the same one M3e learned about the sprite audit and
 off-map camera, and M3f learned about the zoom stage that showed no effect: **a test
 that passes tells you only what it looked at.** Three times now the instrument was
 sound and its coverage was not.
+
+## V1-0 — product shell and browser saves (2026-09-24)
+
+The prototype is now a product a person can use twice. A Next.js shell hosts the game
+on a cross-origin isolated route, parks save themselves to browser storage, and they
+are still there after the browser is closed. No account, no file picker, no
+original-game files.
+
+Verified end to end in Chromium, Firefox and WebKit: 27 journey checks and 9
+persistence checks in each.
+
+### What was built
+
+* `web/`, a Next.js application with TypeScript, Tailwind and shadcn/ui. `/` and
+  `/parks` are ordinary pages; `/play` and `/game` carry the isolation headers and
+  nothing else does.
+* A save store with two backends. Chromium and Firefox use the Origin Private File
+  System; WebKit has none in our test image and uses IndexedDB, which is why the
+  fallback exists rather than being a hypothetical.
+* Atomic writes with one recovery generation. A save writes a pending copy, reads it
+  back, then promotes it, so a failed save can never destroy the last good park.
+* A narrow typed bridge of eight messages, plus two new engine exports:
+  `SunriseParkMetadataJson` and `SunriseCaptureThumbnail`.
+* Autosave every 60 seconds, plus one shortly after a park opens, plus on exit.
+
+### Three defects found, all of which had been passing tests
+
+1. **Parks never actually loaded.** `callMain` returns as soon as the engine reaches
+   the browser event loop, so loading a park immediately afterwards was silently undone
+   by the rest of start-up. Every park was the engine's empty default, with a ticking
+   clock and a plausible date. The shell now waits until the tick counter is observed
+   to advance, and the test asserts the park's **name and ride count** instead of "a
+   park loaded".
+2. **A save could revert a rename.** Save and exit navigated as soon as the engine had
+   serialised the park, so the record write could land after the player renamed it on
+   the next screen. Reproducible in Firefox, invisible in Chromium. Fixed twice: the
+   exit waits for the write, and the write re-reads the record so the player's name
+   wins.
+3. **`Imaging::WriteToFile` writes no file in the browser.** Upstream's Emscripten
+   branch encodes the PNG and triggers a download instead, so it fails silently for
+   every caller that wanted bytes. Now it writes the file on every platform.
+
+### Two permanent guards added
+
+* `check_track_art.py` inspects the shipped sprite table and fails if the entries are
+  placeholders rather than art. Demonstrated to reject the exact M3e mistake.
+* A visual smoke test renders a known park through the engine's own off-screen capture
+  and asserts terrain, paths, track and structures are present. Demonstrated to fail on
+  a deliberately blanked track table, which is the point: a smoke test that cannot fail
+  is not protecting anything.
+
+Both are in `run-m3-tests.sh`, which is now seven groups.

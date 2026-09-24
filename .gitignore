@@ -17,3 +17,8 @@ wasm/test/results*/
 g1.dat
 css*.dat
 ch.dat
+
+# The web shell's build output and the game archives synced into it.
+web/node_modules/
+web/.next/
+web/public/game/

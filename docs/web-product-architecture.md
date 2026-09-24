@@ -172,12 +172,41 @@ gets an unfurl in a chat app. That page is not isolated and does not run the eng
 links to the isolated route. This is the strongest argument for the path split being
 decided before any of it is built.
 
-## What to build in V1
+## What exists now (V1-0, built)
 
-1. The route split and the headers, with an isolation assertion at startup.
-2. The launcher and pack manifest, extended to per-scenario packs.
-3. Local save slots with autosave, rename, delete, export and import.
-4. The bridge messages above, including `PARK_METADATA` and `SCREENSHOT_READY`.
-5. A marketing page that is not isolated.
+The shell is a Next.js application in `web/`, TypeScript, Tailwind and shadcn/ui.
 
-Not in V1: accounts, cloud storage, park pages, blueprints, challenges.
+| Route | Isolated | What it is |
+|---|---|---|
+| `/` | no | product shell; Play, or Continue when local parks exist |
+| `/parks` | no | local park manager: play, rename, export, delete, import |
+| `/play` | **yes** | the game runtime |
+| `/game/*` | **yes** | the engine archive and the content archive |
+
+Isolation is applied by `next.config.ts` to `/play` and `/game` only. Verified in
+Chromium, Firefox and WebKit: `crossOriginIsolated` is true inside `/play` and false on
+the product shell, and `SharedArrayBuffer` is available where the engine needs it.
+
+No third-party script is loaded on the isolated routes, and none may be. Analytics, if
+added, goes on the marketing routes.
+
+The game runs in the `/play` **document**, not in a frame, so the bridge is an
+in-process typed channel with postMessage-safe payloads. Details in
+`docs/game-web-bridge.md`; saves in `docs/local-saves.md`.
+
+### Authentication boundary, for later
+
+Not implemented, and the architecture already avoids the trap. `COOP: same-origin`
+severs `window.opener`, so **popup sign-in cannot work from the game route**. Sign-in
+must be a redirect flow on the non-isolated side, with the session cookie first-party
+to the same origin. That is why the split is a path, `/play`, rather than a subdomain.
+
+## Still to build
+
+1. The pack manifest extended to per-scenario packs; today the content is one archive.
+2. Accounts, redirect-based, on the non-isolated side.
+3. Cloud storage, with the park file as the source of truth.
+4. Public park pages, server-rendered, using the metadata and thumbnail the bridge
+   already produces.
+
+Not in V1: blueprints, challenges, payments.

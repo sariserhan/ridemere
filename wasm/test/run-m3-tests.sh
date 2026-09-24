@@ -25,6 +25,18 @@ run "distribution contains no original-game data" bash -c '
   if [[ -n "$bad" ]]; then echo "unexpected files: $bad"; exit 1; fi
   echo "   no original-game filenames present"'
 
+run "shipped track artwork is real, not placeholders" \
+  "$PY" "$ROOT/tools/art-pipeline/check_track_art.py"
+
+# Render a known park and check the picture contains the things a park must contain.
+# This is the guard against a whole sprite table being blank while every programmatic
+# assertion still passes, which has happened.
+visual_smoke() {
+  ( cd "$ROOT/wasm/test" && node visualsmoke.js >/dev/null ) \
+    && "$PY" "$ROOT/tools/art-pipeline/check_visual_smoke.py" "$ROOT/wasm/test/results-visual/park.png"
+}
+run "a known park renders with terrain, paths, track and structures" visual_smoke
+
 run "standalone boots in a clean browser with no prompt" bash -c '
   cd "'"$ROOT"'/wasm/test" && node standalone.js >/dev/null && \
   "'"$PY"'" "'"$ROOT"'/wasm/test/check_boot.py"'

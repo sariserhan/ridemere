@@ -14,7 +14,7 @@ ENGINE="$ROOT/engine/openrct2"
 IMAGE="${OPENRCT2_BUILD_IMAGE:-ghcr.io/openrct2/openrct2-build:26-emscripten}"
 CCACHE="$ROOT/.cache/ccache-emscripten"
 OUTROOT="$ROOT/.cache/bench-workers"
-EXPORTS="_GetVersion,_main,_SunriseBuildPark,_SunriseParkStatsJson,_SunriseSavePark,_SunriseLoadPark,_SunriseObjectDebugJson,_SunriseTileDebugJson,_SunriseGuestListJson,_SunriseRideListJson,_SunriseHireHandyman,_SunriseCentreView,_SunriseGuestDebugJson,_SunriseSpriteAuditJson,_SunriseSpriteAuditClear,_SunriseGenerateGuests,_SunriseSetZoom"
+EXPORTS="_GetVersion,_main,_SunriseBuildPark,_SunriseParkStatsJson,_SunriseSavePark,_SunriseLoadPark,_SunriseObjectDebugJson,_SunriseTileDebugJson,_SunriseGuestListJson,_SunriseRideListJson,_SunriseHireHandyman,_SunriseCentreView,_SunriseGuestDebugJson,_SunriseSpriteAuditJson,_SunriseSpriteAuditClear,_SunriseGenerateGuests,_SunriseSetZoom,_SunriseParkMetadataJson,_SunriseCaptureThumbnail"
 
 STRICT=""
 if [[ "${1:-}" == "--strict" ]]; then STRICT="$2"; shift 2; [[ "${1:-}" == "--" ]] && shift; fi

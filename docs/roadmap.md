@@ -56,3 +56,18 @@ Sequence in `docs/v1-production-plan.md`. Look in `docs/art-direction.md`. Web s
 
 Review the V1 plan. If it is accepted, the first implementation milestone is **V1-0,
 product shell and saves**.
+
+## V1-0 complete (2026-09-24)
+
+The prototype is a product shell a person can use twice. A Next.js application hosts
+the game on an isolated route, parks save themselves to the browser, and they are still
+there after the browser is closed. No account, no file picker, no original-game files.
+
+Verified in Chromium, Firefox and WebKit. Details in `docs/web-product-architecture.md`,
+`docs/local-saves.md` and `docs/game-web-bridge.md`.
+
+Two things V1-0 also fixed, both of which had been passing tests while broken: the
+shipped track artwork, and parks that appeared to load but were the engine's empty
+default. Both now have guards that fail loudly.
+
+Next: **V1-1, interface reskin**, which needs the product name decided first.
