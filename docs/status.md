@@ -538,3 +538,42 @@ own sources, in `docs/browser-worker-semantics.md`.
   repaint and does show the workload: 60 frames per second at 1.0 and 2.1 megapixels,
   35 at 3.7. **A performance stage that shows no effect should be suspected of not
   having applied.**
+
+## Correction: `tracks.dat` is the track artwork, not previews (2026-09-24)
+
+M3e reduced the download by replacing `tracks.dat` with a placeholder archive of
+transparent pixels, on the stated belief that it held track-design preview thumbnails.
+It does not. It holds **the track artwork itself**: OpenRCT2 authored complete open
+sprite sets for the coaster types it added and split them out of `g2.dat` into 8,685
+PNGs under `resources/tracks`. `SPR_TRACKS_HYBRID_*` and its siblings resolve into that
+file, and the coaster paint code addresses them directly.
+
+The effect was that the hybrid coaster drew its train, its stations and its supports,
+and no rails at all. First load dropped from 9.39 MB to 6.23 MB because the rails were
+missing.
+
+This is reverted. The real archive ships again, the pack builder and provenance record
+what it is, `docs/browser-memory.md` is corrected, and the placeholder generator is
+deleted. The retained M3e reduction is languages, 1.25 MB to 46 KB, which is sound.
+
+### Why nothing caught it
+
+* The **ride-loop test asserts engine state**, not pixels. The ride still dispatched,
+  carried guests and completed circuits with no track art, so every assertion passed.
+* The **sprite audit covers the base archive only**. `tracks.dat` is a separate sprite
+  table with no instrumentation, so the audit read zero while a whole table was blank.
+* The **screenshots were captured before the change** and not re-read afterwards.
+
+### What to change because of it
+
+1. Extend the sprite audit beyond the base archive, or at least arm it for
+   `tracks.dat`, so a blank table is detectable.
+2. Add a visual check to the suite: render a known park and compare against a reference,
+   so a missing sprite table fails a test instead of passing one.
+3. Treat a payload reduction as a change that requires visual evidence after the fact,
+   not only programmatic evidence.
+
+The general lesson, which is the same one M3e learned about the sprite audit and the
+off-map camera, and M3f learned about the zoom stage that showed no effect: **a test
+that passes tells you only what it looked at.** Three times now the instrument was
+sound and its coverage was not.

@@ -145,14 +145,14 @@ RECORDS: Dict[str, dict] = {
         "modified": False,
     },
     "tracks.dat": {
-        **ORIGINAL,
-        "asset": "sunrise_track_preview_placeholder",
-        "source": "tools/art-pipeline/build_track_previews.py",
-        "generator": "libsawyer gxc 1.4.0 (MIT)",
-        "notes": "Placeholder track-design previews: the entry count the engine "
-                 "requires, each entry a transparent pixel. The distribution ships no "
-                 "track designs, so no entry is ever read. Upstream's 3.18 MB archive "
-                 "is not shipped.",
+        "asset": "openrct2_track_artwork",
+        "creator": "OpenRCT2 contributors",
+        "license": "GPL-3.0",
+        "source": "engine/openrct2/resources/tracks (8,685 sprites)",
+        "modified": False,
+        "notes": "The track artwork itself, not design previews. Complete open sprite "
+                 "sets for the coaster types OpenRCT2 added, plus pieces added to "
+                 "older types. Rides that use it draw no track without it.",
     },
     "language/": {
         "asset": "openrct2_language_files",

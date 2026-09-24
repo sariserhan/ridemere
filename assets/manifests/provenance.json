@@ -83,6 +83,18 @@
       "sha256": "4c7c23b4c9efadd20f0852be8f4ef68084ba5a2eda50311eea16105dec908b7c"
     },
     {
+      "asset": "openrct2_track_artwork",
+      "creator": "OpenRCT2 contributors",
+      "license": "GPL-3.0",
+      "source": "engine/openrct2/resources/tracks (8,685 sprites)",
+      "modified": false,
+      "notes": "The track artwork itself, not design previews. Complete open sprite sets for the coaster types OpenRCT2 added, plus pieces added to older types. Rides that use it draw no track without it.",
+      "path": "tracks.dat",
+      "files": 1,
+      "bytes": 6645005,
+      "sha256": "ad86df20ee9a710286553ea34836f8cffae7bdc58de7c5862df43665e0f01c7c"
+    },
+    {
       "creator": "Project Sunrise",
       "license": "proprietary-original",
       "modified": false,
@@ -249,19 +261,6 @@
       "files": 1,
       "bytes": 3320,
       "sha256": "c05a324d401dfdb98e73bc943f026b77ea0058fc0d05397a3d03558dab7c1b3e"
-    },
-    {
-      "creator": "Project Sunrise",
-      "license": "proprietary-original",
-      "modified": false,
-      "asset": "sunrise_track_preview_placeholder",
-      "source": "tools/art-pipeline/build_track_previews.py",
-      "generator": "libsawyer gxc 1.4.0 (MIT)",
-      "notes": "Placeholder track-design previews: the entry count the engine requires, each entry a transparent pixel. The distribution ships no track designs, so no entry is ever read. Upstream's 3.18 MB archive is not shipped.",
-      "path": "tracks.dat",
-      "files": 1,
-      "bytes": 147653,
-      "sha256": "4f6b9951579e66daba1edc60dc302244bb9cf0ccdd02f16f1e40f9715ef73133"
     }
   ],
   "undeclaredFiles": [],

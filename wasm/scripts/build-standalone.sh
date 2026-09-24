@@ -13,7 +13,6 @@ VENV="$ROOT/.cache/venv/bin/python"
 
 echo "== regenerating content pack"
 "$VENV" "$ROOT/tools/art-pipeline/build_base_archive.py"
-"$VENV" "$ROOT/tools/art-pipeline/build_track_previews.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_pack.py"
 
 rm -rf "$OUT"; mkdir -p "$OUT"

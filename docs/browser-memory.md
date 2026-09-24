@@ -86,10 +86,10 @@ M3e build. The launcher fetches `openrct2.zip` and `assets.zip`; the loose
 | File | Raw | Gzip |
 |---|---:|---:|
 | `openrct2.zip` (engine) | 4.06 MB | 3.96 MB |
-| `assets.zip` (all game content) | 2.07 MB | 1.99 MB |
+| `assets.zip` (all game content) | 5.23 MB | 5.15 MB |
 | `jszip.min.js` (vendored, no CDN dependency) | 98 KB | 28 KB |
 | `index.html` + `index.js` | 9 KB | 4 KB |
-| **First load total** | **6.23 MB** | **5.98 MB** |
+| **First load total** | **9.39 MB** | **9.14 MB** |
 | Repeat visit | 4.06 MB | content is served from IndexedDB |
 
 `openrct2.wasm` alone is 15.36 MB raw and is delivered inside `openrct2.zip`.
@@ -105,46 +105,51 @@ Content breakdown inside `assets.zip` (compressed):
 | Base sprite archive `g1.dat` | 0.048 MB | 1 |
 | `language` (English only) | 0.046 MB | 1 |
 | `scenario_patches` | 0.044 MB | 143 |
-| `tracks.dat` (placeholder previews) | 0.015 MB | 1 |
+| `tracks.dat` (open track artwork) | 3.18 MB | 1 |
 | `fonts.dat` | 0.013 MB | 1 |
 | `palettes.dat` | 0.005 MB | 1 |
 | Shaders | 0.003 MB | 10 |
 | Scenario and manifest | 0.002 MB | 2 |
-| **Total** | **2.03 MB** | **173** |
+| **Total** | **5.19 MB** | **173** |
 
 The coaster object is now the largest single item by a wide margin: its embedded
 `images.dat` is 2.35 MB raw of train sprites for every carriage and rotation.
 
-### Reductions taken in M3e
+### Reductions taken in M3e, and one of them retracted
 
-| Item | Before | After | How |
+| Item | Before | After | Status |
 |---|---:|---:|---|
-| Track design previews | 3.18 MB | 0.015 MB | `tools/art-pipeline/build_track_previews.py` |
-| Languages | 1.25 MB | 0.046 MB | English only, `BUNDLED_LANGUAGES` in `build_pack.py` |
-
-`tracks.dat` holds the thumbnails the track-design list draws. The engine loads it at
-startup and insists on an exact entry count, so it cannot simply be omitted: a missing
-or short file logs a fatal line and shows a message box. The replacement carries the
-count the engine demands with one transparent pixel per entry. The distribution ships
-no track designs, so no entry is ever read; if designs are added later their previews
-will be blank until real art replaces the placeholder. No index moves.
+| Languages | 1.25 MB | 0.046 MB | kept |
+| Track artwork | 3.18 MB | 0.015 MB | **retracted, restored in full** |
 
 Languages are a directory of independent files loaded by name, so shipping one is a
 copy-list change and nothing in the localisation path is altered. `en-GB` is the
-engine's fallback locale.
+fallback locale.
+
+The `tracks.dat` reduction was a mistake and has been reverted. The file was assumed
+to hold track-design preview thumbnails. It does not: it holds **the track artwork
+itself**. OpenRCT2 authored complete open sprite sets for the coaster types it added
+and split them out of `g2.dat` into 8,685 PNGs under `resources/tracks`. Replacing it
+with transparent placeholders left the hybrid coaster with a train, stations and
+supports but no rails, which programmatic tests could not see because they assert
+engine state, and which the sprite audit could not see because the audit covers the
+base archive and `tracks.dat` is a separate table.
+
+It is the largest single item in the download and it is not optional. The lesson is
+recorded in `docs/status.md`.
 
 ### Against the upstream browser build
 
 | | Upstream | Standalone |
 |---|---:|---:|
-| Content archive | 71.7 MB | 2.07 MB |
-| First load | ~75.8 MB | 6.23 MB |
+| Content archive | 71.7 MB | 5.23 MB |
+| First load | ~75.8 MB | 9.39 MB |
 | Needs the player's own original game data | yes | **no** |
 
 The reduction comes from dropping what the standalone build does not ship: music
 objects (32.2 MB), the sound and music asset packs (14.6 MB), the community title
 sequence (8.8 MB), original-game ride objects (5.3 MB) and scenario previews
-(3.2 MB), plus the two reductions above.
+(3.2 MB), plus the language reduction above.
 
 ## Memory configuration decision
 

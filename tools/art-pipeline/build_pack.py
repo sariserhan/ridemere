@@ -108,19 +108,17 @@ def build() -> dict:
         if os.path.exists(candidate):
             shutil.copy(candidate, os.path.join(language_dest, name))
 
-    for name in ("g2.dat", "fonts.dat", "palettes.dat"):
+    # tracks.dat carries the track artwork itself, not design previews: OpenRCT2
+    # authored complete open sprite sets for the coaster types it added (hybrid,
+    # single rail, alpine, lattice triangle and others) and split them out of g2.dat.
+    # Without it those rides draw no track at all. It is the largest item in the
+    # download and it is not optional.
+    for name in ("g2.dat", "fonts.dat", "palettes.dat", "tracks.dat"):
         source = os.path.join(ENGINE, "build", "www", "_engine_data", name)
         if not os.path.exists(source):
             source = os.path.join(GENERATED, "engine-data", name)
         if os.path.exists(source):
             shutil.copy(source, os.path.join(PACK, name))
-
-    # Track-design previews: a placeholder archive with the entry count the engine
-    # requires. See tools/art-pipeline/build_track_previews.py.
-    placeholder_tracks = os.path.join(GENERATED, "base", "tracks.dat")
-    if not os.path.exists(placeholder_tracks):
-        raise SystemExit("run tools/art-pipeline/build_track_previews.py first")
-    shutil.copy(placeholder_tracks, os.path.join(PACK, "tracks.dat"))
 
     # Our objects.
     object_count = 0
