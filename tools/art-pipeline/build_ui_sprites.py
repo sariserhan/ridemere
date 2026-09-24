@@ -696,6 +696,19 @@ def icon_ride() -> Canvas:
     return _symbol_button(glyph)
 
 
+def icon_finance() -> Canvas:
+    """SPR_FINANCE: the marker beside the money on the toolbar and on a finance
+    news item. Coins rather than a currency symbol, because the game is played in
+    more than one currency and a symbol would be wrong in most of them."""
+    def glyph(c: Canvas) -> None:
+        c.disc(9, 15, 5.5, ACCENT_DARK)
+        c.disc(9, 13, 5.5, ACCENT)
+        c.disc(14, 11, 5.5, ACCENT_DARK)
+        c.disc(14, 9, 5.5, ACCENT)
+        c.rect(12, 7, 16, 8, PAPER)
+    return _symbol_button(glyph)
+
+
 def button_palette() -> Canvas:
     """SPR_PALETTE_BTN: the colour swatch button."""
     def glyph(c: Canvas) -> None:
@@ -744,6 +757,54 @@ def button_patrol() -> Canvas:
         c.ring(11.5, 11.5, 9, 6, GREEN_DARK)
         c.ring(11.5, 11.5, 9, 6, GREEN)
         c.disc(11.5, 3, 3, ACCENT)
+    return _symbol_button(glyph)
+
+
+def button_rotate_arrow() -> Canvas:
+    """SPR_ROTATE_ARROW: turn the held object a quarter turn.
+
+    Every scenery object has four directions and the window opens on one of them, so
+    this is the button a player reaches for first. A three-quarter ring with a head on
+    the end, rather than the toolbar's camera-rotate glyph, because it turns the thing
+    being placed and not the view.
+    """
+    def glyph(c: Canvas) -> None:
+        c.ring(12, 13, 8, 5, EDGE)
+        c.ring(12, 13, 7, 5, ACCENT)
+        c.rect(12, 4, 22, 11, PAPER)
+        c.triangle((13, 3), 5, 6, ACCENT_DARK)
+    return _symbol_button(glyph)
+
+
+def button_scenery_cluster() -> Canvas:
+    """SPR_SCENERY_CLUSTER: place a scattered group rather than one object.
+
+    Three trees at different sizes and offsets, which is what the tool does: the same
+    object repeated across a patch with its position and size varied.
+    """
+    def glyph(c: Canvas) -> None:
+        c.rect(5, 15, 6, 19, BROWN)
+        c.disc(5.5, 12, 4, GREEN_DARK)
+        c.rect(17, 16, 18, 20, BROWN)
+        c.disc(17.5, 13, 3.5, GREEN_DARK)
+        c.rect(11, 13, 12, 20, BROWN)
+        c.disc(11.5, 9, 5.5, GREEN)
+        c.disc(10, 8, 2.5, pal.ramp("green")[9])
+    return _symbol_button(glyph)
+
+
+def button_paintbrush() -> Canvas:
+    """SPR_PAINTBRUSH: repaint scenery already on the map in the window's colours.
+
+    A brush held at the angle the rename pencil uses, so the two read as the same
+    family of tools, with a loaded head rather than a point.
+    """
+    def glyph(c: Canvas) -> None:
+        c.line(6, 19, 15, 8, EDGE, width=5)
+        c.line(7, 18, 15, 9, pal.ramp("tan")[6], width=3)
+        c.line(15, 8, 19, 4, EDGE, width=6)
+        c.line(15, 8, 19, 4, ACCENT, width=4)
+        c.rect(4, 18, 8, 21, ACCENT_DARK)
     return _symbol_button(glyph)
 
 
@@ -835,6 +896,8 @@ UI_SPRITES: Dict[int, Tuple[str, Callable[[], Canvas]]] = {
     # Window chrome: the tab plate and its selected state.
     # SPR_RIDE: drawn on every ride news item and in the ticker.
     5187: ("news_ride", icon_ride),
+    # SPR_FINANCE: drawn beside the money on the toolbar, every frame.
+    5190: ("finance", icon_finance),
     5198: ("tab_plate", lambda: tab_shape(False)),
     5199: ("tab_plate_active", lambda: tab_shape(True)),
     # Window buttons.
@@ -846,6 +909,12 @@ UI_SPRITES: Dict[int, Tuple[str, Callable[[], Canvas]]] = {
     5165: ("button_demolish", button_demolish),
     5167: ("button_locate", button_locate),
     5168: ("button_rename", button_rename),
+    # The scenery window's own buttons, down its right-hand edge. They are the first
+    # thing a player uses after the window opens, and they went unauthored for as long
+    # as the window closed itself before it could ask for them.
+    5169: ("button_rotate_arrow", button_rotate_arrow),
+    5172: ("button_scenery_cluster", button_scenery_cluster),
+    5173: ("button_paintbrush", button_paintbrush),
     5175: ("button_patrol", button_patrol),
     5192: ("button_map", button_map),
     5624: ("toolbar_footpath_pressed", icon_footpath),

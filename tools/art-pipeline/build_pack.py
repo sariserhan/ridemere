@@ -74,6 +74,12 @@ DEFAULT_OBJECTS = [
     "sunrise.ride.information_point",
     "sunrise.footpath_item.bench",
     "sunrise.footpath_item.bin",
+    # Scenery groups are the build-menu tabs; the objects inside them are reached
+    # through the tabs, so the groups are what a park has to have loaded.
+    "sunrise.scenery_group.nature",
+    "sunrise.scenery_group.garden",
+    "sunrise.scenery_group.park",
+    "sunrise.scenery_group.fences",
 
     "sunrise.park_entrance.arch",
     "sunrise.peep_names.visitors",

@@ -22,3 +22,8 @@ ch.dat
 web/node_modules/
 web/.next/
 web/public/game/
+
+# Python bytecode. Tracked by accident until V1-5, which added enough generators
+# to make the churn obvious.
+__pycache__/
+*.pyc

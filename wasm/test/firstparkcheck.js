@@ -91,6 +91,9 @@ const project = (tileX, tileY, z = 16) => {
     check('the park starts with benches', opening.benches >= 4, String(opening.benches));
     check('the park starts with bins', opening.bins >= 3, String(opening.bins));
     check('the park starts with no staff', opening.handymen === 0);
+    // Decorated, but not filled: the player is meant to have somewhere to put things.
+    check('the park ships decorated', opening.scenery >= 8, `${opening.scenery} pieces`);
+    check('the park ships with its railing', opening.walls >= 2, `${opening.walls} wall pieces`);
     check('the objective is a guest target', opening.objectiveGuests > 0, String(opening.objectiveGuests));
     check('the objective also requires a park rating', opening.objectiveRating > 0, String(opening.objectiveRating));
     check('money is on', opening.cash > 0, `$${(opening.cash / 10).toFixed(2)}`);
@@ -204,6 +207,9 @@ const project = (tileX, tileY, z = 16) => {
     check('the benches and bins survive the round trip',
       resumed.benches === beforeSave.benches && resumed.bins === beforeSave.bins,
       `${resumed.benches} benches, ${resumed.bins} bins`);
+    check('the scenery and walls survive the round trip',
+      resumed.scenery === beforeSave.scenery && resumed.walls === beforeSave.walls,
+      `${resumed.scenery} scenery, ${resumed.walls} wall pieces`);
     check('the staff survive the round trip', resumed.handymen === beforeSave.handymen);
     check('the money survives the round trip', Math.abs(resumed.cash - beforeSave.cash) < 2000,
       `$${(beforeSave.cash / 10).toFixed(2)} then $${(resumed.cash / 10).toFixed(2)}`);

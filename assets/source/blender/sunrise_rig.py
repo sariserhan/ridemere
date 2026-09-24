@@ -289,6 +289,48 @@ def cylinder(name: str, part: str, radius: float, height: float, vertices: int =
     return obj
 
 
+def blob(name: str, part: str, radius: float, scale=(1.0, 1.0, 1.0), segments: int = 10,
+         rings: int = 6, origin=(0.0, 0.0, 0.0), parent=None):
+    """A low-polygon sphere, squashed or stretched.
+
+    The building block of every canopy, shrub and flower head. Kept deliberately
+    coarse: at sixty-four pixels a smooth sphere and a ten-segment one are the same
+    picture, and the coarse one shades into cleaner value bands.
+    """
+    bpy.ops.mesh.primitive_uv_sphere_add(segments=segments, ring_count=rings, radius=radius,
+                                         location=(0.0, 0.0, 0.0))
+    obj = bpy.context.active_object
+    obj.name = name
+    obj.scale = Vector(scale)
+    obj.data.shade_flat()
+    obj.data.materials.clear()
+    obj.data.materials.append(tag_material(part))
+    obj.location = Vector(origin)
+    if parent is not None:
+        obj.parent = parent
+        obj.matrix_parent_inverse = parent.matrix_world.inverted()
+    return obj
+
+
+def cone(name: str, part: str, radius: float, height: float, vertices: int = 10,
+         origin=(0.0, 0.0, 0.0), parent=None):
+    """A cone standing on its base. Evergreens and topiary."""
+    bpy.ops.mesh.primitive_cone_add(vertices=vertices, radius1=radius, radius2=0.0,
+                                    depth=height, location=(0.0, 0.0, 0.0))
+    obj = bpy.context.active_object
+    obj.name = name
+    for vertex in obj.data.vertices:
+        vertex.co.z += height / 2.0
+    obj.data.shade_flat()
+    obj.data.materials.clear()
+    obj.data.materials.append(tag_material(part))
+    obj.location = Vector(origin)
+    if parent is not None:
+        obj.parent = parent
+        obj.matrix_parent_inverse = parent.matrix_world.inverted()
+    return obj
+
+
 def empty(name: str, origin=(0.0, 0.0, 0.0), parent=None):
     obj = bpy.data.objects.new(name, None)
     obj.empty_display_size = 0.1

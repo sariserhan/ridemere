@@ -208,3 +208,84 @@ everywhere else.
 built anywhere else swings to a different place in each of the four rotations and the
 packed sprite offsets disagree with one another. The stalls were built on the tile
 centre and the engine drew half of each of them.
+
+## Scenery and vegetation
+
+Thirty-nine objects: thirty-two small scenery, three walls and four build-menu groups.
+They are one theme, not a themed land — a bright contemporary park, the kind a town
+builds and an amusement park keeps tidy — so that anything a player places next to
+anything else still looks like the same park. Themed sets come later and will be
+separate groups, not a replacement for this one.
+
+### The vegetation hierarchy
+
+Planting only reads as planting if it has more than one size in it. A row of identical
+trees reads as a fence.
+
+| Tier | Objects | Job |
+|---|---|---|
+| canopy | `tree_broadleaf`, `tree_shade`, `tree_column`, `tree_evergreen`, `tree_ornamental`, `tree_flowering` | the skyline; breaks up long paths and hides the map edge |
+| mid | `tree_young`, `tree_dense`, `shrub_tall`, `shrub_topiary`, `shrub_hedge` | mass between the trees and the ground |
+| ground | `shrub_round`, `flowers_warm`, `flowers_cool`, `ornamental_grass`, `ground_planting` | colour at the foot of things, and the only cheap decoration |
+
+The built pieces follow the same idea: two lamp heights, two fence styles and a low
+wall, two signs, two planters, two flower beds, six props and two architectural
+accents. Sixteen vegetation objects and sixteen park objects.
+
+### Colours
+
+Vegetation and scenery materials live in `world_palette.py` beside the terrain
+materials, in a `VEGETATION` table, and are taken as **ramp slices** for the same
+reason everything else here is: the quantiser spreads a render's brightness across
+whatever ramp it is handed, so a whole ramp bleaches an object. Four foliage entries
+carry the greens — deep, mid, light and an olive accent — four flower entries carry the
+colour, and `bark`, `stone_wall`, `metal`, `timber` and `paint_warm` carry the built
+pieces. `bark` sits low in the brown ramp: at the slice the other materials use, every
+trunk came out orange.
+
+### Object formats
+
+```
+scenery_small   image + direction               4 images; image 0 is the menu preview
+scenery_wall    image + offset                  0,1 flat; 2,3 one slope; 4,5 the other
+                                                (+6 again for a double-sided wall)
+scenery_group   image      the tab              2 images
+                image + 1  the tab, pressed — and the object-selection preview
+```
+
+A wall's sloped pairs are **rendered tilted, not sheared**. Shearing the flat sprite's
+columns cancels the isometric run and collapses the variant to a band eleven rows high;
+the objects ship six real renders each, at zero and at ±14.04°, which is the angle of
+the engine's own eight-in-thirty-two slope.
+
+**A group tab is a fixed box, 31 by 28, and it draws the sprite at its own top-left
+corner plus that sprite's offsets.** Those offsets are world offsets. A tree is anchored
+at the foot of its trunk with its canopy forty-eight pixels above, so the Nature tab
+drew its tree off the top of the screen and read as a tab with no icon at all. Group
+icons are therefore shrunk to fit and centred on the plate the rest of the interface
+uses, rather than carrying their world anchor into a widget.
+
+### Reuse, not hand-authoring
+
+`assets/source/blender/scenery.py` builds every object out of the same handful of
+components — a trunk, four canopy shapes, a flower head, a post row, a rail — so a new
+object is a composition rather than a new model, and a change to the canopy shape
+reaches every tree that uses it. No sprite is drawn by hand, and no generated PNG is
+source: the renders are rebuilt from the Blender scripts.
+
+### Guards
+
+| Guard | Catches |
+|---|---|
+| `check_rotation_origin.py` | a model built away from the world origin, measured as its content's horizontal centre moving between rotations |
+| `check_scenery_objects.py` | wrong image count, blank or single-colour sprites, four identical "directions", two objects shipping the same artwork |
+| `check_visual_scenery.py` | scenery that exists as objects but never reaches the screen, counted by exact palette index |
+| `sceneryaudit.js` | a sprite the engine asks for and cannot find, including the tab icons the map never draws — and a build menu that opened and closed itself before it could ask |
+| `scenerysave.js` | a park file that keeps the objects and loses their orientation |
+
+The visual check is measured by **palette index, not colour family**. The first attempt
+classified pixels by hue and could not tell a canopy from the grass under it: a scene
+with every object in it measured 5.19% "foliage" and the same scene with the scenery
+deleted measured 4.97%. Counting exact palette entries that only these materials use
+takes every bare scene to approximately zero, which is what makes the floors mean
+something.

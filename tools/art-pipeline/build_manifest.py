@@ -118,6 +118,37 @@ RECORDS: Dict[str, dict] = {
         "notes": "Original souvenir stall; shares the V1 stall silhouette and is told apart by "
                  "its accent colour.",
     },
+    # Vegetation and park scenery. Recorded per object, and by component rather than
+    # by picture: the source of a tree is a trunk form, a canopy form and a material
+    # preset, not the PNG that fell out of the renderer.
+    "object/sunrise.scenery_small.": {
+        **ORIGINAL,
+        "asset": "sunrise_scenery_v1",
+        "source": "assets/source/blender/scenery.py",
+        "generator": "tools/art-pipeline/build_scenery_objects.py",
+        "notes": "Original vegetation and park scenery, assembled in Blender from "
+                 "shared components (trunk, canopy form, flower heads, post rows) and "
+                 "coloured through the vegetation palette in world_palette.py. Every "
+                 "model is built on the world origin; check_rotation_origin.py "
+                 "enforces it. No RollerCoaster Tycoon material of any kind.",
+    },
+    "object/sunrise.scenery_wall.": {
+        **ORIGINAL,
+        "asset": "sunrise_scenery_walls_v1",
+        "source": "assets/source/blender/scenery.py",
+        "generator": "tools/art-pipeline/build_scenery_objects.py",
+        "notes": "Original fences and a low stone wall. Six sprites each: two "
+                 "orientations, flat and tilted onto each slope, all rendered rather "
+                 "than derived from the flat one.",
+    },
+    "object/sunrise.scenery_group.": {
+        **ORIGINAL,
+        "asset": "sunrise_scenery_groups_v1",
+        "source": "tools/art-pipeline/build_scenery_objects.py",
+        "generator": "tools/art-pipeline/build_scenery_objects.py",
+        "notes": "The build-menu tabs. Each carries one icon, rendered from a member "
+                 "object, so no separate icon art exists to go stale.",
+    },
     "object/sunrise.footpath_item.bench.parkobj": {
         **ORIGINAL,
         "asset": "sunrise_bench_v1",
@@ -184,6 +215,15 @@ RECORDS: Dict[str, dict] = {
                  "path combination in one view. Shipped in DevScenarios, which the "
                  "engine's scenario repository never scans, so it cannot reach the "
                  "player-facing selector.",
+    },
+    "standalone/DevScenarios/scenery-density-test.park": {
+        **ORIGINAL,
+        "asset": "sunrise_scenery_density_test_v1",
+        "source": "assets/scenarios/scenery-density-test/scenario.json",
+        "generator": "engine park builder via tools/art-pipeline/build_scenario.py, "
+                     "written by tools/art-pipeline/build_art_scenes.py",
+        "notes": "A development scene packed with far more scenery than a park would "
+                 "carry, for measuring readability and rendering cost.",
     },
     "standalone/DevScenarios/needs-test.park": {
         **ORIGINAL,
@@ -363,9 +403,12 @@ def digest(path: str) -> str:
 def lookup(relative: str) -> dict | None:
     if relative in RECORDS:
         return RECORDS[relative]
+    # A key ending in "/" covers a directory; one ending in "." covers a family of
+    # objects sharing an identifier prefix, which is how thirty-five procedurally
+    # assembled scenery objects are declared once rather than thirty-five times.
     best = None
     for prefix, record in RECORDS.items():
-        if prefix.endswith("/") and relative.startswith(prefix):
+        if prefix.endswith(("/", ".")) and relative.startswith(prefix):
             if best is None or len(prefix) > len(best[0]):
                 best = (prefix, record)
     return best[1] if best else None

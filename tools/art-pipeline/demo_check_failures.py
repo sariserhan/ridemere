@@ -1,11 +1,11 @@
-"""Prove the V1-3 checks can fail.
+"""Prove the content checks can fail.
 
     .cache/venv/bin/python tools/art-pipeline/demo_check_failures.py
 
-A check that has never rejected anything is not evidence. This builds three broken
-copies of the shipped content, each broken in a way that a count or a file listing
-would not notice, and asserts that the matching check rejects each one. It changes
-nothing in the repository: every copy is made in a temporary directory and deleted.
+A check that has never rejected anything is not evidence. This builds broken copies
+of the shipped content, each broken in a way that a count or a file listing would not
+notice, and asserts that the matching check rejects each one. It changes nothing in
+the repository: every copy is made in a temporary directory and deleted.
 
     1. a stall whose four direction sprites are all the same frame
        — the failure a broken render loop produces, and the one that looks correct
@@ -13,6 +13,11 @@ nothing in the repository: every copy is made in a temporary directory and delet
        — the placeholder failure
     3. a development scene shipped in Scenarios
        — the failure that puts a test scene in front of a player
+    4. a scenery object whose four directions are all the same frame
+       — the same render-loop failure, on the objects V1-5 added
+    5. a scenery model built off the rotation origin
+       — the defect that took half of every stall away in V1-3, caught in the
+         renders this time rather than in a screenshot
 """
 
 from __future__ import annotations
@@ -96,6 +101,57 @@ def case_blank_directions(work: str) -> bool:
     return run("check_shop_objects.py", pack) != 0
 
 
+def case_identical_scenery_directions(work: str) -> bool:
+    pack = copy_pack(work)
+    target = os.path.join(pack, "object", "sunrise.scenery_small.lamp_tall.parkobj")
+
+    def mutate(members):
+        root = json.loads(members["object.json"])
+        first = root["images"][0]["path"]
+        for entry in root["images"][1:4]:
+            members[entry["path"]] = members[first]
+        return members
+
+    rewrite_object(target, mutate)
+    print("  a lamp rendered from one angle four times:")
+    return run("check_scenery_objects.py", pack) != 0
+
+
+def case_scenery_off_rotation_origin(work: str) -> bool:
+    """One object's renders, with a single rotation slid sideways.
+
+    A model built away from the world origin swings from side to side as the camera
+    orbits it, and every frame still looks perfectly good on its own. Shifting one
+    frame by twelve pixels reproduces that exactly, and it is the defect that took
+    half of every stall away in V1-3.
+    """
+    import numpy as np
+    from PIL import Image
+
+    renders = os.path.join(REPO, "assets", "generated", "world", "scenery")
+    with open(os.path.join(renders, "frames.json"), "r", encoding="utf-8") as handle:
+        manifest = json.load(handle)
+    stem = "sign_direction"
+    frames = manifest.get(stem)
+    if not frames:
+        print(f"  {stem} is not among the renders, so this case cannot be demonstrated")
+        return False
+
+    directory = os.path.join(work, "renders")
+    os.makedirs(directory)
+    for index, file_name in enumerate(frames):
+        with Image.open(os.path.join(renders, file_name)) as handle:
+            image = np.array(handle.convert("RGBA"))
+        if index == 1:
+            image = np.roll(image, 12, axis=1)
+        Image.fromarray(image).save(os.path.join(directory, file_name))
+    with open(os.path.join(directory, "frames.json"), "w", encoding="utf-8") as handle:
+        json.dump({stem: frames}, handle)
+
+    print(f"  {stem} with one rotation twelve pixels off the origin:")
+    return run("check_rotation_origin.py", directory) != 0
+
+
 def case_development_scene_in_scenarios(work: str) -> bool:
     pack = copy_pack(work)
     standalone = os.path.join(pack, "standalone")
@@ -113,6 +169,8 @@ def main() -> None:
     cases = [
         ("identical direction sprites", case_identical_directions),
         ("blank direction sprites", case_blank_directions),
+        ("identical scenery direction sprites", case_identical_scenery_directions),
+        ("scenery model off the rotation origin", case_scenery_off_rotation_origin),
         ("development scene in Scenarios", case_development_scene_in_scenarios),
     ]
     results = []

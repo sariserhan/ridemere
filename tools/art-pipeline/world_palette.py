@@ -75,6 +75,46 @@ MATERIALS: Dict[str, Material] = {
     "support": Material("grey", 5, 1, 4, 0.22, "structure beneath a path"),
 }
 
+#: The vegetation palette.
+#:
+#: Ramp slices rather than whole ramps, for the reason the bench learned in V1-4: the
+#: quantiser spreads a render's brightness across whatever ramp it is given, so a full
+#: twelve-step ramp puts every lit surface at the top of it and the object arrives
+#: bleached. Five or six steps is a material.
+#:
+#: The rule these are chosen against is that **a tree must separate from the grass it
+#: stands on**, and the grass is `green` around step 7. So the foliage tones are either
+#: a different hue family (olive, bright green) or a long way from step 7 in value, and
+#: usually both. The one that needs the most care is `foliage`, which is the same ramp
+#: as the grass: it sits at 3..8, darker than the ground, so a canopy reads as a shape
+#: rather than as a patch of lawn on a stick.
+VEGETATION: Dict[str, tuple] = {
+    "foliage_deep": ("olive_dark", 2, 7),
+    "foliage": ("green", 3, 8),
+    "foliage_light": ("bright_green", 4, 9),
+    "foliage_accent": ("olive", 4, 9),
+    "flower_warm": ("pink", 4, 10),
+    "flower_hot": ("red", 5, 10),
+    "flower_cool": ("purple", 4, 9),
+    "flower_sun": ("orange", 5, 10),
+    # Low on the ramp: the first attempt sat at 2..7 and every trunk came out a
+    # bright orange-tan, which fought the foliage instead of holding it up.
+    "bark": ("brown", 0, 5),
+    "bark_light": ("tan", 3, 8),
+    "stone_wall": ("grey", 3, 8),
+    "metal": ("grey", 2, 7),
+    "timber": ("tan", 3, 8),
+    "paint_warm": ("orange", 4, 9),
+}
+
+
+def vegetation_ramp(name: str) -> tuple:
+    """(ramp name, low, high) for a vegetation or scenery material."""
+    try:
+        return VEGETATION[name]
+    except KeyError:
+        raise KeyError(f"unknown vegetation material {name!r}; known: {sorted(VEGETATION)}") from None
+
 
 def texture(material: Material, height: int, width: int, seed: int = 0) -> np.ndarray:
     """A deterministic value offset per pixel, in ramp steps.

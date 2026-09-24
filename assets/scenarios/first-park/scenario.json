@@ -51,7 +51,46 @@
     "sunrise.ride.grill_stand",
     "sunrise.ride.refreshment_stand",
     "sunrise.ride.restroom",
-    "sunrise.ride.gift_stand"
+    "sunrise.ride.gift_stand",
+    "sunrise.scenery_small.tree_broadleaf",
+    "sunrise.scenery_small.tree_shade",
+    "sunrise.scenery_small.tree_column",
+    "sunrise.scenery_small.tree_evergreen",
+    "sunrise.scenery_small.tree_ornamental",
+    "sunrise.scenery_small.tree_flowering",
+    "sunrise.scenery_small.tree_young",
+    "sunrise.scenery_small.tree_dense",
+    "sunrise.scenery_small.shrub_round",
+    "sunrise.scenery_small.shrub_hedge",
+    "sunrise.scenery_small.shrub_tall",
+    "sunrise.scenery_small.shrub_topiary",
+    "sunrise.scenery_small.flowers_warm",
+    "sunrise.scenery_small.flowers_cool",
+    "sunrise.scenery_small.ornamental_grass",
+    "sunrise.scenery_small.ground_planting",
+    "sunrise.scenery_small.lamp_tall",
+    "sunrise.scenery_small.lamp_garden",
+    "sunrise.scenery_small.sign_direction",
+    "sunrise.scenery_small.sign_board",
+    "sunrise.scenery_small.planter_square",
+    "sunrise.scenery_small.planter_round",
+    "sunrise.scenery_small.bed_rectangular",
+    "sunrise.scenery_small.bed_corner",
+    "sunrise.scenery_small.prop_bollard",
+    "sunrise.scenery_small.prop_banner",
+    "sunrise.scenery_small.prop_sculpture",
+    "sunrise.scenery_small.prop_clock",
+    "sunrise.scenery_small.prop_fountain",
+    "sunrise.scenery_small.prop_picnic_table",
+    "sunrise.scenery_small.accent_pillar",
+    "sunrise.scenery_small.accent_arch",
+    "sunrise.scenery_wall.fence_metal",
+    "sunrise.scenery_wall.fence_timber",
+    "sunrise.scenery_wall.wall_stone",
+    "sunrise.scenery_group.nature",
+    "sunrise.scenery_group.garden",
+    "sunrise.scenery_group.park",
+    "sunrise.scenery_group.fences"
   ],
   "owned": {
     "fromX": 1,
@@ -236,6 +275,100 @@
         [
           16,
           10
+        ]
+      ]
+    }
+  ],
+  "scenery": [
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          15,
+          8,
+          0
+        ],
+        [
+          17,
+          8,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          13,
+          11,
+          0
+        ],
+        [
+          19,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_rectangular",
+      "tiles": [
+        [
+          13,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          19,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          15,
+          10,
+          0
+        ],
+        [
+          17,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          15,
+          15,
+          0
+        ]
+      ]
+    }
+  ],
+  "walls": [
+    {
+      "object": "sunrise.scenery_wall.fence_metal",
+      "tiles": [
+        [
+          13,
+          17,
+          0
+        ],
+        [
+          13,
+          17,
+          3
         ]
       ]
     }

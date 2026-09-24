@@ -36,6 +36,8 @@ and checks each lands inside the viewport.
 | Paths | entrance corridor, crossing, plaza, coaster queue |
 | Benches | 4, on the plaza |
 | Bins | 3, on the plaza and the entrance path |
+| Scenery | 9 pieces: 4 trees, a flower bed, warm flowers, 2 lamps, a direction sign |
+| Walls | 2 pieces of metal railing, at the plaza corner |
 | Shops | none |
 | Staff | none |
 | Cash | $12,000, no loan |
@@ -48,6 +50,43 @@ coaster, and opening a ride is a thing they will do for every ride they ever bui
 Benches and bins are prebuilt because they are furniture, not a lesson. The lesson is
 that four benches and three bins are **not enough**, which is a thing a player can only
 learn from a park that has some.
+
+## Decoration
+
+Eleven pieces, and that is the whole of it. The park is **decorated, not filled**: two
+broadleaf trees behind the plaza, two ornamental trees at the corners, a flower bed and
+a patch of warm flowers beside the path, two lamps on the crossing, a direction sign at
+the junction and a short run of railing at the plaza edge. Everything else is empty
+ground the player can plant.
+
+It is there to show what a finished park looks like and to leave most of the work
+undone, which is the opposite of the failure mode: a scenario so complete that placing
+anything makes it worse.
+
+**Decorating is never asked for.** No onboarding step mentions scenery, the objective
+does not count it, and a player who never opens the scenery window can finish First
+Park exactly as before. That is deliberate: see the gameplay note below.
+
+### What decorating actually does
+
+Nothing to the park rating. `Park::CalculateParkRating` counts guests, rides, litter
+and casualties, and has no scenery term at all.
+
+Scenery reaches the simulation through one path only. A walking or sitting guest runs
+`GuestAssessSurroundings` every 18 ticks; **forty or more** small or large scenery
+elements within five tiles of them, with fewer than eight pieces of rubbish nearby,
+produce the "Great scenery!" thought and add 45 to that guest's happiness target.
+Happier guests raise the park rating indirectly, through the rating's happy-guest term.
+
+Walls do not count. Path additions do not count unless they are jumping fountains,
+which we do not ship — `prop_fountain` is small scenery and is counted as such.
+
+Forty pieces within five tiles is a dense planting, not a decorated path. First Park
+ships nine, so **its decoration is cosmetic and nothing in the game pretends
+otherwise.** `wasm/test/scenerygameplay.js` measures both ends of this, and asserts
+that no guest in First Park gets the thought and that guests in the density scene do.
+No number was rebalanced to make decoration pay; that is a later decision, and it
+should be made deliberately rather than by quietly adding a term.
 
 ## Available content
 
@@ -155,3 +194,7 @@ start state is a change to that file and a rebuild, never an edit to a binary.
 
 After changing any number here, run `wasm/test/firstpark.js` and read the timeline. It
 is the only thing that will tell you whether the scenario still works.
+
+The objective was not retuned when the park was decorated. It could not have needed to
+be: nothing in the rating or the guest generator reads scenery, and the measured play
+through is unchanged. Making the park prettier is not a reason to move a target.

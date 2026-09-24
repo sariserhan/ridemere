@@ -79,6 +79,22 @@ def _load_ui_sprites() -> Dict[int, str]:
     return {int(index): os.path.join(REPO, path) for index, path in mapping.items()}
 
 
+def _load_selection_sprites() -> Dict[int, str]:
+    """The tile highlights the build tools draw under the cursor.
+
+    Fixed indices the engine hard-codes, so they are keyed by number rather than by
+    name. Built by build_selection_sprites.py from the terrain silhouettes.
+    """
+    directory = os.path.join(REPO, "assets", "generated", "ui", "selection")
+    if not os.path.isdir(directory):
+        raise SystemExit("run tools/art-pipeline/build_selection_sprites.py first")
+    out: Dict[int, str] = {}
+    for name in sorted(os.listdir(directory)):
+        if name.endswith(".png"):
+            out[int(name[:-4])] = os.path.join(directory, name)
+    return out
+
+
 def _engine_entry_count() -> int:
     """Read SPR_G1_END from the engine so this file cannot silently drift."""
     header = os.path.join(REPO, "engine", "openrct2", "src", "openrct2", "SpriteIds.h")
@@ -136,6 +152,7 @@ def build() -> dict:
         raise SystemExit(f"gxc not found at {GXC}; see wasm/scripts/build-assets.sh")
 
     SPRITE_SOURCES.update(_load_ui_sprites())
+    SPRITE_SOURCES.update(_load_selection_sprites())
 
     os.makedirs(OUT_DIR, exist_ok=True)
     work = tempfile.mkdtemp(prefix="sunrise-base-")

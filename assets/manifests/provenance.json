@@ -118,8 +118,8 @@
       "notes": "Full-size base sprite archive. Unfilled entries carry a diagnostic marker.",
       "path": "standalone/Data/g1.dat",
       "files": 1,
-      "bytes": 2381553,
-      "sha256": "aa405e9d9f4e939615406b9d7e8bb4f51cef884becf32e021cb943af8e12a6f4"
+      "bytes": 2411979,
+      "sha256": "e05e9918373f108022c9f5f56ed3d71519fdb2bae9b04c5909065220e8e66169"
     },
     {
       "creator": "Project Sunrise",
@@ -132,7 +132,7 @@
       "path": "object/sunrise.footpath_item.bench.parkobj",
       "files": 1,
       "bytes": 8767,
-      "sha256": "c33a0d06841da511fad15d7d180e4a4d51676ece69714825da7c8e5bad916556"
+      "sha256": "49b2bc4f0c203c27c9897c9330d5e1f8e402e6163484914acdcd7769fdfad510"
     },
     {
       "creator": "Project Sunrise",
@@ -153,8 +153,8 @@
       "source": "tools/art-pipeline/build_pack.py",
       "path": "standalone/standalone.json",
       "files": 1,
-      "bytes": 3686,
-      "sha256": "55a8097ece26294f0ca84548879f5dfe2e7d86d427841839e16a91ae601d5de0"
+      "bytes": 3988,
+      "sha256": "e6aa08860b859fa48f0de6ca77569b82b662f57795bed563a6ee1cf3927b03cc"
     },
     {
       "creator": "Project Sunrise",
@@ -167,7 +167,7 @@
       "path": "object/sunrise.ride.information_point.parkobj",
       "files": 1,
       "bytes": 11739,
-      "sha256": "0cbf86a2e3fad4222eefee8748af9cb5fac63bd16c96bb77a38deab2b2079a51"
+      "sha256": "1a6b09039a27e26774675a78ee86108089289da9d706adffe791fe476c5808ac"
     },
     {
       "creator": "Project Sunrise",
@@ -180,7 +180,7 @@
       "path": "object/sunrise.ride.restroom.parkobj",
       "files": 1,
       "bytes": 11701,
-      "sha256": "389804fc58940434886e337fb30bdfed322220490c901fee59532fc9189491bc"
+      "sha256": "25c1fe0fdf2cc5d6ce644e22d1a7b51d16dd7c605c0c73a0b998da33169ff23a"
     },
     {
       "creator": "Project Sunrise",
@@ -192,8 +192,8 @@
       "notes": "The first release scenario. Built from its description by the engine's own game actions, so the generated park is output and the description is the source.",
       "path": "standalone/Scenarios/first-park.park",
       "files": 1,
-      "bytes": 7873,
-      "sha256": "355867af6dbb570f1a7645c44d824854ae4ee04e67a278635aceac8f5c058177"
+      "bytes": 9452,
+      "sha256": "25e4bbb900f16badaeb434c3caa1de51ca831a930295f3d4c5c0718bdd4ad468"
     },
     {
       "creator": "Project Sunrise",
@@ -206,7 +206,7 @@
       "path": "object/sunrise.peep_animations.guest.parkobj",
       "files": 1,
       "bytes": 287176,
-      "sha256": "c53cf020d6545efd75c04540847ae5c5bab1caee7cb16eb71c9a8f6aa27273ed"
+      "sha256": "d76426d8d82aae464925c6fddba40be26d0b646e4e46276553b90996c7ad8c8f"
     },
     {
       "creator": "Project Sunrise",
@@ -218,7 +218,7 @@
       "path": "object/sunrise.peep_animations.handyman.parkobj",
       "files": 1,
       "bytes": 132141,
-      "sha256": "207c2576bf3272ec99bd81d118f3194159a54bfab1da1af413ee14b876a48513"
+      "sha256": "5693d89be0915478ede8c19d50213f261f17f8ff4223b3ac1c6d4910ee320a91"
     },
     {
       "creator": "Project Sunrise",
@@ -231,7 +231,7 @@
       "path": "object/sunrise.footpath_item.bin.parkobj",
       "files": 1,
       "bytes": 11978,
-      "sha256": "6aeff711f7122a606fcdb8fb4ce71a7b26b0f4cd40d351e1a7dac64d1308d859"
+      "sha256": "766d1e62aab6555cb39101c8cbcdf25a517e11d48819ea756bf8ed58c02f65ed"
     },
     {
       "creator": "Project Sunrise",
@@ -243,8 +243,8 @@
       "notes": "A development scene for the guest-need loop. Every stall ships closed so an alert has to raise before it can clear. Shipped in DevScenarios and stripped from the player build entirely.",
       "path": "standalone/DevScenarios/needs-test.park",
       "files": 1,
-      "bytes": 7645,
-      "sha256": "d577cddab00e6e483cd289a5a3f813bee10b05f7cd5744a14b20aca6ac40b125"
+      "bytes": 7665,
+      "sha256": "3c4a09fdcf5c704531d89106689ed5003e3c069fd98fa640a55443744cf64cd3"
     },
     {
       "creator": "Project Sunrise",
@@ -267,7 +267,7 @@
       "path": "object/sunrise.footpath_surface.paved.parkobj",
       "files": 1,
       "bytes": 51317,
-      "sha256": "5fff7f1bd2dd3f691fc99e4adf42ff408af1f9a5778763d932c2818e1c7485e2"
+      "sha256": "47a4439b89e8db78d20d007d1538eb87d6afbb65377152e8fcee2dc949f82dbe"
     },
     {
       "creator": "Project Sunrise",
@@ -278,7 +278,7 @@
       "path": "object/sunrise.footpath_surface.queue.parkobj",
       "files": 1,
       "bytes": 52984,
-      "sha256": "9e3080cdaf5c6b102f69e7dba94863272babde534125988e92bd62577930c951"
+      "sha256": "1b37e33322996d3521fee1a14d1e55c97fca138dead2bc3fd45925c49768f155"
     },
     {
       "creator": "Project Sunrise",
@@ -290,7 +290,7 @@
       "path": "object/sunrise.footpath_railings.metal.parkobj",
       "files": 1,
       "bytes": 73865,
-      "sha256": "702b5e9167e900aee254ec5ae407b1ae6de420ced31296b935e7bcf93bd225d8"
+      "sha256": "3db3483a270b5e87eab5fa4266ff01df3ee690dade3985c27734e949ee86a6d0"
     },
     {
       "creator": "Project Sunrise",
@@ -301,7 +301,7 @@
       "path": "object/sunrise.footpath_surface.stone.parkobj",
       "files": 1,
       "bytes": 51457,
-      "sha256": "de1175ea898e68135b2844bb479650f9441ded0afe3db31aec6d624ddf57c7f7"
+      "sha256": "0d2af63fdd8e915a597e0a622b0c4a014e6d36fba203330c0277d09c9a4a44c6"
     },
     {
       "creator": "Project Sunrise",
@@ -312,7 +312,7 @@
       "path": "object/sunrise.footpath_surface.wood.parkobj",
       "files": 1,
       "bytes": 51504,
-      "sha256": "105c2d7044de30afed92f6eb57ad62179275978a9e2041977b0b6995101b77ae"
+      "sha256": "fa5ca04131844bcb712461fbd197f9b5052219eaeafba1d5383d5b5d4d142df9"
     },
     {
       "creator": "Project Sunrise",
@@ -330,6 +330,58 @@
       "creator": "Project Sunrise",
       "license": "proprietary-original",
       "modified": false,
+      "asset": "sunrise_scenery_density_test_v1",
+      "source": "assets/scenarios/scenery-density-test/scenario.json",
+      "generator": "engine park builder via tools/art-pipeline/build_scenario.py, written by tools/art-pipeline/build_art_scenes.py",
+      "notes": "A development scene packed with far more scenery than a park would carry, for measuring readability and rendering cost.",
+      "path": "standalone/DevScenarios/scenery-density-test.park",
+      "files": 1,
+      "bytes": 6977,
+      "sha256": "b73abd02818e62fcc6cf2a050507782d77b0058ae93b01a1660d322fc2b3ecce"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_scenery_groups_v1",
+      "source": "tools/art-pipeline/build_scenery_objects.py",
+      "generator": "tools/art-pipeline/build_scenery_objects.py",
+      "notes": "The build-menu tabs. Each carries one icon, rendered from a member object, so no separate icon art exists to go stale.",
+      "path": "object/sunrise.scenery_group.fences.parkobj",
+      "files": 4,
+      "bytes": 9258,
+      "sha256": "eb2b4dc9ac25c2ae2fb475916d8da80a86be28fec21f92d13a8ab9ff4d7ebfa5"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_scenery_v1",
+      "source": "assets/source/blender/scenery.py",
+      "generator": "tools/art-pipeline/build_scenery_objects.py",
+      "notes": "Original vegetation and park scenery, assembled in Blender from shared components (trunk, canopy form, flower heads, post rows) and coloured through the vegetation palette in world_palette.py. Every model is built on the world origin; check_rotation_origin.py enforces it. No RollerCoaster Tycoon material of any kind.",
+      "path": "object/sunrise.scenery_small.accent_arch.parkobj",
+      "files": 32,
+      "bytes": 136624,
+      "sha256": "e1fe75b9e09d249fdf062f81329e118c0af895865db065d87221b7ea3aead430"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_scenery_walls_v1",
+      "source": "assets/source/blender/scenery.py",
+      "generator": "tools/art-pipeline/build_scenery_objects.py",
+      "notes": "Original fences and a low stone wall. Six sprites each: two orientations, flat and tilted onto each slope, all rendered rather than derived from the flat one.",
+      "path": "object/sunrise.scenery_wall.fence_metal.parkobj",
+      "files": 3,
+      "bytes": 18637,
+      "sha256": "e08472f86ca8faa93df39feae391b29d21e71d37c6ac68280f62816ad1855ef6"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
       "asset": "sunrise_shop_drink_v1",
       "source": "assets/source/blender/world_props.py",
       "generator": "blender 4.2 + tools/art-pipeline/build_shops.py",
@@ -337,7 +389,7 @@
       "path": "object/sunrise.ride.refreshment_stand.parkobj",
       "files": 1,
       "bytes": 11571,
-      "sha256": "77522c98443e394f5b7ca58449cd796a774264beba1a365a8d0dca6829439550"
+      "sha256": "c6785b6048d5a2a366991d5be0ecec87b5f4e57e4706d4ce62ec4c7a366e12dc"
     },
     {
       "creator": "Project Sunrise",
@@ -350,7 +402,7 @@
       "path": "object/sunrise.ride.grill_stand.parkobj",
       "files": 1,
       "bytes": 11611,
-      "sha256": "a7270750bd3f4a85abb41ab5146cccfc30dca3505b793e6cd9e1c367e1ae349a"
+      "sha256": "25e33bf439dac9c6d115559b3537d99c41bf792e60e43ce08dbd0d692d7a99f2"
     },
     {
       "creator": "Project Sunrise",
@@ -363,7 +415,7 @@
       "path": "object/sunrise.ride.gift_stand.parkobj",
       "files": 1,
       "bytes": 11554,
-      "sha256": "cdd130b4713b982c42ba615d7cc997374cb240584075fe81bde4c66b601e8c0e"
+      "sha256": "4b15aa0bfe881c411a1ae1779a25baeeb409944dcd243ffe11e55a87651c3285"
     },
     {
       "creator": "Project Sunrise",
@@ -387,7 +439,7 @@
       "path": "object/sunrise.terrain_surface.dirt.parkobj",
       "files": 1,
       "bytes": 80071,
-      "sha256": "8936afb2e53da5abb7e49acfe81c972d777f9a23782cadf94dc4307b8b3ba6a4"
+      "sha256": "b02487f0de106071db0dcdc968b14445e1917e06100dce558d8315ee1fc7917b"
     },
     {
       "creator": "Project Sunrise",
@@ -400,7 +452,7 @@
       "path": "object/sunrise.terrain_edge.rock.parkobj",
       "files": 1,
       "bytes": 82760,
-      "sha256": "e6013cceae083f6d66db1838b20dbe6cd9816ce4ab8174df2712bcd2a50d9009"
+      "sha256": "f1cd89a77f26954c02364ed958a138a3b117513626152a18f98c17ba83abb470"
     },
     {
       "creator": "Project Sunrise",
@@ -412,7 +464,7 @@
       "path": "object/sunrise.terrain_surface.grass.parkobj",
       "files": 1,
       "bytes": 77563,
-      "sha256": "8c4644a44a1acb3ba3655b8d602014b0042d3e2486719f6abbb810ab5c0302ed"
+      "sha256": "126a63a9000e4a91408834f44950ae12e7dc2548d482bc7f75e6d9eab14993a8"
     },
     {
       "creator": "Project Sunrise",
@@ -424,7 +476,7 @@
       "path": "object/sunrise.terrain_surface.sand.parkobj",
       "files": 1,
       "bytes": 72822,
-      "sha256": "dd383b08d2fc751a05e76632e0fef8a7a0082e13b6ee67ca7fea0e9f49d258b3"
+      "sha256": "31ec617cfc350a92f6f3aefdd0cddf04e8a16051114772c1a74e9010e6a15102"
     },
     {
       "creator": "Project Sunrise",
@@ -436,7 +488,7 @@
       "path": "object/sunrise.terrain_surface.stone.parkobj",
       "files": 1,
       "bytes": 79390,
-      "sha256": "f96be4bfe9f839436becc4869878e4cfdead0e41a3a22ca4d1b83ae12e8bccb1"
+      "sha256": "eb672b1b229d5e4a8f72bd160b40ec9adea182043f89a0a44ffa1c1f08fc39c3"
     },
     {
       "creator": "Project Sunrise",
@@ -448,8 +500,8 @@
       "notes": "A development park that exercises the runtime end to end. Moved to DevScenarios in V1-4 when First Park replaced it as the scenario a player starts.",
       "path": "standalone/DevScenarios/sunrise-test.park",
       "files": 1,
-      "bytes": 8374,
-      "sha256": "0915df5487af3ca32d5abee1df47ff1a9a18543ce9807493408cd85557a41cdb"
+      "bytes": 8407,
+      "sha256": "27613f45fbdabed1c0e27940fe9ff4fbc2a170e0f6b30c90e9ac3d7744803746"
     },
     {
       "creator": "Project Sunrise",
@@ -461,8 +513,8 @@
       "notes": "A development scene that shows every world material, slope, edge and path combination in one view. Shipped in DevScenarios, which the engine's scenario repository never scans, so it cannot reach the player-facing selector.",
       "path": "standalone/DevScenarios/world-art-test.park",
       "files": 1,
-      "bytes": 8199,
-      "sha256": "8443965856fc761d05bff6db81170299cf7ba807f7e40f8f42d8d2d7bcb2b66a"
+      "bytes": 12858,
+      "sha256": "5cb42b19463948f89dc5f67f0938e243a11b000fef321baf85becf00fa0ad7ff"
     }
   ],
   "undeclaredFiles": [],

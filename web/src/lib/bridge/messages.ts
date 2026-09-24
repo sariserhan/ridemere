@@ -105,6 +105,9 @@ export interface ScenarioStateMessage {
   hasToilet: boolean;
   benches: number;
   bins: number;
+  /** Scenery and wall pieces on the map, for a scenario that ships decorated. */
+  scenery: number;
+  walls: number;
   handymen: number;
   litter: number;
   /** Where the camera is, so "look around your park" can notice that it happened. */

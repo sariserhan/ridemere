@@ -193,10 +193,23 @@ def convert_render(
     camera_target_z: float,
     extra_x: int = 0,
     extra_y: int = 0,
+    scale: float = 1.0,
 ) -> Dict[str, int]:
-    """Convert one rendered PNG. Returns the object.json image entry."""
+    """Convert one rendered PNG. Returns the object.json image entry.
+
+    `scale` shrinks the render before it is quantised, for sprites that have to fit
+    a fixed box rather than the world grid: a build-menu tab is 31x28 and a tree is
+    not. Area averaging, not a filter with overshoot, because the quantiser reads
+    hue to decide which part of the model a pixel belongs to and a ringing filter
+    invents hues that belong to neither. Averaging between two parts lands on one
+    or the other, which is what antialiasing should do here anyway.
+    """
     with Image.open(source_png) as handle:
-        rgba = np.array(handle.convert("RGBA"))
+        rgba = handle.convert("RGBA")
+        if scale != 1.0:
+            size = (max(1, int(round(rgba.width * scale))), max(1, int(round(rgba.height * scale))))
+            rgba = rgba.resize(size, Image.BOX)
+        rgba = np.array(rgba)
 
     indices, _ = quantise(rgba, colourway)
     cropped, left, top = crop_to_content(indices)

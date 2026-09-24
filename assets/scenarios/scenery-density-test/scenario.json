@@ -1,0 +1,11236 @@
+{
+  "name": "Scenery Density Test",
+  "details": "A development scene packed with far more scenery than a park would carry, for measuring readability and cost. Not a release scenario.",
+  "visibility": "development",
+  "mapTiles": 40,
+  "initialCash": 500000,
+  "objectiveGuests": 10,
+  "breakdowns": false,
+  "pathSurface": "sunrise.footpath_surface.paved",
+  "queueSurface": "sunrise.footpath_surface.queue",
+  "pathRailings": "sunrise.footpath_railings.metal",
+  "view": {
+    "x": 18,
+    "y": 18
+  },
+  "objects": [
+    "sunrise.terrain_surface.grass",
+    "sunrise.terrain_surface.dirt",
+    "sunrise.terrain_edge.rock",
+    "sunrise.footpath_surface.paved",
+    "sunrise.footpath_surface.queue",
+    "sunrise.footpath_railings.metal",
+    "sunrise.station.plain",
+    "sunrise.park_entrance.arch",
+    "sunrise.peep_names.visitors",
+    "sunrise.climate.temperate",
+    "sunrise.peep_animations.guest",
+    "sunrise.peep_animations.handyman",
+    "sunrise.scenery_small.tree_broadleaf",
+    "sunrise.scenery_small.tree_shade",
+    "sunrise.scenery_small.tree_column",
+    "sunrise.scenery_small.tree_evergreen",
+    "sunrise.scenery_small.tree_ornamental",
+    "sunrise.scenery_small.tree_flowering",
+    "sunrise.scenery_small.tree_young",
+    "sunrise.scenery_small.tree_dense",
+    "sunrise.scenery_small.shrub_round",
+    "sunrise.scenery_small.shrub_hedge",
+    "sunrise.scenery_small.shrub_tall",
+    "sunrise.scenery_small.shrub_topiary",
+    "sunrise.scenery_small.flowers_warm",
+    "sunrise.scenery_small.flowers_cool",
+    "sunrise.scenery_small.ornamental_grass",
+    "sunrise.scenery_small.ground_planting",
+    "sunrise.scenery_small.lamp_tall",
+    "sunrise.scenery_small.lamp_garden",
+    "sunrise.scenery_small.sign_direction",
+    "sunrise.scenery_small.sign_board",
+    "sunrise.scenery_small.planter_square",
+    "sunrise.scenery_small.planter_round",
+    "sunrise.scenery_small.bed_rectangular",
+    "sunrise.scenery_small.bed_corner",
+    "sunrise.scenery_small.prop_bollard",
+    "sunrise.scenery_small.prop_banner",
+    "sunrise.scenery_small.prop_sculpture",
+    "sunrise.scenery_small.prop_clock",
+    "sunrise.scenery_small.prop_fountain",
+    "sunrise.scenery_small.prop_picnic_table",
+    "sunrise.scenery_small.accent_pillar",
+    "sunrise.scenery_small.accent_arch",
+    "sunrise.scenery_wall.fence_metal",
+    "sunrise.scenery_wall.fence_timber",
+    "sunrise.scenery_wall.wall_stone",
+    "sunrise.scenery_group.nature",
+    "sunrise.scenery_group.garden",
+    "sunrise.scenery_group.park",
+    "sunrise.scenery_group.fences"
+  ],
+  "owned": {
+    "fromX": 1,
+    "fromY": 5,
+    "toX": 38,
+    "toY": 38
+  },
+  "entrance": {
+    "x": 32,
+    "y": 6,
+    "direction": 1
+  },
+  "peepSpawn": {
+    "x": 32,
+    "y": 1,
+    "direction": 3
+  },
+  "paths": [
+    {
+      "from": [
+        32,
+        1
+      ],
+      "to": [
+        32,
+        30
+      ]
+    }
+  ],
+  "scenery": [
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          10,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          10,
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          10,
+          10,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          10,
+          10,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          10,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          10,
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          10,
+          11,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          10,
+          11,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          10,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          10,
+          12,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          10,
+          12,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          10,
+          12,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          10,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          10,
+          13,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          10,
+          13,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          10,
+          13,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          10,
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          10,
+          14,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          10,
+          14,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          10,
+          14,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          10,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          10,
+          15,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          10,
+          15,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          10,
+          15,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          10,
+          16,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          10,
+          16,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          10,
+          16,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          10,
+          16,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          10,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          10,
+          17,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          10,
+          17,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          10,
+          17,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          10,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          10,
+          18,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          10,
+          18,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          10,
+          18,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          10,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          10,
+          19,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          10,
+          19,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          10,
+          19,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          10,
+          20,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          10,
+          20,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          10,
+          20,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          10,
+          20,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          10,
+          21,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          10,
+          21,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          10,
+          21,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          10,
+          21,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          10,
+          22,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          10,
+          22,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          10,
+          22,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          10,
+          22,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          10,
+          23,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          10,
+          23,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          10,
+          23,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          10,
+          23,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          10,
+          24,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          10,
+          24,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          10,
+          24,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          10,
+          24,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          10,
+          25,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          10,
+          25,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          10,
+          25,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          10,
+          25,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          11,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          11,
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          11,
+          10,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          11,
+          10,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          11,
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          11,
+          11,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          11,
+          11,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          11,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          11,
+          12,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          11,
+          12,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          11,
+          12,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          11,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          11,
+          13,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          11,
+          13,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          11,
+          13,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          11,
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          11,
+          14,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          11,
+          14,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          11,
+          14,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          11,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          11,
+          15,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          11,
+          15,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          11,
+          15,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          11,
+          16,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          11,
+          16,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          11,
+          16,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          11,
+          16,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          11,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          11,
+          17,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          11,
+          17,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          11,
+          17,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          11,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          11,
+          18,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          11,
+          18,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          11,
+          18,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          11,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          11,
+          19,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          11,
+          19,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          11,
+          19,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          11,
+          20,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          11,
+          20,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          11,
+          20,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          11,
+          20,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          11,
+          21,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          11,
+          21,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          11,
+          21,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          11,
+          21,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          11,
+          22,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          11,
+          22,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          11,
+          22,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          11,
+          22,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          11,
+          23,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          11,
+          23,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          11,
+          23,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          11,
+          23,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          11,
+          24,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          11,
+          24,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          11,
+          24,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          11,
+          24,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          11,
+          25,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          11,
+          25,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          11,
+          25,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          11,
+          25,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          12,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          12,
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          12,
+          10,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          12,
+          10,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          12,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          12,
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          12,
+          11,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          12,
+          11,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          12,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          12,
+          12,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          12,
+          12,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          12,
+          12,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          12,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          12,
+          13,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          12,
+          13,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          12,
+          13,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          12,
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          12,
+          14,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          12,
+          14,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          12,
+          14,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          12,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          12,
+          15,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          12,
+          15,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          12,
+          15,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          12,
+          16,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          12,
+          16,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          12,
+          16,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          12,
+          16,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          12,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          12,
+          17,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          12,
+          17,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          12,
+          17,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          12,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          12,
+          18,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          12,
+          18,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          12,
+          18,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          12,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          12,
+          19,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          12,
+          19,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          12,
+          19,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          12,
+          20,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          12,
+          20,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          12,
+          20,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          12,
+          20,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          12,
+          21,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          12,
+          21,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          12,
+          21,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          12,
+          21,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          12,
+          22,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          12,
+          22,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          12,
+          22,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          12,
+          22,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          12,
+          23,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          12,
+          23,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          12,
+          23,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          12,
+          23,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          12,
+          24,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          12,
+          24,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          12,
+          24,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          12,
+          24,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          12,
+          25,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          12,
+          25,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          12,
+          25,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          12,
+          25,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          13,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          13,
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          13,
+          10,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          13,
+          10,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          13,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          13,
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          13,
+          11,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          13,
+          11,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          13,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          13,
+          12,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          13,
+          12,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          13,
+          12,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          13,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          13,
+          13,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          13,
+          13,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          13,
+          13,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          13,
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          13,
+          14,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          13,
+          14,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          13,
+          14,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          13,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          13,
+          15,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          13,
+          15,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          13,
+          15,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          13,
+          16,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          13,
+          16,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          13,
+          16,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          13,
+          16,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          13,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          13,
+          17,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          13,
+          17,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          13,
+          17,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          13,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          13,
+          18,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          13,
+          18,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          13,
+          18,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          13,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          13,
+          19,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          13,
+          19,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          13,
+          19,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          13,
+          20,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          13,
+          20,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          13,
+          20,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          13,
+          20,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          13,
+          21,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          13,
+          21,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          13,
+          21,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          13,
+          21,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          13,
+          22,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          13,
+          22,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          13,
+          22,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          13,
+          22,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          13,
+          23,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          13,
+          23,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          13,
+          23,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          13,
+          23,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          13,
+          24,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          13,
+          24,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          13,
+          24,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          13,
+          24,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          13,
+          25,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          13,
+          25,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          13,
+          25,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          13,
+          25,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          14,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          14,
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          14,
+          10,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          14,
+          10,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          14,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          14,
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          14,
+          11,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          14,
+          11,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          14,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          14,
+          12,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          14,
+          12,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          14,
+          12,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          14,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          14,
+          13,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          14,
+          13,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          14,
+          13,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          14,
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          14,
+          14,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          14,
+          14,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          14,
+          14,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          14,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          14,
+          15,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          14,
+          15,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          14,
+          15,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          14,
+          16,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          14,
+          16,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          14,
+          16,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          14,
+          16,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          14,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          14,
+          17,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          14,
+          17,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          14,
+          17,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          14,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          14,
+          18,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          14,
+          18,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          14,
+          18,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          14,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          14,
+          19,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          14,
+          19,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          14,
+          19,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          14,
+          20,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          14,
+          20,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          14,
+          20,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          14,
+          20,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          14,
+          21,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          14,
+          21,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          14,
+          21,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          14,
+          21,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          14,
+          22,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          14,
+          22,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          14,
+          22,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          14,
+          22,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          14,
+          23,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          14,
+          23,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          14,
+          23,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          14,
+          23,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          14,
+          24,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          14,
+          24,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          14,
+          24,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          14,
+          24,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          14,
+          25,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          14,
+          25,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          14,
+          25,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          14,
+          25,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          15,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          15,
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          15,
+          10,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          15,
+          10,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          15,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          15,
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          15,
+          11,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          15,
+          11,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          15,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          15,
+          12,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          15,
+          12,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          15,
+          12,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          15,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          15,
+          13,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          15,
+          13,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          15,
+          13,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          15,
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          15,
+          14,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          15,
+          14,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          15,
+          14,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          15,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          15,
+          15,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          15,
+          15,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          15,
+          15,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          15,
+          16,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          15,
+          16,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          15,
+          16,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          15,
+          16,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          15,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          15,
+          17,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          15,
+          17,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          15,
+          17,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          15,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          15,
+          18,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          15,
+          18,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          15,
+          18,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          15,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          15,
+          19,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          15,
+          19,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          15,
+          19,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          15,
+          20,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          15,
+          20,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          15,
+          20,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          15,
+          20,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          15,
+          21,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          15,
+          21,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          15,
+          21,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          15,
+          21,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          15,
+          22,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          15,
+          22,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          15,
+          22,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          15,
+          22,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          15,
+          23,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          15,
+          23,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          15,
+          23,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          15,
+          23,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          15,
+          24,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          15,
+          24,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          15,
+          24,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          15,
+          24,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          15,
+          25,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          15,
+          25,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          15,
+          25,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          15,
+          25,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          16,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          16,
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          16,
+          10,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          16,
+          10,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          16,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          16,
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          16,
+          11,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          16,
+          11,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          16,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          16,
+          12,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          16,
+          12,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          16,
+          12,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          16,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          16,
+          13,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          16,
+          13,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          16,
+          13,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          16,
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          16,
+          14,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          16,
+          14,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          16,
+          14,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          16,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          16,
+          15,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          16,
+          15,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          16,
+          15,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          16,
+          16,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          16,
+          16,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          16,
+          16,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          16,
+          16,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          16,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          16,
+          17,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          16,
+          17,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          16,
+          17,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          16,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          16,
+          18,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          16,
+          18,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          16,
+          18,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          16,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          16,
+          19,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          16,
+          19,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          16,
+          19,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          16,
+          20,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          16,
+          20,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          16,
+          20,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          16,
+          20,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          16,
+          21,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          16,
+          21,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          16,
+          21,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          16,
+          21,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          16,
+          22,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          16,
+          22,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          16,
+          22,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          16,
+          22,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          16,
+          23,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          16,
+          23,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          16,
+          23,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          16,
+          23,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          16,
+          24,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          16,
+          24,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          16,
+          24,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          16,
+          24,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          16,
+          25,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          16,
+          25,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          16,
+          25,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          16,
+          25,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          17,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          17,
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          17,
+          10,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          17,
+          10,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          17,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          17,
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          17,
+          11,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          17,
+          11,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          17,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          17,
+          12,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          17,
+          12,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          17,
+          12,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          17,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          17,
+          13,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          17,
+          13,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          17,
+          13,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          17,
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          17,
+          14,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          17,
+          14,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          17,
+          14,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          17,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          17,
+          15,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          17,
+          15,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          17,
+          15,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          17,
+          16,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          17,
+          16,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          17,
+          16,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          17,
+          16,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          17,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          17,
+          17,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          17,
+          17,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          17,
+          17,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          17,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          17,
+          18,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          17,
+          18,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          17,
+          18,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          17,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          17,
+          19,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          17,
+          19,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          17,
+          19,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          17,
+          20,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          17,
+          20,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          17,
+          20,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          17,
+          20,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          17,
+          21,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          17,
+          21,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          17,
+          21,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          17,
+          21,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          17,
+          22,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          17,
+          22,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          17,
+          22,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          17,
+          22,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          17,
+          23,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          17,
+          23,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          17,
+          23,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          17,
+          23,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          17,
+          24,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          17,
+          24,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          17,
+          24,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          17,
+          24,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          17,
+          25,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          17,
+          25,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          17,
+          25,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          17,
+          25,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          18,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          18,
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          18,
+          10,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          18,
+          10,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          18,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          18,
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          18,
+          11,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          18,
+          11,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          18,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          18,
+          12,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          18,
+          12,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          18,
+          12,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          18,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          18,
+          13,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          18,
+          13,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          18,
+          13,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          18,
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          18,
+          14,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          18,
+          14,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          18,
+          14,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          18,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          18,
+          15,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          18,
+          15,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          18,
+          15,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          18,
+          16,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          18,
+          16,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          18,
+          16,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          18,
+          16,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          18,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          18,
+          17,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          18,
+          17,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          18,
+          17,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          18,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          18,
+          18,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          18,
+          18,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          18,
+          18,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          18,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          18,
+          19,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          18,
+          19,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          18,
+          19,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          18,
+          20,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          18,
+          20,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          18,
+          20,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          18,
+          20,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          18,
+          21,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          18,
+          21,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          18,
+          21,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          18,
+          21,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          18,
+          22,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          18,
+          22,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          18,
+          22,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          18,
+          22,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          18,
+          23,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          18,
+          23,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          18,
+          23,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          18,
+          23,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          18,
+          24,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          18,
+          24,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          18,
+          24,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          18,
+          24,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          18,
+          25,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          18,
+          25,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          18,
+          25,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          18,
+          25,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          19,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          19,
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          19,
+          10,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          19,
+          10,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          19,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          19,
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          19,
+          11,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          19,
+          11,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          19,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          19,
+          12,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          19,
+          12,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          19,
+          12,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          19,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          19,
+          13,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          19,
+          13,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          19,
+          13,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          19,
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          19,
+          14,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          19,
+          14,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          19,
+          14,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          19,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          19,
+          15,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          19,
+          15,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          19,
+          15,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          19,
+          16,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          19,
+          16,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          19,
+          16,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          19,
+          16,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          19,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          19,
+          17,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          19,
+          17,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          19,
+          17,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          19,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          19,
+          18,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          19,
+          18,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          19,
+          18,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          19,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          19,
+          19,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          19,
+          19,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          19,
+          19,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          19,
+          20,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          19,
+          20,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          19,
+          20,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          19,
+          20,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          19,
+          21,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          19,
+          21,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          19,
+          21,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          19,
+          21,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          19,
+          22,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          19,
+          22,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          19,
+          22,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          19,
+          22,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          19,
+          23,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          19,
+          23,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          19,
+          23,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          19,
+          23,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          19,
+          24,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          19,
+          24,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          19,
+          24,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          19,
+          24,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          19,
+          25,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          19,
+          25,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          19,
+          25,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          19,
+          25,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          20,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          20,
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          20,
+          10,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          20,
+          10,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          20,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          20,
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          20,
+          11,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          20,
+          11,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          20,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          20,
+          12,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          20,
+          12,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          20,
+          12,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          20,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          20,
+          13,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          20,
+          13,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          20,
+          13,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          20,
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          20,
+          14,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          20,
+          14,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          20,
+          14,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          20,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          20,
+          15,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          20,
+          15,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          20,
+          15,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          20,
+          16,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          20,
+          16,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          20,
+          16,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          20,
+          16,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          20,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          20,
+          17,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          20,
+          17,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          20,
+          17,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          20,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          20,
+          18,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          20,
+          18,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          20,
+          18,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          20,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          20,
+          19,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          20,
+          19,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          20,
+          19,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          20,
+          20,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          20,
+          20,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          20,
+          20,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          20,
+          20,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          20,
+          21,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          20,
+          21,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          20,
+          21,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          20,
+          21,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          20,
+          22,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          20,
+          22,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          20,
+          22,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          20,
+          22,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          20,
+          23,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          20,
+          23,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          20,
+          23,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          20,
+          23,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          20,
+          24,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          20,
+          24,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          20,
+          24,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          20,
+          24,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          20,
+          25,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          20,
+          25,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          20,
+          25,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          20,
+          25,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          21,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          21,
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          21,
+          10,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          21,
+          10,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          21,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          21,
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          21,
+          11,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          21,
+          11,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          21,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          21,
+          12,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          21,
+          12,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          21,
+          12,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          21,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          21,
+          13,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          21,
+          13,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          21,
+          13,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          21,
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          21,
+          14,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          21,
+          14,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          21,
+          14,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          21,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          21,
+          15,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          21,
+          15,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          21,
+          15,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          21,
+          16,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          21,
+          16,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          21,
+          16,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          21,
+          16,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          21,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          21,
+          17,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          21,
+          17,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          21,
+          17,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          21,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          21,
+          18,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          21,
+          18,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          21,
+          18,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          21,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          21,
+          19,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          21,
+          19,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          21,
+          19,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          21,
+          20,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          21,
+          20,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          21,
+          20,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          21,
+          20,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          21,
+          21,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          21,
+          21,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          21,
+          21,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          21,
+          21,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          21,
+          22,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          21,
+          22,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          21,
+          22,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          21,
+          22,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          21,
+          23,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          21,
+          23,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          21,
+          23,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          21,
+          23,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          21,
+          24,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          21,
+          24,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          21,
+          24,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          21,
+          24,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          21,
+          25,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          21,
+          25,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          21,
+          25,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          21,
+          25,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          22,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          22,
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          22,
+          10,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          22,
+          10,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          22,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          22,
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          22,
+          11,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          22,
+          11,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          22,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          22,
+          12,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          22,
+          12,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          22,
+          12,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          22,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          22,
+          13,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          22,
+          13,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          22,
+          13,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          22,
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          22,
+          14,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          22,
+          14,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          22,
+          14,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          22,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          22,
+          15,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          22,
+          15,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          22,
+          15,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          22,
+          16,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          22,
+          16,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          22,
+          16,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          22,
+          16,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          22,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          22,
+          17,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          22,
+          17,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          22,
+          17,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          22,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          22,
+          18,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          22,
+          18,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          22,
+          18,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          22,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          22,
+          19,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          22,
+          19,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          22,
+          19,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          22,
+          20,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          22,
+          20,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          22,
+          20,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          22,
+          20,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          22,
+          21,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          22,
+          21,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          22,
+          21,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          22,
+          21,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          22,
+          22,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          22,
+          22,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          22,
+          22,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          22,
+          22,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          22,
+          23,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          22,
+          23,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          22,
+          23,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          22,
+          23,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          22,
+          24,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          22,
+          24,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          22,
+          24,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          22,
+          24,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          22,
+          25,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          22,
+          25,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          22,
+          25,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          22,
+          25,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          23,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          23,
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          23,
+          10,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          23,
+          10,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          23,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          23,
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          23,
+          11,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          23,
+          11,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          23,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          23,
+          12,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          23,
+          12,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          23,
+          12,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          23,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          23,
+          13,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          23,
+          13,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          23,
+          13,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          23,
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          23,
+          14,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          23,
+          14,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          23,
+          14,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          23,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          23,
+          15,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          23,
+          15,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          23,
+          15,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          23,
+          16,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          23,
+          16,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          23,
+          16,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          23,
+          16,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          23,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          23,
+          17,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          23,
+          17,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          23,
+          17,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          23,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          23,
+          18,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          23,
+          18,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          23,
+          18,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          23,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          23,
+          19,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          23,
+          19,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          23,
+          19,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          23,
+          20,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          23,
+          20,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          23,
+          20,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          23,
+          20,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          23,
+          21,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          23,
+          21,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          23,
+          21,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          23,
+          21,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          23,
+          22,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          23,
+          22,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          23,
+          22,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          23,
+          22,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          23,
+          23,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          23,
+          23,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          23,
+          23,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          23,
+          23,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          23,
+          24,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          23,
+          24,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          23,
+          24,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          23,
+          24,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          23,
+          25,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          23,
+          25,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          23,
+          25,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          23,
+          25,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          24,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          24,
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          24,
+          10,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          24,
+          10,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          24,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          24,
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          24,
+          11,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          24,
+          11,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          24,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          24,
+          12,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          24,
+          12,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          24,
+          12,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          24,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          24,
+          13,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          24,
+          13,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          24,
+          13,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          24,
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          24,
+          14,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          24,
+          14,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          24,
+          14,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          24,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          24,
+          15,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          24,
+          15,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          24,
+          15,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          24,
+          16,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          24,
+          16,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          24,
+          16,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          24,
+          16,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          24,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          24,
+          17,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          24,
+          17,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          24,
+          17,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          24,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          24,
+          18,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          24,
+          18,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          24,
+          18,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          24,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          24,
+          19,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          24,
+          19,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          24,
+          19,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          24,
+          20,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          24,
+          20,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          24,
+          20,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          24,
+          20,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          24,
+          21,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          24,
+          21,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          24,
+          21,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          24,
+          21,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          24,
+          22,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          24,
+          22,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          24,
+          22,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          24,
+          22,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          24,
+          23,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          24,
+          23,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          24,
+          23,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          24,
+          23,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          24,
+          24,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          24,
+          24,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          24,
+          24,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          24,
+          24,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          24,
+          25,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          24,
+          25,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          24,
+          25,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          24,
+          25,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          25,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          25,
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          25,
+          10,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          25,
+          10,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          25,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          25,
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          25,
+          11,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          25,
+          11,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          25,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          25,
+          12,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          25,
+          12,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          25,
+          12,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          25,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          25,
+          13,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          25,
+          13,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          25,
+          13,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          25,
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          25,
+          14,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          25,
+          14,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          25,
+          14,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          25,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          25,
+          15,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          25,
+          15,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          25,
+          15,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          25,
+          16,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          25,
+          16,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          25,
+          16,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          25,
+          16,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          25,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          25,
+          17,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          25,
+          17,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          25,
+          17,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          25,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          25,
+          18,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          25,
+          18,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          25,
+          18,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          25,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          25,
+          19,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          25,
+          19,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_pillar",
+      "tiles": [
+        [
+          25,
+          19,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          25,
+          20,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          25,
+          20,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          25,
+          20,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          25,
+          20,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          25,
+          21,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          25,
+          21,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          25,
+          21,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_dense",
+      "tiles": [
+        [
+          25,
+          21,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_round",
+      "tiles": [
+        [
+          25,
+          22,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          25,
+          22,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          25,
+          22,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          25,
+          22,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          25,
+          23,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          25,
+          23,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          25,
+          23,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          25,
+          23,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          25,
+          24,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_board",
+      "tiles": [
+        [
+          25,
+          24,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          25,
+          24,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          25,
+          24,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_bollard",
+      "tiles": [
+        [
+          25,
+          25,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_banner",
+      "tiles": [
+        [
+          25,
+          25,
+          1
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_sculpture",
+      "tiles": [
+        [
+          25,
+          25,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_clock",
+      "tiles": [
+        [
+          25,
+          25,
+          3
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_corner",
+      "tiles": [
+        [
+          10,
+          28,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_fountain",
+      "tiles": [
+        [
+          11,
+          28,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_picnic_table",
+      "tiles": [
+        [
+          12,
+          28,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_arch",
+      "tiles": [
+        [
+          13,
+          28,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_hedge",
+      "tiles": [
+        [
+          14,
+          28,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ground_planting",
+      "tiles": [
+        [
+          15,
+          28,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_rectangular",
+      "tiles": [
+        [
+          16,
+          28,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_corner",
+      "tiles": [
+        [
+          17,
+          28,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_fountain",
+      "tiles": [
+        [
+          18,
+          28,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_picnic_table",
+      "tiles": [
+        [
+          19,
+          28,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_arch",
+      "tiles": [
+        [
+          20,
+          28,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_hedge",
+      "tiles": [
+        [
+          21,
+          28,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ground_planting",
+      "tiles": [
+        [
+          22,
+          28,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_rectangular",
+      "tiles": [
+        [
+          23,
+          28,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_corner",
+      "tiles": [
+        [
+          24,
+          28,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_fountain",
+      "tiles": [
+        [
+          25,
+          28,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_picnic_table",
+      "tiles": [
+        [
+          10,
+          29,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_arch",
+      "tiles": [
+        [
+          11,
+          29,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_hedge",
+      "tiles": [
+        [
+          12,
+          29,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ground_planting",
+      "tiles": [
+        [
+          13,
+          29,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_rectangular",
+      "tiles": [
+        [
+          14,
+          29,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_corner",
+      "tiles": [
+        [
+          15,
+          29,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_fountain",
+      "tiles": [
+        [
+          16,
+          29,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_picnic_table",
+      "tiles": [
+        [
+          17,
+          29,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_arch",
+      "tiles": [
+        [
+          18,
+          29,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_hedge",
+      "tiles": [
+        [
+          19,
+          29,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ground_planting",
+      "tiles": [
+        [
+          20,
+          29,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_rectangular",
+      "tiles": [
+        [
+          21,
+          29,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_corner",
+      "tiles": [
+        [
+          22,
+          29,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_fountain",
+      "tiles": [
+        [
+          23,
+          29,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_picnic_table",
+      "tiles": [
+        [
+          24,
+          29,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_arch",
+      "tiles": [
+        [
+          25,
+          29,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_hedge",
+      "tiles": [
+        [
+          10,
+          30,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ground_planting",
+      "tiles": [
+        [
+          11,
+          30,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_rectangular",
+      "tiles": [
+        [
+          12,
+          30,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_corner",
+      "tiles": [
+        [
+          13,
+          30,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_fountain",
+      "tiles": [
+        [
+          14,
+          30,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_picnic_table",
+      "tiles": [
+        [
+          15,
+          30,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_arch",
+      "tiles": [
+        [
+          16,
+          30,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_hedge",
+      "tiles": [
+        [
+          17,
+          30,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ground_planting",
+      "tiles": [
+        [
+          18,
+          30,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_rectangular",
+      "tiles": [
+        [
+          19,
+          30,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_corner",
+      "tiles": [
+        [
+          20,
+          30,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_fountain",
+      "tiles": [
+        [
+          21,
+          30,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_picnic_table",
+      "tiles": [
+        [
+          22,
+          30,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_arch",
+      "tiles": [
+        [
+          23,
+          30,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_hedge",
+      "tiles": [
+        [
+          24,
+          30,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ground_planting",
+      "tiles": [
+        [
+          25,
+          30,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_rectangular",
+      "tiles": [
+        [
+          10,
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_corner",
+      "tiles": [
+        [
+          11,
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_fountain",
+      "tiles": [
+        [
+          12,
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_picnic_table",
+      "tiles": [
+        [
+          13,
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_arch",
+      "tiles": [
+        [
+          14,
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_hedge",
+      "tiles": [
+        [
+          15,
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ground_planting",
+      "tiles": [
+        [
+          16,
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_rectangular",
+      "tiles": [
+        [
+          17,
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_corner",
+      "tiles": [
+        [
+          18,
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_fountain",
+      "tiles": [
+        [
+          19,
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_picnic_table",
+      "tiles": [
+        [
+          20,
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.accent_arch",
+      "tiles": [
+        [
+          21,
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_hedge",
+      "tiles": [
+        [
+          22,
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ground_planting",
+      "tiles": [
+        [
+          23,
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_rectangular",
+      "tiles": [
+        [
+          24,
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_corner",
+      "tiles": [
+        [
+          25,
+          31,
+          0
+        ]
+      ]
+    }
+  ],
+  "walls": [
+    {
+      "object": "sunrise.scenery_wall.fence_metal",
+      "tiles": [
+        [
+          8,
+          10,
+          0
+        ],
+        [
+          8,
+          11,
+          0
+        ],
+        [
+          8,
+          12,
+          0
+        ],
+        [
+          8,
+          13,
+          0
+        ],
+        [
+          8,
+          14,
+          0
+        ],
+        [
+          8,
+          15,
+          0
+        ],
+        [
+          8,
+          16,
+          0
+        ],
+        [
+          8,
+          17,
+          0
+        ],
+        [
+          8,
+          18,
+          0
+        ],
+        [
+          8,
+          19,
+          0
+        ],
+        [
+          8,
+          20,
+          0
+        ],
+        [
+          8,
+          21,
+          0
+        ],
+        [
+          8,
+          22,
+          0
+        ],
+        [
+          8,
+          23,
+          0
+        ],
+        [
+          8,
+          24,
+          0
+        ],
+        [
+          8,
+          25,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_wall.fence_timber",
+      "tiles": [
+        [
+          27,
+          10,
+          2
+        ],
+        [
+          27,
+          11,
+          2
+        ],
+        [
+          27,
+          12,
+          2
+        ],
+        [
+          27,
+          13,
+          2
+        ],
+        [
+          27,
+          14,
+          2
+        ],
+        [
+          27,
+          15,
+          2
+        ],
+        [
+          27,
+          16,
+          2
+        ],
+        [
+          27,
+          17,
+          2
+        ],
+        [
+          27,
+          18,
+          2
+        ],
+        [
+          27,
+          19,
+          2
+        ],
+        [
+          27,
+          20,
+          2
+        ],
+        [
+          27,
+          21,
+          2
+        ],
+        [
+          27,
+          22,
+          2
+        ],
+        [
+          27,
+          23,
+          2
+        ],
+        [
+          27,
+          24,
+          2
+        ],
+        [
+          27,
+          25,
+          2
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_wall.wall_stone",
+      "tiles": [
+        [
+          10,
+          27,
+          1
+        ],
+        [
+          11,
+          27,
+          1
+        ],
+        [
+          12,
+          27,
+          1
+        ],
+        [
+          13,
+          27,
+          1
+        ],
+        [
+          14,
+          27,
+          1
+        ],
+        [
+          15,
+          27,
+          1
+        ],
+        [
+          16,
+          27,
+          1
+        ],
+        [
+          17,
+          27,
+          1
+        ],
+        [
+          18,
+          27,
+          1
+        ],
+        [
+          19,
+          27,
+          1
+        ],
+        [
+          20,
+          27,
+          1
+        ],
+        [
+          21,
+          27,
+          1
+        ],
+        [
+          22,
+          27,
+          1
+        ],
+        [
+          23,
+          27,
+          1
+        ],
+        [
+          24,
+          27,
+          1
+        ],
+        [
+          25,
+          27,
+          1
+        ]
+      ]
+    }
+  ]
+}

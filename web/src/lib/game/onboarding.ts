@@ -39,6 +39,8 @@ export interface ScenarioState {
   hasToilet: boolean;
   benches: number;
   bins: number;
+  scenery: number;
+  walls: number;
   handymen: number;
   litter: number;
   viewX: number;

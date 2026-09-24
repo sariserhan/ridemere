@@ -40,6 +40,12 @@ run "the bench and the bin have real art in every slot the engine indexes" \
 run "development scenes cannot reach the scenario selector" \
   "$PY" "$ROOT/tools/art-pipeline/check_scenario_visibility.py"
 
+run "scenery models sit on the rotation origin" \
+  "$PY" "$ROOT/tools/art-pipeline/check_rotation_origin.py"
+
+run "the scenery objects have the layout the engine indexes, and no two share artwork" \
+  "$PY" "$ROOT/tools/art-pipeline/check_scenery_objects.py"
+
 # A check that has never rejected anything is not evidence. This builds broken copies
 # of the shipped content and asserts each check rejects the one it exists to catch.
 run "the content checks reject the artefacts they exist to catch" \
@@ -69,6 +75,41 @@ first_park_visible() {
     && "$PY" "$ROOT/tools/art-pipeline/check_visual_additions.py" "$ROOT/wasm/test/results-visual/first-park-initial.png"
 }
 run "First Park renders, with its benches and bins" first_park_visible
+
+# Scenery has to reach the screen, in a park with a handful of pieces and in one
+# packed with them. Measured by palette index, and proven to reject the same three
+# captures with every piece of scenery removed.
+scenery_visible() {
+  ( cd "$ROOT/wasm/test" && node parkshot.js first-park.park first-park-scenery 20 >/dev/null ) \
+    && ( cd "$ROOT/wasm/test" && node parkshot.js DevScenarios/world-art-test.park art-scenery 20 >/dev/null ) \
+    && ( cd "$ROOT/wasm/test" && node parkshot.js DevScenarios/scenery-density-test.park scenery-density 20 >/dev/null ) \
+    && "$PY" "$ROOT/tools/art-pipeline/check_visual_scenery.py" "$ROOT/wasm/test/results-visual/first-park-scenery.png" --park \
+    && "$PY" "$ROOT/tools/art-pipeline/check_visual_scenery.py" "$ROOT/wasm/test/results-visual/art-scenery.png" \
+    && "$PY" "$ROOT/tools/art-pipeline/check_visual_scenery.py" "$ROOT/wasm/test/results-visual/scenery-density.png" --dense
+}
+run "the scenery and vegetation are drawn, in First Park and in the test scenes" scenery_visible
+
+run "the scenery check rejects the same scenes with every piece of scenery removed" bash -c '
+  for fixture in first-park-no-scenery:--park art-scene-no-scenery: dense-scene-no-scenery:--dense; do
+    name="${fixture%%:*}"; profile="${fixture##*:}"
+    if "'"$PY"'" "'"$ROOT"'/tools/art-pipeline/check_visual_scenery.py" \
+         "'"$ROOT"'/wasm/test/fixtures/$name.png" $profile >/dev/null 2>&1; then
+      echo "   FAIL: accepted $name, which has no scenery in it"; exit 1
+    fi
+    echo "   rejects $name"
+  done'
+
+# A park file that kept the objects but lost their orientation would look almost
+# right, because a tree is a tree from any angle. Read the direction back instead.
+run "scenery survives a save and a reload, in place and facing the same way" bash -c '
+  cd "'"$ROOT"'/wasm/test" && node scenerysave.js'
+
+# Every scenery sprite the engine can ask for, including the build-menu tab icons the
+# map never draws, and the window chrome that only appears once a menu is open. Also
+# asserts the windows are still open and on screen when the audit is taken: a window
+# that closes itself draws nothing and passes a sprite audit perfectly.
+run "the build menus open, stay open, and draw no sprite the engine cannot find" bash -c '
+  cd "'"$ROOT"'/wasm/test" && node sceneryaudit.js'
 
 run "the addition check rejects a park with the benches and bins removed" bash -c '
   if "'"$PY"'" "'"$ROOT"'/tools/art-pipeline/check_visual_additions.py" \

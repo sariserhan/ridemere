@@ -68,11 +68,13 @@ exists so far. Deliberately early and deliberately revised later.
 *Playable:* a complete, if thin, game from start to objective.
 *Effort:* art LOW, engine LOW, testing HIGH.
 
-### V1-5 — Guest visual diversity
-Two rendered bodies, three hair shapes, three hat states, six skin tones, runtime shirt
-and trouser colours.
-*Playable:* crowds that do not read as cloned.
-*Effort:* art MEDIUM, engine LOW, testing LOW.
+### V1-5 — Scenery and vegetation
+Sixteen vegetation objects, sixteen park objects, three walls and the build-menu groups
+that hold them, in one coherent theme. Moved here from V1-9 because First Park exists
+now and is visibly bare, and because the props generator the bench and bin share makes
+each piece cheap.
+*Playable:* parks that can be decorated and that look built rather than placed.
+*Effort:* art MEDIUM, engine LOW, testing MEDIUM.
 
 ### V1-6 — Staff
 Mechanic animations and behaviour, handyman revisited for the new art direction.
@@ -92,10 +94,11 @@ shipping. Verify each with the sprite audit before committing to it.
 *Playable:* four coasters, one of them beginner-friendly.
 *Effort:* art LOW, engine LOW, testing MEDIUM.
 
-### V1-9 — Scenery and vegetation
-Fifteen vegetation pieces, twenty scenery pieces, benches and bins first because they
-are gameplay.
-*Playable:* parks that can be decorated and that look built rather than placed.
+### V1-9 — Guest visual diversity
+Two rendered bodies, three hair shapes, three hat states, six skin tones, runtime shirt
+and trouser colours. Traded places with scenery: it is the more cosmetic of the two and
+the one that gains most from art direction having settled.
+*Playable:* crowds that do not read as cloned.
 *Effort:* art MEDIUM, engine LOW, testing LOW.
 
 ### V1-10 — Economy and scenario tuning
@@ -134,7 +137,8 @@ V1-1 puts a name in the interface.
 | Shops and facilities | V1-4 | **V1-3** | they make guest needs legible, and alerts unblock the mechanic |
 | Staff | V1-3 | **V1-6** | the mechanic depends on alerts |
 | Audio | absent | **parallel, integrated V1-12** | largest job with no dependencies |
-| Guest diversity | V1-2 | **V1-5** | cosmetic; later is cheaper once art direction settles |
+| Guest diversity | V1-2 | **V1-9** | cosmetic; later is cheaper once art direction settles, and scenery took the slot |
+| Scenery | V1-9 | **V1-5** | First Park exists and is bare, and the props generator makes each piece cheap |
 
 ## Verification at each step
 
