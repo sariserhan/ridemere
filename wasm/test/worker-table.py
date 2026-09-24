@@ -13,13 +13,17 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ORDER = ["pool120", "pool32", "pool16", "pool8", "pool4", "pool2"]
+ORDER = ["uncapped-pool120", "pool120", "capped-pool120", "pool64", "pool48", "pool44",
+         "pool42", "pool40", "pool36", "pool32", "pool16", "pool12", "pool8", "pool4", "pool2"]
 
 
 def load(directory: str) -> list[dict]:
     found = []
     for name in os.listdir(directory):
-        if not name.endswith(".json") or name == "crossbrowser.json":
+        # Only full benchmark runs; the probe outputs live alongside them.
+        if not name.endswith(".json"):
+            continue
+        if name == "crossbrowser.json" or name.startswith(("hang-", "stack-")):
             continue
         with open(os.path.join(directory, name), "r", encoding="utf-8") as handle:
             found.append(json.load(handle))

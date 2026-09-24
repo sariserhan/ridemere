@@ -20,11 +20,21 @@ docker run --rm \
     . scripts/setenv -q
     time build-emscripten
 
-    # The upstream link line sets an explicit export list, which strips our
-    # development entry points even though they are marked EMSCRIPTEN_KEEPALIVE.
-    # Reconfigure with the list extended and relink; nothing is recompiled.
+    # Two changes to the upstream link line, then relink; nothing is recompiled.
+    #
+    # 1. The export list. Upstream sets one explicitly, which strips our development
+    #    entry points even though they are marked EMSCRIPTEN_KEEPALIVE.
+    # 2. Memory and worker pool. Upstream reserves a 2 GB heap, gives every thread an
+    #    8 MB stack and prewarms 120 Web Workers, none of which was measured. The
+    #    values below are measured, on a running park at up to a thousand guests: they save
+    #    about 410 MB of committed memory per tab and 400 ms of startup at identical
+    #    frame and simulation rates. PTHREAD_POOL_SIZE must stay at or above the peak
+    #    concurrent thread demand of the engine, which is about 12 now that browser
+    #    job pools are capped; below that the page deadlocks while loading a park and
+    #    cannot recover. See docs/adr-browser-memory.md.
     cd build
-    cmake -DEMSCRIPTEN_EXPORTED_FUNCTIONS=_GetVersion,_main,_SunriseBuildPark,_SunriseParkStatsJson,_SunriseSavePark,_SunriseLoadPark,_SunriseObjectDebugJson,_SunriseTileDebugJson,_SunriseGuestListJson,_SunriseRideListJson,_SunriseHireHandyman,_SunriseCentreView,_SunriseGuestDebugJson,_SunriseSpriteAuditJson,_SunriseSpriteAuditClear,_SunriseGenerateGuests,_SunriseSetZoom . >/dev/null
+    cmake -DEMSCRIPTEN_LDFLAGS="-Wno-pthreads-mem-growth -s SAFE_HEAP=0 -s ALLOW_MEMORY_GROWTH=1 -s MAXIMUM_MEMORY=4GB -s INITIAL_MEMORY=512MB -s STACK_SIZE=8388608 -s DEFAULT_PTHREAD_STACK_SIZE=1048576 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s PTHREAD_POOL_SIZE=16 -pthread -s EXPORTED_RUNTIME_METHODS=ccall,FS,callMain,UTF8ToString,stringToNewUTF8 -lidbfs.js --use-preload-plugins -s MODULARIZE=1 -s EXPORT_NAME=\"OPENRCT2_WEB\" -Wl,--export-if-defined=LoadGameCallback" \
+          -DEMSCRIPTEN_EXPORTED_FUNCTIONS=_GetVersion,_main,_SunriseBuildPark,_SunriseParkStatsJson,_SunriseSavePark,_SunriseLoadPark,_SunriseObjectDebugJson,_SunriseTileDebugJson,_SunriseGuestListJson,_SunriseRideListJson,_SunriseHireHandyman,_SunriseCentreView,_SunriseGuestDebugJson,_SunriseSpriteAuditJson,_SunriseSpriteAuditClear,_SunriseGenerateGuests,_SunriseSetZoom . >/dev/null
     emmake ninja openrct2 2>&1 | tail -30
     rm -rf www/ && mkdir -p www/ && cd www/
     cp -r ../openrct2.* ./

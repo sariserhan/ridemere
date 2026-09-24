@@ -480,3 +480,61 @@ measurement on a running park at 100, 500 and 1000 guests puts the saving at abo
 60 MB of committed memory, not the 480 MB an idle comparison had suggested. The worker
 pool, not the heap reservation, is where browser memory goes, and reducing it needs its
 own loaded-park measurement before adoption.
+
+## M3f — browser worker-pool validation (2026-09-24)
+
+The last infrastructure milestone before content production. It asked how small the
+browser worker configuration can safely be, and found a deadlock that had been hiding
+behind upstream's generous defaults.
+
+### The defect
+
+`PTHREAD_POOL_SIZE` only prewarms workers. When the pool empties, Emscripten builds a
+new one, but it cannot start until the page returns to the JavaScript event loop.
+`JobPool` creates `hardware_concurrency` threads in its constructor and then blocks in
+`Join()` without yielding, and loading a park constructs one such pool while another is
+still alive.
+
+On a 20-core machine, every pool below 44 wedges the page while loading the park: no
+animation frames, no input, worker creation frozen, no recovery. 44 and above work.
+The threshold is about twice the core count, so **the safe value depends on the
+player's machine while the setting is fixed at build time**. Upstream's 120 is not a
+considered value; it is large enough to hide this up to roughly 58 cores.
+
+### The fix
+
+`JobPool` now caps itself to four threads in the browser build. Demand becomes
+machine-independent at 9 to 12 workers, and a pool of 16 covers it with margin. The cap
+costs nothing: at 2560×1440 with a thousand guests the uncapped build reaches 34 frames
+per second and the capped build 35.
+
+### Result
+
+| | Before | After |
+|---|---:|---:|
+| Live workers | 120 | 16 |
+| Private dirty, 1000 guests | 864 MB | 453 MB |
+| Resident, 1000 guests | 1789 MB | 1374 MB |
+| Boot | 1039 ms | 645 ms |
+| Frames per second | 60 | 60 |
+| Ticks per second | 40.1 | 39.9 |
+
+Committed memory falls 411 MB, 47.6%, with no measured cost. Full decision and
+evidence in `docs/adr-browser-memory.md`; the flag semantics, read from Emscripten's
+own sources, in `docs/browser-worker-semantics.md`.
+
+### Also established
+
+* Cross-origin isolation is a hosting constraint on the whole product, not a build
+  flag. `docs/browser-hosting.md` records the headers, the Vercel configuration, and
+  what they forbid on the same document: third-party scripts, ads, cross-origin
+  frames and popup authentication.
+* Chromium 151, Firefox 153 and WebKit 26.5 all boot, isolate, spawn the pool, load
+  the park and simulate. WebKit reports eight cores rather than twenty and runs on the
+  same pool of sixteen, which is the cap doing its job.
+* A measurement lesson worth keeping: the first render-stress stage changed the zoom
+  level and reported no change in frame rate. The zoom was being set but the screen was
+  not repainting, so the stage measured nothing. Resizing the canvas forces a full
+  repaint and does show the workload: 60 frames per second at 1.0 and 2.1 megapixels,
+  35 at 3.7. **A performance stage that shows no effect should be suspected of not
+  having applied.**

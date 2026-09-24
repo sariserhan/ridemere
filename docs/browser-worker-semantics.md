@@ -98,6 +98,37 @@ itself constructs a `JobPool` — is the shape that would hang. The engine's job
 shape does not occur today. It is worth stating plainly because it is one refactor away
 from occurring, and because it would not show up as a crash.
 
+## What the measurements showed
+
+Everything above was then tested on a running park, on a 20-core machine, by building
+one distribution per pool size and loading Sunrise Test Park in each.
+
+| `PTHREAD_POOL_SIZE` | 2 | 4 | 8 | 16 | 32 | 36 | 40 | 42 | 44 | 48 | 64 | 120 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Park loads | no | no | no | no | no | no | no | no | yes | yes | yes | yes |
+
+The failure is a deadlock, not slowness. The page stops producing animation frames, a
+trivial script evaluation never returns, and worker creation freezes at the prewarmed
+count for as long as it is watched. The debugger can still pause the page, so the main
+thread is spinning in a wait rather than parked in `Atomics.wait`, which matches
+`JobPool::Join` on the browser main thread.
+
+The threshold of 43 to 44 is about twice `hardware_concurrency`, which is what the
+table of thread creators predicts: a pool sized to the machine is constructed while
+another is still alive. Disabling the engine's own multithreading setting does not
+help, because the object-loading pool is created regardless.
+
+With `JobPool` capped to four threads in the browser build, demand stops depending on
+the machine:
+
+| Capped, `PTHREAD_POOL_SIZE` | 8 | 12 | 16 |
+|---|---|---|---|
+| Park loads | no | yes | yes |
+
+Peak demand is then 9 to 12 workers. A build with `PTHREAD_POOL_SIZE_STRICT=2` and a
+pool of 16 loads the park normally, which is a positive proof that demand fits; the
+same build with a pool of 8 aborts immediately and visibly instead of wedging.
+
 ## Consequences for configuration
 
 1. Lowering `PTHREAD_POOL_SIZE` below peak demand does not lower the worker count. It
@@ -106,5 +137,10 @@ from occurring, and because it would not show up as a crash.
 3. The value that costs nothing and wastes nothing is therefore *peak concurrent
    thread demand*, which is a function of `navigator.hardwareConcurrency`.
 4. `PTHREAD_POOL_SIZE_STRICT=2` converts exhaustion into an uncaught exception, so it
-   is only safe with a pool at or above peak demand — where it is also pointless. It is
-   useful as a **test instrument** to prove what peak demand is.
+   is only safe with a pool at or above peak demand. That makes it a poor production
+   setting but an exact **regression guard**: in a continuous-integration build it
+   turns any future growth in thread demand into a test failure rather than a wedged
+   page in a player's browser.
+5. Because demand scales with the player's core count unless it is capped, no single
+   build-time pool size is safe for every machine. Capping `JobPool` is what makes one
+   value correct everywhere. See `docs/adr-browser-memory.md`.
