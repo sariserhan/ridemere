@@ -16,7 +16,7 @@ const PARKS = [
   { name: 'First Park, undecorated', park: 'DevScenarios/first-park-bare.park', guests: 0 },
   { name: 'First Park, 250 guests', park: 'first-park.park', guests: 250 },
   { name: 'art scene, every object', park: 'DevScenarios/world-art-test.park', guests: 0 },
-  { name: 'density scene, 1,071 objects', park: 'DevScenarios/scenery-density-test.park', guests: 0 },
+  { name: 'density scene, 1,070 objects', park: 'DevScenarios/scenery-density-test.park', guests: 0 },
 ];
 const SIZES = [
   { width: 1280, height: 800 },
