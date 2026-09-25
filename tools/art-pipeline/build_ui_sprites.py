@@ -613,6 +613,39 @@ def tab_stats() -> Canvas:
     return _tab_icon(glyph)
 
 
+def tab_staff_options() -> Canvas:
+    """SPR_TAB_STAFF_OPTIONS: the duties tab on a member of staff's window.
+
+    A spanner, because what the tab holds is which jobs this member of staff will do,
+    and the mechanic is the staff type that made the tab worth authoring. The engine
+    cycles seven frames of this while the tab is selected; a still symbol is calmer in
+    a row of tabs than a spinning one, and the frames are registered together.
+    """
+    def glyph(c: Canvas) -> None:
+        c.line(7, 18, 16, 8, EDGE, width=5)
+        c.line(8, 17, 16, 9, pal.ramp("grey")[9], width=3)
+        c.ring(17.0, 7.0, 5, 2.4, EDGE)
+        c.ring(17.0, 7.0, 4, 2.4, pal.ramp("grey")[9])
+        c.rect(18, 3, 22, 6, PAPER)
+    return _tab_icon(glyph)
+
+
+def button_pickup() -> Canvas:
+    """SPR_PICKUP_BTN: pick this peep up and put them somewhere else.
+
+    An open hand under a figure. The window draws it beside the locate and rename
+    buttons, so it is the same 24 by 24 symbol on a transparent square that those are.
+    """
+    def glyph(c: Canvas) -> None:
+        c.disc(12, 6, 3, EDGE)
+        c.rect(10, 9, 14, 14, EDGE)
+        c.rect(4, 16, 20, 18, pal.ramp("skin")[7])
+        c.rect(3, 17, 6, 21, pal.ramp("skin")[7])
+        c.rect(18, 17, 21, 21, pal.ramp("skin")[7])
+        c.rect(4, 18, 20, 19, EDGE)
+    return _symbol_button(glyph)
+
+
 def tab_shop() -> Canvas:
     def glyph(c: Canvas) -> None:
         c.rect(4, 9, 19, 20, PAPER)
@@ -915,6 +948,7 @@ UI_SPRITES: Dict[int, Tuple[str, Callable[[], Canvas]]] = {
     5169: ("button_rotate_arrow", button_rotate_arrow),
     5172: ("button_scenery_cluster", button_scenery_cluster),
     5173: ("button_paintbrush", button_paintbrush),
+    5174: ("button_pickup", button_pickup),
     5175: ("button_patrol", button_patrol),
     5192: ("button_map", button_map),
     5624: ("toolbar_footpath_pressed", icon_footpath),
@@ -996,6 +1030,8 @@ _run(5200, 1, "tab_park_entrance", tab_park)
 _run(5245, 1, "tab_graph", tab_graph)
 _run(5261, 8, "tab_finances_summary", tab_money)
 _run(5277, 1, "tab_stats", tab_stats)
+# Seven frames, cycled while the duties tab is selected on a staff window.
+_run(5319, 7, "tab_staff_options", tab_staff_options)
 _run(5351, 1, "tab_shops", tab_shop)
 _run(5367, 1, "tab_kiosks", tab_kiosk)
 _run(5375, 1, "tab_financial_graph", tab_graph)
