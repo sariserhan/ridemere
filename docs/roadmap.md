@@ -189,5 +189,7 @@ What V1-5 learned that shapes it:
   elements within five tiles buy a guest one thought and 45 happiness, and the park
   rating has no scenery term. Making decoration pay is a deliberate decision for a
   later milestone, not a side effect of shipping the art.
-* A park with eleven hundred scenery objects on it still simulates at full speed; what
-  costs frames is the window size, not the object count.
+* A park with a thousand scenery objects on it costs nothing measurable. At 1280x800
+  every scene runs at 60 fps and 40 ticks a second — First Park decorated, First Park
+  bare, First Park at 250 guests, and the density scene with 1,070 objects on it. What
+  costs frames is the window size and the guest count, not the scenery.

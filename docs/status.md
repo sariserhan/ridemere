@@ -747,6 +747,32 @@ with attribution; every pixel is ours.
 three path styles, a queue, an elevated walkway and the coaster in one view. It is a
 development scene and is not a release scenario.
 
+### Performance
+
+Measured on a quiet machine, after an earlier run had to be thrown away: an unrelated
+job on the same box was holding the load average above twenty, and the frame rates it
+produced were a measurement of that, not of anything here.
+
+| park | 1280x800 | 1920x1080 | 2560x1440 |
+|---|---|---|---|
+| First Park, as it ships (44 pieces) | 60 | 45.6 | 23.4 |
+| First Park, undecorated | 60 | 45.8 | 22.0 |
+| First Park, 250 guests | 59.9 | 36.1 | 34.1 |
+| art scene, every object | 60 | 47.7 | 24.3 |
+| density scene, 1,070 objects | 60 | 48.5 | 23.9 |
+
+Simulation ran at 39.9 to 40 ticks a second in every case, and the heap stayed between
+17.5 and 21.2 MB.
+
+**The scenery costs nothing measurable.** First Park decorated and the same park with
+the decoration removed are within noise of each other at every size. The density scene,
+with a thousand and seventy objects on it, is *faster* at 1920x1080 than First Park with
+three guests, which settles what the cost actually is: the window size and the guest
+count, not the object count.
+
+Against the V1-4 baseline of 60 fps at 254 guests, First Park now runs at 59.9 fps at
+255 guests. No regression.
+
 ### Guards added
 
 `check_world_objects.py` asserts the image count, the layout, the slope geometry and
