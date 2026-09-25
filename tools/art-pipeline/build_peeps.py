@@ -59,6 +59,13 @@ PEEPS = {
         "colourway": spritepack.STAFF_COLOURWAY,
         "groups": 1,
     },
+    "mechanic": {
+        "id": "sunrise.peep_animations.mechanic",
+        "peepType": "mechanic",
+        "name": "Sunrise Mechanic",
+        "colourway": spritepack.STAFF_COLOURWAY,
+        "groups": 1,
+    },
 }
 
 
@@ -75,9 +82,26 @@ PEEPS = {
 #: A sequence is indices into the rendered frames, so the length is bought by playing
 #: the frames out and back rather than by rendering more of them. A sweep that goes
 #: out and returns is also what the motion looks like.
+#: The mechanic's four repair animations are read much further out than the
+#: handyman's, and all four are reachable on the one coaster we ship — the hybrid
+#: coaster's availableBreakdowns covers safetyCutOut, both restraints failures,
+#: vehicleMalfunction and brakesFailure, and a restraints failure picks between
+#: staffFix and staffFix2 on a coin flip. See docs/mechanic-engine-audit.md.
+#:
+#: staffFixGround is 44 rather than 41 so the animation also reaches frame 43, where
+#: the engine plays the last of its five mechanicFix sounds. That one is a sound and
+#: not a simulation event, so it is a nicety rather than the rule.
+#:
+#: check_staff_animations.py reads these numbers out of entity/Staff.cpp and fails if
+#: what is shipped cannot reach them, so this table is a target rather than the
+#: authority. Keeping both means a stale number here is caught rather than believed.
 MINIMUM_SEQUENCE_LENGTH = {
     "staffSweep": 9,
     "staffEmptyBin": 12,
+    "staffFix": 38,
+    "staffFix2": 81,
+    "staffFix3": 102,
+    "staffFixGround": 44,
 }
 
 

@@ -86,6 +86,7 @@ DEFAULT_OBJECTS = [
     "sunrise.climate.temperate",
     "sunrise.peep_animations.guest",
     "sunrise.peep_animations.handyman",
+    "sunrise.peep_animations.mechanic",
     "openrct2.ride.hybrid_coaster",
 ]
 
