@@ -23,6 +23,8 @@ the repository: every copy is made in a temporary directory and deleted.
     7. a window that opened and drew nothing
        — the defect that let a whole build menu go missing while every assertion
          about it passed
+    8. a staff animation one frame too short for the engine event it drives
+       — the handyman defect, which mimed sweeping for four milestones
 """
 
 from __future__ import annotations
@@ -206,6 +208,33 @@ def case_window_that_drew_nothing(work: str) -> bool:
     return run("check_window_drawn.py", rects) != 0
 
 
+def case_staff_animation_one_frame_short(work: str) -> bool:
+    """A repair animation that ends on the frame the engine reads, rather than past it.
+
+    `animationFrameNum` is compared for equality and the action ends when it reaches
+    the sequence length, so a sequence of exactly N frames runs 0..N-1 and never hits
+    frame N. One frame short is the whole defect, and it looks completely correct: the
+    mechanic walks over, plays the animation and walks away.
+    """
+    pack = copy_pack(work)
+    target = os.path.join(pack, "object", "sunrise.peep_animations.mechanic.parkobj")
+    if not os.path.exists(target):
+        print("  no mechanic in the pack, so this case cannot be demonstrated")
+        return False
+
+    def mutate(members):
+        root = json.loads(members["object.json"])
+        animations = root["animationGroups"][0]["animations"]
+        for name in ("staffFix", "staffFix3"):
+            animations[name]["sequence"] = animations[name]["sequence"][:-1]
+        members["object.json"] = json.dumps(root, indent=1).encode()
+        return members
+
+    rewrite_object(target, mutate)
+    print("  a mechanic whose repair animations are one frame short:")
+    return run("check_staff_animations.py", pack) != 0
+
+
 def case_development_scene_in_scenarios(work: str) -> bool:
     pack = copy_pack(work)
     standalone = os.path.join(pack, "standalone")
@@ -227,6 +256,7 @@ def main() -> None:
         ("scenery model off the rotation origin", case_scenery_off_rotation_origin),
         ("tab icon outside its widget", case_tab_icon_outside_its_widget),
         ("a window that drew nothing", case_window_that_drew_nothing),
+        ("staff animation one frame short", case_staff_animation_one_frame_short),
         ("development scene in Scenarios", case_development_scene_in_scenarios),
     ]
     results = []

@@ -19,13 +19,17 @@ echo "== regenerating content pack"
 "$VENV" "$ROOT/tools/art-pipeline/build_world_edges.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_paths.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_shops.py"
+"$VENV" "$ROOT/tools/art-pipeline/build_flat_rides.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_peeps.py"
+"$VENV" "$ROOT/tools/art-pipeline/build_audio.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_scenery.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_scenery_objects.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_language.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_ui_sprites.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_selection_sprites.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_boundary_fences.py"
+"$VENV" "$ROOT/tools/art-pipeline/build_flat_ride_bases.py"
+"$VENV" "$ROOT/tools/art-pipeline/build_litter_sprites.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_base_archive.py"
 "$VENV" "$ROOT/tools/art-pipeline/build_pack.py"
 
@@ -38,6 +42,7 @@ JSZIP="$ROOT/.cache/jszip.min.js"
 [[ -f "$JSZIP" ]] || curl -sfL -o "$JSZIP" https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js
 cp "$JSZIP" "$OUT/jszip.min.js"
 
+rm -f "$OUT/assets.zip"
 ( cd "$PACK" && zip -qr "$OUT/assets.zip" . )
 
 echo "== standalone distribution: $OUT"

@@ -209,6 +209,13 @@ def build_wall(spec, manifest) -> dict:
     stage_dir = os.path.join(STAGE, stem)
     os.makedirs(stage_dir, exist_ok=True)
     colourway = scheme(**roles)
+    # Thin rails and masonry need enough tonal separation to read at native size.
+    for part, shades in colourway.items():
+        for ramp in pal.RAMPS.values():
+            if set(shades).issubset(ramp):
+                colourway[part] = ramp[1:11]
+                break
+
 
     # All six come from Blender, already in the order the engine indexes them: flat for
     # each orientation, then the model tilted each way for each orientation.

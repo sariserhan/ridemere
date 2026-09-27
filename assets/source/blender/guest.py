@@ -46,7 +46,7 @@ UPPER_ARM = 0.34
 LOWER_ARM = 0.32
 
 
-def build_figure(hat: bool = False) -> dict:
+def build_figure(hat: bool = False, variant: int = 0) -> dict:
     """Build the guest as a parented hierarchy of boxes. Returns the rig map.
 
     The figure faces -Y. Limb swing is therefore rotation about X.
@@ -109,6 +109,25 @@ def build_figure(hat: bool = False) -> dict:
         parts[f"leg_{side}_lower"] = leg_lower
         parts[f"shoe_{side}"] = shoe
 
+    # Six original silhouettes span two bodies, three haircuts and three hat states.
+    # Palette variants below are packed separately; clothes remain runtime remaps.
+    if variant % 2:
+        torso.scale.x = 1.22
+        root.scale.z = 0.9
+        root.scale.x = 1.08
+    hairstyle = variant // 2
+    if hairstyle == 1:
+        parts["hair"].scale.z = 2.3
+        parts["hair_back"].scale.z = 1.7
+    elif hairstyle == 2:
+        parts["hair_back"].scale.z = 2.6
+        rig.blob("hair_bun", "hair", 0.16, origin=(0, .22, .3), parent=head)
+    hat_style = variant % 3
+    if hat_style:
+        rig.box("cap_brim", "accessory", (.62, .60, .07),
+                origin=(0, -.06, HEAD_SIZE + .04), parent=head)
+        rig.box("cap_crown", "accessory", (.46, .40, .16 if hat_style == 1 else .30),
+                origin=(0, .02, HEAD_SIZE + .12), parent=head)
     rig.remember_rest(parts)
     return parts
 
@@ -516,7 +535,9 @@ def main() -> None:
     # Centre the camera on the middle of the figure so it stays inside the canvas.
     rig.setup_camera(RENDER_SIZE, RENDER_SIZE, target_z=1.0)
 
-    parts = build_figure()
+    variant = int(args[args.index("--variant") + 1]) if "--variant" in args else 0
+    bpy.context.scene.cycles.samples = 12
+    parts = build_figure(variant=variant)
     manifest = render_peep(out_dir, GUEST_ANIMATIONS, parts, "guest")
     manifest["cameraTargetZ"] = 1.0
     rig.write_manifest(os.path.join(out_dir, "frames.json"), manifest)

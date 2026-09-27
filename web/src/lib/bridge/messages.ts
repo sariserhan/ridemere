@@ -109,6 +109,9 @@ export interface ScenarioStateMessage {
   scenery: number;
   walls: number;
   handymen: number;
+  /** Mechanics employed, and whether anything is broken right now. */
+  mechanics: number;
+  rideBroken: boolean;
   litter: number;
   /** Where the camera is, so "look around your park" can notice that it happened. */
   viewX: number;
@@ -119,6 +122,7 @@ export interface ScenarioStateMessage {
   /** The park rating the objective also requires, or 0 when it requires none. */
   objectiveRating: number;
   scenarioComplete: boolean;
+  scenarioFailed?: boolean;
 }
 
 export type GameToWebType = GameToWeb["type"];

@@ -6,12 +6,13 @@
  */
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Wordmark } from "@/components/wordmark";
+import { completedScenarios } from "@/lib/game/progression";
+import { enterGame } from "@/lib/game/navigation";
 import { GameSaveStore } from "@/lib/saves/store";
 import { SaveValidationError, StorageQuotaError, type SaveRecord } from "@/lib/saves/types";
 
@@ -24,20 +25,23 @@ import { SaveValidationError, StorageQuotaError, type SaveRecord } from "@/lib/s
  * why `check_scenario_visibility.py` reads this file.
  */
 const SCENARIOS = [
+  { id: "coaster-frontier", name: "Coaster Frontier", difficulty: "Creative", blurb: "Wide open land for giant coasters. Start with $150,000 and build for 1,500 guests." },
+  { id: "small-footprint", name: "Small Footprint", difficulty: "Intermediate", blurb: "Fit 300 guests into a compact garden. Make paths and queues work harder." },
+  { id: "growing-destination", name: "Growing Destination", difficulty: "Advanced", blurb: "Build for 750 guests. Paid entry, free rides, and a larger park to maintain." },
   {
     id: "first-park",
     name: "First Park",
     difficulty: "Beginner",
     blurb: "Open your first coaster, look after your guests, and grow the park.",
   },
-];
+].sort((a, b) => ["first-park", "small-footprint", "growing-destination", "coaster-frontier"].indexOf(a.id) - ["first-park", "small-footprint", "growing-destination", "coaster-frontier"].indexOf(b.id));
 
 function formatDate(value: number): string {
   return new Date(value).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
 }
 
 export default function ParksPage() {
-  const router = useRouter();
+  const [completed, setCompleted] = useState<string[]>([]);
   const [store, setStore] = useState<GameSaveStore | null>(null);
   const [records, setRecords] = useState<SaveRecord[] | null>(null);
   const [thumbnails, setThumbnails] = useState<Record<string, string>>({});
@@ -71,6 +75,7 @@ export default function ParksPage() {
       const opened = await GameSaveStore.open();
       if (cancelled) return;
       setStore(opened);
+      setCompleted(completedScenarios());
       await refresh(opened);
     })();
     return () => {
@@ -80,11 +85,15 @@ export default function ParksPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => () => {
+    for (const url of Object.values(thumbnails)) URL.revokeObjectURL(url);
+  }, [thumbnails]);
+
   const startNew = useCallback(
     (scenarioId: string) => {
-      router.push(`/play?scenario=${encodeURIComponent(scenarioId)}`);
+      enterGame({ scenario: scenarioId });
     },
-    [router],
+    [],
   );
 
   const onExport = useCallback(
@@ -193,13 +202,14 @@ export default function ParksPage() {
 
       {records === null && <p className="text-sm text-muted-foreground">Looking for saved parks…</p>}
 
-      {records !== null && records.length === 0 && (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {records !== null && (
+        <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {SCENARIOS.map((scenario) => (
             <Card key={scenario.id} data-testid="scenario-card" data-scenario-id={scenario.id}>
               <CardHeader>
                 <CardTitle className="flex items-baseline gap-2">
                   {scenario.name}
+                  {completed.includes(scenario.id) && <span className="text-xs text-muted-foreground">Completed</span>}
                   <span
                     className="rounded px-1.5 py-0.5 text-[11px] font-normal"
                     style={{ background: "var(--rm-sunken)", color: "var(--rm-text-quiet)" }}
@@ -270,7 +280,7 @@ export default function ParksPage() {
               </p>
             </CardContent>
             <CardFooter className="flex flex-wrap gap-2">
-              <Button size="sm" onClick={() => router.push(`/play?save=${encodeURIComponent(record.id)}`)}>
+              <Button size="sm" onClick={() => enterGame({ save: record.id })}>
                 Play
               </Button>
               <Button

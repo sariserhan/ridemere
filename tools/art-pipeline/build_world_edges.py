@@ -88,7 +88,7 @@ def cliff_face(mask: np.ndarray, faces_right: bool, top_offset: int) -> np.ndarr
     out = np.zeros_like(mask, dtype=np.uint8)
 
     # A face turned away from the light sits two steps darker.
-    base = material.base + (2 if faces_right else 0)
+    base = material.base + (1 if faces_right else 0)
 
     rows = np.arange(height).reshape(-1, 1) + top_offset
     # Soil lightens slightly towards the top where light catches the cut, and the
@@ -96,7 +96,7 @@ def cliff_face(mask: np.ndarray, faces_right: bool, top_offset: int) -> np.ndarr
     gradient = np.where(rows < 4, -1, np.where(rows > height - 6, 1, 0))
 
     # Horizontal strata, so a tall cut does not read as one flat slab.
-    strata = ((rows // 5) % 2) * 1
+    strata = ((rows // 12) % 2) * 1
 
     breakup = world_palette.texture(material, height, width, seed=7)
     step = np.clip(base + gradient + strata + breakup, 0, len(ramp) - 1)
@@ -109,7 +109,7 @@ def cliff_face(mask: np.ndarray, faces_right: bool, top_offset: int) -> np.ndarr
     # edge rather than as a wall.
     lip = filled & ~np.roll(filled, 1, axis=0)
     lip[0, :] = filled[0, :]
-    out[lip] = ramp[max(0, base - 3)]
+    out[lip] = ramp[min(len(ramp) - 1, base + 1)]
     return out
 
 

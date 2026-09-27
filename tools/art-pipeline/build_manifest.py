@@ -28,6 +28,86 @@ ORIGINAL = {
 #: Declared origin for everything the pack can contain. Keys are matched against
 #: the path inside the pack, longest prefix first.
 RECORDS: Dict[str, dict] = {
+    **{ f"object/sunrise.ride.{name}.parkobj": { **ORIGINAL, "asset": name, "source": "assets/source/blender/world_props.py", "generator": "tools/art-pipeline/build_shops.py", "notes": "Original Ridemere stall art with product-specific colourways and native shop/facility behavior." } for name in ("pizza_stand", "ice_cream_stand", "chips_stand", "popcorn_stand", "coffee_stand", "balloon_stand", "first_aid", "cash_machine") },
+    "object/sunrise.ride.log_flume.parkobj": { **ORIGINAL, "asset": "timber_log_boat", "source": "tools/art-pipeline/build_water_rides.py", "generator": "Original projected polygon boat sprites", "notes": "Original boat geometry and palette; no commercial game sprites." },
+    **{
+        f"object/sunrise.peep_animations.guest_{shape}_{tone}.parkobj": {
+            **ORIGINAL, "asset": f"garden_guest_{shape}_{tone}",
+            "source": "assets/source/blender/guest.py", "generator": "Blender + build_peeps.py",
+            "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+        } for shape in range(6) for tone in range(6)
+    },
+    **{
+        f"standalone/Scenarios/{name}.park": {
+            **ORIGINAL, "asset": f"sunrise_{name}", "source": f"assets/scenarios/{name}/scenario.json",
+            "generator": "StandaloneParkBuilder via build_scenario.py",
+        } for name in ("small-footprint", "growing-destination", "coaster-frontier")
+    },
+    "object/sunrise.audio.base.parkobj": {
+        "asset": "ridemere_sound_effects", "creator": "Project Sunrise and OpenSoundEffects contributors",
+        "license": "proprietary-original + CC-BY-4.0", "modified": True,
+        "source": "tools/art-pipeline/build_audio.py + OpenSoundEffects v1.0.6",
+        "notes": "38 original synthesized effects and 26 open sample slots; volume modifiers reduce mix level. Synthetic voices are stylized, not human recordings.",
+    },
+    "object/openrct2.audio.additional.parkobj": {
+        "asset": "openrct2_additional_sound", "creator": "OpenSoundEffects contributors",
+        "license": "CC-BY-4.0", "modified": False,
+        "source": "https://github.com/OpenRCT2/OpenSoundEffects (v1.0.6)",
+    },
+    **{
+        f"object/openrct2.music.{name}.parkobj": {
+            "asset": f"openmusic_{name}", "creator": author, "license": "CC-BY-SA-4.0",
+            "modified": False, "source": "https://github.com/OpenRCT2/OpenMusic (v1.6.1)",
+        } for name, author in (("dodgems", "Karst van Galen Last / Jalmaan"), ("mystic", "Skyshard"), ("rock4", "Blackened Blue"))
+    },
+
+    "object/sunrise.ride.ferris_wheel.parkobj": {
+        **ORIGINAL, "asset": "sunrise_ferris_wheel_v1",
+        "source": "assets/source/blender/flat_rides.py",
+        "generator": "blender 4.2 + tools/art-pipeline/build_flat_rides.py",
+        "notes": "Original sixteen-cabin wheel and 512 paired rider views; no legacy artwork.",
+    },
+    "object/sunrise.ride.swinging_ship.parkobj": {
+        **ORIGINAL, "asset": "sunrise_swinging_ship_v1",
+        "source": "assets/source/blender/flat_rides.py",
+        "generator": "blender 4.2 + tools/art-pipeline/build_flat_rides.py",
+        "notes": "Original hull, supports and interleaved rider pairs through nineteen swing states.",
+    },
+    "object/sunrise.ride.drop_tower.parkobj": {
+        **ORIGINAL, "asset": "sunrise_drop_tower_v1",
+        "source": "assets/source/blender/flat_rides.py",
+        "generator": "blender 4.2 + tools/art-pipeline/build_flat_rides.py",
+        "notes": "Original modular steel tower and split gondola with restraint and rider states.",
+    },
+    "object/sunrise.ride.dodgems.parkobj": {
+        **ORIGINAL, "asset": "sunrise_dodgems_v1",
+        "source": "assets/source/blender/flat_rides.py",
+        "generator": "blender 4.2 + tools/art-pipeline/build_flat_rides.py",
+        "notes": "Original bumper cars and paired riders; arena bases authored in build_flat_ride_bases.py.",
+    },
+    "object/sunrise.ride.carousel.parkobj": {
+        **ORIGINAL, "asset": "sunrise_carousel_v1",
+        "source": "assets/source/blender/flat_rides.py",
+        "generator": "blender 4.2 + tools/art-pipeline/build_flat_rides.py",
+        "notes": "Original striped carousel, horses and paired rider overlays.",
+    },
+    "object/sunrise.peep_animations.mechanic.parkobj": {
+        **ORIGINAL,
+        "asset": "sunrise_mechanic_v1",
+        "source": "assets/source/blender/mechanic.py",
+        "generator": "blender 4.2 + tools/art-pipeline/build_peeps.py",
+        "notes": "Original staff figure and repair animation poses, with engine-length sequences.",
+    },
+    **{
+        f"standalone/DevScenarios/{name}.park": {
+            **ORIGINAL,
+            "asset": f"sunrise_scenario_{name.replace('-', '_')}",
+            "source": f"assets/scenarios/{name}/scenario.json",
+            "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+            "notes": "Development-only ride, maintenance or reliability test; stripped from the player build.",
+        }
+        for name in ("alpine-test", "single-rail-test", "ferris-wheel-test", "swinging-ship-test", "drop-tower-test", "dodgems-test", "carousel-test", "breakdown-test", "tuning-r100", "tuning-r80", "tuning-r60", "tuning-r40")
+    },
     "object/sunrise.peep_animations.guest.parkobj": {
         **ORIGINAL,
         "asset": "sunrise_guest_v1",
@@ -228,7 +308,7 @@ RECORDS: Dict[str, dict] = {
     "standalone/DevScenarios/first-park-bare.park": {
         **ORIGINAL,
         "asset": "sunrise_first_park_bare_v1",
-        "source": "assets/scenarios/first-park/scenario.json",
+        "source": "assets/scenarios/first-park-bare/scenario.json",
         "generator": "engine park builder via tools/art-pipeline/build_scenario.py, "
                      "written by tools/art-pipeline/build_art_scenes.py",
         "notes": "First Park with the decoration removed and nothing else changed. "
@@ -279,6 +359,16 @@ RECORDS: Dict[str, dict] = {
         "source": "assets/source/blender/terrain.py",
         "generator": "blender 4.2 + tools/art-pipeline/build_world.py",
     },
+    **{
+        f"object/openrct2.ride.{key}.parkobj": {
+            "asset": f"openrct2_{key}", "creator": "Edward Calver",
+            "license": "CC-BY-4.0",
+            "source": "https://github.com/OpenRCT2/objects (official collection v1.7.11)",
+            "modified": False,
+            "notes": "Open train artwork; track sprites are supplied by the open tracks.dat. Attribution required.",
+        }
+        for key in ("alpine_coaster", "single_rail_coaster")
+    },
     "object/openrct2.ride.hybrid_coaster.parkobj": {
         "asset": "openrct2_hybrid_coaster",
         "creator": "Edward Calver",
@@ -293,7 +383,7 @@ RECORDS: Dict[str, dict] = {
         "asset": "sunrise_base_archive_v1",
         "source": "tools/art-pipeline/build_base_archive.py",
         "generator": "libsawyer gxc 1.4.0 (MIT) from original marker art",
-        "notes": "Full-size base sprite archive. Unfilled entries carry a diagnostic marker.",
+        "notes": "Full-size base sprite archive, including original flat-ride structures, construction controls, guest-count arrows and 32 ground-level litter sprites. Height labels rasterize Liberation Sans (SIL-OFL-1.1). Unfilled entries carry a diagnostic marker.",
     },
     "g2.dat": {
         "asset": "openrct2_extra_sprites_rebranded",

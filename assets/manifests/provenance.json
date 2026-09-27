@@ -3,6 +3,608 @@
   "proprietaryOriginalDataPresent": false,
   "assets": [
     {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "balloon_stand",
+      "source": "assets/source/blender/world_props.py",
+      "generator": "tools/art-pipeline/build_shops.py",
+      "notes": "Original Ridemere stall art with product-specific colourways and native shop/facility behavior.",
+      "path": "object/sunrise.ride.balloon_stand.parkobj",
+      "files": 1,
+      "bytes": 8543,
+      "sha256": "1298810c99949dba90fb96c4f507e23dbba6b5fd68009a69d5b12c8626bdd2d5"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "cash_machine",
+      "source": "assets/source/blender/world_props.py",
+      "generator": "tools/art-pipeline/build_shops.py",
+      "notes": "Original Ridemere stall art with product-specific colourways and native shop/facility behavior.",
+      "path": "object/sunrise.ride.cash_machine.parkobj",
+      "files": 1,
+      "bytes": 8426,
+      "sha256": "4a19a6e471d785d1d1304d0742bf987d799d2131c824bcd802c6e8d0aa0c4237"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "chips_stand",
+      "source": "assets/source/blender/world_props.py",
+      "generator": "tools/art-pipeline/build_shops.py",
+      "notes": "Original Ridemere stall art with product-specific colourways and native shop/facility behavior.",
+      "path": "object/sunrise.ride.chips_stand.parkobj",
+      "files": 1,
+      "bytes": 8706,
+      "sha256": "3ef55c5680d6a75ad411a05112a47e083cd43a62cd5fa948ababee1787c65d4d"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "coffee_stand",
+      "source": "assets/source/blender/world_props.py",
+      "generator": "tools/art-pipeline/build_shops.py",
+      "notes": "Original Ridemere stall art with product-specific colourways and native shop/facility behavior.",
+      "path": "object/sunrise.ride.coffee_stand.parkobj",
+      "files": 1,
+      "bytes": 8550,
+      "sha256": "544508b8e3df32d9f98ff0d8affa6c796a92a1d2330e3c0bcf314ae174866d7f"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "first_aid",
+      "source": "assets/source/blender/world_props.py",
+      "generator": "tools/art-pipeline/build_shops.py",
+      "notes": "Original Ridemere stall art with product-specific colourways and native shop/facility behavior.",
+      "path": "object/sunrise.ride.first_aid.parkobj",
+      "files": 1,
+      "bytes": 8209,
+      "sha256": "938bfb0a63655d8882b27901b3043cd9ff48bf4218237fb6aa0a7ca1841cb450"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_0_0",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_0_0.parkobj",
+      "files": 1,
+      "bytes": 316884,
+      "sha256": "49693723b116b194f0ecf2ab3ffc1917a5b6bc893cab274b6c777687fbd6487d"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_0_1",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_0_1.parkobj",
+      "files": 1,
+      "bytes": 315908,
+      "sha256": "427e1afe0b917421289a4a2aecf1c4f0fcc60fc41efc3e249a8ff2818334eb3d"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_0_2",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_0_2.parkobj",
+      "files": 1,
+      "bytes": 317827,
+      "sha256": "2e4b49ebc65f0ae156c06e61b59a7fec0618d6b5e761743c435f913e32377108"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_0_3",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_0_3.parkobj",
+      "files": 1,
+      "bytes": 317827,
+      "sha256": "0744e2dd1cc55498a1c076264f9356ef60bbfa556fd1f27ed882431e3e649b19"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_0_4",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_0_4.parkobj",
+      "files": 1,
+      "bytes": 317827,
+      "sha256": "23b985e68e95c034d46d3ef18ea5adcb4d72ab6cfe68822b3366ad8877251cd5"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_0_5",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_0_5.parkobj",
+      "files": 1,
+      "bytes": 317685,
+      "sha256": "908ec2fa3981641c1a6792675f68428b92e6aaee770453fe5533bbbb3ecbf93d"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_1_0",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_1_0.parkobj",
+      "files": 1,
+      "bytes": 321240,
+      "sha256": "7d7705940d18e591bf18338de3f9b5cf15af871e219811c474f9e59f81dae8ec"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_1_1",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_1_1.parkobj",
+      "files": 1,
+      "bytes": 320913,
+      "sha256": "0e7f478f050f7205eaf8f5b153ff941e96ea3052802d6e240406b656ba9860b1"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_1_2",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_1_2.parkobj",
+      "files": 1,
+      "bytes": 322188,
+      "sha256": "c7bf2f3d2b007e2ed40722907e496143626703fd5f6dd7e63088658f72527282"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_1_3",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_1_3.parkobj",
+      "files": 1,
+      "bytes": 322188,
+      "sha256": "25032724bf7aa27bb41d59e8ef1df978a8f8c683bba9a7c9ff395874ed288acf"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_1_4",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_1_4.parkobj",
+      "files": 1,
+      "bytes": 322188,
+      "sha256": "48da56c651483604eb71cc3dbcfd3b25798506e76d4798b4333923871de6d6bc"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_1_5",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_1_5.parkobj",
+      "files": 1,
+      "bytes": 322040,
+      "sha256": "39b53cfaaf46512d35e36e1501f0c71325d6c34930405b314ab596fdd90bd4b6"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_2_0",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_2_0.parkobj",
+      "files": 1,
+      "bytes": 320841,
+      "sha256": "13e14a9c8ae90752acc50ce5c5ab3897b9823956ef5419f8a49c36226b88a55a"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_2_1",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_2_1.parkobj",
+      "files": 1,
+      "bytes": 320841,
+      "sha256": "c37b9237f7962eecb343a9a844af18e4b4b92d70d28e727999916cb35d4c87c8"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_2_2",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_2_2.parkobj",
+      "files": 1,
+      "bytes": 320585,
+      "sha256": "58481800c39dde286fe78465cc2e5ed706169dc61f75bd02370f2d4c65a3b388"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_2_3",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_2_3.parkobj",
+      "files": 1,
+      "bytes": 320585,
+      "sha256": "1a9effc8743a854726705acacbf27f3ada0fd964afbc3286190c05709a9e2433"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_2_4",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_2_4.parkobj",
+      "files": 1,
+      "bytes": 320586,
+      "sha256": "ffcaf6df7cf24b8aedc04b9a1ebba824f120eb3b528615916ae99ad14e031710"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_2_5",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_2_5.parkobj",
+      "files": 1,
+      "bytes": 320475,
+      "sha256": "8b7e19c29bcfed46c8b165c472b16128f422cc85bc428560905949acb6e92c2e"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_3_0",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_3_0.parkobj",
+      "files": 1,
+      "bytes": 319568,
+      "sha256": "38f95e67d93c2cbcdd88adb42754bc2a26b22c911fe9fcf8d06f595c8133c5ca"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_3_1",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_3_1.parkobj",
+      "files": 1,
+      "bytes": 319568,
+      "sha256": "d943171366096c778d10bc459316186607ef9f7a4770705b78324ec561b0562e"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_3_2",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_3_2.parkobj",
+      "files": 1,
+      "bytes": 319292,
+      "sha256": "c34f8fced20767d5e64a1c6c690fc6f456f9efad1fc557b8f22cbdfbb0a8040b"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_3_3",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_3_3.parkobj",
+      "files": 1,
+      "bytes": 319296,
+      "sha256": "91a0a5d2204de4409337ab6b65c0c2f4abc7bbecb423ca39288eb446f12e7e39"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_3_4",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_3_4.parkobj",
+      "files": 1,
+      "bytes": 319296,
+      "sha256": "3234b4dac4e128ae8d2e4fff8608a176678cbaa9f1d93c8243686bb24bda8310"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_3_5",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_3_5.parkobj",
+      "files": 1,
+      "bytes": 319188,
+      "sha256": "ca8ccc58d2a8afde5c14c967eb7373f72939ec7dd2b5848e6b901174e3f27e86"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_4_0",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_4_0.parkobj",
+      "files": 1,
+      "bytes": 322103,
+      "sha256": "7038cb7a2bb716a6ad504e7ff606083e5cb7835d4a22c534cc86780bbe01e0b1"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_4_1",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_4_1.parkobj",
+      "files": 1,
+      "bytes": 322073,
+      "sha256": "aa325b454349bfc27d43638101db4ac37f697cc28463547695f95e0c273b1fc4"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_4_2",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_4_2.parkobj",
+      "files": 1,
+      "bytes": 321953,
+      "sha256": "34a9fee313b96d14c7b99da820920ba760bfd124f09f174d1a8af9a0dfc2dda2"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_4_3",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_4_3.parkobj",
+      "files": 1,
+      "bytes": 321954,
+      "sha256": "6677bec50bfcc0c81576ea717b9c3e84215aa4d58a54f03f3055b76930504fb7"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_4_4",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_4_4.parkobj",
+      "files": 1,
+      "bytes": 321954,
+      "sha256": "407e001f1a7c2ce2b4578ad9d46f9cadc2fb494909bf1937ab79a85e3cd9e6b6"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_4_5",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_4_5.parkobj",
+      "files": 1,
+      "bytes": 321836,
+      "sha256": "669add2f5da1ffebc28e1b6b9c04d3ec17d2a56aef7bf27ba887b8340cca5f0b"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_5_0",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_5_0.parkobj",
+      "files": 1,
+      "bytes": 322531,
+      "sha256": "565e8224e740a593e2f73fbbada047b57f73cd6aa8d5c8d46f0cf6475d28286b"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_5_1",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_5_1.parkobj",
+      "files": 1,
+      "bytes": 322475,
+      "sha256": "0024232a3f45808562a259bb509258f96e5b0d6982c2c3372083442e06a8586d"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_5_2",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_5_2.parkobj",
+      "files": 1,
+      "bytes": 322371,
+      "sha256": "ee22a13bdbc2de53f9bf214727085c22623feec911371beac77d3b4294c9394c"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_5_3",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_5_3.parkobj",
+      "files": 1,
+      "bytes": 322371,
+      "sha256": "fea212604669afec7eb75e576763b170ec440163b5a0a357e105113214c87604"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_5_4",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_5_4.parkobj",
+      "files": 1,
+      "bytes": 322371,
+      "sha256": "eb4c1f634da75f30cf8089e136d0c103fa98fae23e365871e991416df1db667f"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "garden_guest_5_5",
+      "source": "assets/source/blender/guest.py",
+      "generator": "Blender + build_peeps.py",
+      "notes": "Original animated body, hairstyle, hat and skin palette; runtime clothing colours.",
+      "path": "object/sunrise.peep_animations.guest_5_5.parkobj",
+      "files": 1,
+      "bytes": 322255,
+      "sha256": "1003aa5dfde9995df6a865b6f1e9dc2c70864966384eab1931327e7b2d8c47c4"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "ice_cream_stand",
+      "source": "assets/source/blender/world_props.py",
+      "generator": "tools/art-pipeline/build_shops.py",
+      "notes": "Original Ridemere stall art with product-specific colourways and native shop/facility behavior.",
+      "path": "object/sunrise.ride.ice_cream_stand.parkobj",
+      "files": 1,
+      "bytes": 8696,
+      "sha256": "5ba97257a530e16e96c6f16e383362bcd521685e36d206dc4e14ecf9028b5e3c"
+    },
+    {
+      "asset": "openmusic_dodgems",
+      "creator": "Karst van Galen Last / Jalmaan",
+      "license": "CC-BY-SA-4.0",
+      "modified": false,
+      "source": "https://github.com/OpenRCT2/OpenMusic (v1.6.1)",
+      "path": "object/openrct2.music.dodgems.parkobj",
+      "files": 1,
+      "bytes": 164212,
+      "sha256": "25ed1783728ccd47cf0d55daf7bc86a68d76f5f2b2e4ee253307a39c712019a7"
+    },
+    {
+      "asset": "openmusic_mystic",
+      "creator": "Skyshard",
+      "license": "CC-BY-SA-4.0",
+      "modified": false,
+      "source": "https://github.com/OpenRCT2/OpenMusic (v1.6.1)",
+      "path": "object/openrct2.music.mystic.parkobj",
+      "files": 1,
+      "bytes": 705562,
+      "sha256": "b7a5755cbe64525e8d61fd9dadcfa3e8e5b5c6acd19dcee09ffc7b5c15c15d53"
+    },
+    {
+      "asset": "openmusic_rock4",
+      "creator": "Blackened Blue",
+      "license": "CC-BY-SA-4.0",
+      "modified": false,
+      "source": "https://github.com/OpenRCT2/OpenMusic (v1.6.1)",
+      "path": "object/openrct2.music.rock4.parkobj",
+      "files": 1,
+      "bytes": 847951,
+      "sha256": "0e46d41c6194812874696bcf2e41b5252202373140708329434106b9b2fe2a9a"
+    },
+    {
+      "asset": "openrct2_additional_sound",
+      "creator": "OpenSoundEffects contributors",
+      "license": "CC-BY-4.0",
+      "modified": false,
+      "source": "https://github.com/OpenRCT2/OpenSoundEffects (v1.0.6)",
+      "path": "object/openrct2.audio.additional.parkobj",
+      "files": 1,
+      "bytes": 361545,
+      "sha256": "1a955d637031880327b03688ad281abdc58fe412e832d0552a08a063198203a6"
+    },
+    {
+      "asset": "openrct2_alpine_coaster",
+      "creator": "Edward Calver",
+      "license": "CC-BY-4.0",
+      "source": "https://github.com/OpenRCT2/objects (official collection v1.7.11)",
+      "modified": false,
+      "notes": "Open train artwork; track sprites are supplied by the open tracks.dat. Attribution required.",
+      "path": "object/openrct2.ride.alpine_coaster.parkobj",
+      "files": 1,
+      "bytes": 95307,
+      "sha256": "da969f4322aec639876fc4167349610853b4683ea8e3bf1af51f2277abc2fc63"
+    },
+    {
       "asset": "openrct2_extra_sprites_rebranded",
       "creator": "OpenRCT2 contributors, with Project Sunrise replacements",
       "license": "GPL-3.0",
@@ -72,6 +674,18 @@
       "sha256": "4c7c23b4c9efadd20f0852be8f4ef68084ba5a2eda50311eea16105dec908b7c"
     },
     {
+      "asset": "openrct2_single_rail_coaster",
+      "creator": "Edward Calver",
+      "license": "CC-BY-4.0",
+      "source": "https://github.com/OpenRCT2/objects (official collection v1.7.11)",
+      "modified": false,
+      "notes": "Open train artwork; track sprites are supplied by the open tracks.dat. Attribution required.",
+      "path": "object/openrct2.ride.single_rail_coaster.parkobj",
+      "files": 1,
+      "bytes": 521057,
+      "sha256": "de88c4a38390d97fdbe01444cd6fa7dbaa2666dadc67a8ea498b480cd03dd420"
+    },
+    {
       "asset": "openrct2_track_artwork",
       "creator": "OpenRCT2 contributors",
       "license": "GPL-3.0",
@@ -82,6 +696,44 @@
       "files": 1,
       "bytes": 6645005,
       "sha256": "ad86df20ee9a710286553ea34836f8cffae7bdc58de7c5862df43665e0f01c7c"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "pizza_stand",
+      "source": "assets/source/blender/world_props.py",
+      "generator": "tools/art-pipeline/build_shops.py",
+      "notes": "Original Ridemere stall art with product-specific colourways and native shop/facility behavior.",
+      "path": "object/sunrise.ride.pizza_stand.parkobj",
+      "files": 1,
+      "bytes": 8709,
+      "sha256": "6857be135b370c110e82894aef31f1a0a66bc8da6637f31341d9ce401d8e2584"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "popcorn_stand",
+      "source": "assets/source/blender/world_props.py",
+      "generator": "tools/art-pipeline/build_shops.py",
+      "notes": "Original Ridemere stall art with product-specific colourways and native shop/facility behavior.",
+      "path": "object/sunrise.ride.popcorn_stand.parkobj",
+      "files": 1,
+      "bytes": 8698,
+      "sha256": "0417b6bada08b1945ba2de00cd9801b3c3b75e182c744b6d8668557c63de3add"
+    },
+    {
+      "asset": "ridemere_sound_effects",
+      "creator": "Project Sunrise and OpenSoundEffects contributors",
+      "license": "proprietary-original + CC-BY-4.0",
+      "modified": true,
+      "source": "tools/art-pipeline/build_audio.py + OpenSoundEffects v1.0.6",
+      "notes": "38 original synthesized effects and 26 open sample slots; volume modifiers reduce mix level. Synthetic voices are stylized, not human recordings.",
+      "path": "object/sunrise.audio.base.parkobj",
+      "files": 1,
+      "bytes": 5308224,
+      "sha256": "48397213c815b334f20c4e8350afa4c27a63ccf0e5264db84cdb7f438ed4a0a6"
     },
     {
       "creator": "Project Sunrise",
@@ -105,8 +757,8 @@
       "notes": "Window colours for every class in the engine's descriptor table.",
       "path": "themes/Ridemere.json",
       "files": 1,
-      "bytes": 16654,
-      "sha256": "9af253a7f80eeedec35e576401db3654babafa813b028c97b0371db447857a97"
+      "bytes": 14856,
+      "sha256": "4bd60a908f3b27716b2150f889d5b00220cd933cab0a5310f3638c4ce69c061d"
     },
     {
       "creator": "Project Sunrise",
@@ -115,11 +767,11 @@
       "asset": "sunrise_base_archive_v1",
       "source": "tools/art-pipeline/build_base_archive.py",
       "generator": "libsawyer gxc 1.4.0 (MIT) from original marker art",
-      "notes": "Full-size base sprite archive. Unfilled entries carry a diagnostic marker.",
+      "notes": "Full-size base sprite archive, including original flat-ride structures, construction controls, guest-count arrows and 32 ground-level litter sprites. Height labels rasterize Liberation Sans (SIL-OFL-1.1). Unfilled entries carry a diagnostic marker.",
       "path": "standalone/Data/g1.dat",
       "files": 1,
-      "bytes": 2413545,
-      "sha256": "b55b089c05087352de35f395364366cfb4b29b7fc4db5dcdde35de91759d7b83"
+      "bytes": 2694722,
+      "sha256": "9d296a4560b1255b5140d4c6391389638486f0a509c4ed729fce15abd9752919"
     },
     {
       "creator": "Project Sunrise",
@@ -131,8 +783,21 @@
       "notes": "Original bench. Painted metal frame and timber seat, taking their ramps from the same world palette as the railings and the wooden path so it looks like it came with the park.",
       "path": "object/sunrise.footpath_item.bench.parkobj",
       "files": 1,
-      "bytes": 8767,
-      "sha256": "dc2f38bb4257c4092459fcbe1814c723f129c7fb48de08f2b4a7e67fb75eb87f"
+      "bytes": 8646,
+      "sha256": "4653046a77db3ce46ad829fca19b58a2bb090b42625a0ab4c97b273ac90217c0"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_carousel_v1",
+      "source": "assets/source/blender/flat_rides.py",
+      "generator": "blender 4.2 + tools/art-pipeline/build_flat_rides.py",
+      "notes": "Original striped carousel, horses and paired rider overlays.",
+      "path": "object/sunrise.ride.carousel.parkobj",
+      "files": 1,
+      "bytes": 234417,
+      "sha256": "b91572ec6e1a6be1d402656f9db3bca265a7166ed68a57c0d40dbbcf06d75f0a"
     },
     {
       "creator": "Project Sunrise",
@@ -149,12 +814,50 @@
       "creator": "Project Sunrise",
       "license": "proprietary-original",
       "modified": false,
+      "asset": "sunrise_coaster-frontier",
+      "source": "assets/scenarios/coaster-frontier/scenario.json",
+      "generator": "StandaloneParkBuilder via build_scenario.py",
+      "path": "standalone/Scenarios/coaster-frontier.park",
+      "files": 1,
+      "bytes": 9695,
+      "sha256": "ef768ed7670f59d32b2d85e26c1e9c1f877705223ad071d76df11edee77e0b11"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
       "asset": "sunrise_content_manifest",
       "source": "tools/art-pipeline/build_pack.py",
       "path": "standalone/standalone.json",
       "files": 1,
-      "bytes": 4011,
-      "sha256": "6cd3db79161d5261d7604924c7ca8736c632bcda965b0b46b9bc25b9fcb98ae4"
+      "bytes": 6557,
+      "sha256": "32a477269e4d6ae3ee09ad3bc75ede519310aa11c4fbb68147f4b466c3101776"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_dodgems_v1",
+      "source": "assets/source/blender/flat_rides.py",
+      "generator": "blender 4.2 + tools/art-pipeline/build_flat_rides.py",
+      "notes": "Original bumper cars and paired riders; arena bases authored in build_flat_ride_bases.py.",
+      "path": "object/sunrise.ride.dodgems.parkobj",
+      "files": 1,
+      "bytes": 67754,
+      "sha256": "44eb71b1c925f74827f6bf32e007063c8209691d7f0385f67aaf6b7ab84ef021"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_drop_tower_v1",
+      "source": "assets/source/blender/flat_rides.py",
+      "generator": "blender 4.2 + tools/art-pipeline/build_flat_rides.py",
+      "notes": "Original modular steel tower and split gondola with restraint and rider states.",
+      "path": "object/sunrise.ride.drop_tower.parkobj",
+      "files": 1,
+      "bytes": 26494,
+      "sha256": "bd874a2c85653f731103d38610eb1023e24418d2acedc4f6b89b9d230ae96927"
     },
     {
       "creator": "Project Sunrise",
@@ -166,8 +869,8 @@
       "notes": "Original information kiosk; shares the V1 stall silhouette and is told apart by its accent colour.",
       "path": "object/sunrise.ride.information_point.parkobj",
       "files": 1,
-      "bytes": 11739,
-      "sha256": "62ef99e8d543cd45d13860c476314ff8c841c37b867b118ef77473c8363bb911"
+      "bytes": 8531,
+      "sha256": "5716f2b8cb86f8e47a2bdc09824c6ea63319b639cec93b546c8beeb8ffeaa294"
     },
     {
       "creator": "Project Sunrise",
@@ -179,21 +882,34 @@
       "notes": "Original restroom; shares the V1 stall silhouette and is told apart by its accent colour.",
       "path": "object/sunrise.ride.restroom.parkobj",
       "files": 1,
-      "bytes": 11701,
-      "sha256": "3bfedbd02f4b9ea86581fa12a5ca1ee571c1d85eff26ee5851d96dc0247425e6"
+      "bytes": 8235,
+      "sha256": "cbdfeef01afa45f3f3e7e2d083aaf13eb26272c6da568f2455b084d15a3ea318"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_ferris_wheel_v1",
+      "source": "assets/source/blender/flat_rides.py",
+      "generator": "blender 4.2 + tools/art-pipeline/build_flat_rides.py",
+      "notes": "Original sixteen-cabin wheel and 512 paired rider views; no legacy artwork.",
+      "path": "object/sunrise.ride.ferris_wheel.parkobj",
+      "files": 1,
+      "bytes": 609665,
+      "sha256": "d2f53aef8810a0fe173b79357a614442037f21bc3d39e4215645248f0e80af09"
     },
     {
       "creator": "Project Sunrise",
       "license": "proprietary-original",
       "modified": false,
       "asset": "sunrise_first_park_bare_v1",
-      "source": "assets/scenarios/first-park/scenario.json",
+      "source": "assets/scenarios/first-park-bare/scenario.json",
       "generator": "engine park builder via tools/art-pipeline/build_scenario.py, written by tools/art-pipeline/build_art_scenes.py",
       "notes": "First Park with the decoration removed and nothing else changed. The control the scenery checks measure against.",
       "path": "standalone/DevScenarios/first-park-bare.park",
       "files": 1,
-      "bytes": 8315,
-      "sha256": "4d673ce502cd2089de389f84cbe90038066126f18ba9fcba42b383858ce3cf03"
+      "bytes": 8688,
+      "sha256": "d6edd51d5d28188a0c276fad3e6ed0d91eb5a6c63d99bce4243bb931799bb3ca"
     },
     {
       "creator": "Project Sunrise",
@@ -205,8 +921,20 @@
       "notes": "The first release scenario. Built from its description by the engine's own game actions, so the generated park is output and the description is the source.",
       "path": "standalone/Scenarios/first-park.park",
       "files": 1,
-      "bytes": 12349,
-      "sha256": "0585f7e82e0cebefd9f9f3c46ad32b5654624c584e0173d958a4b8e77d0a398c"
+      "bytes": 12707,
+      "sha256": "90be6d3b422c3aea46c80a9eeae411a6cdc4b5ee17b2c4e8c724fa82e8d716cb"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_growing-destination",
+      "source": "assets/scenarios/growing-destination/scenario.json",
+      "generator": "StandaloneParkBuilder via build_scenario.py",
+      "path": "standalone/Scenarios/growing-destination.park",
+      "files": 1,
+      "bytes": 10431,
+      "sha256": "56e277d42fee16c731b470a74e1bfc37fdcfcb67bf4f1c5edf64218564ab3a10"
     },
     {
       "creator": "Project Sunrise",
@@ -219,7 +947,7 @@
       "path": "object/sunrise.peep_animations.guest.parkobj",
       "files": 1,
       "bytes": 287176,
-      "sha256": "df52f0786a23d2c9fd230ae79c4b0a796c11bbdd45a099537f51820c0848cb3a"
+      "sha256": "853bcb7cf1df3d4b24097bc2375c1db064d4c425c3af398aa1cbe7745f0601ee"
     },
     {
       "creator": "Project Sunrise",
@@ -231,7 +959,7 @@
       "path": "object/sunrise.peep_animations.handyman.parkobj",
       "files": 1,
       "bytes": 132141,
-      "sha256": "6851ea12a91c397234bac6f79d77ee08d8cea3d46945cf8f3fbdba2513540772"
+      "sha256": "aab7399ac4ca8f9b486258255766e51666a8d5bab3ffb0bcb5cc5cb28eff93f9"
     },
     {
       "creator": "Project Sunrise",
@@ -243,8 +971,21 @@
       "notes": "Original litter bin, with real empty, full and knocked-over art rather than a recolour, because the engine indexes a sprite for each of those states whether or not the game can reach it.",
       "path": "object/sunrise.footpath_item.bin.parkobj",
       "files": 1,
-      "bytes": 11978,
-      "sha256": "216b4d9ff107332d7619119ccd460ac7e1f28944a298592ec30933dbee16c304"
+      "bytes": 11771,
+      "sha256": "74b6711703e39a8c85500c8ed22d3c181be595cc96027849499b23764ca86b6d"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_mechanic_v1",
+      "source": "assets/source/blender/mechanic.py",
+      "generator": "blender 4.2 + tools/art-pipeline/build_peeps.py",
+      "notes": "Original staff figure and repair animation poses, with engine-length sequences.",
+      "path": "object/sunrise.peep_animations.mechanic.parkobj",
+      "files": 1,
+      "bytes": 205412,
+      "sha256": "a946ed9897d1ce7239e770b517a43d93a382877932f644fe6b3e9fb840dcf3f0"
     },
     {
       "creator": "Project Sunrise",
@@ -256,8 +997,8 @@
       "notes": "A development scene for the guest-need loop. Every stall ships closed so an alert has to raise before it can clear. Shipped in DevScenarios and stripped from the player build entirely.",
       "path": "standalone/DevScenarios/needs-test.park",
       "files": 1,
-      "bytes": 7671,
-      "sha256": "623a91e2e0e9e5c01ce580285e9daa5de2e5b3fbe9f5a8178797bba61a688141"
+      "bytes": 7674,
+      "sha256": "fb53b9887733a7b3944467d8bf960b975d615b320b7b0647208c238b0ab3dd72"
     },
     {
       "creator": "Project Sunrise",
@@ -280,7 +1021,7 @@
       "path": "object/sunrise.footpath_surface.paved.parkobj",
       "files": 1,
       "bytes": 51317,
-      "sha256": "4baf1ce45e5ce2d1df40a6dd0984b0a115244ba371e1f2b8a0d4ee7a4df0065a"
+      "sha256": "cbbf10b9682ccb59e6f5f0d4c7befb83ab4dc080b9b9ac564da7c7d84c3570b6"
     },
     {
       "creator": "Project Sunrise",
@@ -291,7 +1032,7 @@
       "path": "object/sunrise.footpath_surface.queue.parkobj",
       "files": 1,
       "bytes": 52984,
-      "sha256": "81bca594a5388ec9eaaa9bf02c1885ee41762b2c3bc24108b22b7e9d86fa7e13"
+      "sha256": "8737bf8fe51b5b956958cd6b39c42e470929e8ad9d9e83312709aa6b4d6941da"
     },
     {
       "creator": "Project Sunrise",
@@ -303,7 +1044,7 @@
       "path": "object/sunrise.footpath_railings.metal.parkobj",
       "files": 1,
       "bytes": 73865,
-      "sha256": "bcdc92a19d1d60d59355f665836c74ad18032e2053dd87bb61fdd2184a4b24b5"
+      "sha256": "7613b4a75e7bb5b25ec7376bb8d832107a63099fce5449162b699a8fc521e8cb"
     },
     {
       "creator": "Project Sunrise",
@@ -314,7 +1055,7 @@
       "path": "object/sunrise.footpath_surface.stone.parkobj",
       "files": 1,
       "bytes": 51457,
-      "sha256": "fec1b1b26a09573766dc698ba9af0dad3b800ccb67e0a74144c8c211a2662533"
+      "sha256": "01c984266f919897b360f1762dfb120ff4453d33db2f35f08d7559cfd9495c16"
     },
     {
       "creator": "Project Sunrise",
@@ -325,7 +1066,7 @@
       "path": "object/sunrise.footpath_surface.wood.parkobj",
       "files": 1,
       "bytes": 51504,
-      "sha256": "ce5655fa47a4843fc43a62c42e2ffbd23bb9fe6c4832c1ba09abc10add572d1e"
+      "sha256": "4be31e2f9704ee82e1600ed1b56060b8d7836d88e7f8ad557c8c62c70d92f668"
     },
     {
       "creator": "Project Sunrise",
@@ -343,14 +1084,170 @@
       "creator": "Project Sunrise",
       "license": "proprietary-original",
       "modified": false,
+      "asset": "sunrise_scenario_alpine_test",
+      "source": "assets/scenarios/alpine-test/scenario.json",
+      "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+      "notes": "Development-only ride, maintenance or reliability test; stripped from the player build.",
+      "path": "standalone/DevScenarios/alpine-test.park",
+      "files": 1,
+      "bytes": 9655,
+      "sha256": "43eb1bf9b70a04cd38e622668ef1bdb36c1f1f29abe3c4075dd29bbdea73e0aa"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_scenario_breakdown_test",
+      "source": "assets/scenarios/breakdown-test/scenario.json",
+      "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+      "notes": "Development-only ride, maintenance or reliability test; stripped from the player build.",
+      "path": "standalone/DevScenarios/breakdown-test.park",
+      "files": 1,
+      "bytes": 12360,
+      "sha256": "610b1eabb96c250e0c39aaa2d74e63dfbb1ee51d3e00f74acd25d4b8b8be2204"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_scenario_carousel_test",
+      "source": "assets/scenarios/carousel-test/scenario.json",
+      "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+      "notes": "Development-only ride, maintenance or reliability test; stripped from the player build.",
+      "path": "standalone/DevScenarios/carousel-test.park",
+      "files": 1,
+      "bytes": 8474,
+      "sha256": "da2e4909a35cbe464e082487ebaa233aa5c87fb59f63955002f79587ad8bf57f"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_scenario_dodgems_test",
+      "source": "assets/scenarios/dodgems-test/scenario.json",
+      "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+      "notes": "Development-only ride, maintenance or reliability test; stripped from the player build.",
+      "path": "standalone/DevScenarios/dodgems-test.park",
+      "files": 1,
+      "bytes": 9178,
+      "sha256": "3b6650a77a4cafbbdd3421e3f1f72f13cd33990b6d38075e9d7c5fa4f2693047"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_scenario_drop_tower_test",
+      "source": "assets/scenarios/drop-tower-test/scenario.json",
+      "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+      "notes": "Development-only ride, maintenance or reliability test; stripped from the player build.",
+      "path": "standalone/DevScenarios/drop-tower-test.park",
+      "files": 1,
+      "bytes": 8548,
+      "sha256": "baed1e213b7c40011a9e861a42c1d41280d76253b3057893d1aeaab7f9bf94e7"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_scenario_ferris_wheel_test",
+      "source": "assets/scenarios/ferris-wheel-test/scenario.json",
+      "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+      "notes": "Development-only ride, maintenance or reliability test; stripped from the player build.",
+      "path": "standalone/DevScenarios/ferris-wheel-test.park",
+      "files": 1,
+      "bytes": 9711,
+      "sha256": "7ac17326c5526e8e2e735ff986293b068cf2a4b2ba3e400e9599434181423004"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_scenario_single_rail_test",
+      "source": "assets/scenarios/single-rail-test/scenario.json",
+      "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+      "notes": "Development-only ride, maintenance or reliability test; stripped from the player build.",
+      "path": "standalone/DevScenarios/single-rail-test.park",
+      "files": 1,
+      "bytes": 9588,
+      "sha256": "c4468080dd91c7de319873f7f64d517d0dcf856dc3a7e807b22989cdd0a46c44"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_scenario_swinging_ship_test",
+      "source": "assets/scenarios/swinging-ship-test/scenario.json",
+      "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+      "notes": "Development-only ride, maintenance or reliability test; stripped from the player build.",
+      "path": "standalone/DevScenarios/swinging-ship-test.park",
+      "files": 1,
+      "bytes": 8505,
+      "sha256": "ba3fc75f14a1a1f6d13e21f8463ed834a06ce5043bfe0b84e3342c6671133be2"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_scenario_tuning_r100",
+      "source": "assets/scenarios/tuning-r100/scenario.json",
+      "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+      "notes": "Development-only ride, maintenance or reliability test; stripped from the player build.",
+      "path": "standalone/DevScenarios/tuning-r100.park",
+      "files": 1,
+      "bytes": 12327,
+      "sha256": "b21257da5cf89ca18983c65bf3edcd0eb8fa43adbcbcfefc452476f225591c39"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_scenario_tuning_r40",
+      "source": "assets/scenarios/tuning-r40/scenario.json",
+      "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+      "notes": "Development-only ride, maintenance or reliability test; stripped from the player build.",
+      "path": "standalone/DevScenarios/tuning-r40.park",
+      "files": 1,
+      "bytes": 12479,
+      "sha256": "8a46a8ce9b40185f60a481f6aff0115acc08941bea0639fae1242277fb46b6cf"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_scenario_tuning_r60",
+      "source": "assets/scenarios/tuning-r60/scenario.json",
+      "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+      "notes": "Development-only ride, maintenance or reliability test; stripped from the player build.",
+      "path": "standalone/DevScenarios/tuning-r60.park",
+      "files": 1,
+      "bytes": 12479,
+      "sha256": "68e6d5f7aa9f114324b665c938137385ecb69be7c1fcf2224e8b45b339edb010"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_scenario_tuning_r80",
+      "source": "assets/scenarios/tuning-r80/scenario.json",
+      "generator": "engine park builder via tools/art-pipeline/build_scenario.py",
+      "notes": "Development-only ride, maintenance or reliability test; stripped from the player build.",
+      "path": "standalone/DevScenarios/tuning-r80.park",
+      "files": 1,
+      "bytes": 12478,
+      "sha256": "f2fe4c085014d41bc72e14b7ebe9e2c97626017fa536b8fe9050269062fed53e"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
       "asset": "sunrise_scenery_density_test_v1",
       "source": "assets/scenarios/scenery-density-test/scenario.json",
       "generator": "engine park builder via tools/art-pipeline/build_scenario.py, written by tools/art-pipeline/build_art_scenes.py",
       "notes": "A development scene packed with far more scenery than a park would carry, for measuring readability and rendering cost.",
       "path": "standalone/DevScenarios/scenery-density-test.park",
       "files": 1,
-      "bytes": 12778,
-      "sha256": "5e6d851aadeb57c874d14aecc642ef8db740609cb490486102c64c4bd4ae5727"
+      "bytes": 12779,
+      "sha256": "f35da47b0a17677c5fe6853e1062f74fa8eef18f326ed4408a6d594ec219119d"
     },
     {
       "creator": "Project Sunrise",
@@ -362,8 +1259,8 @@
       "notes": "The build-menu tabs. Each carries one icon, rendered from a member object, so no separate icon art exists to go stale.",
       "path": "object/sunrise.scenery_group.fences.parkobj",
       "files": 4,
-      "bytes": 9258,
-      "sha256": "f3c528120d682ef0195dd703e931174f8920f831afa141c9be4eef63bc349e62"
+      "bytes": 9081,
+      "sha256": "bbc08848a0b911e709bd388b4222bf5e45485af1b0967434202c334971a5f305"
     },
     {
       "creator": "Project Sunrise",
@@ -375,8 +1272,8 @@
       "notes": "Original vegetation and park scenery, assembled in Blender from shared components (trunk, canopy form, flower heads, post rows) and coloured through the vegetation palette in world_palette.py. Every model is built on the world origin; check_rotation_origin.py enforces it. No RollerCoaster Tycoon material of any kind.",
       "path": "object/sunrise.scenery_small.accent_arch.parkobj",
       "files": 32,
-      "bytes": 136632,
-      "sha256": "194e2729251dc9c858c623277dde29969452de7f86744bcc26d6796e43c95189"
+      "bytes": 131407,
+      "sha256": "7d24a00c627c5fb10e46d6f0b7b54b344e98288cb9e3863b1b70c8e2e54c9688"
     },
     {
       "creator": "Project Sunrise",
@@ -388,8 +1285,8 @@
       "notes": "Original fences and a low stone wall. Six sprites each: two orientations, flat and tilted onto each slope, all rendered rather than derived from the flat one.",
       "path": "object/sunrise.scenery_wall.fence_metal.parkobj",
       "files": 3,
-      "bytes": 18637,
-      "sha256": "263a0f53cc188a8c038d0ee8defa3c9b7d51a814330cf54d984c5ce2a8b9c780"
+      "bytes": 18132,
+      "sha256": "9a02702ee44a25e5f942e34146f71150deba94c88c2672641c701f0856b3c6f6"
     },
     {
       "creator": "Project Sunrise",
@@ -401,8 +1298,8 @@
       "notes": "Original drink stall; shares the V1 stall silhouette and is told apart by its accent colour.",
       "path": "object/sunrise.ride.refreshment_stand.parkobj",
       "files": 1,
-      "bytes": 11571,
-      "sha256": "53a629f1c745c309e72c5dd48cb89ace049839e795080959352d492bac2dea1f"
+      "bytes": 8661,
+      "sha256": "a10d5972e414e9d2c79f3c9e70de25499dc98d2460a18edd44eed629b10ef00a"
     },
     {
       "creator": "Project Sunrise",
@@ -414,8 +1311,8 @@
       "notes": "Original food stall; shares the V1 stall silhouette and is told apart by its accent colour.",
       "path": "object/sunrise.ride.grill_stand.parkobj",
       "files": 1,
-      "bytes": 11611,
-      "sha256": "163f261b97c29b4ff34c09425bccf2a76ca286d78b3602cb3121644f6c4c31ca"
+      "bytes": 8783,
+      "sha256": "71905d0b17cc4df5c73987bbabad3b9a7050d69cb7c6379eb75f57fc384b4a19"
     },
     {
       "creator": "Project Sunrise",
@@ -427,8 +1324,20 @@
       "notes": "Original souvenir stall; shares the V1 stall silhouette and is told apart by its accent colour.",
       "path": "object/sunrise.ride.gift_stand.parkobj",
       "files": 1,
-      "bytes": 11554,
-      "sha256": "243e397e49d1862cecf5a32d913b1062ed55edafb5f432c86ecbb4a4c7eae445"
+      "bytes": 8632,
+      "sha256": "ef466c30a2a048175ac77986c2e37d743fdecf15ee42f150bc0a524a26646743"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "sunrise_small-footprint",
+      "source": "assets/scenarios/small-footprint/scenario.json",
+      "generator": "StandaloneParkBuilder via build_scenario.py",
+      "path": "standalone/Scenarios/small-footprint.park",
+      "files": 1,
+      "bytes": 10904,
+      "sha256": "348dc6f51d3128a3c1c777b5cf0c52e1eb4e699c51fc4d54e08c186c9fe38e91"
     },
     {
       "creator": "Project Sunrise",
@@ -446,13 +1355,26 @@
       "creator": "Project Sunrise",
       "license": "proprietary-original",
       "modified": false,
+      "asset": "sunrise_swinging_ship_v1",
+      "source": "assets/source/blender/flat_rides.py",
+      "generator": "blender 4.2 + tools/art-pipeline/build_flat_rides.py",
+      "notes": "Original hull, supports and interleaved rider pairs through nineteen swing states.",
+      "path": "object/sunrise.ride.swinging_ship.parkobj",
+      "files": 1,
+      "bytes": 379644,
+      "sha256": "e751194ba0929b37c6d27760f282fc6ea91ecefd45c81de480bd7eb881c9f2ad"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
       "asset": "sunrise_terrain_dirt_v1",
       "source": "assets/source/blender/terrain.py",
       "generator": "blender 4.2 + tools/art-pipeline/build_world.py",
       "path": "object/sunrise.terrain_surface.dirt.parkobj",
       "files": 1,
-      "bytes": 80071,
-      "sha256": "c390ba8323d12da73f67372e2fe7f35cbfc4725f8c23892706a12e1c0c7ddc4d"
+      "bytes": 60051,
+      "sha256": "d0fa5afed8be1d14a61ecbf96084b742dce8bb78fe847521055ac8f2059334e1"
     },
     {
       "creator": "Project Sunrise",
@@ -464,8 +1386,8 @@
       "notes": "Every pixel is ours. The eighty-four sprite silhouettes are the tile side faces under the isometric projection, taken from the shapes in openrct2.terrain_edge.void (CC-BY-4.0, OpenRCT2), an object that contains no art: each of its sprites is one flat palette index.",
       "path": "object/sunrise.terrain_edge.rock.parkobj",
       "files": 1,
-      "bytes": 82760,
-      "sha256": "fbe64846d1ed9a31101101f703bbe8e554743bf21e69fd14299063d3a2b673a7"
+      "bytes": 79530,
+      "sha256": "b9f99e5430a644ddfe703f702fb897e8d11f340c13fe3f7b9859cff903815326"
     },
     {
       "creator": "Project Sunrise",
@@ -476,8 +1398,8 @@
       "generator": "blender 4.2 + tools/art-pipeline/build_world.py",
       "path": "object/sunrise.terrain_surface.grass.parkobj",
       "files": 1,
-      "bytes": 77563,
-      "sha256": "95d2897b13e257868a52f87ce0ac485fe505dcf92799cf03e76e586c05ec5938"
+      "bytes": 57292,
+      "sha256": "b828f1219c829350046a9b154ed486ead56f0e95fc390fa9a12a875f57fb5c92"
     },
     {
       "creator": "Project Sunrise",
@@ -488,8 +1410,8 @@
       "generator": "blender 4.2 + tools/art-pipeline/build_world.py",
       "path": "object/sunrise.terrain_surface.sand.parkobj",
       "files": 1,
-      "bytes": 72822,
-      "sha256": "7389f025933fa96dd290b10095df1671530b6191e350dd77ddc6f0b6795b3a92"
+      "bytes": 59105,
+      "sha256": "d20084c77d2e02b98d57e4336a9cd9f94df14fc539e11a3223ca3b9fb9241df4"
     },
     {
       "creator": "Project Sunrise",
@@ -500,8 +1422,8 @@
       "generator": "blender 4.2 + tools/art-pipeline/build_world.py",
       "path": "object/sunrise.terrain_surface.stone.parkobj",
       "files": 1,
-      "bytes": 79390,
-      "sha256": "09049979cf11ef924ca4dea725bc13d471e0596a25b230071f2ee8b2d7d50db8"
+      "bytes": 59512,
+      "sha256": "6372ea80ba32f07eb9788d648d7234e1d5f64193ef985022b9e4122de1816985"
     },
     {
       "creator": "Project Sunrise",
@@ -513,8 +1435,8 @@
       "notes": "A development park that exercises the runtime end to end. Moved to DevScenarios in V1-4 when First Park replaced it as the scenario a player starts.",
       "path": "standalone/DevScenarios/sunrise-test.park",
       "files": 1,
-      "bytes": 8405,
-      "sha256": "95298f26f63d0296ee1314da65d0363554c7001b413c7050efb5b1c23b06c61b"
+      "bytes": 8408,
+      "sha256": "ebbc7130e0880ea0265f729439da384ac465ebdea3e0904dbfe87fa261863295"
     },
     {
       "creator": "Project Sunrise",
@@ -526,8 +1448,21 @@
       "notes": "A development scene that shows every world material, slope, edge and path combination in one view. Shipped in DevScenarios, which the engine's scenario repository never scans, so it cannot reach the player-facing selector.",
       "path": "standalone/DevScenarios/world-art-test.park",
       "files": 1,
-      "bytes": 11685,
-      "sha256": "7077b4c0dc050fc45a9560e196695c0b6ca531b2e854e66c3ccaf59f30fd20cb"
+      "bytes": 11690,
+      "sha256": "7e5c34d28b5199e2bf85292197618c6f7b7acc35e6ced4ae374fe99865030f3a"
+    },
+    {
+      "creator": "Project Sunrise",
+      "license": "proprietary-original",
+      "modified": false,
+      "asset": "timber_log_boat",
+      "source": "tools/art-pipeline/build_water_rides.py",
+      "generator": "Original projected polygon boat sprites",
+      "notes": "Original boat geometry and palette; no commercial game sprites.",
+      "path": "object/sunrise.ride.log_flume.parkobj",
+      "files": 1,
+      "bytes": 109343,
+      "sha256": "00874e5220b66743a180cba2d553060ba0d452abe3b4b59dd3c613e180acc7ad"
     }
   ],
   "undeclaredFiles": [],

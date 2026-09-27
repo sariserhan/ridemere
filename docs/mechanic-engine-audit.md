@@ -145,8 +145,96 @@ A sequence is a list of indices into the rendered frames, so length is bought by
 frames out and back rather than by rendering a hundred of them. That is how the handyman
 was fixed and it is why a 102-frame animation costs no more art than a 12-frame one.
 
+## Inspections
+
+Fully supported, and switched off in everything we ship until now.
+
+`RideUpdateInspection` (Ride.cpp:1035) marks a ride due when `lastInspection` passes
+the interval, sets `mechanicStatus = calling`, and picks the first station with an
+exit. A mechanic with `STAFF_ORDERS_INSPECT_RIDES` is then dispatched through the same
+`Staff::updateFixing` a repair uses, with substate table index 8.
+
+**An inspection reduces breakdowns, through the simulation rather than by a flag.** It
+ends in the same `RideFixBreakdown(ride, steps)` a repair does (Staff.cpp:2578), and
+that function finishes with
+
+```cpp
+uint8_t unreliability = 100 - ride.reliabilityPercentage;
+ride.reliability += reliabilityIncreaseFactor * (unreliability / 2);
+```
+
+`reliability` is what the breakdown roll is made against (Ride.cpp:1142), so inspecting
+a ride makes it break down less often. Nothing about that is special-cased for
+inspections; a repair raises reliability the same way.
+
+The interval is `RideInspection`: every 10, 20, 30 or 45 minutes, hourly, every two
+hours, or never. **The standalone builder passed `never` for every ride it has ever
+created**, which is why the first breakdown probe reported `inspectionInterval: 6`. It
+is now a scenario field, still defaulting to `never`.
+
 ## What this means for the object
 
 The mechanic needs, beyond the common walking set: `staffAnswerCall`, `staffAnswerCall2`,
 `staffCheckBoard`, `staffFix`, `staffFix2`, `staffFix3`, `staffFixGround`. Their
 `PeepAnimationType` indices are 18–24 (`Peep.h:181`).
+
+## What a scenario can and cannot set about wear
+
+Three fields look settable and only one is. Each of the other two was written, shipped,
+and found to do nothing.
+
+`reliability` **can** be set, but only on a ride the engine considers to have been opened.
+`FinancePayRideUpkeep` (`management/Finance.cpp`) runs on a fortnight tick and calls
+`ride.renew()` on every ride without `RideFlag::everBeenOpened`, and `renew()` resets
+reliability to `kRideInitialReliability`. The flag is set by `Ride::open`
+(`ride/Ride.cpp`), so `StandaloneParkBuilder` opens the ride once and closes it again when
+a scenario ships a worn ride closed. A closed ride does not age either —
+`RideBreakdownUpdate` returns early for `RideStatus::closed` — so the ride waits at the
+requested wear until the player opens it, and the breakdown clock starts on the player's
+action rather than on the park loading.
+
+`unreliabilityFactor` **cannot** be set by a scenario at all. `SetUnreliabilityFactor`
+(`ride/RideRatings.cpp`) recomputes it from the ride type's base `Unreliability` and the
+ride's design every time the ratings are recalculated, which happens while the ride is
+open. A value written by the builder survives the save, reads back correctly at load, and
+is replaced the moment the player presses open. For the hybrid coaster the figure is
+`16 + (liftHillSpeed - 5) * 2`, bounded at 28 by `LiftData = { sound, 5, 11 }`. The builder
+refuses the field rather than accepting it.
+
+`inspectionInterval` can be set, and does nothing without an employed mechanic:
+`lastInspection` is only cleared in mechanic code (`entity/Staff.cpp`). It reduces
+breakdowns after the player hires someone; it is not a lever on the first one.
+
+## Engine-semantic characterization test
+
+`wasm/test/breakdownmonotonic.js` is not a regression test on our code and is not in
+`run-m3-tests.sh`. It characterises the engine's breakdown process, costs about ninety
+minutes, and exists because an exploratory sweep produced a perfectly inverted ordering
+that turned out to be luck.
+
+    cd wasm/test && node breakdownmonotonic.js 20 4
+
+**Invariant.** Two parks differing only in `ride.reliability` consume identical randomness
+until one of them accepts a breakdown, because reliability is not an input to anything
+else in the simulation. The roll
+
+    ScenarioRand() & 0x2FFFFF <= 1 + kRideInitialReliability - ride.reliability
+
+is therefore made at the same tick against the same value, and the worn ride's threshold
+is strictly wider. So its first acceptance must fall in the same 256-tick window or an
+earlier one — always, not usually. A violation cannot be explained by an unlucky seed.
+
+The comparison is on acceptance (`breakdownPending`), not on `brokenDown`: restraints,
+doors and vehicle malfunctions stay pending until the affected car is next used, so
+comparing visible state manufactures false violations. One window of sampling slack is
+allowed and stated, because an acceptance seen at poll time can be one window late but
+never early; raw ticks are printed so a violation can be read without the tolerance.
+
+**Rerun after any upstream engine change touching ride breakdowns, RNG, reliability,
+vehicles or ride ratings.** If it fails, stop tuning wear and trace RNG consumption and
+breakdown eligibility first.
+
+**Last passing engine revision:** `627beb8d7656fb1534ad9928a812987954b0d35f` (2026-09-25),
+3 of 4 seeds comparable, no violations. On that run every comparison was the weak form —
+the worn ride accepted and the fresh one never did — so the decisive direction was tested
+but a both-accepted ordering was not observed.

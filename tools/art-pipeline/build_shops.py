@@ -38,12 +38,8 @@ OBJECTS = os.path.join(REPO, "assets", "generated", "objects")
 PREVIEW_SLOTS = 3
 DIRECTIONS = 4
 
-#: The five objects, each with the accent that tells it apart at a glance.
-#:
-#: `sells` was chosen with the guest animation groups in mind. Burger and drink put a
-#: guest into groups 14 and 15, which our guest object covers by falling back to its
-#: walking animation. Chicken and lemonade are groups 33 and 34, past the end of that
-#: object, and are deliberately not used.
+# The bundled guest object covers all 35 animation groups, with unspecified
+# product-carrying poses falling back to walking (build_peeps.py).
 SHOPS = [
     {
         "key": "shop_food",
@@ -86,21 +82,35 @@ SHOPS = [
         "id": "sunrise.ride.information_point",
         "name": "Information Point",
         "type": "information_kiosk",
-        "sells": None,
+        "sells": ["map", "umbrella"],
         "accent": "orange",
         "second": "tan",
     },
 ]
 
+# All use original Ridemere stall art and the engine's actual sale/facility types.
+for key, name, source, kind, item, accent in [
+    ("pizza_stand", "Pizza Kitchen", "shop_food", "food_stall", "pizza", "red"),
+    ("ice_cream_stand", "Ice Cream Parlour", "shop_food", "food_stall", "ice_cream", "purple"),
+    ("chips_stand", "Fries Stand", "shop_food", "food_stall", "chips", "orange"),
+    ("popcorn_stand", "Popcorn Cart", "shop_food", "food_stall", "popcorn", "tan"),
+    ("coffee_stand", "Coffee House", "shop_drink", "drink_stall", "coffee", "brown"),
+    ("balloon_stand", "Balloon Shop", "shop_souvenir", "shop", "balloon", "blue"),
+    ("first_aid", "First Aid", "facility_restroom", "first_aid", None, "red"),
+    ("cash_machine", "Cash Machine", "facility_information", "cash_machine", None, "teal"),
+]:
+    SHOPS.append(dict(key=source, id=f"sunrise.ride.{key}", name=name, type=kind, sells=item, accent=accent, second="grey"))
+
+
 
 def colourway(spec: dict) -> Dict[str, List[int]]:
     """Map the render's hue tags onto this object's materials."""
     scheme = dict(spritepack.WORLD_COLOURWAY)
-    scheme["skin"] = pal.ramp("beige")        # structure: the counter or cabin body
-    scheme["trousers"] = pal.ramp("grey")     # structure2: posts and frame
-    scheme["shirt"] = pal.ramp(spec["accent"])
-    scheme["hair"] = pal.ramp(spec["second"])
-    scheme["accessory"] = pal.ramp(spec["second"])
+    scheme["skin"] = pal.ramp("beige")[3:9]   # structure: the counter or cabin body
+    scheme["trousers"] = pal.ramp("grey")[2:8]  # structure2: posts and frame
+    scheme["shirt"] = pal.ramp(spec["accent"])[3:9]
+    scheme["hair"] = pal.ramp(spec["second"])[3:9]
+    scheme["accessory"] = pal.ramp(spec["second"])[3:9]
     scheme["trim"] = pal.ramp("grey")
     return scheme
 
@@ -144,7 +154,7 @@ def build(spec: dict, manifest: dict) -> dict:
         "carsPerFlatRide": 1,
     }
     if spec["sells"] is not None:
-        properties["sells"] = spec["sells"]
+        properties["sells"] = spec["sells"] if isinstance(spec["sells"], list) else [spec["sells"]]
 
     object_json = {
         "id": spec["id"],

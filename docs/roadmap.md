@@ -10,8 +10,8 @@ download. Chromium, Firefox and WebKit all run it.
 | Phase | Milestones | Status |
 |---|---|---|
 | Feasibility | M0, M2, M3, M3b, M3c, M3d, M3e, M3f | **closed** |
-| Product definition | V1 product plan | this document set, under review |
-| V1 production | V1-0 to V1-13 | not started |
+| Product definition | V1 product plan | accepted; production underway |
+| V1 production | V1-0 to V1-13 | V1-0–V1-7 complete; V1-8 partially complete |
 | V1.1 | accounts, cloud saves, park pages, original trains, interface phase 2 | planned |
 | Later | coaster sharing, challenges, themed content packs, research | planned |
 
@@ -44,18 +44,18 @@ Sequence in `docs/v1-production-plan.md`. Look in `docs/art-direction.md`. Web s
 
 ## Open questions
 
-* The product name. Twenty candidates are listed; none is chosen. This blocks the
-  interface milestone.
 * Whether the four open coaster trains are acceptable for launch, or whether original
   trains must be in V1 rather than V1.1.
-* Whether the ferris wheel earns its 544 sprites.
+* Modern twister needs original replacement art for its legacy track fallback.
 * Performance on a park larger than the test park. Unmeasured.
 * Thirty-eight original sound effects: who makes them, and to what standard.
 
 ## Next step
 
-Review the V1 plan. If it is accepted, the first implementation milestone is **V1-0,
-product shell and saves**.
+**V1-8, remaining coaster work**: alpine and single rail are integrated. Modern
+twister is excluded because its painter falls back to legacy track sprites. Resolve
+that artwork requirement or revise the launch roster, then continue with V1-9 guest
+visual diversity. V1-7 includes all five flat rides.
 
 ## V1-0 complete (2026-09-24)
 
@@ -193,3 +193,43 @@ What V1-5 learned that shapes it:
   every scene runs at 60 fps and 40 ticks a second — First Park decorated, First Park
   bare, First Park at 250 guests, and the density scene with 1,070 objects on it. What
   costs frames is the window size and the guest count, not the scenery.
+
+
+## V1-6 complete (2026-09-26)
+
+First Park now ships with breakdowns enabled, an 80%-reliable coaster and ten-minute
+inspections. Its maintenance lesson follows the real breakdown, hiring and repair
+states, including after saving and resuming. The mechanic repairs every supported
+failure and guests return afterwards. The handyman's cleaning and animation checks
+continue to pass.
+
+The release also updates cached content independently of the engine revision and
+stops simulation, workers and audio when the player leaves the game. First download
+is 9.96 MB. Breakdown timing remains random; broader pacing and economic balance
+belong to V1-10. See [the status](status.md) for acceptance evidence.
+
+Next: **V1-7, flat rides**.
+
+## V1-7 complete; V1-8 partially complete (2026-09-26)
+
+All five flat rides are integrated, including the ferris wheel. Each has original
+models, animation, riders, build previews and shared structure art. Real guest
+sessions, save/load, four camera angles and paid player construction pass for all
+five. Alpine and single rail also pass those checks and join the existing hybrid.
+New First Parks expose the expanded catalog; older parks keep their saved objects.
+
+Modern twister remains excluded: its alternate painter delegates ordinary rail
+pieces to legacy artwork. The ride worked mechanically but failed the sprite audit,
+so V1-8 is explicitly partial. Details: [expanded ride catalog](flat-rides.md).
+
+
+## V1 content integrated; acceptance remains (2026-09-26)
+
+All three scenarios, 36 guest appearances, 64 base effects, three additional ride
+sounds and three music tracks are integrated. Players can choose any scenario,
+see objective completion and retain a rescue download when saving fails. The larger
+park has been measured and saved with 1,000 guests. The first download is 20.93 MB.
+
+Next work is acceptance: modern-twister artwork, sustained economic/playtime tuning,
+audio listening and mixing, extra sound events and broader device/long-session QA.
+See [the latest status](status.md) for the precise completed and pending work.

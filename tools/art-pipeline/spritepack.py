@@ -234,7 +234,7 @@ def image_entry(rel_path: str, offsets: Dict[str, int]) -> Dict[str, object]:
     }
 
 
-def write_parkobj(path: str, object_json: dict, files: Dict[str, str]) -> int:
+def write_parkobj(path: str, object_json: dict, files: Dict[str, str], store_images: bool = False) -> int:
     """Zip an object. `files` maps in-archive path -> source path on disk."""
     import zipfile
 
@@ -244,5 +244,5 @@ def write_parkobj(path: str, object_json: dict, files: Dict[str, str]) -> int:
     with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as archive:
         archive.writestr("object.json", json.dumps(object_json, indent=1))
         for archive_path, disk_path in sorted(files.items()):
-            archive.write(disk_path, archive_path)
+            archive.write(disk_path, archive_path, compress_type=zipfile.ZIP_STORED if store_images else zipfile.ZIP_DEFLATED)
     return os.path.getsize(path)

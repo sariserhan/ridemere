@@ -34,12 +34,12 @@ THEME_NAME = "Ridemere"
 #: near-neutral the whole interface is built on; `light_orange` is the one accent a
 #: player will associate with the product.
 ROLE = {
-    "chrome": "dull_brown_dark",      # window bodies and title bars
-    "panel": "saturated_brown_light",  # content areas inside a window
+    "chrome": "grey",      # window bodies and title bars
+    "panel": "grey",  # content areas inside a window
     "accent": "light_orange",          # the primary accent
-    "toolbar": "dull_brown_dark",      # the top toolbar
-    "status": "dull_brown_dark",       # the bottom status bar
-    "alert": "bordeaux_red_dark",      # errors and demolition
+    "toolbar": "grey",      # the top toolbar
+    "status": "grey",       # the bottom status bar
+    "alert": "bordeaux_red",      # errors and demolition
     "money": "dark_olive_green",       # finance
 }
 

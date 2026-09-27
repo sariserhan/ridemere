@@ -74,7 +74,7 @@ It survives almost intact. The changes, with reasons:
 
 | Item | Hypothesis | Recommendation | Why |
 |---|---|---|---|
-| Coasters | 4 | **4** | four open objects exist with complete open track art, verified |
+| Coasters | 4 | **3 shipped; fourth pending** | hybrid, alpine and single rail verified; modern twister uses legacy rail art |
 | Flat rides | 5 | **5, in a specific order** | the ferris wheel costs four times a carousel; it goes last and is cuttable |
 | Shops | 3 | **3** | food, drink, souvenir; four sprites each |
 | Facilities | 2 | **2** | toilets and information; first aid deferred |
@@ -90,16 +90,17 @@ It survives almost intact. The changes, with reasons:
 
 ### Coasters
 
-All four open coasters, because they are the only ride objects in existence that we can
-legally ship, their track art is complete and open, and one of them is already proven
-end to end in our own park.
+The target was four open coaster objects. Runtime validation confirmed hybrid, alpine
+and single rail. Modern twister is excluded: its alternate painter still delegates
+ordinary pieces to legacy artwork. An open train object does not establish complete
+track coverage.
 
 | Ride | Role | Beginner friendly | Advanced layouts |
 |---|---|---|---|
 | Alpine coaster | first coaster a player builds; slow, cheap, forgiving | **yes** | no |
 | Hybrid coaster | the signature ride; full piece set including inversions | no | **yes** |
 | Single rail coaster | distinctive silhouette, high intensity, small footprint | no | yes |
-| Modern twister (LSM launched) | launched, dramatic, teaches intensity and nausea | no | yes |
+| Modern twister (LSM launched), pending art | launched, dramatic, teaches intensity and nausea | no | yes |
 
 This satisfies both constraints: alpine is the beginner ride, hybrid and single rail
 support advanced custom layouts.

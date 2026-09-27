@@ -26,11 +26,12 @@ platform and community, not a proprietary engine.
 | OpenRCT2/OpenSoundEffects | v1.0.6 | code MIT; sounds CC-BY-4.0 | `assets.zip: assetpack/openrct2.sound.parkap` | attribution |
 | OpenRCT2/OpenMusic | v1.6.1 | CC-BY-SA-4.0 (some tracks public domain) | `assets.zip: assetpack/openrct2.music.*.parkap` | attribution; **share-alike** for derivatives of these tracks; do not present as our original music |
 | OpenRCT2/libsawyer `gxc` | v1.4.0 | MIT | build tool only, not shipped | none for output |
+| three.js | 0.186.1 | MIT | web 3D renderer | notice in `/licenses/three.txt`, linked from credits |
 | JSZip | 3.10.1 | MIT | loaded from jsdelivr by `index.html` | attribution if vendored |
 | OpenRCT2/OpenGraphics | 930b014 (2026-01) | **GPL-3.0** (art under GPL) | not used: 19 objects / 82 sprites, no g1 replacement, and the engine ignores its graphics asset pack (see `open-graphics-coverage.md`) | if any of it is ever adopted, those sprites are GPL and bind derivatives; keep separate from our packs |
 | OpenRCT2/Blender-RCT-Graphics add-on | v0.6.1 | GPL-3.0 | reference for our own render pipeline (camera, lighting, palette settings) | using its *settings* is fine; copying its code makes our tooling GPL (acceptable for tools, but keep tools and assets separate) |
 | X7123M3-256/TrackRender | 2023 | **no licence file** | reference only | not reusable; do not copy |
-| `openrct2.ride.{hybrid_coaster,single_rail_coaster,modern_twister,alpine_coaster}` | objects v1.7.11 | CC-BY-4.0 (authors incl. Edward Calver) | complete open coaster track + train sprites, candidate V1 coasters | attribution in credits |
+| `openrct2.ride.{hybrid_coaster,single_rail_coaster,modern_twister,alpine_coaster}` | objects v1.7.11 | CC-BY-4.0 (authors incl. Edward Calver) | open train sprites; hybrid, alpine and single rail have open track; modern twister still needs legacy-track replacements | attribution in credits |
 | `rct2dlc.ride.zpanda` (junior RC trains) | objects v1.7.11 | in the CC-BY repo but authored by Chris Sawyer / Simon Foster (RCT2 DLC) | **do not ship**: provenance is original-game art | |
 | Custom objects embedded in the title-sequence parks | title-sequences v0.4.26 | per-object, mostly unstated | not shipped in our title sequence | |
 
@@ -52,3 +53,18 @@ RCT2 installation from a zip they select locally; it stays in that browser's Ind
 
 "OpenRCT2" and "RollerCoaster Tycoon" appear in this repo only to describe the upstream engine and the data
 it expects. Product branding is a separate, later decision (working codename per spec: Project Sunrise).
+
+
+### V1 sound and music integration (2026-09-26)
+
+`sunrise.audio.base` combines 38 original synthesized effects with 26 unmodified
+OpenSoundEffects v1.0.6 sample slots; playback modifiers reduce their mix level.
+Open sample attribution: Karst van Galen Last, Ted John (crowd), Dan_AudioFile (cash),
+and tosha73 (dinghy slide); brake-fix source samples are CC0. OpenSoundEffects audio
+is CC-BY-4.0. The separate additional-audio object is copied unmodified.
+
+Three unmodified OpenMusic v1.6.1 recordings are distributed under CC-BY-SA-4.0:
+“Bumblebeat” (Karst van Galen Last / Jalmaan), “Mystic Winds” (Skyshard), and “Rush”
+(Blackened Blue). Their recordings are not relicensed as proprietary originals.
+The player-facing `/credits` page carries these credits and license links. The
+provenance manifest tracks the mixed sound object and each music object separately.

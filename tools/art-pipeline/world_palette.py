@@ -57,7 +57,7 @@ class Material:
 #: to win the eye against thousands of tiles of it. Paths are lighter than terrain so
 #: guests and queues read against them.
 MATERIALS: Dict[str, Material] = {
-    "grass": Material("green", 7, 1, 4, 0.22, "soft variation with a slight tuft character"),
+    "grass": Material("green", 6, 1, 7, 0.10, "soft variation with a slight tuft character"),
     "dirt": Material("tan", 5, 1, 3, 0.26, "warm earth with sparse granular breakup"),
     "sand": Material("beige", 8, 1, 5, 0.16, "light warm surface, minimal patterning"),
     "stone": Material("grey", 4, 1, 6, 0.26, "cool neutral with a subtle slab treatment"),
@@ -70,7 +70,7 @@ MATERIALS: Dict[str, Material] = {
     "path_stone": Material("grey", 9, 1, 5, 0.22, "decorative stone slabs"),
     "path_wood": Material("tan", 8, 1, 4, 0.22, "warm timber decking"),
     "path_queue": Material("blue_grey", 9, 1, 6, 0.16, "queue space, cooler with a centre stripe"),
-    "cliff": Material("tan", 4, 2, 5, 0.40, "warm soil and rock beneath every surface"),
+    "cliff": Material("tan", 4, 1, 8, 0.12, "warm soil and rock beneath every surface"),
     "railing": Material("grey", 8, 1, 3, 0.18, "clean painted metal"),
     "support": Material("grey", 5, 1, 4, 0.22, "structure beneath a path"),
 }

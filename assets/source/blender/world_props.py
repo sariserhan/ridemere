@@ -139,6 +139,13 @@ def cabin(body_part: str, roof_part: str, trim_part: str):
     objects.append(rig.box(
         "cabin_sign", trim_part, (width * 0.5, 0.1, 0.34),
         origin=(0.0, -width * 0.5, height * 0.68), pivot="bottom"))
+    # High ventilation windows keep the side/rear cabin views readable as a
+    # building, rather than an unbroken block after noise-free rendering.
+    objects.append(rig.box("cabin_rear_vent", trim_part, (width * .48, .08, .22),
+                           origin=(0, width * .5, height * .67), pivot="bottom"))
+    for side in (-1, 1):
+        objects.append(rig.box(f"cabin_side_vent_{side}", trim_part, (.08, width * .48, .22),
+                               origin=(side * width * .5, 0, height * .67), pivot="bottom"))
     return objects
 
 

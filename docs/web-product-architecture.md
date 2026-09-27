@@ -244,3 +244,5 @@ deliberately triggered by the matching alert. The alert says what is wrong; the
 instruction says how to fix it. Neither repeats the other.
 
 The instruction stops once the guided opening is finished. The objective stays.
+
+Game entry from `/` or `/parks` uses a full document navigation (`window.location.assign`) for both new scenarios and saved parks. A client-side router transition cannot enable cross-origin isolation on an already-loaded non-isolated document, even if `/play` has the correct response headers. This is required for SharedArrayBuffer and the WASM worker pool. Navigation between ordinary shell pages can remain client-side.

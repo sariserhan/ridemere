@@ -35,7 +35,16 @@ const money = v => `$${(v / 10).toFixed(2)}`;
     const litter = async () => JSON.parse(await call('SunriseLitterCountJson', 'string', [], [])).litter;
     const staff = async () => JSON.parse(await call('SunriseStaffListJson', 'string', [], []));
     const run = async (seconds) => {
-      for (let i = 0; i < Math.ceil(seconds / 3); i++) { await p.mouse.move(640, 400); await sleep(3000); }
+      for (let i = 0; i < Math.ceil(seconds / 3); i++) {
+        await p.mouse.move(640, 400);
+        await sleep(3000);
+        const state = JSON.parse(await call('SunriseScenarioStateJson', 'string', [], []));
+        if (state.rideBroken && state.mechanics === 0) {
+          const hired = await call('SunriseHireMechanic', 'number', [], []);
+          console.log(`breakdown lesson: hire mechanic=${hired}`);
+          if (hired !== 1) throw new Error('First Park could not hire its mechanic');
+        }
+      }
     };
     const note = async (label) => {
       const s = await stats();
@@ -81,7 +90,7 @@ const money = v => `$${(v / 10).toFixed(2)}`;
     // Step 7: litter. Let it accumulate, then hire the handyman the alert asks for.
     for (let i = 0; i < Math.max(0, minutes - 6); i++) {
       await run(60);
-      await note(`minute ${6 + i + 1}`);
+      await note(`minute ${3 + i + 1}`);
     }
 
     const beforeStaff = await note('before handyman');

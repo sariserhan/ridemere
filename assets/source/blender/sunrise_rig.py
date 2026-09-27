@@ -80,7 +80,7 @@ def reset_scene() -> None:
     scene = bpy.context.scene
     scene.render.engine = "CYCLES"
     scene.cycles.device = "CPU"
-    scene.cycles.samples = 1
+    scene.cycles.samples = 32
     scene.cycles.use_denoising = False
     # Direct light only: no colour bleeding between parts, so hues stay pure.
     scene.cycles.max_bounces = 0
@@ -96,6 +96,8 @@ def reset_scene() -> None:
     scene.render.image_settings.compression = 0
     scene.view_settings.view_transform = "Standard"  # no filmic tone curve
     scene.view_settings.look = "None"
+    # Preserve direct-light shading before the 8-bit tag render clips to white.
+    scene.view_settings.exposure = -1.2
 
 
 def setup_world(strength: float = 0.45) -> None:

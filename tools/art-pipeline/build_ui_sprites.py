@@ -89,6 +89,19 @@ class Canvas:
             self.rect(x, y, x + width - 1, y + width - 1, colour)
 
 
+def guest_count_arrow(down: bool) -> Canvas:
+    canvas = Canvas(10, 10)
+    colour = RED if down else GREEN
+    canvas.line(4, 2, 4, 7, colour, 2)
+    if down:
+        canvas.line(2, 5, 4, 7, colour)
+        canvas.line(5, 7, 7, 5, colour)
+    else:
+        canvas.line(2, 4, 4, 2, colour)
+        canvas.line(5, 2, 7, 4, colour)
+    return canvas
+
+
 def _button(fill: int = PAPER) -> Canvas:
     canvas = Canvas()
     canvas.rect(2, 2, 21, 21, fill)
@@ -850,6 +863,53 @@ def button_map() -> Canvas:
     return _symbol_button(glyph)
 
 
+def construction_track_icon(index: int) -> Canvas:
+    """Original track geometry controls, sized for the native construction window."""
+    c = Canvas(24, 24)
+    if index in (5160, 5161):
+        direction = -1 if index == 5160 else 1
+        c.line(5, 12, 19, 12, ACCENT, 3)
+        tip = 12 + direction * 7
+        c.line(tip, 12, tip - direction * 6, 6, ACCENT, 3)
+        c.line(tip, 12, tip - direction * 6, 18, ACCENT, 3)
+    elif index == 5163:
+        for y in range(4, 19, 4):
+            c.outline(8, y, 14, y + 5, ACCENT)
+    elif index == 5164:
+        c.line(4, 19, 19, 4, ACCENT, 4)
+        c.line(13, 4, 20, 11, EDGE, 4)
+    elif index in (5153, 5154, 5155):
+        tilt = (index - 5154) * 5
+        c.line(4, 12 + tilt, 20, 12 - tilt, ACCENT, 3)
+        c.line(12, 13, 12, 20, EDGE, 2)
+    elif index in (5144, 5148, 5149, 5150):
+        up = index in (5148, 5149)
+        x0, x1 = (10, 13) if index >= 5149 else (6, 18)
+        c.line(x0, 20 if up else 4, x1, 4 if up else 20, ACCENT, 3)
+    elif index in (5151, 5152):
+        c.ring(12, 10, 8, 5, ACCENT)
+        c.line(5, 12, 18, 20 if index == 5151 else 3, EDGE, 2)
+    elif index in (5156, 5157, 5158, 5159):
+        c.line(5, 6, 5, 18, ACCENT, 3)
+        c.line(5, 18, 19, 18, BLUE if index == 5159 else ACCENT, 3)
+        c.line(19, 18, 19, 6, ACCENT, 3)
+        if index == 5157:
+            c.line(5, 6, 19, 6, ACCENT, 3)
+        if index == 5158:
+            c.line(5, 9, 19, 9, EDGE, 2)
+    else:
+        points = [(12, 21), (12, 3)]
+        if index != 5137:
+            left = index % 2 == 0
+            radius = 7 if index in (5140, 5141) else 11 if index in (5138, 5139) else 15
+            points = [(12, 21), (12, 15), (12 + (-4 if left else 4), 9),
+                      (max(2, 12-radius) if left else min(22, 12+radius), 5)]
+        for a, b in zip(points, points[1:]):
+            c.line(*a, *b, EDGE, 5)
+            c.line(*a, *b, ACCENT, 2)
+    return c
+
+
 def _slope(direction: int) -> Canvas:
     """Ride construction slope buttons: down, level, up."""
     canvas = Canvas(24, 24)
@@ -917,11 +977,56 @@ def footpath_bridge() -> Canvas:
     return _symbol_button(glyph)
 
 
+def tab_carousel() -> Canvas:
+    c = Canvas()
+    c.triangle((12, 2), 10, 8, ACCENT)
+    for x in (5, 11, 18):
+        c.line(x, 10, x, 19, EDGE)
+        c.rect(x-1, 14, x+2, 16, PAPER)
+    c.rect(3, 20, 21, 22, ACCENT_DARK)
+    return c
+
+
+def tab_transport() -> Canvas:
+    c = Canvas()
+    c.rect(2, 7, 21, 17, GREEN_DARK)
+    for x in (4, 10, 16): c.rect(x, 9, x+3, 12, PAPER)
+    for x in (6, 17): c.disc(x, 19, 3, INK)
+    return c
+
+
+def tab_thrill() -> Canvas:
+    c = Canvas()
+    c.rect(10, 2, 13, 21, EDGE)
+    c.rect(4, 7, 19, 11, ACCENT)
+    c.line(3, 22, 21, 22, INK, 2)
+    return c
+
+
+def entrance_arrow(direction: int) -> Canvas:
+    c=Canvas()
+    dx,dy=((1,-1),(1,1),(-1,1),(-1,-1))[direction]
+    c.line(11-dx*8,11-dy*5,11+dx*8,11+dy*5,ACCENT_DARK,3)
+    c.line(11-dx*8,10-dy*5,11+dx*8,10+dy*5,ACCENT,2)
+    c.disc(11+dx*8,11+dy*5,3,PAPER)
+    return c
+
+
+def ride_preview_mask() -> Canvas:
+    c = Canvas(112, 112)
+    c.rect(0, 0, 111, 111, 255)
+    return c
+
+
 UI_SPRITES: Dict[int, Tuple[str, Callable[[], Canvas]]] = {
-    # 5130 is unnamed in SpriteIds.h, sitting in the gap between the staff costume
-    # icons (..5128) and the ride construction icons (5137..). It is requested a
-    # handful of times while a ride window is open, so it is treated as a window tab.
-    5130: ("window_tab_generic", icon_tab),
+    3111: ("entrance_arrow_ne", lambda: entrance_arrow(0)),
+    3112: ("entrance_arrow_se", lambda: entrance_arrow(1)),
+    3113: ("entrance_arrow_sw", lambda: entrance_arrow(2)),
+    3114: ("entrance_arrow_nw", lambda: entrance_arrow(3)),
+    29013: ("ride_preview_mask", ride_preview_mask),
+    # en-GB STR_1847/1848 embeds 0x140B / 0x140A as little-endian inline sprites.
+    5130: ("guest_count_increasing", lambda: guest_count_arrow(False)),
+    5131: ("guest_count_decreasing", lambda: guest_count_arrow(True)),
     # Drawn in place of scrolling banner text whenever the view is zoomed out.
     1574: ("scrolling_text_default", scrolling_text_default),
     # SPR_RESIZE, drawn in the corner of every resizable window.
@@ -935,6 +1040,8 @@ UI_SPRITES: Dict[int, Tuple[str, Callable[[], Canvas]]] = {
     5199: ("tab_plate_active", lambda: tab_shape(True)),
     # Window buttons.
     5059: ("button_palette", button_palette),
+    **{index: (f"construction_track_{index}", lambda index=index: construction_track_icon(index))
+       for index in range(5137, 5165) if index not in (5145, 5146, 5147, 5162)},
     5145: ("construction_slope_down", slope_down),
     5146: ("construction_slope_level", slope_level),
     5147: ("construction_slope_up", slope_up),
@@ -1041,6 +1148,12 @@ _run(5423, 1, "tab_marketing", tab_marketing)
 _run(5442, 16, "tab_ride", tab_ride)
 _run(5511, 1, "tab_objective", tab_objective)
 _run(5527, 1, "tab_awards", tab_awards)
+_run(5530, 7, "ride_category_shops", tab_shop)
+_run(5537, 5, "ride_category_transport", tab_transport)
+_run(5542, 4, "ride_category_gentle", tab_carousel)
+_run(5546, 5, "ride_category_coasters", tab_ride)
+_run(5551, 6, "ride_category_water", icon_water)
+_run(5557, 7, "ride_category_thrill", tab_thrill)
 _run(5568, 8, "tab_guests", tab_guests)
 
 

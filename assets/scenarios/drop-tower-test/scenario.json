@@ -1,0 +1,185 @@
+{
+  "name": "Drop Tower Test",
+  "details": "Development-only original flat ride acceptance park.",
+  "visibility": "development",
+  "difficulty": "beginner",
+  "blurb": "Open your first coaster, look after your guests, and grow the park.",
+  "mapTiles": 32,
+  "initialCash": 20000,
+  "loan": 0,
+  "maxLoan": 20000,
+  "interestRate": 5,
+  "freeParkEntry": true,
+  "breakdowns": false,
+  "objective": {
+    "type": "guestsAndRating",
+    "guests": 200
+  },
+  "view": {
+    "x": 20,
+    "y": 10
+  },
+  "pathSurface": "sunrise.footpath_surface.paved",
+  "queueSurface": "sunrise.footpath_surface.queue",
+  "pathRailings": "sunrise.footpath_railings.metal",
+  "guests": {
+    "hunger": 60,
+    "thirst": 90,
+    "cash": 70,
+    "happiness": 200
+  },
+  "objects": [
+    "sunrise.terrain_surface.grass",
+    "sunrise.terrain_surface.dirt",
+    "sunrise.terrain_surface.sand",
+    "sunrise.terrain_surface.stone",
+    "sunrise.terrain_edge.rock",
+    "sunrise.footpath_surface.paved",
+    "sunrise.footpath_surface.stone",
+    "sunrise.footpath_surface.wood",
+    "sunrise.footpath_surface.queue",
+    "sunrise.footpath_railings.metal",
+    "sunrise.footpath_item.bench",
+    "sunrise.footpath_item.bin",
+    "sunrise.station.plain",
+    "sunrise.park_entrance.arch",
+    "sunrise.peep_names.visitors",
+    "sunrise.climate.temperate",
+    "sunrise.peep_animations.guest",
+    "sunrise.peep_animations.handyman",
+    "openrct2.ride.hybrid_coaster",
+    "sunrise.ride.grill_stand",
+    "sunrise.ride.refreshment_stand",
+    "sunrise.ride.restroom",
+    "sunrise.ride.gift_stand",
+    "sunrise.scenery_small.tree_broadleaf",
+    "sunrise.scenery_small.tree_shade",
+    "sunrise.scenery_small.tree_column",
+    "sunrise.scenery_small.tree_evergreen",
+    "sunrise.scenery_small.tree_ornamental",
+    "sunrise.scenery_small.tree_flowering",
+    "sunrise.scenery_small.tree_young",
+    "sunrise.scenery_small.tree_dense",
+    "sunrise.scenery_small.shrub_round",
+    "sunrise.scenery_small.shrub_hedge",
+    "sunrise.scenery_small.shrub_tall",
+    "sunrise.scenery_small.shrub_topiary",
+    "sunrise.scenery_small.flowers_warm",
+    "sunrise.scenery_small.flowers_cool",
+    "sunrise.scenery_small.ornamental_grass",
+    "sunrise.scenery_small.ground_planting",
+    "sunrise.scenery_small.lamp_tall",
+    "sunrise.scenery_small.lamp_garden",
+    "sunrise.scenery_small.sign_direction",
+    "sunrise.scenery_small.sign_board",
+    "sunrise.scenery_small.planter_square",
+    "sunrise.scenery_small.planter_round",
+    "sunrise.scenery_small.bed_rectangular",
+    "sunrise.scenery_small.bed_corner",
+    "sunrise.scenery_small.prop_bollard",
+    "sunrise.scenery_small.prop_banner",
+    "sunrise.scenery_small.prop_sculpture",
+    "sunrise.scenery_small.prop_clock",
+    "sunrise.scenery_small.prop_fountain",
+    "sunrise.scenery_small.prop_picnic_table",
+    "sunrise.scenery_small.accent_pillar",
+    "sunrise.scenery_small.accent_arch",
+    "sunrise.scenery_wall.fence_metal",
+    "sunrise.scenery_wall.fence_timber",
+    "sunrise.scenery_wall.wall_stone",
+    "sunrise.scenery_group.nature",
+    "sunrise.scenery_group.garden",
+    "sunrise.scenery_group.park",
+    "sunrise.scenery_group.fences",
+    "sunrise.peep_animations.mechanic",
+    "sunrise.ride.carousel",
+    "sunrise.ride.drop_tower"
+  ],
+  "owned": {
+    "fromX": 1,
+    "fromY": 5,
+    "toX": 30,
+    "toY": 30
+  },
+  "entrance": {
+    "x": 16,
+    "y": 4,
+    "direction": 1
+  },
+  "peepSpawn": {
+    "x": 16,
+    "y": 1,
+    "direction": 3
+  },
+  "paths": [
+    {
+      "from": [
+        16,
+        1
+      ],
+      "to": [
+        16,
+        16
+      ]
+    },
+    {
+      "from": [
+        16,
+        12
+      ],
+      "to": [
+        18,
+        12
+      ]
+    },
+    {
+      "from": [
+        18,
+        11
+      ],
+      "to": [
+        18,
+        12
+      ]
+    }
+  ],
+  "queues": [
+    {
+      "from": [
+        17,
+        9
+      ],
+      "to": [
+        18,
+        9
+      ]
+    }
+  ],
+  "pathAdditions": [],
+  "scenery": [],
+  "walls": [],
+  "rides": [
+    {
+      "object": "sunrise.ride.drop_tower",
+      "station": {
+        "x": 21,
+        "y": 10,
+        "z": 112,
+        "direction": 0
+      },
+      "rideEntrance": {
+        "x": 19,
+        "y": 9,
+        "direction": 2
+      },
+      "rideExit": {
+        "x": 19,
+        "y": 11,
+        "direction": 2
+      },
+      "price": 5,
+      "open": true,
+      "towerSections": 6
+    }
+  ]
+}

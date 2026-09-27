@@ -13,8 +13,9 @@
  * a player build should not carry test content at all: it is payload nobody will load
  * and a path somebody could eventually guess.
  */
+import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
-import { copyFileSync, mkdirSync, statSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -47,6 +48,8 @@ try {
   if (error.status !== 12) throw error;
   manifest.strippedDevelopmentScenes = false;
 }
+
+manifest.contentVersion = createHash("sha256").update(readFileSync(assets)).digest("hex");
 
 writeFileSync(join(out, "manifest.json"), JSON.stringify(manifest, null, 2));
 const total = Object.values(manifest.files).reduce((a, b) => a + b, 0);

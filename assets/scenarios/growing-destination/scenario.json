@@ -1,0 +1,863 @@
+{
+  "name": "Growing Destination",
+  "details": "Build a destination for 750 guests with a park rating of at least 700. Entry costs $15 and rides are free. Balance new attractions, facilities and maintenance across a larger park.",
+  "visibility": "release",
+  "difficulty": "advanced",
+  "blurb": "A larger park, paid entry and free rides. Grow to 750 guests.",
+  "mapTiles": 64,
+  "initialCash": 18000,
+  "loan": 5000,
+  "maxLoan": 25000,
+  "interestRate": 5,
+  "freeParkEntry": false,
+  "breakdowns": true,
+  "objective": {
+    "type": "guestsAndRating",
+    "guests": 750
+  },
+  "view": {
+    "x": 25,
+    "y": 20
+  },
+  "pathSurface": "sunrise.footpath_surface.paved",
+  "queueSurface": "sunrise.footpath_surface.queue",
+  "pathRailings": "sunrise.footpath_railings.metal",
+  "guests": {
+    "hunger": 60,
+    "thirst": 90,
+    "cash": 70,
+    "happiness": 200
+  },
+  "objects": [
+    "sunrise.terrain_surface.grass",
+    "sunrise.terrain_surface.dirt",
+    "sunrise.terrain_surface.sand",
+    "sunrise.terrain_surface.stone",
+    "sunrise.terrain_edge.rock",
+    "sunrise.footpath_surface.paved",
+    "sunrise.footpath_surface.stone",
+    "sunrise.footpath_surface.wood",
+    "sunrise.footpath_surface.queue",
+    "sunrise.footpath_railings.metal",
+    "sunrise.footpath_item.bench",
+    "sunrise.footpath_item.bin",
+    "sunrise.station.plain",
+    "sunrise.park_entrance.arch",
+    "sunrise.peep_names.visitors",
+    "sunrise.climate.temperate",
+    "sunrise.peep_animations.guest",
+    "sunrise.peep_animations.handyman",
+    "openrct2.ride.hybrid_coaster",
+    "sunrise.ride.grill_stand",
+    "sunrise.ride.refreshment_stand",
+    "sunrise.ride.restroom",
+    "sunrise.ride.gift_stand",
+    "sunrise.scenery_small.tree_broadleaf",
+    "sunrise.scenery_small.tree_shade",
+    "sunrise.scenery_small.tree_column",
+    "sunrise.scenery_small.tree_evergreen",
+    "sunrise.scenery_small.tree_ornamental",
+    "sunrise.scenery_small.tree_flowering",
+    "sunrise.scenery_small.tree_young",
+    "sunrise.scenery_small.tree_dense",
+    "sunrise.scenery_small.shrub_round",
+    "sunrise.scenery_small.shrub_hedge",
+    "sunrise.scenery_small.shrub_tall",
+    "sunrise.scenery_small.shrub_topiary",
+    "sunrise.scenery_small.flowers_warm",
+    "sunrise.scenery_small.flowers_cool",
+    "sunrise.scenery_small.ornamental_grass",
+    "sunrise.scenery_small.ground_planting",
+    "sunrise.scenery_small.lamp_tall",
+    "sunrise.scenery_small.lamp_garden",
+    "sunrise.scenery_small.sign_direction",
+    "sunrise.scenery_small.sign_board",
+    "sunrise.scenery_small.planter_square",
+    "sunrise.scenery_small.planter_round",
+    "sunrise.scenery_small.bed_rectangular",
+    "sunrise.scenery_small.bed_corner",
+    "sunrise.scenery_small.prop_bollard",
+    "sunrise.scenery_small.prop_banner",
+    "sunrise.scenery_small.prop_sculpture",
+    "sunrise.scenery_small.prop_clock",
+    "sunrise.scenery_small.prop_fountain",
+    "sunrise.scenery_small.prop_picnic_table",
+    "sunrise.scenery_small.accent_pillar",
+    "sunrise.scenery_small.accent_arch",
+    "sunrise.scenery_wall.fence_metal",
+    "sunrise.scenery_wall.fence_timber",
+    "sunrise.scenery_wall.wall_stone",
+    "sunrise.scenery_group.nature",
+    "sunrise.scenery_group.garden",
+    "sunrise.scenery_group.park",
+    "sunrise.scenery_group.fences",
+    "sunrise.peep_animations.mechanic",
+    "sunrise.ride.carousel",
+    "sunrise.ride.dodgems",
+    "sunrise.ride.drop_tower",
+    "sunrise.ride.swinging_ship",
+    "sunrise.ride.ferris_wheel",
+    "openrct2.ride.alpine_coaster",
+    "openrct2.ride.single_rail_coaster",
+    "sunrise.peep_animations.guest_0_0",
+    "sunrise.peep_animations.guest_0_1",
+    "sunrise.peep_animations.guest_0_2",
+    "sunrise.peep_animations.guest_0_3",
+    "sunrise.peep_animations.guest_0_4",
+    "sunrise.peep_animations.guest_0_5",
+    "sunrise.peep_animations.guest_1_0",
+    "sunrise.peep_animations.guest_1_1",
+    "sunrise.peep_animations.guest_1_2",
+    "sunrise.peep_animations.guest_1_3",
+    "sunrise.peep_animations.guest_1_4",
+    "sunrise.peep_animations.guest_1_5",
+    "sunrise.peep_animations.guest_2_0",
+    "sunrise.peep_animations.guest_2_1",
+    "sunrise.peep_animations.guest_2_2",
+    "sunrise.peep_animations.guest_2_3",
+    "sunrise.peep_animations.guest_2_4",
+    "sunrise.peep_animations.guest_2_5",
+    "sunrise.peep_animations.guest_3_0",
+    "sunrise.peep_animations.guest_3_1",
+    "sunrise.peep_animations.guest_3_2",
+    "sunrise.peep_animations.guest_3_3",
+    "sunrise.peep_animations.guest_3_4",
+    "sunrise.peep_animations.guest_3_5",
+    "sunrise.peep_animations.guest_4_0",
+    "sunrise.peep_animations.guest_4_1",
+    "sunrise.peep_animations.guest_4_2",
+    "sunrise.peep_animations.guest_4_3",
+    "sunrise.peep_animations.guest_4_4",
+    "sunrise.peep_animations.guest_4_5",
+    "sunrise.peep_animations.guest_5_0",
+    "sunrise.peep_animations.guest_5_1",
+    "sunrise.peep_animations.guest_5_2",
+    "sunrise.peep_animations.guest_5_3",
+    "sunrise.peep_animations.guest_5_4",
+    "sunrise.peep_animations.guest_5_5",
+    "openrct2.music.dodgems",
+    "openrct2.music.mystic",
+    "openrct2.music.rock4",
+    "sunrise.ride.information_point"
+  ],
+  "owned": {
+    "fromX": 1,
+    "fromY": 5,
+    "toX": 62,
+    "toY": 62
+  },
+  "entrance": {
+    "x": 16,
+    "y": 4,
+    "direction": 1
+  },
+  "peepSpawn": {
+    "x": 16,
+    "y": 1,
+    "direction": 3
+  },
+  "coaster": {
+    "object": "openrct2.ride.hybrid_coaster",
+    "inspectionInterval": 0,
+    "reliability": 100,
+    "open": true,
+    "price": 0,
+    "station": {
+      "x": 24,
+      "y": 6,
+      "z": 112,
+      "direction": 1
+    },
+    "pieces": [
+      2,
+      3,
+      1,
+      0,
+      0,
+      43,
+      43,
+      0,
+      0,
+      0,
+      0,
+      0,
+      43,
+      43
+    ],
+    "rideEntrance": {
+      "x": 23,
+      "y": 6,
+      "direction": 2
+    },
+    "rideExit": {
+      "x": 23,
+      "y": 8,
+      "direction": 2
+    },
+    "music": "openrct2.music.rock4"
+  },
+  "paths": [
+    {
+      "from": [
+        16,
+        1
+      ],
+      "to": [
+        16,
+        20
+      ]
+    },
+    {
+      "from": [
+        11,
+        14
+      ],
+      "to": [
+        22,
+        14
+      ]
+    },
+    {
+      "from": [
+        22,
+        8
+      ],
+      "to": [
+        22,
+        14
+      ]
+    },
+    {
+      "from": [
+        14,
+        12
+      ],
+      "to": [
+        18,
+        12
+      ]
+    },
+    {
+      "from": [
+        14,
+        16
+      ],
+      "to": [
+        18,
+        16
+      ]
+    },
+    {
+      "from": [
+        14,
+        12
+      ],
+      "to": [
+        14,
+        16
+      ]
+    },
+    {
+      "from": [
+        18,
+        12
+      ],
+      "to": [
+        18,
+        16
+      ]
+    },
+    {
+      "from": [
+        16,
+        20
+      ],
+      "to": [
+        16,
+        42
+      ]
+    },
+    {
+      "from": [
+        16,
+        26
+      ],
+      "to": [
+        42,
+        26
+      ]
+    },
+    {
+      "from": [
+        42,
+        26
+      ],
+      "to": [
+        42,
+        42
+      ]
+    },
+    {
+      "from": [
+        16,
+        42
+      ],
+      "to": [
+        42,
+        42
+      ]
+    },
+    {
+      "from": [
+        28,
+        26
+      ],
+      "to": [
+        28,
+        42
+      ]
+    },
+    {
+      "from": [
+        29,
+        33
+      ],
+      "to": [
+        32,
+        33
+      ]
+    }
+  ],
+  "queues": [
+    {
+      "from": [
+        21,
+        13
+      ],
+      "to": [
+        21,
+        6
+      ]
+    },
+    {
+      "from": [
+        21,
+        6
+      ],
+      "to": [
+        22,
+        6
+      ]
+    },
+    {
+      "from": [
+        29,
+        31
+      ],
+      "to": [
+        32,
+        31
+      ]
+    }
+  ],
+  "pathAdditions": [
+    {
+      "object": "sunrise.footpath_item.bench",
+      "tiles": [
+        [
+          15,
+          12
+        ],
+        [
+          17,
+          12
+        ],
+        [
+          15,
+          16
+        ],
+        [
+          17,
+          16
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.footpath_item.bin",
+      "tiles": [
+        [
+          14,
+          12
+        ],
+        [
+          18,
+          16
+        ],
+        [
+          16,
+          10
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.footpath_item.bench",
+      "tiles": [
+        [
+          16,
+          24
+        ],
+        [
+          24,
+          26
+        ],
+        [
+          32,
+          26
+        ],
+        [
+          42,
+          34
+        ],
+        [
+          34,
+          42
+        ],
+        [
+          22,
+          42
+        ],
+        [
+          28,
+          35
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.footpath_item.bin",
+      "tiles": [
+        [
+          16,
+          30
+        ],
+        [
+          28,
+          26
+        ],
+        [
+          42,
+          38
+        ],
+        [
+          28,
+          42
+        ]
+      ]
+    }
+  ],
+  "scenery": [
+    {
+      "object": "sunrise.scenery_small.tree_column",
+      "tiles": [
+        [
+          15,
+          5,
+          0
+        ],
+        [
+          17,
+          5,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          15,
+          7,
+          0
+        ],
+        [
+          17,
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_broadleaf",
+      "tiles": [
+        [
+          15,
+          8,
+          0
+        ],
+        [
+          17,
+          8,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_cool",
+      "tiles": [
+        [
+          15,
+          9,
+          0
+        ],
+        [
+          17,
+          9,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_tall",
+      "tiles": [
+        [
+          15,
+          10,
+          0
+        ],
+        [
+          17,
+          10,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_topiary",
+      "tiles": [
+        [
+          15,
+          11,
+          0
+        ],
+        [
+          17,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_evergreen",
+      "tiles": [
+        [
+          13,
+          6,
+          0
+        ],
+        [
+          19,
+          8,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_shade",
+      "tiles": [
+        [
+          13,
+          8,
+          0
+        ],
+        [
+          19,
+          6,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_ornamental",
+      "tiles": [
+        [
+          13,
+          11,
+          0
+        ],
+        [
+          19,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.flowers_warm",
+      "tiles": [
+        [
+          19,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_round",
+      "tiles": [
+        [
+          13,
+          13,
+          0
+        ],
+        [
+          19,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.planter_square",
+      "tiles": [
+        [
+          13,
+          15,
+          0
+        ],
+        [
+          19,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_corner",
+      "tiles": [
+        [
+          15,
+          13,
+          0
+        ],
+        [
+          17,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.bed_rectangular",
+      "tiles": [
+        [
+          13,
+          17,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.prop_picnic_table",
+      "tiles": [
+        [
+          17,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.sign_direction",
+      "tiles": [
+        [
+          15,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_young",
+      "tiles": [
+        [
+          12,
+          13,
+          0
+        ],
+        [
+          12,
+          15,
+          0
+        ],
+        [
+          20,
+          13,
+          0
+        ],
+        [
+          20,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_tall",
+      "tiles": [
+        [
+          11,
+          13,
+          0
+        ],
+        [
+          11,
+          15,
+          0
+        ],
+        [
+          21,
+          15,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.shrub_hedge",
+      "tiles": [
+        [
+          20,
+          8,
+          0
+        ],
+        [
+          20,
+          10,
+          0
+        ],
+        [
+          20,
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.tree_flowering",
+      "tiles": [
+        [
+          15,
+          18,
+          0
+        ],
+        [
+          17,
+          18,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.ornamental_grass",
+      "tiles": [
+        [
+          15,
+          19,
+          0
+        ],
+        [
+          17,
+          19,
+          0
+        ]
+      ]
+    },
+    {
+      "object": "sunrise.scenery_small.lamp_garden",
+      "tiles": [
+        [
+          15,
+          20,
+          0
+        ],
+        [
+          17,
+          20,
+          0
+        ]
+      ]
+    }
+  ],
+  "walls": [
+    {
+      "object": "sunrise.scenery_wall.fence_metal",
+      "tiles": [
+        [
+          13,
+          17,
+          0
+        ],
+        [
+          13,
+          17,
+          3
+        ]
+      ]
+    }
+  ],
+  "entranceFee": 15,
+  "rides": [
+    {
+      "object": "sunrise.ride.carousel",
+      "station": {
+        "x": 35,
+        "y": 32,
+        "z": 112,
+        "direction": 0
+      },
+      "rideEntrance": {
+        "x": 33,
+        "y": 31,
+        "direction": 2
+      },
+      "rideExit": {
+        "x": 33,
+        "y": 33,
+        "direction": 2
+      },
+      "price": 0,
+      "open": true,
+      "inspectionInterval": 0,
+      "reliability": 100,
+      "music": "openrct2.music.mystic"
+    }
+  ],
+  "shops": [
+    {
+      "object": "sunrise.ride.grill_stand",
+      "x": 15,
+      "y": 22,
+      "direction": 2,
+      "price": 12
+    },
+    {
+      "object": "sunrise.ride.refreshment_stand",
+      "x": 17,
+      "y": 22,
+      "direction": 0,
+      "price": 10
+    },
+    {
+      "object": "sunrise.ride.restroom",
+      "x": 27,
+      "y": 30,
+      "direction": 2,
+      "price": 0
+    },
+    {
+      "object": "sunrise.ride.information_point",
+      "x": 17,
+      "y": 35,
+      "direction": 0,
+      "price": 6
+    }
+  ]
+}

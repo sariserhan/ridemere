@@ -1,0 +1,29 @@
+const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const base=process.argv[2]||'http://localhost:3210',out='/tmp/ridemere-item-picker';
+(async()=>{fs.mkdirSync(out,{recursive:true});const T=await import(path.resolve(__dirname,'../../web/node_modules/three/build/three.module.js'));const b=await chromium.launch({channel:'chromium',args:['--no-sandbox']});const errors=[];
+try{for(const mobile of (process.env.PICKER_VIEW === "touch" ? [true] : [false,true])){
+ const width=mobile?390:1440,height=mobile?844:960,ctx=await b.newContext({viewport:{width,height},hasTouch:mobile}),p=await ctx.newPage();p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
+ await p.goto(base+'/play?scenario=small-footprint');assert.match(await p.title(),/Ridemere/);await p.waitForFunction(()=>document.querySelector('[data-testid="park-3d"]')?.dataset.sceneObjects,null,{timeout:180000});
+ const read=()=>p.evaluate(()=>JSON.parse(Module.ccall('SunriseSceneJson','string',['number'],[1]))),before=await read();
+ await p.getByRole('button',{name:'Build park',exact:true}).click();assert.equal(await p.locator('select[aria-label="Build item"]').count(),0);assert.equal(await p.locator('[data-build-item]').count(),79);
+ await p.locator('[data-build-item] img').evaluateAll(imgs=>imgs.forEach(i=>i.loading='eager'));await p.waitForFunction(()=>[...document.querySelectorAll('[data-build-item] img')].every(i=>i.complete&&i.naturalWidth>0));
+ assert.equal(await p.locator('[data-build-item][aria-pressed="true"]').getAttribute('data-build-item'),'path');
+ await p.getByRole('button',{name:'Trees category',exact:true}).click();assert.equal(await p.locator('[data-build-item]').count(),8);
+ const card=p.locator('[data-build-item]').first();const cardBox=await card.boundingBox();const labelBox=await card.locator('span').boundingBox();assert.ok(cardBox.height>=112,'cards retain readable height');assert.ok(labelBox.y+labelBox.height<=cardBox.y+cardBox.height+1,'item name is not clipped');await p.screenshot({path:`${out}/${mobile?'touch':'desktop'}-catalog.png`});
+ await p.getByRole('textbox',{name:'Search build items',exact:true}).fill('not-a-real-item');await p.getByText(/No items match/).waitFor();
+ await p.getByRole('textbox',{name:'Search build items',exact:true}).fill('');await p.getByRole('textbox',{name:'Search build items',exact:true}).pressSequentially('CLOCKS');await p.getByRole('textbox',{name:'Search build items',exact:true}).press('Backspace');assert.equal(await p.getByRole('textbox',{name:'Search build items',exact:true}).inputValue(),'CLOCK');assert.equal(await p.locator('[data-build-item]').count(),1);
+ const clock=p.getByRole('button',{name:'Build item: Park clock',exact:true});if(mobile)await clock.tap();else{await clock.focus();await p.keyboard.press('Enter');}
+ await p.waitForFunction(()=>document.querySelector('[data-selected-build-item]')?.dataset.selectedBuildItem==='prop_clock');
+ assert.equal(await p.locator('[data-selected-build-item]').getAttribute('data-selected-build-item'),'prop_clock');
+ if(mobile){assert.equal(await p.locator('#build-item-catalog').count(),0,'touch selection collapses the catalog');await p.getByRole('button',{name:'Browse build items',exact:true}).tap();assert.equal(await p.locator('[data-build-item="prop_clock"]').getAttribute('aria-pressed'),'true');await p.getByRole('button',{name:'Hide build catalog',exact:true}).tap();}
+ else {assert.equal(await clock.getAttribute('aria-pressed'),'true');await p.getByRole('button',{name:'Hide build catalog',exact:true}).click();}
+ const points=[...before.paths,...before.tracks],xs=points.map(t=>t.x),ys=points.map(t=>t.y),z=before.land[0][2],target=new T.Vector3((Math.min(...xs)+Math.max(...xs))/2,z,(Math.min(...ys)+Math.max(...ys))/2);let span=Math.max(16,Math.max(Math.max(...xs)-Math.min(...xs),Math.max(...ys)-Math.min(...ys))*1.35);if(width/height<1)span/=width/height;
+ const cam=new T.OrthographicCamera(-span*width/height/2,span*width/height/2,span/2,-span/2,.1,500);cam.position.copy(target).add(new T.Vector3(25,28,32));cam.lookAt(target);cam.updateMatrixWorld();
+ const candidates=before.land.map(t=>{const v=new T.Vector3(t[0]+.5,t[2],t[1]+.5).project(cam);return{x:t[0],y:t[1],px:(v.x+1)*width/2,py:(1-v.y)*height/2};}).filter(t=>mobile?t.px>25&&t.px<180&&t.py>285&&t.py<390:t.px>450&&t.px<1100&&t.py>250&&t.py<750);
+ const free=await p.evaluate(c=>c.find(t=>JSON.parse(Module.ccall('SunriseBuildAction','string',['string'],[JSON.stringify({op:'scenery',object:'sunrise.scenery_small.prop_clock',x:t.x,y:t.y,direction:0,apply:false})])).ok),candidates);assert.ok(free);
+ if(mobile)await p.touchscreen.tap(free.px,free.py);else await p.mouse.click(free.px,free.py);
+ await p.getByRole('button',{name:'Place selected item',exact:true}).click();assert.ok((await read()).props.some(t=>t.x===free.x&&t.y===free.y&&t.object==='sunrise.scenery_small.prop_clock'));
+ if(!mobile){const camera=await p.getByTestId('park-3d').getAttribute('data-camera-position');await p.getByTestId('park-3d-canvas').focus();await p.keyboard.press('ArrowRight');await p.waitForFunction(old=>document.querySelector('[data-testid="park-3d"]')?.dataset.cameraPosition!==old,camera);}
+ const box=await p.getByRole('region',{name:'Build in 3D'}).boundingBox();assert.ok(box.x>=0&&box.x+box.width<=width&&box.y+box.height<=height);
+ await p.screenshot({path:`${out}/${mobile?'touch':'desktop'}-placed.png`});assert.deepEqual(errors,[]);console.log('IMAGE PICKER PASS',mobile?'390x844 touch':'1440x960 desktop','79 loaded thumbnails, categories, search/empty state, selection, collapse/reopen, actual clock placement, no errors');await ctx.close();
+}}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1});

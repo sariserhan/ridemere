@@ -151,3 +151,132 @@ implemented, because nothing produces them yet.
 There is no message for arbitrary engine state, no scripting channel, and no way for
 the web side to call into the simulation other than the seven functions above. Keep it
 that way: every addition is a promise that becomes expensive to break.
+
+
+## V1-6 lifecycle and content versions
+
+`GAME_READY.contentVersion` is the SHA-256 of the shipped, development-stripped
+`assets.zip`, written by `web/scripts/sync-game.mjs` to `/game/manifest.json`. The
+runtime fetches that small manifest without caching and compares it with its installed
+content version. Updating a scenario does not require an engine revision change.
+
+`GameRuntime.exit()` now pauses Emscripten's main loop, stops SDL audio, terminates the worker pool,
+releases the live `window.Module` reference, and clears bridge subscriptions. Save &
+exit calls it **after** the park write finishes; the play view also calls it on cleanup.
+Pending startup checks cancellation before starting the simulation. The initial save
+timer and recurring poll/autosave timers are canceled on unmount.
+
+The SDL silence timer runs independently of the main loop. Leaving it active after
+exit keeps requesting audio activation and produces Firefox navigation-time promise
+errors. Teardown cancels that timer, disconnects its processor and closes its audio
+context. The browser regression retains a test-only module reference and verifies
+that ticks stop, the pool is empty, audio closes, saved staff survive, and no browser
+or console errors are emitted.
+
+For Firefox screenshot checks in the Playwright Linux image, use a virtual display and
+software WebGL (`HEADED=1`, `LIBGL_ALWAYS_SOFTWARE=1`). Headless Firefox in this image
+can simulate successfully while failing to create a WebGL context. Rendering must be
+checked separately; engine-state assertions alone are insufficient.
+
+
+## Visible camera controls
+
+`GameRuntime.panView(dx, dy)` calls `SunrisePanView`, translating screen pixels to
+viewport units at the current zoom. Movement cancels automatic scrolling and entity
+following, then uses the main window's normal saved-view update. `cameraAction`
+uses native centre-preserving zoom and rotation, or `SunriseCentreView` to recover
+an off-screen park. These operations do not change map objects or simulation state.
+
+The web camera panel provides four directional controls, zoom, rotation, and home.
+Move view enables a pointer-captured drag surface for mouse and touch, with arrow
+keys and Escape. It shields construction from those gestures; Done moving, Escape,
+or choosing a native top-toolbar tool restores normal interaction. Native right-drag
+remains available when Move view is off. Collapsing the panel also ends drag mode.
+
+Regression: `node wasm/test/webcamera.js http://localhost:3210` checks real camera
+coordinates at desktop and phone widths, mouse/touch dragging, keyboard, zoom,
+return-to-centre, panel collapse, native toolbar access, and save/reload. This does
+not establish that every native construction window is usable on a phone.
+
+
+## Smooth 3D presentation
+
+`SunriseSceneJson(includeMap)` provides a read-only snapshot of the live park. Every
+250 ms the view reads simulation ticks/pause state, cash, rating, guest and staff
+positions/state/facing, ride identity/status, and train positions. Person rows are
+`[entityId, x, height, y, isStaff, peepState, orientation]`, with coordinates in tile
+units. State 8 is sitting; orientation uses 32 steps per turn. Every three seconds it also
+reads all playable terrain rows, sampled surface corners, water, connected paths,
+path additions, scenery, walls, entrances, and track endpoints. The static native
+string replaces its previous contents rather than retaining one allocation per poll.
+The frontend rebuilds geometry only when the topology/objects differ; moving guests
+are instanced and coaster/carousel geometry is batched.
+
+The browser renderer uses Three.js, same-origin resources, filtered terrain bump
+mapping, antialiasing, an orthographic orbit camera, and rate-limited shadow updates.
+It renders the current engine state, not the scenario JSON. Imported or edited parks
+therefore use the same bridge as a new park. `SunriseViewAt` aligns the native camera
+with manual 3D camera movement so construction and the camera lesson stay connected.
+Pause uses the native pause action. Ride open/close uses the existing game action.
+
+The 3D canvas and native canvas are separate. The native canvas remains laid out while
+hidden, preserving SDL sizing and native screenshot/save behavior. Switching to
+construction disposes the 3D renderer, pointer listeners, observer, frame loop,
+textures and geometry. Returning to 3D obtains a fresh full snapshot. Failure to
+initialize/read the 3D view exposes a construction-view fallback; no saves are
+rewritten or converted.
+
+Known limits: construction remains in the native 2D UI. The first 3D models simplify
+ride mechanics and complex scenery. Coaster geometry uses native endpoints with
+smooth curve interpolation, not the full native bank/inversion spline data. Flat
+ride animation is illustrative and gated by open/paused state; it does not reproduce
+every native operating-cycle phase. Trees now use branching/leaf geometry and guests
+have articulated walking bodies; neither is photorealistic. Save thumbnails
+are still captured from the native renderer. Large imported parks and every track
+piece have not received visual acceptance testing.
+
+Run `node wasm/test/web3d.js http://localhost:3210 [chromium|firefox|webkit]` for live
+scene, camera, onboarding, pause, ride picking/status, construction synchronization,
+read-only snapshot, and save/reload coverage. Chromium additionally checks touch input.
+
+`node wasm/test/crowd.js` checks grounded and separate feet, walking interpolation,
+changing leg poses, idle/pause stability, sitting, entity removal and 1,000-person
+geometry updates. It uses the actual crowd module without a WebGL context; its CPU
+timing is not a browser frame-rate benchmark.
+
+The 3D crowd treats native person positions as destinations, not unconditional draw
+positions. `crowd-motion.ts` separates body footprints, routes displaced guests along
+connected paths and waits when a local move is blocked. This does not mutate the
+native simulation or save data. Congested arrivals can wait for a free rendering
+position; `data-scene-people` and `data-scene-waiting` distinguish drawn and pending
+people. The native guest counter keeps its simulation meaning. Avoidance is tested
+with head-on traffic, duplicate starting positions, connected corners, long frames,
+pausing, sitting and different elevations in `wasm/test/crowd.js`.
+
+### 3D construction
+
+`SunriseBuildAction(json)` returns a static JSON string (do not free). Requests use
+`op: path | queue | scenery | addition | ride | entrance | exit | removePath | removeScenery`,
+`x`, `y`, `direction` (0–3), optional object identifier/ride ID, and `apply`.
+Results contain `ok`, optional `error`, native currency-unit `cost`, `footprint`
+(tile pairs for ride previews), and `rideId`/`needsEntrance` for new rides.
+
+Queries do not create provisional rides or edit map/cash. Actual construction uses
+native action queries for ownership, clearance and affordability, executes nested
+synchronously, and applies the returned payment once. It intentionally permits
+building while paused. Failed track placement rolls back the new empty ride.
+The renderer refreshes a full map snapshot after each successful action; normal
+save/load owns persistence. Custom track and terrain editing remain in the explicit
+advanced editor.
+
+`SunriseBuildAction` also supports `op: "design"` for bundled ready-built alpine, single-rail, and hybrid coasters, plus the drop tower. Queries return `footprint` and `tracks` (the normal SceneTrack schema), including a highlighted footprint on clearance errors. Only four known object IDs are allowed. Construction requires an entirely clear, level, owned footprint, places the whole layout transactionally, charges once, and returns `rideId` / `needsEntrance`. Object loading happens only on apply, so existing saves can use newly exposed bundled rides. Entrances, exits, queues, and opening use the existing operations.
+
+For coaster `design` operations, optional `design: "ridge" | "serpent" | "grand"` selects the larger layout families. Unknown keys and tower/layout combinations are rejected. Queries also return `stats: { width, depth, pieces, height }`, with `height` in scene world units above terrain; the UI converts to metres by multiplying by 3. Rotation changes footprint dimensions and endpoints while retaining circuit closure. An absent design key continues to construct the compact layout for backward compatibility.
+
+### RCT2 gameplay expansion in the 3D view
+
+`SunriseSceneJson` now also returns `staff` (id, native role/state, swept/bin totals), `litter` rows `[id,x,height,z,type]`, and `wellbeing` (nausea >= 140 count, vomit patch count, average in-park happiness as percent). Litter types 0/1 are vomit. These are native entities, not decorative random effects. People rows append native action and staff type after the original seven fields; action 8 is throwing up. Ride summaries append `customers`, `queue`, `price`, `profit` and `broken`.
+
+`GameRuntime.hireStaff` calls existing native `SunriseHireHandyman` / `SunriseHireMechanic`. Cleaners retain sweep/bin orders and mechanics retain inspection/repair orders. Construction recognizes native `isShopOrFacility`, replacing name-based native classification, and loads new bundled shops on application so older saves can use them. Preview does not load objects or spend money.
+
+`sunrise.ride.log_flume` supports compact (no design), `ridge`, and `serpent` presets. Each creates a closed native log-flume circuit; native entrance, exit, path/queue connections are still required. These are three layouts of one actual water ride type. Shops/facilities now have thirteen picture-card choices; total build tools: 79 (76 construction choices plus three removal tools).

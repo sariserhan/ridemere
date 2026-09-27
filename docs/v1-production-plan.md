@@ -3,6 +3,18 @@
 Written for whoever sequences and builds V1. Effort is relative, calibrated against
 M2 to M3f; there are no calendar estimates.
 
+## Current implementation checkpoint (2026-09-26)
+
+V1-0 through V1-7 are implemented. V1-8 has three of the four planned coasters;
+modern twister still requires original replacement track art. V1-9 is implemented.
+V1-10 has real prices, admission rules and sales but awaits sustained balancing.
+V1-11's three scenarios and completion feedback are implemented; the 2–5-hour
+playtime target is unverified. V1-12 has all base effects and three music tracks;
+listening/mixing and extra custom events remain. V1-13 has 1,000-guest measurements
+and save-failure recovery, with broader beta validation still outstanding.
+See [status](status.md) for evidence and limitations. The milestone descriptions below
+remain the acceptance goals, not claims that every item is complete.
+
 ## Principle
 
 **The game must be playable after every milestone.** No milestone may spend its whole
@@ -91,6 +103,11 @@ order, cut from the end.
 ### V1-8 — Coasters
 Integrate alpine, single rail and modern twister alongside the hybrid coaster already
 shipping. Verify each with the sprite audit before committing to it.
+
+2026-09-26: alpine and single rail are integrated. Modern twister failed the audit:
+`LatticeTriangleTrackAlt.cpp` falls back to legacy `LatticeTriangleTrack.cpp` for
+ordinary straight and curve pieces. It is excluded from the pack and player catalog
+until replacement track artwork is available. Its open train does not supply those rails.
 *Playable:* four coasters, one of them beginner-friendly.
 *Effort:* art LOW, engine LOW, testing MEDIUM.
 

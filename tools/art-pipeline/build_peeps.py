@@ -31,6 +31,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import spritepack  # noqa: E402
+import sunrise_palette as pal
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 RENDER_ROOT = os.path.join(REPO, "assets", "generated", "peeps")
@@ -67,6 +68,24 @@ PEEPS = {
         "groups": 1,
     },
 }
+
+
+GUEST_VARIANTS = []
+for shape in range(6):
+    for tone in range(6):
+        name = f"guest_{shape}_{tone}"
+        GUEST_VARIANTS.append(f"sunrise.peep_animations.{name}")
+        # Six overlapping but distinct warm ramps, from deep brown to light skin.
+        skin = [pal.ramp("tan")[0:6], pal.ramp("tan")[2:8],
+                pal.ramp("skin")[0:7], pal.ramp("skin")[2:9],
+                pal.ramp("skin")[4:11], pal.ramp("skin")[6:12]][tone]
+        PEEPS[name] = {
+            "id": GUEST_VARIANTS[-1], "peepType": "guest",
+            "name": f"Garden Visitor {shape + 1}.{tone + 1}",
+            "colourway": dict(spritepack.GUEST_COLOURWAY, skin=skin,
+                              hair=pal.ramp(["tan", "grey", "orange"][shape // 2])[:8]),
+            "groups": GUEST_ANIMATION_GROUPS, "renderName": f"guest_shape_{shape}",
+        }
 
 
 #: Animations the engine reads a specific frame number from, and the length the
@@ -122,7 +141,7 @@ def sequence_for(name: str, frame_count: int) -> list:
 
 def build(name: str) -> dict:
     spec = PEEPS[name]
-    render_dir = os.path.join(RENDER_ROOT, name)
+    render_dir = os.path.join(RENDER_ROOT, spec.get("renderName", name))
     manifest_path = os.path.join(render_dir, "frames.json")
     with open(manifest_path, "r", encoding="utf-8") as handle:
         manifest = json.load(handle)
@@ -182,7 +201,7 @@ def build(name: str) -> dict:
     }
 
     out_path = os.path.join(OBJECT_ROOT, f"{spec['id']}.parkobj")
-    size = spritepack.write_parkobj(out_path, object_json, files)
+    size = spritepack.write_parkobj(out_path, object_json, files, store_images="renderName" in spec)
 
     return {
         "id": spec["id"],

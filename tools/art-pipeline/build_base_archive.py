@@ -58,8 +58,6 @@ BLANK_SPRITES: Dict[int, str] = {
     # Station platform edging and fencing. Our station object declares noPlatforms,
     # so the engine falls back to these base sprites; leaving them blank gives a
     # station with no platform lip, which is correct for the art we have authored.
-    22370: "SPR_STATION_FENCE_SW_NE",
-    22371: "SPR_STATION_FENCE_NW_SE",
     22412: "SPR_STATION_NARROW_EDGE_SE",
     22413: "SPR_STATION_NARROW_EDGE_SW",
     22414: "SPR_STATION_NARROW_EDGE_FENCED_NW",
@@ -171,6 +169,15 @@ def build() -> dict:
     SPRITE_SOURCES.update(_load_ui_sprites())
     SPRITE_SOURCES.update(_load_selection_sprites())
     SPRITE_SOURCES.update(_load_boundary_fences())
+    directory = os.path.join(REPO, "assets/generated/ui/flat-rides")
+    with open(os.path.join(directory, "offsets.json")) as handle:
+        for index, offsets in json.load(handle).items():
+            SPRITE_SOURCES[int(index)] = (os.path.join(directory, f"{index}.png"), offsets["x"], offsets["y"])
+
+    directory = os.path.join(REPO, "assets/generated/litter")
+    with open(os.path.join(directory, "offsets.json")) as handle:
+        for index, offsets in json.load(handle).items():
+            SPRITE_SOURCES[int(index)] = (os.path.join(directory, f"{index}.png"), offsets["x"], offsets["y"])
 
     os.makedirs(OUT_DIR, exist_ok=True)
     work = tempfile.mkdtemp(prefix="sunrise-base-")

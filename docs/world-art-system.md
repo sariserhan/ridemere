@@ -32,7 +32,7 @@ looked exactly like that and was corrected.
 
 | Material | Ramp | Base | Texture amount | Scale | Density | Character |
 |---|---|---:|---:|---:|---:|---|
-| grass | green | 7 | 1 | 4 | 0.22 | soft variation, slight tuft |
+| grass | green | 6 | 1 | 7 | 0.10 | soft variation, slight tuft |
 | dirt | tan | 5 | 1 | 3 | 0.26 | warm earth, sparse granular breakup |
 | sand | beige | 8 | 1 | 5 | 0.16 | light warm, minimal patterning |
 | stone | grey | 4 | 1 | 6 | 0.26 | cool neutral, subtle slab |
@@ -40,7 +40,7 @@ looked exactly like that and was corrected.
 | path stone | grey | 9 | 1 | 5 | 0.22 | decorative slabs |
 | path wood | tan | 8 | 1 | 4 | 0.22 | warm timber decking |
 | queue | blue grey | 9 | 1 | 6 | 0.16 | cooler, centre stripe |
-| cliff | tan | 4 | 2 | 5 | 0.40 | warm soil and rock |
+| cliff | tan | 4 | 1 | 8 | 0.12 | warm soil and rock |
 | railing | grey | 8 | 1 | 3 | 0.18 | painted metal |
 | support | grey | 5 | 1 | 4 | 0.22 | structure under a path |
 
@@ -289,3 +289,88 @@ with every object in it measured 5.19% "foliage" and the same scene with the sce
 deleted measured 4.97%. Counting exact palette entries that only these materials use
 takes every bare scene to approximately zero, which is what makes the floors mean
 something.
+
+## Staff
+
+Two staff types now, built from the same figure as the guest: a handyman with a peaked
+cap, and a mechanic with a hard hat and a tool belt. The engine already separates them
+by shirt colour — `Park.cpp` defaults a handyman to bright red and a mechanic to light
+blue, and staff are drawn `ImageId(base, tShirtColour)` — so the art carries only the
+silhouette, which is what survives being four pixels wide. A logo or a face would not.
+
+### An animation is as long as the engine needs it to be
+
+This is the most important rule in the staff pipeline and it is not about art at all.
+
+`Peep::updateActionAnimation` ends an action when `animationFrameNum` reaches the
+sequence length, and the staff code reads specific frame numbers out of specific
+animations and does the work there:
+
+| Animation | What the engine does | On frame |
+|---|---|---:|
+| `staffSweep` | removes the litter | 8 |
+| `staffEmptyBin` | empties the bin | 11 |
+| `staffFix` | clears the broken car | 37 |
+| `staffFix2` | clears the broken car | 80 |
+| `staffFixGround` | fixes the station brakes | 40 |
+| `staffFix3` | clears the broken car | 101 |
+
+Nothing checks that the animation is long enough. A short one plays to its end, the
+substate reports success, and the work never happens — the handyman mimed sweeping
+from M3 to V1-4 because his sweep was five frames.
+
+So a sequence must be **longer** than the highest frame the engine reads from it, and
+`check_staff_animations.py` reads those frame numbers out of `entity/Staff.cpp` rather
+than keeping a copy, so the rule cannot go stale when upstream moves one.
+
+Length is bought by sequencing, not by rendering. A sequence is a list of indices into
+the rendered frames, so the poses are played out and back until it is long enough: the
+mechanic's 102-frame `staffFix3` is six renders. The whole mechanic is 205 images
+against the handyman's 133, for four more animations and three times the frames.
+
+
+### Guest diversity and ground litter (V1 completion pass)
+
+Render six silhouette variants before running the existing packer:
+
+```bash
+for variant in 0 1 2 3 4 5; do
+  .cache/blender/blender -b --python assets/source/blender/guest.py -- \
+    --variant "$variant" --out "assets/generated/peeps/guest_shape_$variant"
+done
+.cache/venv/bin/python tools/art-pipeline/build_peeps.py
+```
+
+The packer makes six skin palettes per silhouette, preserving runtime shirt and trouser
+recolouring. The native guest generator chooses among loaded guest animation objects;
+older saves retain their existing appearance indices and need no migration.
+
+`build_litter_sprites.py` supplies original indexed packaging and ground marks for
+all 32 native litter orientations (23101–23132), anchored at ground level. The base
+archive includes them through `offsets.json`. Inline guest-count arrows 5130/5131
+are authored in `build_ui_sprites.py`; they are referenced by embedded little-endian
+sprite IDs in language strings, not named constants in `SpriteIds.h`.
+
+
+### Visual repair pass: zoom and noisy shading (2026-09-26)
+
+A repeated wheel zoom exposed a real render defect: transparent standalone blank
+sprites left earlier map projections in the framebuffer. The standalone viewport now
+clears each dirty paint column before drawing, preserving transparent screenshot
+behavior. `wasm/test/zoomredraw.js` exercises wheel zoom, toolbar zoom and rotation;
+it checks exposed background pixels and verifies that toolbar icons remain drawn.
+
+The source renderer previously used one sample and clipped bright lighting. Terrain,
+shops, path additions and scenery were regenerated with 32 samples and -1.2 exposure.
+The starter carousel was also regenerated at its explicit 16-sample setting with the
+corrected exposure. Terrain uses alpha-weighted lighting smoothing and calibrates its
+base shade against the actual flat render, retaining slope shading without pixel noise.
+Shop highlights use narrower material ranges; cabin vents and stronger fence shading
+keep the quieter objects readable. Geometry/orientation checks remain enforced.
+
+The shell's circular font variable was replaced with a local sans-serif stack. The
+Ridemere theme is selected explicitly for fresh/default profiles, and the previous
+bundled extended toolbar colours were replaced with verified legacy palette colours.
+Other selected themes are retained. This is a repair and first visual cleanup, not
+final art acceptance: other rides/guest sprites and extended colour remapping still
+need broader visual review.

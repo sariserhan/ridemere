@@ -19,7 +19,7 @@ import os
 import sys
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -79,7 +79,7 @@ def _load_indexed(path: str) -> np.ndarray:
 def _darken(indices: np.ndarray, ramp: list) -> np.ndarray:
     """Underground view: same shape, pushed to the dark end of its ramp."""
     out = indices.copy()
-    lookup = {value: ramp[max(0, position - 5)] for position, value in enumerate(ramp)}
+    lookup = {value: ramp[max(0, position - 2)] for position, value in enumerate(ramp)}
     for source, target in lookup.items():
         out[indices == source] = target
     return out
@@ -98,11 +98,7 @@ def _add_grid(indices: np.ndarray, ramp: list) -> np.ndarray:
     return out
 
 
-#: The ramp position the shared geometry render sits at before a material shifts it.
-NOMINAL_BASE = 7
-
-
-def _apply_texture(indices: np.ndarray, material: world_palette.Material) -> np.ndarray:
+def _apply_texture(indices: np.ndarray, material: world_palette.Material, reference_base: float) -> np.ndarray:
     """Give a shaded tile its material character.
 
     The render supplies form: which parts of the tile face the light. This supplies
@@ -111,21 +107,23 @@ def _apply_texture(indices: np.ndarray, material: world_palette.Material) -> np.
     established survives.
     """
     ramp = material.colours
-    position = {value: index for index, value in enumerate(ramp)}
-    # The render supplies brightness, which lands a pixel somewhere on the ramp. The
-    # material's base shifts the whole surface along it, which is the only knob that
-    # changes how light or dark a material reads: without it every surface comes out
-    # at whatever value the shared geometry render happened to have, and stone looks
-    # like snow.
-    shift = material.base - NOMINAL_BASE
-    offsets = world_palette.texture(material, indices.shape[0], indices.shape[1]) + shift
-    out = indices.copy()
-    for value, index in position.items():
-        selected = indices == value
-        if not selected.any():
-            continue
-        moved = np.clip(index + offsets[selected], 0, len(ramp) - 1)
-        out[selected] = np.asarray(ramp, dtype=np.uint8)[moved]
+    filled = indices != 0
+    positions = np.zeros(indices.shape, dtype=np.float32)
+    for step, value in enumerate(ramp):
+        positions[indices == value] = step
+    # Geometry renders contain Monte Carlo noise, not a terrain material. Smooth the
+    # lighting with an alpha-weighted kernel before quantising it; transparent pixels
+    # must not create dark seams around the tile diamond.
+    def blurred(values):
+        return np.asarray(Image.fromarray(np.uint8(np.clip(values, 0, 255))).filter(ImageFilter.GaussianBlur(1.5)), dtype=np.float32)
+    weight = blurred(filled.astype(np.float32) * 255)
+    lighting = blurred(positions * 20) / np.maximum(weight / 255, .001) / 20
+    # Calibrate against the rendered flat tile rather than assuming its exposure.
+    # Keep slope shading in a narrow range so terrain recedes behind park objects.
+    variation = np.clip(np.round((lighting - reference_base) * .65), -2, 1)
+    steps = np.clip(material.base + variation + world_palette.texture(material, *indices.shape), 0, len(ramp) - 1).astype(np.int32)
+    out = np.zeros_like(indices)
+    out[filled] = np.asarray(ramp, dtype=np.uint8)[steps[filled]]
     return out
 
 
@@ -159,12 +157,15 @@ def build_surface(key: str, spec: dict, manifest: dict) -> dict:
         rect = spritepack.convert_render(source, staged, colourway, render_size, 0.0)
         base_entries.append((staged, rect))
 
-    icon_indices = _apply_texture(_load_indexed(base_entries[0][0]), material)
+    flat = _load_indexed(base_entries[0][0])
+    positions = {value: index for index, value in enumerate(ramp)}
+    reference_base = float(np.median([positions[int(value)] for value in flat[flat != 0]]))
+    icon_indices = _apply_texture(flat, material, reference_base)
     stage("icon.png", icon_indices, 2, 2)
 
     for variant in ("normal", "grid", "underground"):
         for offset, (staged, rect) in enumerate(base_entries):
-            indices = _apply_texture(_load_indexed(staged), material)
+            indices = _apply_texture(_load_indexed(staged), material, reference_base)
             if variant == "grid":
                 indices = _add_grid(indices, ramp)
             elif variant == "underground":

@@ -123,12 +123,17 @@ function check(name, ok, detail) {
       if (!before.brokenDown && !before.breakdownPending)
         await call('SunriseTriggerBreakdown', 'number', ['number', 'number'], [0, BREAKDOWNS[kind]]);
 
+      console.log(`observing ${kind} through completed repair`);
       let active = null;
-      for (let i = 0; i < 260; i++) {
+      let recovered = false;
+      // Dispatch plus walking can outlast the old 39-second sampling window. That
+      // window stopped at frame 58 of staffFix3, then let its event happen unseen
+      // during the patrol sleep. Observe the whole repair, with a bounded deadline.
+      const deadline = Date.now() + 180000;
+      while (Date.now() < deadline) {
         await page.mouse.move(640, 400); await sleep(POLL_MS);
         const state = await ride();
-        const ids = await staffIds();
-        for (const id of ids) {
+        for (const id of crew) {
           const staff = JSON.parse(await call('SunriseStaffDebugJson', 'string', ['number'], [id]));
           const repair = REPAIR_ACTIONS[staff.action];
           if (!repair) continue;
@@ -143,9 +148,12 @@ function check(name, ok, detail) {
         if (!state.brokenDown && !state.breakdownPending) {
           if (active !== null) seen[active].repaired = true;
           if (firstRepair === null) firstRepair = { kind, ride: state };
+          recovered = true;
           break;
         }
       }
+      check(`${kind} finishes within the repair deadline`, recovered);
+      if (!recovered) break;
       // Let the mechanic get back to patrolling before the next one.
       for (let i = 0; i < 6; i++) { await page.mouse.move(640, 400); await sleep(2000); }
     }

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # M3 acceptance checks. Requires a built standalone distribution
 # (wasm/scripts/build.sh && wasm/scripts/build-standalone.sh).
+# Optional TEST_FILTER is an extended regex matching check names, for focused reruns.
 set -uo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 PY="$ROOT/.cache/venv/bin/python"
@@ -8,10 +9,46 @@ DIST="$ROOT/engine/openrct2/build/www-standalone"
 pass=0; fail=0
 run() {
   local name="$1"; shift
+  if [[ -n "${TEST_FILTER:-}" && ! "$name" =~ $TEST_FILTER ]]; then return; fi
   printf '\n== %s\n' "$name"
   if "$@"; then printf '   PASS %s\n' "$name"; pass=$((pass+1));
   else printf '   FAIL %s\n' "$name"; fail=$((fail+1)); fi
 }
+
+run "maintenance guidance does not skip lessons or mistake hiring for repair" \
+  node "$ROOT/wasm/test/onboardinglogic.js"
+
+run "flat rides have complete original animation and preview artwork" \
+  "$PY" "$ROOT/tools/art-pipeline/check_flat_rides.py"
+
+ride_sessions() {
+  for kind in carousel dodgems drop-tower swinging-ship ferris-wheel alpine single-rail; do
+    node "$ROOT/wasm/test/flatrides.js" "$kind" || return 1
+  done
+}
+run "all seven added rides carry guests, save and render in four directions" ride_sessions
+
+flat_construction() {
+  for kind in carousel dodgems drop-tower swinging-ship ferris-wheel alpine single-rail; do
+    node "$ROOT/wasm/test/rideconstruction.js" "$kind" || return 1
+  done
+}
+run "players can construct each of the seven added rides" flat_construction
+
+run "V1 guest appearances and every sound slot contain real content" \
+  "$PY" "$ROOT/tools/art-pipeline/check_v1_content.py"
+
+v1_scenarios() {
+  for kind in first-park small-footprint growing-destination; do
+    node "$ROOT/wasm/test/v1scenarios.js" "$kind" || return 1
+  done
+}
+run "three release scenarios serve guests and retain their economies" v1_scenarios
+run "largest release park simulates and saves at one thousand guests" \
+  node "$ROOT/wasm/test/v1scale.js"
+
+run "zoom clears old terrain without erasing the toolbar" \
+  node "$ROOT/wasm/test/zoomredraw.js"
 
 run "objects are self-contained and consistent" \
   "$PY" "$ROOT/tools/art-pipeline/validate_objects.py"
@@ -39,6 +76,13 @@ run "the bench and the bin have real art in every slot the engine indexes" \
 
 run "development scenes cannot reach the scenario selector" \
   "$PY" "$ROOT/tools/art-pipeline/check_scenario_visibility.py"
+
+# The handyman lesson as a permanent rule. The engine reads specific frame numbers out
+# of staff animations and does the work there; an animation too short to reach the
+# frame plays to its end and reports success with nothing having happened. The frame
+# numbers are read out of entity/Staff.cpp rather than kept by hand here.
+run "staff animations are long enough for the frames the engine reads from them" \
+  "$PY" "$ROOT/tools/art-pipeline/check_staff_animations.py"
 
 run "scenery models sit on the rotation origin" \
   "$PY" "$ROOT/tools/art-pipeline/check_rotation_origin.py"
@@ -103,6 +147,48 @@ run "the scenery check rejects the same scenes with every piece of scenery remov
 # decoration removed rather than against a different park.
 run "decorating a park changes nothing the player can measure, and says so" bash -c '
   cd "'"$ROOT"'/wasm/test" && node scenerygameplay.js'
+
+# The builder's refusal contract. A refusal used to be a message attached to a
+# successful build: the guard printed the right sentence and the .park was written
+# anyway, so a scenario shipped with its setting silently ignored. These two check the
+# builder state and the file on disk together, because either alone passed while the
+# other was broken.
+run "a description the engine will not honour produces no scenario" bash -c '
+  cd "'"$ROOT"'/wasm/test" && node builderrefusal.js'
+
+run "every scenario setting survives being written to a park file" bash -c '
+  cd "'"$ROOT"'/wasm/test" && node scenariosettings.js'
+
+# Surviving the save is not surviving being played: a shipped reliability was read back
+# correctly at load and reset to 100% two game-minutes later by ride upkeep.
+run "a shipped starting reliability holds, and ages only once the ride opens" bash -c '
+  cd "'"$ROOT"'/wasm/test" && node reliabilitylever.js'
+
+# The mechanic loop, which is the whole of V1-6. Each of these proves something the
+# others cannot, and they are slow because they watch real simulation rather than
+# poking at state.
+run "every repair animation reaches its engine event, and actually repairs" bash -c '
+  cd "'"$ROOT"'/wasm/test" && node mechaniccheck.js'
+
+run "guests survive a breakdown and use the ride again afterwards" bash -c '
+  cd "'"$ROOT"'/wasm/test" && node mechanicguests.js'
+
+run "an employed mechanic is dispatched, and two of them do not collide" bash -c '
+  cd "'"$ROOT"'/wasm/test" && node mechanicstaff.js'
+
+run "a mechanic and a broken ride survive a save, and the alert re-derives" bash -c '
+  cd "'"$ROOT"'/wasm/test" && node mechanicsave.js'
+
+# The staff windows have to draw, and have to say what the mechanic is doing: a
+# mechanic can be repairing correctly while the window reports something generic.
+staff_windows() {
+  ( cd "$ROOT/wasm/test" && node mechanicui.js ) \
+    && "$PY" "$ROOT/tools/art-pipeline/check_window_drawn.py" \
+      "$ROOT/wasm/test/results-visual/mechanic-window-rects.json" \
+    && "$PY" "$ROOT/tools/art-pipeline/check_staff_status.py" \
+      "$ROOT/wasm/test/results-visual/mechanic-states.json"
+}
+run "the staff windows draw, and report what the mechanic is doing" staff_windows
 
 # A park file that kept the objects but lost their orientation would look almost
 # right, because a tree is a tree from any angle. Read the direction back instead.

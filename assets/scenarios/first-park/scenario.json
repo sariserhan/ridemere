@@ -1,6 +1,6 @@
 {
   "name": "First Park",
-  "details": "A small park with a coaster waiting to open. Learn to run it, keep your guests fed and your paths clean, and grow to five hundred visitors.",
+  "details": "A small park with a coaster waiting to open. Learn to run it, keep your guests fed, your paths clean and your ride maintained, and grow to 180 visitors.",
   "visibility": "release",
   "difficulty": "beginner",
   "blurb": "Open your first coaster, look after your guests, and grow the park.",
@@ -10,7 +10,7 @@
   "maxLoan": 20000,
   "interestRate": 5,
   "freeParkEntry": true,
-  "breakdowns": false,
+  "breakdowns": true,
   "objective": {
     "type": "guestsAndRating",
     "guests": 180
@@ -90,7 +90,54 @@
     "sunrise.scenery_group.nature",
     "sunrise.scenery_group.garden",
     "sunrise.scenery_group.park",
-    "sunrise.scenery_group.fences"
+    "sunrise.scenery_group.fences",
+    "sunrise.peep_animations.mechanic",
+    "sunrise.ride.carousel",
+    "sunrise.ride.dodgems",
+    "sunrise.ride.drop_tower",
+    "sunrise.ride.swinging_ship",
+    "sunrise.ride.ferris_wheel",
+    "openrct2.ride.alpine_coaster",
+    "openrct2.ride.single_rail_coaster",
+    "sunrise.peep_animations.guest_0_0",
+    "sunrise.peep_animations.guest_0_1",
+    "sunrise.peep_animations.guest_0_2",
+    "sunrise.peep_animations.guest_0_3",
+    "sunrise.peep_animations.guest_0_4",
+    "sunrise.peep_animations.guest_0_5",
+    "sunrise.peep_animations.guest_1_0",
+    "sunrise.peep_animations.guest_1_1",
+    "sunrise.peep_animations.guest_1_2",
+    "sunrise.peep_animations.guest_1_3",
+    "sunrise.peep_animations.guest_1_4",
+    "sunrise.peep_animations.guest_1_5",
+    "sunrise.peep_animations.guest_2_0",
+    "sunrise.peep_animations.guest_2_1",
+    "sunrise.peep_animations.guest_2_2",
+    "sunrise.peep_animations.guest_2_3",
+    "sunrise.peep_animations.guest_2_4",
+    "sunrise.peep_animations.guest_2_5",
+    "sunrise.peep_animations.guest_3_0",
+    "sunrise.peep_animations.guest_3_1",
+    "sunrise.peep_animations.guest_3_2",
+    "sunrise.peep_animations.guest_3_3",
+    "sunrise.peep_animations.guest_3_4",
+    "sunrise.peep_animations.guest_3_5",
+    "sunrise.peep_animations.guest_4_0",
+    "sunrise.peep_animations.guest_4_1",
+    "sunrise.peep_animations.guest_4_2",
+    "sunrise.peep_animations.guest_4_3",
+    "sunrise.peep_animations.guest_4_4",
+    "sunrise.peep_animations.guest_4_5",
+    "sunrise.peep_animations.guest_5_0",
+    "sunrise.peep_animations.guest_5_1",
+    "sunrise.peep_animations.guest_5_2",
+    "sunrise.peep_animations.guest_5_3",
+    "sunrise.peep_animations.guest_5_4",
+    "sunrise.peep_animations.guest_5_5",
+    "openrct2.music.dodgems",
+    "openrct2.music.mystic",
+    "openrct2.music.rock4"
   ],
   "owned": {
     "fromX": 1,
@@ -110,6 +157,8 @@
   },
   "coaster": {
     "object": "openrct2.ride.hybrid_coaster",
+    "inspectionInterval": 0,
+    "reliability": 80,
     "open": false,
     "price": 15,
     "station": {
@@ -143,7 +192,8 @@
       "x": 23,
       "y": 8,
       "direction": 2
-    }
+    },
+    "music": "openrct2.music.mystic"
   },
   "paths": [
     {

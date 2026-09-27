@@ -52,10 +52,23 @@ BUNDLED_LANGUAGES = ("en-GB.txt",)
 BUNDLED_LOCALES = tuple(name.removesuffix(".txt") for name in BUNDLED_LANGUAGES)
 
 BUNDLED_OPEN_OBJECTS = {
+    "openrct2.ride.alpine_coaster": "official/ride/openrct2.ride.alpine_coaster.parkobj",
+    "openrct2.ride.single_rail_coaster": "official/ride/openrct2.ride.single_rail_coaster.parkobj",
+
     "openrct2.ride.hybrid_coaster": "official/ride/openrct2.ride.hybrid_coaster.parkobj",
 }
 
 DEFAULT_OBJECTS = [
+    *[f"sunrise.peep_animations.guest_{shape}_{tone}" for shape in range(6) for tone in range(6)],
+    "openrct2.music.dodgems", "openrct2.music.mystic", "openrct2.music.rock4",
+    "sunrise.ride.carousel",
+    "sunrise.ride.dodgems",
+    "sunrise.ride.drop_tower",
+    "sunrise.ride.swinging_ship",
+    "sunrise.ride.ferris_wheel",
+    "openrct2.ride.alpine_coaster",
+    "openrct2.ride.single_rail_coaster",
+
     "sunrise.terrain_surface.grass",
     "sunrise.terrain_surface.dirt",
     "sunrise.terrain_surface.sand",

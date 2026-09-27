@@ -12,6 +12,7 @@
  * in-process typed channel. Its message shapes are postMessage-safe so that moving the
  * runtime later is a transport change.
  */
+import dynamic from "next/dynamic";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -19,10 +20,14 @@ import { GameRuntime, type LoadProgress } from "@/lib/game/runtime";
 import { GameSaveStore } from "@/lib/saves/store";
 import { StorageQuotaError, type SaveRecord } from "@/lib/saves/types";
 import { Wordmark } from "@/components/wordmark";
+import { markScenarioComplete } from "@/lib/game/progression";
+import { CameraControls } from "@/components/camera-controls";
 import { GuestAlerts } from "@/components/guest-alerts";
 import { OnboardingPanel } from "@/components/onboarding-panel";
 import { currentStep, progress as stepsCompleted, type ScenarioState } from "@/lib/game/onboarding";
 import type { GuestAlertMessage } from "@/lib/bridge/messages";
+
+const Park3D = dynamic(() => import("@/components/park-3d"), { ssr: false });
 
 /** How often the park is written while playing. */
 const AUTOSAVE_INTERVAL_MS = 60_000;
@@ -48,13 +53,15 @@ function PlayScreen() {
   const storeRef = useRef<GameSaveStore | null>(null);
   const recordRef = useRef<SaveRecord | null>(null);
   const pendingShot = useRef<Uint8Array | undefined>(undefined);
-  const startedRef = useRef(false);
   const dirtyRef = useRef(false);
+  const rescuePark = useRef<Uint8Array | null>(null);
   // The write a save is currently performing. Leaving the page before it settles is
   // how a save lands after a rename and quietly reverts it.
   const persistingRef = useRef<Promise<void>>(Promise.resolve());
 
   const [progress, setProgress] = useState<LoadProgress>({ stage: "idle", label: "Starting…", fraction: 0 });
+  const [smoothView, setSmoothView] = useState(true);
+  const [building, setBuilding] = useState(false);
   const [phase, setPhase] = useState<Phase>("loading");
   const [error, setError] = useState<{ message: string; detail?: string } | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
@@ -62,6 +69,9 @@ function PlayScreen() {
   // because it tells them their last few minutes of play were lost.
   const [recovery, setRecovery] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [audioEnabled, setAudioEnabled] = useState(true);
+  const [hasRescue, setHasRescue] = useState(false);
+  const [activeScenarioId, setActiveScenarioId] = useState("first-park");
   const [alerts, setAlerts] = useState<GuestAlertMessage[]>([]);
   const [alertsCollapsed, setAlertsCollapsed] = useState(false);
   const [scenario, setScenario] = useState<ScenarioState | null>(null);
@@ -74,6 +84,7 @@ function PlayScreen() {
       const store = storeRef.current;
       const record = recordRef.current;
       if (!store || !record) return;
+      rescuePark.current = park;
       try {
         const updated = await store.write(record.id, {
           park,
@@ -85,9 +96,14 @@ function PlayScreen() {
         recordRef.current = updated;
         pendingShot.current = undefined;
         dirtyRef.current = false;
+        rescuePark.current = null;
+        setHasRescue(false);
+        setError(null);
         setNotice(kind === "autosave" ? "Autosaved" : "Saved");
         window.setTimeout(() => setNotice(null), 2500);
       } catch (writeError) {
+        dirtyRef.current = true;
+        setHasRescue(true);
         if (writeError instanceof StorageQuotaError) {
           setNotice(null);
           setError({
@@ -103,14 +119,15 @@ function PlayScreen() {
   );
 
   useEffect(() => {
-    if (startedRef.current) return;
-    startedRef.current = true;
     let cancelled = false;
     let autosaveTimer = 0;
     let alertTimer = 0;
+    let initialSaveTimer = 0;
+    let mountedRuntime: GameRuntime | null = null;
 
     (async () => {
       const store = await GameSaveStore.open();
+      if (cancelled) return;
       storeRef.current = store;
 
       let record: SaveRecord | null = null;
@@ -127,17 +144,21 @@ function PlayScreen() {
         router.replace("/parks");
         return;
       }
+      if (cancelled) return;
       recordRef.current = record;
+      setActiveScenarioId(record.scenarioId);
       setTipsHidden(record.tipsHidden === true);
 
       const runtime = new GameRuntime((next) => {
         if (!cancelled) setProgress(next);
       });
+      mountedRuntime = runtime;
       runtimeRef.current = runtime;
 
       runtime.bus.on("ERROR", (message) => {
         setError({ message: message.message, detail: message.detail });
-        setPhase("failed");
+        if (message.stage === "park-save") { dirtyRef.current = true; setSaving(false); }
+        else setPhase("failed");
       });
       runtime.bus.on("GUEST_ALERTS", (message) => {
         if (!cancelled) setAlerts(message.alerts);
@@ -145,12 +166,14 @@ function PlayScreen() {
       runtime.bus.on("SCENARIO_STATE", (message) => {
         if (cancelled) return;
         setScenario(message.state);
+        setAudioEnabled(runtime.getAudioEnabled());
+        if (message.state.scenarioComplete && recordRef.current) markScenarioComplete(recordRef.current.scenarioId);
       });
       runtime.bus.on("SCREENSHOT_READY", (message) => {
         pendingShot.current = message.png;
       });
       runtime.bus.on("SAVE_READY", (message) => {
-        persistingRef.current = persist(message.park, message.parkMetadata, message.reason);
+        persistingRef.current = persistingRef.current.then(() => persist(message.park, message.parkMetadata, message.reason));
       });
       runtime.bus.on("GAME_READY", async () => {
         if (cancelled) return;
@@ -173,7 +196,7 @@ function PlayScreen() {
         dirtyRef.current = true;
 
         // First save straight away, so a park exists even if the tab dies early.
-        window.setTimeout(() => {
+        initialSaveTimer = window.setTimeout(() => {
           void runtime.send({ type: "REQUEST_SCREENSHOT", ...THUMBNAIL });
           void runtime.send({ type: "REQUEST_SAVE", saveId: record!.id, reason: "autosave" });
         }, 4000);
@@ -202,6 +225,8 @@ function PlayScreen() {
       cancelled = true;
       if (autosaveTimer) window.clearInterval(autosaveTimer);
       if (alertTimer) window.clearInterval(alertTimer);
+      if (initialSaveTimer) window.clearTimeout(initialSaveTimer);
+      mountedRuntime?.exit("player");
     };
   }, [persist, router, saveId, scenarioId]);
 
@@ -212,7 +237,7 @@ function PlayScreen() {
    */
   useEffect(() => {
     const onBeforeUnload = (event: BeforeUnloadEvent) => {
-      if (phase === "playing" && dirtyRef.current) event.preventDefault();
+      if (phase === "playing") event.preventDefault();
     };
     window.addEventListener("beforeunload", onBeforeUnload);
     return () => window.removeEventListener("beforeunload", onBeforeUnload);
@@ -223,6 +248,7 @@ function PlayScreen() {
     const record = recordRef.current;
     if (!runtime || !record) return;
     setSaving(true);
+    dirtyRef.current = true;
     await new Promise<void>((resolve) => {
       const off = runtime.bus.on("SAVE_READY", () => {
         off();
@@ -235,6 +261,11 @@ function PlayScreen() {
     // Let the write finish before navigating. Anything that reads or edits this park
     // on the next screen must see the final state, not race it.
     await persistingRef.current;
+    if (dirtyRef.current) {
+      setSaving(false);
+      setError(previous => previous ?? { message: "The park was not saved. Please retry before leaving." });
+      return;
+    }
     dirtyRef.current = false;
     runtime.exit("player");
     router.push("/parks");
@@ -245,8 +276,13 @@ function PlayScreen() {
   const onboardingContext = scenario
     ? { state: scenario, alerts }
     : null;
-  const step = onboardingContext ? currentStep(onboardingContext) : null;
-  const stepProgress = onboardingContext ? stepsCompleted(onboardingContext) : { done: 0, total: 0 };
+  const nativeStep = onboardingContext ? currentStep(onboardingContext, activeScenarioId) : null;
+  const step = nativeStep && smoothView
+    ? { ...nativeStep, body: nativeStep.id === "camera"
+      ? "Drag the park to explore. Scroll or pinch to zoom, and right-drag to orbit. Click a ride to manage it; choose Build park to construct paths, rides and scenery."
+      : nativeStep.body + " Use Build park for construction or Manage park to hire cleaners and mechanics." }
+    : nativeStep;
+  const stepProgress = onboardingContext ? stepsCompleted(onboardingContext, activeScenarioId) : { done: 0, total: 0 };
 
   const hideTips = useCallback(() => {
     setTipsHidden(true);
@@ -276,15 +312,24 @@ function PlayScreen() {
       <canvas
         ref={canvasRef}
         id="canvas"
+        style={{ visibility: phase === "playing" && smoothView ? "hidden" : "visible" }}
         tabIndex={0}
         className="absolute inset-0 block h-full w-full"
       />
 
-      {phase === "playing" && (
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-between p-3">
-          <div className="pointer-events-auto">
+      {phase === "playing" && smoothView && <Park3D parkLabel={activeScenarioId.split("-").map(word => word[0].toUpperCase() + word.slice(1)).join(" ")} runtimeRef={runtimeRef} onAdvanced={() => setSmoothView(false)} building={building} onBuilding={setBuilding} onSave={saveAndExit} saving={saving} audioEnabled={audioEnabled} onAudio={() => { runtimeRef.current?.setAudioEnabled(!audioEnabled); setAudioEnabled(!audioEnabled); }} />}
+      {phase === "playing" && !smoothView && <CameraControls runtimeRef={runtimeRef} />}
+
+      {phase === "playing" && !smoothView && (
+        <div className="pointer-events-none absolute inset-x-0 top-8 z-10 flex items-start justify-between p-3">
+          <div className="pointer-events-auto flex flex-wrap gap-2">
+            <Button size="sm" onClick={() => setSmoothView(true)}>View in 3D</Button>
             <Button size="sm" variant="secondary" onClick={saveAndExit} disabled={saving}>
               {saving ? "Saving…" : "Save & exit"}
+            </Button>
+            <Button size="sm" variant="secondary" aria-pressed={!audioEnabled}
+              onClick={() => { runtimeRef.current?.setAudioEnabled(!audioEnabled); setAudioEnabled(!audioEnabled); }}>
+              {audioEnabled ? "Mute sound" : "Enable sound"}
             </Button>
           </div>
           {notice && (
@@ -321,7 +366,23 @@ function PlayScreen() {
       */}
       {phase === "playing" && scenario && (
         <div className="pointer-events-none absolute bottom-3 left-3 z-10 flex flex-col items-start gap-2">
-          {step && !tipsHidden && (
+          {scenario.scenarioFailed && (
+            <div className="pointer-events-auto w-80 max-w-[calc(100vw-1.5rem)] rounded-md border border-destructive/50 p-3 shadow-lg"
+              data-testid="scenario-failed" style={{ background: "var(--rm-sunken)" }}>
+              <p className="font-semibold">The park missed its goal</p>
+              <p className="mt-1 text-xs">The park rating stayed too low. Save this park and start another attempt from My parks.</p>
+              <Button className="mt-3" size="sm" disabled={saving} onClick={saveAndExit}>Save and choose a park</Button>
+            </div>
+          )}
+          {scenario.scenarioComplete && (
+            <div className="pointer-events-auto w-80 max-w-[calc(100vw-1.5rem)] rounded-md border p-3 shadow-lg"
+              data-testid="scenario-complete" style={{ background: "var(--rm-sunken)", borderColor: "var(--rm-positive)" }}>
+              <p className="font-semibold">Objective complete!</p>
+              <p className="mt-1 text-xs">Your park has reached its goal. Keep building or choose another scenario.</p>
+              <Button className="mt-3" size="sm" disabled={saving} onClick={saveAndExit}>Save and choose a park</Button>
+            </div>
+          )}
+          {step && !tipsHidden && !building && (
             <OnboardingPanel
               step={step}
               done={stepProgress.done}
@@ -329,7 +390,7 @@ function PlayScreen() {
               onDismiss={hideTips}
             />
           )}
-          {step && tipsHidden && (
+          {step && tipsHidden && !building && (
             <button
               className="pointer-events-auto rounded-md px-3 py-1.5 text-xs"
               data-testid="onboarding-show"
@@ -357,6 +418,22 @@ function PlayScreen() {
                 {`/${scenario.objectiveRating}`}
               </>
             )}
+          </div>
+        </div>
+      )}
+
+      {phase === "playing" && error && (
+        <div role="alert" className="absolute inset-x-3 top-14 z-20 mx-auto flex max-w-lg flex-col gap-2 rounded-md border bg-background p-4 shadow-lg">
+          <p className="font-semibold">{error.message}</p>
+          {error.detail && <p className="text-sm text-muted-foreground">{error.detail}</p>}
+          <div className="flex flex-wrap gap-2">
+            <Button size="sm" onClick={() => { const record = recordRef.current; if (record) void runtimeRef.current?.send({ type: "REQUEST_SAVE", saveId: record.id, reason: "manual" }); }}>Retry save</Button>
+            {hasRescue && <Button size="sm" variant="secondary" onClick={() => {
+              const bytes = rescuePark.current; if (!bytes) return;
+              const url = URL.createObjectURL(new Blob([bytes as BlobPart], { type: "application/octet-stream" }));
+              const link = document.createElement("a"); link.href = url; link.download = "ridemere-rescue.park"; link.click();
+              window.setTimeout(() => URL.revokeObjectURL(url), 2000);
+            }}>Download rescue copy</Button>}
           </div>
         </div>
       )}

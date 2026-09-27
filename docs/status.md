@@ -1,5 +1,11 @@
 # Status
 
+Current checkpoint (2026-09-26): **V1-9 guest diversity is integrated; all three
+scenarios and core audio are playable. V1 is not yet fully accepted.**
+V1-8 still lacks modern-twister artwork. Economy/playtime tuning, listening tests and
+broader public-beta validation remain. Historical entries below describe earlier
+checkpoints; the final entry records the current release pass.
+
 ## M0, upstream browser verification: **PARTIAL** (2026-09-22)
 
 Everything that can be verified without proprietary RCT2 data passes. The gameplay half of M0 (load a park,
@@ -1095,3 +1101,486 @@ build.
 `demo_check_failures.py` now proves five of these reject content broken on purpose,
 including a scenery object rendered from one angle four times and a model slid twelve
 pixels off the rotation origin.
+
+
+## V1-6 — Staff and First Park maintenance (2026-09-26)
+
+The mechanic is available in the release scenario. New First Park games enable normal
+engine breakdowns, begin with an 80%-reliable closed coaster, and request inspections
+every ten game-clock minutes. There is no forced tutorial breakdown.
+
+The eleven-step tutorial prioritizes a broken ride over other lessons. It asks for a
+mechanic before hiring and explains automatic repair afterwards. Hiring alone does not
+complete the repair lesson, closing a broken ride does not hide it, and employing a
+mechanic early does not skip food, drink or cleaning lessons. Saved parks reconstruct
+the correct instruction from actual ride and staff state.
+
+The engine builder now preserves starting wear across upkeep and refuses settings it
+cannot honor. The original mechanic has 205 images and event-length repair sequences;
+its provenance and the development maintenance scenarios are declared. The undecorated
+control park now shares First Park's maintenance settings.
+
+Three browser integration defects were also corrected:
+
+* Content caches compare the archive's SHA-256, independently of the engine revision.
+  Scenario-only changes reach returning players, while an unchanged archive is reused.
+* Fresh browser profiles disable edge scrolling. SDL's initial pointer at (0,0) could
+  pan the camera before interaction, skip the camera lesson, and smear the toolbar.
+  Right-drag panning remains available, and existing player settings are retained.
+  The shell also restores the Ridemere browser title after SDL startup.
+
+* Save & exit and view cleanup now stop the main loop, SDL audio and worker pool.
+  The SDL silence timer survived main-loop shutdown and kept requesting audio
+  activation, causing Firefox navigation-time promise errors. The bridge teardown
+  also handles cancellation during startup and clears pending save/poll timers.
+
+The player download is **9.96 MB**, with all development scenarios stripped. First
+Park's description now names its actual 180-guest objective. Old saves retain their
+saved scenario rules, including their breakdown setting.
+
+Pacing evidence and limits: [First Park](first-park.md#pacing-measurement-2026-09-26).
+Four 25-minute paired samples produced one early breakdown at 80% and none at 100%.
+This supports conditional maintenance guidance, not a promise of a timed tutorial.
+
+Acceptance verification completed:
+
+* All **36** checks in `wasm/test/run-m3-tests.sh` passed across the initial run and
+  focused groups. The original mechanic animation observer stopped sampling before
+  a long repair finished; it now watches through completion with a bounded deadline.
+  Its corrected rerun passed all four animation-event assertions and actual repairs.
+* `webmechanic.js` passed in Chromium, Firefox and WebKit at 1280×800: start First Park,
+  ride, trigger a real engine breakdown, close/reopen without falsely clearing the
+  lesson, save/resume broken, hire, repair, ride again, and save/resume repaired.
+  All three had correct page identity, rendered terrain/paths/track, no framework
+  overlay, and no browser or console errors. Shutdown assertions confirm stopped
+  ticks, an empty worker pool and a closed audio context. Content migration and
+  unchanged-cache reuse both passed. Screenshots are in `/tmp/ridemere-v16-qa`.
+* Browser plugin not available; validation used Playwright. Firefox used headed
+  software WebGL under Xvfb in the pinned Playwright container; WebKit used that
+  container headlessly and Chromium used the host browser. Mobile viewports were
+  not tested in this milestone.
+* The existing web onboarding flow passed, as did development Strict Mode startup,
+  saving and teardown. The production Next.js build and ESLint passed.
+* A normal twelve-minute playthrough ended with 143 guests, rating 757, $11,373.90
+  cash and one piece of litter. The handyman swept seven pieces and emptied seven
+  bins. No natural breakdown occurred in that particular playthrough; the separate
+  triggered tests establish repair correctness, not breakdown frequency.
+
+Reproduce with the commands in the README; `TEST_FILTER` selects named acceptance
+checks for focused reruns. Pacing remains a V1-10 balancing task, and old parks keep
+the scenario rules serialized in their saves.
+
+
+## V1-7 flat rides complete; V1-8 partially complete (2026-09-26)
+
+Five original rides now work in First Park: carousel, dodgems, drop tower, swinging
+ship and ferris wheel. Their models, animation and rider frames are authored in the
+Blender pipeline. The base archive also gains original decking, rails, tower modules,
+supports, station signals, height labels and coaster-construction controls.
+
+Alpine and single rail join the existing hybrid coaster. Modern twister is excluded:
+its alternate painter falls back to legacy straight and curve sprites. It failed an
+actual running-ride sprite audit despite having an open train object. V1-8 remains
+partial until those rails are replaced or the intended launch roster changes.
+
+All eight rides are available when starting a new First Park. Only the starter hybrid
+is prebuilt. Existing saves preserve their original ride selection. The first-load
+payload is **11.72 MB**, including the engine, with 17 development scenarios stripped
+from the player archive. Unsupported modern-twister content is absent too.
+
+Validation for this change:
+
+* All seven additions completed real guest sessions, retained ride/customer state
+  across save/load, and rendered in all four camera rotations with zero unexpected
+  base sprites. The tower gondola rose above its station.
+* All seven passed native menu selection and paid construction, with the selected
+  ride type and cash deduction checked. Five flat-ride image contracts passed.
+* All 18 scenario files regenerated with station-connection validation. The builder
+  rejects unavailable rides, detached exits and invalid tower heights; the existing
+  invalid scenario-setting cases still pass.
+* Fifteen focused content/provenance/negative-fixture checks passed; final release
+  packaging checks passed after regeneration. The expanded acceptance runner now
+  includes three ride checks alongside the existing 36 checks. This milestone did
+  not repeat every long-duration reliability/aging test from V1-6.
+* First Park rendering, serialized scenario settings, scenery save/load and native
+  build-menu pixel checks passed. Production Next.js build, ESLint, source syntax
+  checks and diff whitespace checks passed.
+* Production catalog checks passed in Chromium, Firefox and WebKit at 1280×800:
+  all eight objects loaded and gentle/coaster/thrill menus drew without unexpected
+  sprites, framework overlays or browser errors. Mobile landing-screen checks
+  passed at 390×844; touch gameplay was not tested.
+* Chromium, Firefox and WebKit passed the production breakdown, save/resume, repair
+  and resumed-guest flow, including content-cache migration and worker/audio teardown.
+  The first WebKit lifecycle run lost its page without an application error; a full
+  rerun with crash diagnostics passed. The cause of that one interruption is unproven.
+* The remaining known-park, interface-pixel and clean-browser gameplay checks passed.
+  One grouped regression runner received SIGTERM after its successful scenery audit;
+  the saved pixel evidence and remaining checks passed when run separately.
+
+Browser plugin was unavailable; tests used host Chromium and the pinned Playwright
+container for Firefox (headed software WebGL under Xvfb) and WebKit. Screenshots and
+ride evidence are in `/tmp/ridemere-v17-qa`. See [ride content](flat-rides.md) for source,
+rebuild commands, capacities and test details. Coaster validation uses simple closed
+loops, not every possible track piece or custom design.
+
+
+## V1 completion pass: guests, scenarios, audio and recovery (2026-09-26)
+
+- **V1-9 implemented:** six body/hair/hat combinations × six skin palettes, with
+  runtime shirt/trouser recolouring. All 36 appearances have complete animation
+  layouts and are selected by the native guest generator. Save/load retains them.
+  The original guest object remains available for older parks.
+- **V1-10 partial:** free-entry/paid-ride economics in First Park and Small Footprint;
+  Growing Destination charges $15 admission and offers free rides. Admission receipts,
+  shop sales, loans and prices survive saving. Short sessions establish functioning
+  economics, not multi-hour balance or the planned scenery incentive.
+- **V1-11 content implemented, playtime acceptance pending:** First Park (180 guests),
+  Small Footprint (300, compact owned land, carousel and three facilities), Growing
+  Destination (750, larger expansion area, hybrid, carousel and four facilities).
+  All require rating 700. New scenario-specific guidance, native objective completion
+  feedback and persistent completion badges are integrated. All scenarios remain
+  available; progression does not lock players out of later parks.
+- **V1-12 core integrated:** 64 base sound slots (38 original synthesized replacements
+  and 26 OpenSoundEffects samples), three additional coaster effects and three
+  unmodified OpenMusic tracks. Sound controls are exposed in the shell and credits
+  are available at `/credits`. Synthetic vocal effects still need listening and mix
+  review; the brief's extra custom alert/cleaning sounds are not implemented.
+- **V1-13 partial:** failed saving now keeps the game open with retry and a downloadable
+  current-park rescue file. The browser test injects a quota error, downloads the
+  rescue, loads it through the engine, restores storage and successfully exits.
+  Native success/failure now have separate feedback and only success earns a badge.
+  Shell controls sit below the native toolbar so pause/speed remain reachable.
+  New original guest-count arrows and 32 litter sprites close dependencies found by
+  the larger park's sprite audit. Temporary diagnostic instrumentation was removed.
+
+### Evidence and limits
+
+Chromium, Firefox and WebKit passed the injected storage-failure/rescue workflow.
+Chromium and WebKit emitted nonzero audio samples. Firefox loaded sound and toggled
+mute correctly, but its container AudioContext remained suspended; Firefox playback
+is unverified. The native Small Footprint objective completed at 361 guests/rating
+784 after test-only guest injection, and its badge persisted on the scenario picker.
+This verifies the completion workflow, not natural scenario balance. Desktop gameplay
+(1280×800) and the scenario picker at 390×844 were visually checked, without page
+errors. Browser plugin was unavailable, so regular Playwright was used.
+
+Native scenario tests exercise real ride customers, facilities, paid admissions,
+36+ native appearance indices, save/load and four camera rotations. Content checks
+validate all guest animation layouts, all base audio samples, three music objects,
+release/development separation and provenance (106 records). The acceptance runner
+now includes three additional V1 gates, for 42 checks total. Fourteen relevant
+content regressions passed in this pass; the complete 42-check suite was not rerun.
+Web lint and the production build passed.
+
+The clean build measured Growing Destination with **1,000 guests inside**: about
+60 browser animation frames/s and 39.9 simulation ticks/s over a ten-second sample;
+512 MiB WASM memory and about 42 MB JS heap, with 16 workers. A 1,000-guest save
+loaded successfully. These are local desktop measurements with injected guests,
+not a low-end-device result or a sustained economic playthrough; animation frame
+rate is requestAnimationFrame cadence, not a GPU render benchmark.
+
+Player download: **20.93 MB** (4.08 MB engine, 16.84 MB content), below the 25 MB hard
+ceiling but above the 15 MB soft target. Development parks are removed from the player
+archive. Guest variant PNGs are stored without inner ZIP compression so the outer
+content archive can deduplicate shared frames losslessly.
+
+Remaining acceptance: modern-twister legacy rail replacements; sustained scenario
+balance and 2–5-hour playtime; audio listening/mixing and extra events; real-device
+Firefox/Safari audio, lower-end performance, long sessions and broader save migration.
+No public deployment was made.
+
+
+## Player-reported zoom defect and visual cleanup (2026-09-26)
+
+The earlier V1 checks missed a severe visible failure: zooming out left repeated copies
+of the map behind. It was reproduced through real wheel input. Standalone viewport
+painting now clears stale background pixels before drawing each dirty column. A new
+regression checks wheel/button zoom, rotation, clean exposed background and retained
+toolbar icons; the acceptance runner now has 43 gates.
+
+At 1280×800, Chromium, Firefox and WebKit passed zoom, pan, rotate and save/resume
+with no page errors. The original screenshot had only 18.76%, 0%, 0%, 0% cleared
+background in four test regions; all fixed captures had 100% in every region.
+The 1,000-guest measurement after the renderer change remained approximately 60
+animation frames and 40 simulation ticks per second, with 512 MiB WASM memory.
+
+This pass also fixed the shell font fallback and inactive custom theme, reduced terrain
+and cliff noise, regenerated shops/scenery with properly exposed lighting, added cabin
+ventilation details and stronger fence shading, and relit the starter carousel.
+World, shop, addition, scenery and rotation-origin checks pass without weakened
+thresholds. See [world art system](world-art-system.md) for reproduction details.
+The artwork is still a prototype; these fixes do not establish that every interaction,
+ride or device is free of visual defects. Existing parks are retained; reloading picks
+up the new engine and content hash.
+
+## 2026-09-27 — visible camera controls
+
+Player feedback: panning was undiscoverable; the only mouse gesture was right-drag
+and edge scrolling was disabled. Added a collapsible Camera panel with directional
+buttons, zoom, rotation, and return-to-centre. Move view supports ordinary mouse and
+touch dragging, pointer capture/cancellation, arrow keys, and Escape. Done moving,
+collapsing the panel, or choosing a native top-toolbar tool restores selection and
+construction input. Updated the first camera lesson and README.
+
+The engine bridge now exposes screen-relative pan and native camera actions; it
+cancels following/automatic scrolling for manual pan and respects the current zoom.
+The existing simulation and park-save format are unchanged.
+
+Validation: engine build, web production build, lint, and whitespace checks passed.
+`webcamera.js` passed against localhost:3210 in Chromium at 1280×800 with a mouse and
+390×844 with emulated touch: all four directions, actual dragging, keyboard, zoom,
+rotation, home recovery, panel collapse/reopen, native toolbar access, and save/reload.
+No page errors were observed. `zoomredraw.js` still passes the stale-terrain and
+visible-toolbar assertions. Evidence: `/tmp/ridemere-camera-qa/desktop.png` and
+`touch.png`. Browser plugin not available; used the installed Playwright browser.
+
+This is an input/usability repair, not the requested replacement of the pixel-art
+renderer. Park artwork remains visibly pixelated, and native construction dialogs
+and the full toolbar are not yet adapted to narrow phone screens. The camera touch
+test does not constitute full mobile gameplay acceptance. A smooth 3D presentation
+requires a separate renderer/artwork project; visual direction has been requested
+from the player before committing to that larger change.
+
+## 2026-09-27 — smooth live 3D park presentation
+
+Replaced the default gameplay presentation with a Three.js scene connected to the
+running OpenRCT2 simulation. This addresses the player's complaint about pixelation
+with real antialiased geometry rather than filtering the old sprite canvas.
+
+Original procedural models cover trees, planting, park fixtures, timber kiosks,
+entrances, carousel, dodgems, ship, tower, and wheel. Native track endpoints feed
+smooth coaster curves, and native train/guest positions update the scene. Terrain
+uses sampled heights, warm connected paths, a generated grayscale grass bump map,
+soft shadows, and a consistent teal/ivory/timber/brass palette. The generated design
+reference and asset prompt/provenance are in `docs/design/garden-3d.md`.
+
+Visible controls include ordinary drag panning, right-drag orbit, scroll/pinch zoom,
+camera buttons, pause/resume, sound, ride picking and native open/close actions.
+Build park switches to the existing editor; View in 3D rebuilds from the current park.
+Camera movement updates the native camera and tutorial. The 3D view is disposed on
+exit/switch, including its context, frame/poll callbacks, listeners and GPU resources.
+The scene snapshot has bounded native string ownership and does not edit park state.
+
+Validation completed on the production preview at localhost:3210:
+
+- Engine build, web production build, lint and whitespace checks passed.
+- `web3d.js`: Chromium, Firefox and WebKit passed live scene/map bounds, pan/zoom/orbit,
+  camera lesson, pause/resume, ride picking/open/close, a native construction change
+  reflected in 3D, read-only polling, and save/reload of the edited park. No browser
+  console/page errors in those tests. Desktop viewport 1440×960.
+- Chromium additionally passed touch dragging and visible controls at 390×844, DPR 2.
+- The construction camera regression still passes desktop and touch interactions.
+- First Park's coaster layout received a separate screenshot review.
+- Used installed Playwright because the Browser plugin is unavailable.
+
+Evidence: `/tmp/ridemere-3d/smooth-chromium.png`, `smooth-firefox.png`,
+`smooth-webkit.png`, and `smooth-touch.png`. Both the concept and actual browser
+captures were inspected. The implemented scene preserves the actual park layout;
+it does not reproduce the reference's illustrative density or botanical detail.
+
+Remaining work: native construction UI and save thumbnails still use sprites. The
+3D ride/scenery models are simplified, and coaster splines approximate native pieces;
+not every banked/inverted track, operating-cycle phase, or large imported park has
+been visually validated. This is a substantial graphics replacement for viewing and
+basic ride management, not a finished 3D construction editor or final art acceptance.
+
+## 2026-09-27 — articulated guests and botanical scenery
+
+Replaced the 3D view's capsule people and spherical tree crowns. Guests now have
+shaped torsos and jaws, hair, faces, separate arms/hands and two jointed legs with
+shoes. Clothes, skin, hair and height vary by stable entity ID. Gait follows actual
+native displacement, including planted/swinging feet, bent knees, opposing arms
+and turning. Idle and paused people hold their poses; native sitting state selects
+a seated pose. The scene bridge adds peep state and orientation to each person row.
+
+Trees have tapered leaning trunks, roots, bark grooves, branching limbs and twigs,
+individual folded leaves, and distinct broadleaf/columnar/young/evergreen/flowering
+forms. Shrubs and kiosk planters also use leaf geometry. Denser canopies, corrected
+sRGB leaf colours and neutral daylight replace the pale ball-shaped foliage.
+
+Validation: native incremental build and archive sync, frontend production build,
+lint, and whitespace checks passed. `wasm/test/crowd.js` verifies separate grounded
+feet, interpolation, changing leg poses, idle/pause stability, sitting, disappearance
+and 1,000-person geometry updates. Measured CPU-only crowd updates were about 10.5 ms
+for 1,000 people on this machine; this excludes WebGL and is not an FPS claim.
+Chromium, Firefox and WebKit passed `web3d.js` camera/ride/build/save workflows; Chromium also
+passed the 390×844 DPR-2 touch check. The populated Chromium check covers the actual
+seven-field native person rows, visible crowd count, pause/resume, and continued
+simulation/rendering with 1,000 people. Browser screenshots are under
+`/tmp/ridemere-3d/realism-final-{overview,close,trees}.png`.
+
+The result remains stylized real-time geometry. Clothing/faces, ride mechanisms,
+buildings and terrain surfaces are still simplified; construction and save
+thumbnails remain native sprites. This pass improves tree and human detail without
+claiming photorealism or final V1 art acceptance.
+
+## 2026-09-27 — softer geometry and separated 3D crowds
+
+Replaced sharp box edges with bevels, curved the kiosk awnings and carousel canopy,
+added siding and rounded lamp fixtures, and improved human silhouettes and leaf
+normals. Flat connected path surfaces stay seamless. The square raised board is
+replaced by continuous surrounding ground; focused shadow coverage and softer fill
+light improve contact and surface shading. Small eyes, noses and narrow bevels use
+lower geometry detail than the main silhouettes.
+
+`crowd-motion.ts` gives the 3D crowd swept body-clearance checks, a spatial grid,
+connected-path routing, right-side passing and bounded movement substeps. Guests
+steer or wait rather than crossing through other bodies. Gait follows the resulting
+movement. Duplicate native starting positions seek nearby free path space; placement
+waits when that space is saturated. This is presentation movement, not a modification
+to the native economic simulation or the original 2D editor. Rendered guests may
+lag native destinations, and native guest totals can include people waiting for
+presentation space. Slopes, bench approaches and separate elevations are covered.
+
+Build, lint and `wasm/test/crowd.js` pass. The motion regression checks body separation
+through head-on passing, duplicate arrivals, long frames, path boundaries, connected
+corners, pause, sitting and ramps. A populated 100-guest browser scene was visually
+reviewed at normal and close zoom without console/page errors. The final capture rendered 98 people
+with three awaiting free presentation space at the sampled congested moment; scene
+people include staff and arrivals as well as guests counted inside the park.
+Evidence: `/tmp/ridemere-3d/soft-overview.png` and `soft-close.png`.
+
+The browser regression exposed slow save completion under software rendering:
+continuous 3D drawing delayed each OPFS callback and queued autosave writes. The
+3D renderer now suspends drawing while the saving state is active, resuming on a
+failed write or unmounting after success. The final Chromium desktop regression
+passes camera controls, native ride status, construction synchronization, read-only
+polling and save/reload of the edited park. The 390×844 DPR-2 touch check also passed,
+as did the final populated scene and pause/resume check without console/page errors.
+Browser plugin unavailable; used the
+installed Playwright browser. General hardware frame-rate and large imported parks
+are not acceptance claims for this pass.
+
+## 2026-09-27 — replace angular human and object silhouettes
+
+The remaining flat-ended human parts were replaced with curved elliptical profiles,
+rounded hips/footwear and bridging shoulder, elbow and knee joints. The new original
+`organic.ts` geometry generator smooths the profile and UV seam. Existing instancing,
+gait, body-clearance logic and pause behavior are retained. Architectural changes
+include arched kiosk roofs with welded smooth normals, a curved dodgems canopy and
+round supports. Ride vehicles now use rounded car bodies, an ellipsoidal ship hull,
+rounded wheel cabins, circular tower seating and curved coaster cars. Carousel
+horse necks/legs and tree trunk sampling were also softened.
+
+Validation: production build, lint, whitespace and crowd regressions pass. Chromium
+1440×960 passes camera, ride picking/status, native construction synchronization,
+read-only polling and save/reload; 390×844 DPR-2 touch controls pass. A populated live
+park close-up and a separate model gallery covering all five flat rides, kiosk and
+bench were rendered and reviewed without console/page errors. Used installed
+Playwright; Browser plugin is unavailable. Evidence lives under `/tmp/ridemere-3d/`
+as `organic-close.png` and `organic-gallery.png`. The gallery is a model QA scene.
+
+These are improvements to the smooth 3D presentation. Native construction remains
+2D, and the art remains stylized; detailed anatomy, clothing and complete mechanical
+fidelity are not claimed. No native simulation, save format or original art licensing
+was changed by this pass.
+
+### 2026-09-27 — build directly in the 3D view
+
+`Build park` now opens a responsive construction panel over the existing 3D canvas,
+retaining its camera and graphics. Tile selection, model/footprint previews, rotation,
+quoted costs and native placement support paths/queues, benches/bins, scenery, four
+shops, four flat rides and their entrances/exits, plus path/scenery removal. Closing
+the tools returns to normal ride picking without recreating the renderer.
+
+The new `SunriseBuildAction` bridge uses native clearance/ownership/affordability
+checks, charges successful edits once, and rolls back a newly created empty ride
+when its track placement fails. Scoped paused-building support restores the original
+park setting on return. Immediate map snapshots update the actual 3D scene; changes
+survive ordinary saves. Re-selecting the current ride/tool preserves its valid quote.
+
+Validation: native WASM compilation, production web build, lint and crowd/separation
+regressions pass. `node wasm/test/build3d.js http://localhost:3210` passes in Chromium
+at 1440×960 and 390×844 touch: same canvas/camera, read-only previews, exact path cost,
+bench/tree/shop/ride/entrance/exit construction, opening the new ride, path removal,
+overlap rejection without cost or orphaned ride, save/reload, mobile tile selection
+and actual tree placement. No captured page/console errors. Browser plugin was not
+available; used the project's installed Playwright. Desktop preview and mobile
+screenshots are in `/tmp/ridemere-build3d/` and were visually inspected.
+
+Custom coaster tracks, terrain/elevated-path editing and staff management still use
+the separately labeled `Advanced editor (2D)`. Clicking `Build park` itself no longer
+switches to that editor. Object availability remains scenario-dependent.
+
+The updated `web3d.js` regression also passes on the final build: pan/zoom/orbit,
+lesson tracking, pause/resume, ride picking/status, explicit advanced-editor handoff,
+construction sync back to 3D, read-only polling, save/reload and 390×844 touch panning.
+
+### 2026-09-27 — expand the 3D build catalog to 51 choices
+
+Exposed all 32 shipped small-scenery objects with distinct tree, planting, furniture
+and garden models. Added three fence types, stone paving and wooden boardwalks,
+plus directional fence removal. The selector groups 54 total tools into nine
+categories and reports 51 construction choices; this adds 29 choices over the
+previous 22. Existing four flat rides/four shops remain; this pass adds no ride types.
+
+The native bridge now supports wall placement/removal and explicit path surface
+objects. Scene snapshots include path material IDs, and both previews and the live
+renderer use those materials. Walls rotate on the same tile edge as their native
+action. Ordinary saves preserve all additions.
+
+Validation passed: WASM compile, production web build, lint, crowd/separation tests,
+and Chromium catalog QA at 1440×960 and 390×844. All 32 scenery objects, all three
+fences and both path finishes placed with matching native costs. Directional removal,
+clock/fence placement through the UI, and exact scenery/path persistence after
+save/reload passed without captured console/page errors. Desktop/mobile screenshots
+and a 27-model inspection gallery were visually checked in `/tmp/ridemere-catalog/`.
+Browser plugin unavailable; used installed Playwright. Scenario object availability
+still applies. No custom-track/terrain/editor scope changed.
+
+### 2026-09-27 — image tiles replace the build-item dropdown
+
+All 54 build tools now use small rendered model thumbnails with labels, category
+buttons, search, and a selected checkmark. A persistent selected-item thumbnail
+reopens the catalog; mobile selection collapses it to reveal placement controls.
+Cards retain their image/label height while scrolling, fixing a mobile flex-shrink
+issue caught in visual QA. The images total about 584 KB on disk and introduce no
+additional runtime WebGL renderer. `web/scripts/build-item-thumbnails.mjs` regenerates
+them from the actual procedural models.
+
+Fixed SDL keyboard capture of HTML build controls with a scoped `[data-game-ui]`
+keyboard guard registered before engine startup and removed on exit. Browser typing,
+Backspace and native Enter activation work; camera keys outside the panel still work.
+
+Production build, lint and thumbnail generation pass. `item-picker3d.js` passes in
+Chromium at 1440×960 desktop and 390×844 touch: all thumbnails load, filtering and
+empty results work, actual typing/backspace and keyboard/touch selection work,
+collapse/reopen retains selection, and selecting the clock builds that real object.
+Desktop camera keyboard regression passes; no captured page/console errors. Final
+mobile layout rerun also checks minimum card height and unclipped labels. Screenshots
+in `/tmp/ridemere-item-picker/` were visually inspected. Browser plugin unavailable;
+used installed Playwright. Existing construction tests now select image cards through
+`wasm/test/build-item-picker.js`; native-camera tests close the mobile catalog before
+opening the advanced editor.
+
+### 2026-09-27 — More playable rides in the 3D builder
+
+Added three ready-built coaster types (alpine, single-rail, hybrid) with lift hills, drops and closed return circuits, and a six-section drop tower. The catalog now contains 55 build choices / 58 tools, with a Coasters category and model-based thumbnails for all four additions. Existing saves can load the bundled objects on first placement. Native design placement preflights clear, level, owned footprints; queries are read-only; failed native placement rolls back; payment occurs once after all track pieces succeed. Entrances/exits and queue connections remain explicit player actions. Custom track editing still lives in the advanced editor.
+
+Build and lint pass. Browser plugin not available; used installed Playwright at localhost:3210. Native integration confirmed all four complete rides build, charge once, reject overlap without changing scene state, accept entrance and exit, and open successfully. UI integration confirmed the Coasters picture category and actual alpine-coaster placement through the existing 3D canvas. Native testing caught and fixed slope-origin offsets (`zBegin`) before release. Native compilation required host networking to fetch Emscripten ports; the existing RideMusic link warning remains unchanged.
+
+Final persistence run passed: all four new rides showed native vehicle movement (ticks 35→415), then Save & exit / reload preserved all track elements and ride object types exactly, including objects loaded on demand. Mobile catalog category, selection, and bounds passed at 390×844. Normal 1440×960 rendering produced the catalog/preview screenshots and passed actual picture-card placement; subsequent persistence/accounting tests disabled WebGL draw calls to isolate native behavior from slow software GPU rendering. A test-only DPR 0.5 retry triggered an SDL screen-texture assertion; the successful run used DPR 1. Build/lint and `git diff --check` passed. Evidence: `/tmp/coaster-catalog-desktop.png`, `/tmp/coaster-preview-desktop.png`, `/tmp/ridemere-quality/coaster-native-test.log`, and `/tmp/ridemere-quality/coaster-save-final.log`. Full guest throughput and completed-circuit ratings were not measured in this pass.
+
+Low-cash rollback also passed on a dedicated $100 park: a valid alpine footprint was previewed, partial native placement ran until the complete ride exceeded available cash, and the failed action left the complete scene snapshot (cash, tracks, rides, props and pause state) unchanged. Log: `/tmp/ridemere-quality/coaster-cash-test.log`.
+
+### 2026-09-27 — Larger and more complex coaster layouts
+
+Added nine named coaster layouts (twelve total) with multiple hills, S-bends, and folded switchback returns. The new layouts have 82–166 pieces and footprints from 31×23 to 66×34 tiles. Behemoth's lift rises 28.5 m above its base. Added footprint/piece/rise metadata and Show whole layout camera fitting; expanded zoom-out range for large parks. Added Coaster Frontier, a 128×128 release park with $150,000 starting cash, and included it in scenario generation, content provenance, runtime mapping and the park selector. No existing saves are resized.
+
+Native integration passed for all nine layouts: closed circuits, read-only previews, successful full placement, exact one-time charge, unchanged state on overlapping placement, native entrances/exits and successful opening. Every design was tested independently on clear land in the new park. The scenario visibility check passes (four release parks, no development scenes shipped). Production build, lint, thumbnail generation (67 tools), and diff whitespace checks pass. Browser plugin unavailable; verification uses installed Playwright. Logs: `/tmp/ridemere-quality/large-coaster-native.log`, `large-coaster-web.log`, `large-coaster-lint.log`, `large-coaster-thumbnails.log`; model gallery: `/tmp/large-coaster-gallery.jpg`.
+
+The new `/parks` → Coaster Frontier end-to-end test exposed an existing isolation-boundary bug: client-side entry into `/play` from a non-isolated document left SharedArrayBuffer unavailable. New/continue/saved-game entry buttons now perform full document navigation, so `/play` response isolation headers take effect. Ordinary shell navigation remains client-side. This fixes entry for all scenarios, not only Coaster Frontier.
+
+Final player-flow QA passed at 1200×800: start Coaster Frontier from the non-isolated parks page, obtain an isolated game document, load all twelve coaster images, select Behemoth, rotate and place its 166-piece layout on a clear visible tile, fit the entire preview with Show whole layout, and verify preview remains read-only. Save & exit and reopening preserved the exact native track array. Mobile (390×844) category/selection/panel bounds passed with no app console errors. Normal WebGL rendering was used for catalog, preview and built-park screenshots; only persistence/mobile checks suppressed GPU draw calls to avoid software-renderer contention. Evidence: `/tmp/large-coaster-catalog.png`, `/tmp/large-coaster-preview.png`, `/tmp/large-coaster-built.png`, `/tmp/ridemere-quality/large-coaster-ui.log`. Full-length ride throughput and final excitement/intensity ratings remain unmeasured.
+
+## RCT2-style management, shops and water rides
+
+Implemented a 3D park-management panel with cleaner/mechanic hiring, live staff duties, swept litter/bin totals, nausea/vomit counts and happiness. Native litter and vomit are rendered on paths; native throwing-up action bends the guest's upper body; cleaner and mechanic uniforms have different colors. Selected rides show customers, queue, price, total profit and breakdown status.
+
+Expanded shops/facilities from four to thirteen exposed choices: information, pizza, ice cream, fries, popcorn, coffee, balloons, first aid and cash machine join the original four. Native shop flags now determine entrance/facility behavior, and added objects load into older saves at placement. Assets use original Ridemere art; item sales and facilities use actual engine behavior.
+
+Added three complete native log-flume presets (36/48/60 pieces, 17×7 / 19×11 / 21×15 footprints), original boat sprites, matching 3D hulls and water channels, and picture cards. There are 79 tools in the build catalog. Full RCT2 parity is not finished: `docs/rct2-feature-parity.md` tracks remaining water/transport/gentle/thrill rides, patrol editing, research, finance, terrain and other gaps.
+
+Validation: native integration `wasm/test/expansion3d.js` passes all water presets, thirteen shop placements/opening/costs, read-only previews, overlap rollback, entrance/exit placement, both staff hires, save/reload and native boat motion (24 distinct sampled positions). Build and lint pass; all 79 thumbnails render; provenance audit declares every shipped asset. Native tests disable GPU draw calls for speed; visual browser validation is separate. Full guest-throughput, completed flume ratings, natural vomiting and subsequent cleanup were not replayed end-to-end in this expansion test.
+
+Real-rendering browser checks also pass (`wasm/test/expansion-ui3d.js`): picture cards, actual mouse placement of Wilderness Splash, complete-layout framing, cleaner/mechanic hiring without leaving 3D, 390×844 panel/toolbar bounds, and all thirteen shop images. No browser console errors. Visual review caught and fixed repeated slope flattening and a clipped mobile Save & exit button. Information kiosks now explicitly sell maps and umbrellas. Logs: `/tmp/management-final-test.log`, `/tmp/management-ui-final.log`; screenshots: `/tmp/water-ride-built.png`, `/tmp/management-desktop.png`, `/tmp/management-mobile.png`.

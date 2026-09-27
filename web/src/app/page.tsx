@@ -5,9 +5,11 @@
  * content later; the game route may not.
  */
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Wordmark } from "@/components/wordmark";
+import { enterGame } from "@/lib/game/navigation";
 import { GameSaveStore } from "@/lib/saves/store";
 import { PRODUCT } from "@/lib/product";
 
@@ -48,10 +50,10 @@ export default function HomePage() {
       <div className="flex flex-wrap items-center justify-center gap-3">
         {hasParks ? (
           <>
-            <Button size="lg" data-testid="continue" onClick={() => router.push(`/play?save=${latestId}`)}>
+            <Button size="lg" data-testid="continue" onClick={() => enterGame({ save: latestId! })}>
               Continue
             </Button>
-            <Button size="lg" variant="secondary" onClick={() => router.push("/play?scenario=first-park")}>
+            <Button size="lg" variant="secondary" onClick={() => enterGame({ scenario: "first-park" })}>
               New park
             </Button>
             <Button size="lg" variant="ghost" onClick={() => router.push("/parks")}>
@@ -59,11 +61,14 @@ export default function HomePage() {
             </Button>
           </>
         ) : (
-          <Button size="lg" data-testid="play" onClick={() => router.push("/play?scenario=first-park")}>
+          <Button size="lg" data-testid="play" onClick={() => enterGame({ scenario: "first-park" })}>
             Play
           </Button>
         )}
       </div>
+
+      <Link href="/parks" className="text-sm underline">Choose a scenario</Link>
+      <Link href="/credits" className="text-xs text-muted-foreground underline">Credits and licenses</Link>
 
       <p className="max-w-md text-sm" style={{ color: "var(--rm-text-quiet)" }}>
         No account, no download, no original game files. Parks are saved in this browser and can be exported at any

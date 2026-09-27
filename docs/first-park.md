@@ -1,14 +1,14 @@
 # First Park
 
 Written for whoever changes the first scenario, or wonders why one of its numbers is
-what it is. Every number here came out of a simulated play-through
-(`wasm/test/firstpark.js`), not out of intuition.
+what it is. The original economy and guest-need numbers came from simulated play-throughs
+(`wasm/test/firstpark.js`). Maintenance tuning and its limits are documented below.
 
 ## What it is for
 
 A new player has never run a theme park. First Park exists to get them from "I pressed
 play" to "I am running a park" without a manual, and to do it with the content that
-actually exists: one coaster, three stalls, a bench, a bin and a handyman.
+actually exists: one coaster, three stalls, benches, bins, a handyman and a mechanic.
 
 The measure of success is not that the player finishes it. It is that by the time they
 do, nothing in a second scenario will need explaining.
@@ -32,7 +32,8 @@ and checks each lands inside the viewport.
 
 | | |
 |---|---|
-| Coaster | built, **closed**, ticket $1.50 |
+| Coaster | built, **closed**, ticket $1.50, starting reliability 80% |
+| Maintenance | breakdowns enabled; inspections every 10 game minutes |
 | Paths | entrance corridor, crossing, plaza, coaster queue |
 | Benches | 4, on the plaza |
 | Bins | 3, on the plaza and the entrance path |
@@ -187,18 +188,54 @@ complain for over twenty minutes, so a tutorial that waits for the simulation wo
 nothing to teach for the length of the session. The thresholds in `docs/guest-alerts.md`
 are untouched.
 
-## Breakdowns are off
+## Maintenance
 
-`"breakdowns": false`. A ride that breaks down needs a mechanic, and V1 has none until
-V1-6. The first play-through of this scenario lost the park to exactly that: the coaster
-broke, the queue emptied, the rating fell to zero and a hundred and fifty guests left,
-with nothing the player could have done.
+Breakdowns are enabled. The coaster starts at 80% reliability and remains closed until
+the player opens it. Closed rides do not age: reading the opening instructions does
+not spend the maintenance window. The builder opens and immediately closes the ride
+while generating the park so engine upkeep does not silently renew it to 100%.
+No guests, revenue or simulated time are added by that initialization.
 
-This is temporary and belongs to the mechanic milestone, not here.
+Breakdowns are random engine events, not scheduled tutorial events. Starting wear
+makes the mechanic more likely to be useful during a session without forcing a failure
+at a particular moment. A player may finish without seeing a breakdown.
+
+An active breakdown takes priority over the other tips. Before hiring, the tip explains
+how to hire a mechanic and keep the ride exit accessible. After hiring, it explains
+that repair is automatic and points to the staff status. It stays visible until the
+ride is repaired; closing the ride is not counted as fixing it. The same state is
+reconstructed when a broken park is saved and resumed.
+
+The coaster requests an inspection every ten **game-clock** minutes (the engine's
+interval setting, not ten minutes of wall time). Inspections require a mechanic and
+raise reliability through the engine's normal repair logic. Hiring one early does not
+skip the other tutorial lessons.
+
+### Pacing measurement (2026-09-26)
+
+Four paired seeds ran for 25 normal-speed-equivalent minutes each using the actual
+8× toolbar control (`FAST=1 MAX_SEEDS=4 node wasm/test/breakdownseeds.js 25 4`).
+The probe opens the coaster, builds working food/drink/restroom stalls, hires a
+handyman, and deliberately leaves breakdowns unrepaired.
+
+| Starting reliability | Runs with a visible breakdown | First breakdown | Runs without a breakdown |
+|---|---:|---|---:|
+| 80% | 1/4 | 2.5 minutes (accepted at 1.9) | 3/4 |
+| 100% | 0/4 | none observed | 4/4 |
+
+This is a small characterization sample, not a reliable estimate of the population.
+It does **not** establish the original aspiration of a first failure between 12 and
+20 minutes. Keep 80% as a moderate starting-wear setting, make the lesson interruptible
+when failure is early, and do not gate progression on a random failure. More extensive
+pacing and difficulty balancing belongs to V1-10. The neglected broken park ended at
+37 guests and rating 699; prompt maintenance matters even in this forgiving scenario.
+
+Existing saves retain their saved breakdown setting. These changes apply to newly
+started First Park scenarios; loading an old park does not rewrite its rules.
 
 ## The onboarding
 
-Ten steps, in `web/src/lib/game/onboarding.ts`. Each one says when it is *ready* and
+Eleven steps, in `web/src/lib/game/onboarding.ts`. Each one says when it is *ready* and
 when it is *complete*, and both are pure functions of the scenario summary the engine
 sends. Nothing is stored: closing the tab and coming back recomputes the same step, and
 so does importing somebody else's park.
@@ -224,3 +261,13 @@ is the only thing that will tell you whether the scenario still works.
 The objective was not retuned when the park was decorated, and the measurement above is
 why: the park rating is identical with the decoration and without it. Making the park
 prettier is not a reason to move a target.
+
+## Expanded ride selection (2026-09-26)
+
+New First Parks offer five original flat rides (carousel, dodgems, drop tower,
+swinging ship and ferris wheel) and three coasters (hybrid, alpine and single rail).
+Only the original starter hybrid is prebuilt; the additions are choices in the ride
+construction menu. Starting cash, paths, maintenance rules and the 180-guest objective
+remain as described above. Existing saves keep their original available objects.
+See [ride content and validation](flat-rides.md) for the art pipeline and the
+modern-twister artwork limitation.
